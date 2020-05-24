@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "119319214682",
+    "firebase_url": "https://pandemino.firebaseio.com",
+    "project_id": "pandemino",
+    "storage_bucket": "pandemino.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119319214682:android:81bbc610dad46c947db663",
+        "android_client_info": {
+          "package_name": "com.example.pandemino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119319214682-ap2kelrt5pkpm3do59qh0t8r33lknr04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Gqr0UP6GoCFPxqdZfNUtk7cdWQxY1ZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119319214682-ap2kelrt5pkpm3do59qh0t8r33lknr04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
