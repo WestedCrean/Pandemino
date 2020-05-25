@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">119319214682-ap2kelrt5pkpm3do59qh0t8r33lknr04.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://pandemino.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">119319214682</string>
+    <string name="google_api_key" translatable="false">AIzaSyB0Gqr0UP6GoCFPxqdZfNUtk7cdWQxY1ZI</string>
+    <string name="google_app_id" translatable="false">1:119319214682:android:81bbc610dad46c947db663</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB0Gqr0UP6GoCFPxqdZfNUtk7cdWQxY1ZI</string>
+    <string name="google_storage_bucket" translatable="false">pandemino.appspot.com</string>
+    <string name="project_id" translatable="false">pandemino</string>
+</resources>
