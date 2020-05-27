@@ -1,0 +1,20 @@
+FROM python:3.8-buster
+
+RUN apt-get update -y && \
+    pip install django && \
+    pip install djangorestframework
+
+RUN pip install markdown psycopg2 && rm -rf /var/cache/apk/*
+
+RUN mkdir /app
+
+WORKDIR /app
+
+COPY Pandemino ./Pandemino
+COPY PandeminoApp ./PandeminoApp
+COPY manage.py .
+EXPOSE 80
+
+#RUN ["python", "manage.py", "makemigrations"]
+
+ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
