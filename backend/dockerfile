@@ -13,9 +13,6 @@ WORKDIR /app
 COPY Pandemino ./Pandemino
 COPY PandeminoApp ./PandeminoApp
 COPY manage.py .
-EXPOSE 80
 EXPOSE 8080
-
-#RUN ["python", "manage.py", "makemigrations"]
 
 ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8080"]

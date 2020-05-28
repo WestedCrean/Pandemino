@@ -28,8 +28,7 @@ SECRET_KEY = "a2lmck20h4vwv=t4#*zwtx-84_+n2glclf786s*a5kjyja7@k$"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "172.28.1.4", "172.28.0.0"]
 
 # Application definition
 
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "PandeminoApp",
 ]
 
 REST_FRAMEWORK = {
