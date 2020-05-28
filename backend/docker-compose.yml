@@ -6,10 +6,17 @@ services:
     restart: always
     env_file:
       - dev.env
+    expose:
+      - "5432"
+    ports:
+      - 5432:5432
 
   django_api:
     build: .
     restart: always
+    expose:
+      - "80"
+      - "8080"
     ports:
       - 8080:8080
     env_file:
