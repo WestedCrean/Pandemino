@@ -25,5 +25,5 @@
         "start:frontend": "lerna exec --scope frontend -- npm start",
         "start:backend": "lerna exec --scope backend -- npm start",
         "start": "lerna run start"
-      }
+    }
 }
