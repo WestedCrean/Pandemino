@@ -1,12 +1,16 @@
 {
     "compilerOptions": {
-     "target": "es2016",
-     "module": "commonjs",
-     "outDir": "./dist",
-     "strict": true,
-     "esModuleInterop": true,
-     "inlineSourceMap": true,
-     "baseUrl": "src", 
+        "target": "es2016",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "strict": true,
+        "esModuleInterop": true,
+        "inlineSourceMap": true,
+        "baseUrl": "src",
+        "paths": {
+            "routes": ["routes/*"],
+            "common": ["common/*"],
+        }
     },
     "include": ["src/**/*", "src"],
     "exclude": ["node_modules", "**/*.spec.ts"]

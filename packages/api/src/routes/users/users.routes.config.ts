@@ -1,9 +1,9 @@
+import express from "express"
+
 import {
     CommonRoutesConfig,
     configureRoutes,
-} from "src/common/common.routes.config"
-
-import express from "express"
+} from "common/common.routes.config"
 
 export class UsersRoutes extends CommonRoutesConfig implements configureRoutes {
     constructor(app: express.Application) {
