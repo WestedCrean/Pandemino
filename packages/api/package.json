@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.0",
   "description": "Backend for Pandemino app",
   "author": "Wiktor Flis <wikflis@gmail.com>",
   "homepage": "https://github.com/WestedCrean/Pandemino#readme",
