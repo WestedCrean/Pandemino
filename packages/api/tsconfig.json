@@ -9,7 +9,9 @@
         "baseUrl": "src",
         "paths": {
             "routes": ["routes/*"],
-            "common": ["common/*"],
+            "models": ["models/*"],
+            "controllers": ["controllers/*"],
+            "db": ["db/*"]
         }
     },
     "include": ["src/**/*", "src"],

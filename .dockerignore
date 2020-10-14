@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+
+packages/api/node_modules
+packages/api/npm-debug.log
+packages/frontend/node_modules
+packages/frontend/npm-debug.log

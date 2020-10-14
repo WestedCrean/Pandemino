@@ -1,0 +1,19 @@
+version: "3"
+services:
+    api:
+        container_name: pandemino_api
+        build:
+            context: .
+            dockerfile: api.dockerfile
+        depends_on:
+            - postgres
+        ports:
+            - "3000:3000"
+        command: "npm start"
+
+    postgres:
+        container_name: pandemino_postgres
+        image: postgres:11.2-alpine
+        env_file: packages/api/.env
+        ports:
+            - "5432:5432"
