@@ -2,7 +2,6 @@ import Router from "express-promise-router"
 import { Request, Response } from "express"
 
 const router = Router()
-module.exports = router
 
 router.get("/:id", async (req: Request, res: Response) => {
     const { id } = req.params
@@ -12,3 +11,5 @@ router.get("/:id", async (req: Request, res: Response) => {
 router.get("/", async (req: Request, res: Response) => {
     res.send("Hello at /streams")
 })
+
+export default router

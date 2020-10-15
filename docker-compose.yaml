@@ -9,7 +9,9 @@ services:
             - postgres
         ports:
             - "3000:3000"
-        command: "npm start"
+        volumes:
+            - ./packages/api:/app
+        command: "npm run dev"
 
     postgres:
         container_name: pandemino_postgres

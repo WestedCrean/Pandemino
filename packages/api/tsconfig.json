@@ -1,19 +1,20 @@
 {
     "compilerOptions": {
-        "target": "es2016",
+        "target": "es2020",
         "module": "commonjs",
-        "outDir": "./dist",
+        "outDir": "build",
         "strict": true,
         "esModuleInterop": true,
         "inlineSourceMap": true,
-        "baseUrl": "src",
+        "typeRoots": ["./node_modules/@types", "./src/@types"],
+        "baseUrl": "./src",
         "paths": {
-            "routes": ["routes/*"],
-            "models": ["models/*"],
-            "controllers": ["controllers/*"],
-            "db": ["db/*"]
+            "@routes/*": ["routes/*"],
+            "@controllers/*": ["controllers/*"],
+            "@models/*": ["models/*"]
         }
     },
-    "include": ["src/**/*", "src"],
-    "exclude": ["node_modules", "**/*.spec.ts"]
+    "compileOnSave": true,
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
 }

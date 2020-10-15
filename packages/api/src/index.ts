@@ -8,7 +8,9 @@ import cors from "cors"
 import helmet from "helmet"
 import bodyParser from "body-parser"
 
-import * as mountRoutes from "routes/index"
+import "module-alias/register"
+
+import mountRoutes from "@routes/index"
 
 dotenv.config()
 
