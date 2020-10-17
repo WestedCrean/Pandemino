@@ -71,9 +71,6 @@
         "*.{json,md,html,css,scss}": [
             "prettier --write"
         ],
-        "*.ts": [
-            "eslint --cache --fix",
-            "prettier --write"
-        ]
+        "*.ts": "prettier --write"
     }
 }

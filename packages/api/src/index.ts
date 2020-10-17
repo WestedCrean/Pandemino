@@ -15,7 +15,7 @@ import mountRoutes from "@routes/index"
 dotenv.config()
 
 /**
- * App Variables
+ * App Variabless
  */
 
 if (!process.env.API_PORT) {
