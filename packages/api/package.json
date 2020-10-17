@@ -35,6 +35,7 @@
     "scripts": {
         "tsc": "tsc",
         "start": "npm run tsc && node ./build/index.js",
+        "lint": "eslint --fix . && echo 'Lint complete.'",
         "dev": "ts-node-dev --respawn --exit-child src/index.ts",
         "docker-dev": "ts-node-dev --poll --respawn --transpile-only src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -57,5 +58,15 @@
         "@routes": "build/routes",
         "@controllers": "build/controllers",
         "@models": "build/models"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+            "prettier --write"
+        ]
     }
 }
