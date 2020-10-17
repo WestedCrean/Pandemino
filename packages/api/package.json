@@ -65,10 +65,6 @@
         "*.{json,md,html,css,scss}": [
             "prettier --write"
         ],
-        "*.ts": "prettier --write",
-        "*.{js,jsx}": [
-            "eslint --cache --fix",
-            "prettier --write"
-        ]
+        "*.ts": "prettier --write"
     }
 }
