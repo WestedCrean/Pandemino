@@ -30,14 +30,16 @@ const app = express()
  *  App Configuration
  */
 
-app.use(helmet());
-app.use(cors());
-app.use(bodyParser.json());
+app.use(helmet())
+app.use(cors())
+app.use(bodyParser.json())
 
-mountRoutes(app);
+mountRoutes(app)
 
 /**
  * Server Activation
  */
 
-const server = app.listen(PORT, () => { console.log(`Listening on port ${PORT}`) });
+const server = app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`)
+})

@@ -7,6 +7,9 @@
     "husky": "^4.3.0",
     "lerna": "^3.22.1"
   },
+  "scripts": {
+    "bootstrap": "lerna exec npm install"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents"
