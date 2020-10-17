@@ -20,6 +20,8 @@
         "@typescript-eslint/parser": "^4.4.0",
         "concurrently": "^5.3.0",
         "eslint": "^7.11.0",
+        "husky": "^4.3.0",
+        "lint-staged": "^10.4.2",
         "nodemon": "^2.0.5",
         "source-map-support": "^0.5.19",
         "ts-loader": "^8.0.5",
@@ -39,7 +41,7 @@
         "dev": "ts-node-dev --respawn --exit-child src/index.ts",
         "docker-dev": "ts-node-dev --poll --respawn --transpile-only src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "postinstall": "cd ../.. && husky install ./packages/api"
+        "postinstall": "cd ../.. && mrm lint-staged ./packages/api"
     },
     "bugs": {
         "url": "https://github.com/WestedCrean/Pandemino/issues"
@@ -62,12 +64,10 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "pretty-quick --staged"
+            "pre-commit": "lint-staged"
         }
     },
     "lint-staged": {
-        "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-            "prettier --write"
-        ]
+        "*.js": "eslint --cache --fix"
     }
 }
