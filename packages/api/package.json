@@ -38,7 +38,8 @@
         "lint": "eslint --fix . && echo 'Lint complete.'",
         "dev": "ts-node-dev --respawn --exit-child src/index.ts",
         "docker-dev": "ts-node-dev --poll --respawn --transpile-only src/index.ts",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "postinstall": "cd ../.. && husky install ./packages/api"
     },
     "bugs": {
         "url": "https://github.com/WestedCrean/Pandemino/issues"
