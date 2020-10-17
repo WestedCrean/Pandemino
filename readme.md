@@ -2,16 +2,17 @@
 
 System zdalnego prowadzenia wykładów
 
-To manage this project you need to install [lerna](https://github.com/lerna/lerna)
+First, in the main folder execute
 
 ```shell
-npm i -g lerna
+npm i
 ```
+to install `lerna` and `husky` - dependencies common for `api` and `frontend` modules
 
-Then install all of project dependencies using lerna
+Then install all projects dependencies 
 
 ```shell
-lerna bootstrap
+lerna exec npm install
 ```
 
 To run project backend and frontend
