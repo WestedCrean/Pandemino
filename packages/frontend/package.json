@@ -22,7 +22,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "postinstall": "npx mrm lint-staged"
+        "precommit": "lint-staged"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -48,15 +48,9 @@
         "eslint-plugin-prettier": "^3.1.4",
         "eslint-plugin-react": "^7.21.4",
         "eslint-plugin-react-hooks": "^4.0.0",
-        "husky": "^4.3.0",
         "lint-staged": "^10.4.2",
         "prettier": "~2.1.2",
         "pretty-quick": "~3.0.2"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
     },
     "lint-staged": {
         "*.{js,jsx}": [
