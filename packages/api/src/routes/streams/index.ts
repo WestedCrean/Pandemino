@@ -9,7 +9,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 })
 
 router.get("/", async (req: Request, res: Response) => {
-    res.send("Hello at /streams")
+    res.send("Hello at /streams default route")
 })
 
 export default router

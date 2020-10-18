@@ -1,49 +1,14 @@
 {
     "name": "api",
-    "version": "0.0.1-alpha.0",
-    "description": "Backend for Pandemino app",
+    "version": "1.0.0",
+    "description": "REST API for Pandemino",
     "author": "Wiktor Flis <wikflis@gmail.com>",
     "homepage": "https://github.com/WestedCrean/Pandemino#readme",
     "license": "ISC",
-    "main": "app/index.js",
-    "devDependencies": {
-        "@types/body-parser": "^1.19.0",
-        "@types/cors": "^2.8.8",
-        "@types/dotenv": "^8.2.0",
-        "@types/express": "^4.17.8",
-        "@types/express-promise-router": "^3.0.0",
-        "@types/helmet": "0.0.48",
-        "@types/node": "^14.11.8",
-        "@types/pg": "^7.14.5",
-        "@types/ramda": "^0.27.26",
-        "@typescript-eslint/eslint-plugin": "^4.4.0",
-        "@typescript-eslint/parser": "^4.4.0",
-        "concurrently": "^5.3.0",
-        "eslint": "^7.11.0",
-        "lint-staged": "^10.4.2",
-        "nodemon": "^2.0.5",
-        "source-map-support": "^0.5.19",
-        "ts-loader": "^8.0.5",
-        "ts-node": "^9.0.0",
-        "ts-node-dev": "^1.0.0-pre.50",
-        "tsc": "^1.20150623.0",
-        "typescript": "^3.9.7"
-    },
+    "main": "index.js",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/WestedCrean/Pandemino.git"
-    },
-    "scripts": {
-        "tsc": "tsc",
-        "start": "npm run tsc && node ./build/index.js",
-        "lint": "eslint --fix . && echo 'Lint complete.'",
-        "dev": "ts-node-dev --respawn --exit-child src/index.ts",
-        "docker-dev": "ts-node-dev --poll --respawn --transpile-only src/index.ts",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "precommit": "lint-staged"
-    },
-    "bugs": {
-        "url": "https://github.com/WestedCrean/Pandemino/issues"
     },
     "dependencies": {
         "body-parser": "^1.19.0",
@@ -54,12 +19,44 @@
         "helmet": "^4.1.1",
         "module-alias": "^2.2.2",
         "pg": "^8.4.1",
-        "ramda": "^0.27.1"
+        "prettier": "^2.1.2",
+        "ramda": "^0.27.1",
+        "source-map-support": "^0.5.19"
+    },
+    "devDependencies": {
+       
+        "@types/body-parser": "^1.19.0",
+        "@types/cors": "^2.8.8",
+        "@types/express": "^4.17.8",
+        "@types/helmet": "0.0.48",
+        "@types/node": "^14.11.10",
+        "@types/pg": "^7.14.5",
+        "@types/ramda": "^0.27.26",
+        "@typescript-eslint/eslint-plugin": "^4.4.1",
+        "@typescript-eslint/parser": "^4.4.1",
+        "eslint": "^7.11.0",
+        "eslint-config-airbnb": "^18.2.0",
+        "eslint-config-airbnb-base": "^14.2.0",
+        "eslint-config-airbnb-typescript": "^12.0.0",
+        "lint-staged": "^10.4.2",
+        "nodemon": "^2.0.5",
+        "ts-loader": "^6.2.0",
+        "ts-node": "^8.10.2",
+        "ts-node-dev": "^1.0.0",
+        "tsc-watch": "^4.2.9",
+        "typescript": "^3.9.7"
     },
     "_moduleAliases": {
-        "@routes": "build/routes",
-        "@controllers": "build/controllers",
-        "@models": "build/models"
+        "@routes": "./build/routes"
+    },
+    "scripts": {
+        "start": "node build/index.js",
+        "dev": "nodemon",
+        "build": "tsc",
+        "type-check": "tsc --noEmit",
+        "lint": "eslint --fix . && echo 'Lint complete.'",
+        "precommit": "lint-staged",
+        "docs": "typedoc --out docs src"
     },
     "lint-staged": {
         "*.{json,md,html,css,scss}": [

@@ -1,20 +1,19 @@
 {
     "compilerOptions": {
-        "target": "es2020",
         "module": "commonjs",
-        "outDir": "build",
-        "strict": true,
+        "target": "es2018",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
         "esModuleInterop": true,
-        "inlineSourceMap": true,
-        "typeRoots": ["./node_modules/@types", "./src/@types"],
-        "baseUrl": "./src",
+        "removeComments": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "outDir": "build",
         "paths": {
-            "@routes/*": ["routes/*"],
-            "@controllers/*": ["controllers/*"],
-            "@models/*": ["models/*"]
+            "@routes/*" : ["src/routes/*"]
         }
-    },
-    "compileOnSave": true,
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
+    }
 }

@@ -1,6 +1,5 @@
-/**
- * Required External Modules
- */
+import "module-alias/register"
+import "source-map-support/register"
 
 import * as dotenv from "dotenv"
 import express from "express"
@@ -8,9 +7,9 @@ import cors from "cors"
 import helmet from "helmet"
 import bodyParser from "body-parser"
 
-import "module-alias/register"
-
 import mountRoutes from "@routes/index"
+
+//import mountRoutes from "@routes/index"
 
 dotenv.config()
 
@@ -19,10 +18,10 @@ dotenv.config()
  */
 
 if (!process.env.API_PORT) {
-    process.exit(1)
+    console.log("No port specified in .env API_PORT variable. Using default value.")
 }
 
-const PORT: number = parseInt(process.env.API_PORT as string, 10)
+const PORT: number = process.env.API_PORT ? parseInt(process.env.API_PORT as string, 10) : 3000
 
 const app = express()
 
