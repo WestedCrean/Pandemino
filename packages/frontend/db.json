@@ -1,0 +1,28 @@
+{
+    "stream": [
+        {
+            "id": 1,
+            "name_stream": "Pandemino fetures",
+            "leader_stream": "wikflis",
+            "class_stream": "PandeminoTech"
+        },
+        {
+            "id": 2,
+            "name_stream": "Get start with Pandemino!",
+            "leader_stream": "jakkalisz",
+            "class_stream": "PandeminoTeam"
+        },
+        {
+            "id": 3,
+            "name_stream": "#24: OCTOBER UPDATE",
+            "leader_stream": "filjaslik",
+            "class_stream": "PandeminoBlog"
+        },
+        {
+            "id": 4,
+            "name_stream": "5. Rozklad Cholesky'ego",
+            "leader_stream": "Dr Edyta Lukasik",
+            "class_stream": "Metody Numeryczne"
+        }
+    ]
+}
