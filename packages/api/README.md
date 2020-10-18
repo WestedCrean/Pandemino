@@ -20,7 +20,7 @@ POSTGRES_DB=pandemino
 Do uruchomienia natywnie samego api bez bazy danych potrzebujemy zainstalować `nodemon` oraz `ts-node`:
 
 ```shell
-npm i -g nodemon ts-node
+npm i -g nodemon
 ```
 
 Wtedy korzystając z komendy 
