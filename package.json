@@ -15,5 +15,7 @@
       "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "module-alias": "^2.2.2"
+  }
 }
