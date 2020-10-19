@@ -2,7 +2,7 @@
 
 REST API zbudowane w Nodejs, Express przy pomocy TypeScript
 
-## Usage
+## Uruchomienie
 
 Przed uruchomieniem aplikacji, utwórz w głównym folderze plik `.env` zawierający:
 
@@ -17,7 +17,21 @@ POSTGRES_PASSWORD=postgres
 POSTGRES_DB=pandemino
 ```
 
-Do uruchomienia potrzebny będzie zainstalowany Docker oraz docker-compose
+Do uruchomienia natywnie samego api bez bazy danych potrzebujemy zainstalować `nodemon` oraz `ts-node`:
+
+```shell
+npm i -g nodemon
+```
+
+Wtedy korzystając z komendy 
+
+```shell
+npm run dev
+```
+
+uruchamiamy projekt z hot-reload w `nodemon` który przy każdej zmianie przeładowuje aplikację. Poniższy przykład w dokerze póki co jednak nie potrafi tak przeładowywać plików.
+
+Do uruchomienia w dockerze:
 
 > Jeśli docker długo buduje obraz, sprawdźcie czy w głównym folderze istnieje .dockerignore którym jest dodane node_modules
 
