@@ -2,11 +2,8 @@ version: "3"
 services:
   api:
     container_name: pandemino_api
-    build:
-      context: .
-      dockerfile: api.dockerfile
-    depends_on:
-      - postgres
+    image: oze4/nodemon-docker-test
+
     ports:
       - "3000:3000"
     volumes:
@@ -15,7 +12,10 @@ services:
 
   postgres:
     container_name: pandemino_postgres
-    image: postgres:11.2-alpine
-    env_file: packages/api/.env
+    image: "postgres:9.6.1"
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: "test"
+      POSTGRES_PASSWORD: "test"
+      POSTGRES_DB: "test"
