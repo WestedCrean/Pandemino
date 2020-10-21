@@ -18,16 +18,22 @@
         "express-promise-router": "^4.0.1",
         "helmet": "^4.1.1",
         "module-alias": "^2.2.2",
+        "multer": "^1.4.2",
         "pg": "^8.4.1",
         "prettier": "^2.1.2",
         "ramda": "^0.27.1",
-        "source-map-support": "^0.5.19"
+        "reflect-metadata": "^0.1.13",
+        "routing-controllers": "^0.9.0-alpha.6",
+        "source-map-support": "^0.5.19",
+        "typeorm": "^0.2.28",
+        "typeserializer": "^0.2.5"
     },
     "devDependencies": {
         "@types/body-parser": "^1.19.0",
         "@types/cors": "^2.8.8",
         "@types/express": "^4.17.8",
         "@types/helmet": "0.0.48",
+        "@types/multer": "^1.4.4",
         "@types/node": "^14.11.10",
         "@types/pg": "^7.14.5",
         "@types/ramda": "^0.27.26",
