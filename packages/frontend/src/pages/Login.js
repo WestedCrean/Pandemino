@@ -3,7 +3,6 @@ import { withRouter, Redirect } from "react-router"
 import base from "database/base"
 import { AuthContext } from "login/Auth"
 
-import "styles/index.scss"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const Login = ({ history }) => {

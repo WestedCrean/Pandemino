@@ -1,6 +1,6 @@
 env:
     browser: true
-    es2021: true
+    es2020: true
 extends:
     - "react-app"
     - "airbnb"
@@ -9,3 +9,4 @@ plugins:
     - "prettier"
 rules:
     prettier/prettier: "error"
+    no-unused-vars: "off"
