@@ -1,4 +1,4 @@
-import { Body, JsonController as Controller, Get, Post, Req, Res } from "routing-controllers"
+import { Body, JsonController as Controller, Get, Post, Req, Res, BadRequestError } from "routing-controllers"
 import { createConnection } from "typeorm"
 import { Connection } from "typeorm/connection/Connection"
 import { serialize } from "typeserializer"

@@ -33,7 +33,7 @@ export class UserController {
             user.firstName = body.firstName
             user.lastName = body.lastName
             await validateOrReject(user)
-        } catch (msg: any) {
+        } catch (msg) {
             throw new UserCreationError(msg)
         }
 
