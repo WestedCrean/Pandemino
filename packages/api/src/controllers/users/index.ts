@@ -3,9 +3,9 @@ import { serialize } from "typeserializer"
 import { createConnection } from "typeorm"
 import { Connection } from "typeorm/connection/Connection"
 import { validateOrReject } from "class-validator"
-import { User } from "@db/entity/User/index"
+import { User } from "../../db/entity/User/index"
 
-import { UserNotFoundError, UserCreationError } from "@db/errors/usersErrors"
+import { UserNotFoundError, UserCreationError } from "../../db/errors/usersErrors"
 
 @Controller()
 export class UserController {

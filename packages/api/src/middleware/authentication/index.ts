@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import firebase from "@middleware/authentication/firebaseApp"
+import firebase from "./firebaseApp"
 
 function getAuthToken(req: Request) {
     let authToken: string

@@ -1,5 +1,5 @@
-import UserController from "@controllers/users"
-import StreamController from "@controllers/streams"
+import UserController from "./users"
+import StreamController from "./streams"
 
 const Controllers = [UserController, StreamController]
 

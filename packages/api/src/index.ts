@@ -10,10 +10,10 @@ import helmet from "helmet"
 import bodyParser from "body-parser"
 import morgan from "morgan"
 
-import { LoggerStream } from "@middleware/logging"
-import { AuthenticationMiddleware } from "@middleware/authentication"
+import { LoggerStream } from "./middleware/logging"
+import { AuthenticationMiddleware } from "./middleware/authentication"
 
-import Controllers from "@controllers/index"
+import Controllers from "./controllers/index"
 
 dotenv.config()
 

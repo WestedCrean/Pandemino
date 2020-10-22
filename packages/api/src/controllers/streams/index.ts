@@ -2,7 +2,7 @@ import { Body, JsonController as Controller, Get, Post, Req, Res, BadRequestErro
 import { createConnection } from "typeorm"
 import { Connection } from "typeorm/connection/Connection"
 import { serialize } from "typeserializer"
-import { Stream } from "@db/entity/Stream/index"
+import { Stream } from "../../db/entity/Stream/index"
 import { validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max } from "class-validator"
 
 import logger from "winston"
