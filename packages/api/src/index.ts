@@ -1,19 +1,20 @@
-import "module-alias/register"
 import "source-map-support/register"
 import "reflect-metadata"
 
 import * as dotenv from "dotenv"
 import express from "express"
 import { useExpressServer } from "routing-controllers"
-import cors from "cors"
 import helmet from "helmet"
-import bodyParser from "body-parser"
 import morgan from "morgan"
+
+import { createConnection } from "typeorm"
 
 import { LoggerStream } from "./middleware/logging"
 import { AuthenticationMiddleware } from "./middleware/authentication"
 
 import Controllers from "./controllers/index"
+
+import logger from "./logger"
 
 dotenv.config()
 
@@ -22,32 +23,38 @@ dotenv.config()
  */
 
 if (!process.env.API_PORT) {
-    console.log("No port specified in .env API_PORT variable. Using default value.")
+    logger.info("No port specified in .env API_PORT variable. Using default value.")
 }
 
 const PORT: number = process.env.API_PORT ? parseInt(process.env.API_PORT as string, 10) : 3000
 
-const app = express()
+let app = express()
 
 /**
  *  App Configuration
  */
-app.use(morgan("combined", { stream: new LoggerStream() }))
-app.use(helmet())
-app.use(cors())
-app.use(bodyParser.json())
+
 useExpressServer(app, {
     cors: true,
     controllers: [...Controllers],
+    middlewares: [morgan("tiny"), helmet()],
+    authorizationChecker: AuthenticationMiddleware,
 })
-app.use(AuthenticationMiddleware)
+
+//app.use(AuthenticationMiddleware)
 
 /**
  * Server Activation
+ *
+ *  - connect to database using settings defined in ormconfig.json
  */
 
+createConnection()
+    .then(() => logger.info("Connected to database"))
+    .catch((e) => logger.error(e))
+
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
+    logger.info(`Listening on port ${PORT}`)
 })
 
 export default app

@@ -1,18 +1,18 @@
-import { Body, JsonController as Controller, Get, Post, Req, Res, BadRequestError } from "routing-controllers"
-import { createConnection } from "typeorm"
-import { Connection } from "typeorm/connection/Connection"
-import { serialize } from "typeserializer"
+import { Body, JsonController as Controller, Get, Post, Req, Res, BadRequestError, Param } from "routing-controllers"
+import { getRepository, Repository } from "typeorm"
 import { Stream } from "../../db/entity/Stream/index"
-import { validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max } from "class-validator"
+import { validateOrReject } from "class-validator"
+
+import { StreamNotFoundError, StreamCreationError, DatabaseError } from "../../db/errors"
 
 import logger from "winston"
 
 @Controller()
 export class StreamController {
-    connection: Promise<Connection>
+    streamRepository: Repository<Stream>
 
     constructor() {
-        this.connection = createConnection()
+        this.streamRepository = getRepository(Stream)
     }
 
     /**
@@ -22,9 +22,13 @@ export class StreamController {
      * @param res
      */
     @Get("/streams/:id")
-    async getSingle(@Req() req: any, @Res() res: any) {
-        const connection = await this.connection
-        return connection.manager.findOne(req.params.id)
+    async getSingleStream(@Param("id") streamId: number): Promise<any> {
+        const repository = await this.streamRepository
+        const stream = await repository.findOne({ where: { id: streamId } })
+        if (!stream) {
+            throw new StreamNotFoundError()
+        }
+        return stream
     }
 
     /**
@@ -34,9 +38,10 @@ export class StreamController {
      * @param res
      */
     @Get("/streams")
-    async getAll(@Req() req: any, @Res() res: any) {
-        const connection = await this.connection
-        return serialize(connection.manager.find(Stream))
+    async getAll(): Promise<any> {
+        const repository = await this.streamRepository
+        const streamList = await repository.find()
+        return streamList
     }
 
     /**
@@ -46,7 +51,7 @@ export class StreamController {
      * @param res
      */
     @Post("/streams")
-    async post(@Body() body: any) {
+    async post(@Body() body: any): Promise<any> {
         let stream = new Stream()
 
         try {
@@ -56,18 +61,19 @@ export class StreamController {
             stream.isLive = false
             stream.isPublished = true
 
-            logger.error("New stream object:")
-            logger.error({ stream })
+            logger.info("New stream object:" + JSON.stringify(stream))
 
             await validateOrReject(stream)
-        } catch (errors) {
-            logger.error("Error with database:")
-            logger.error(errors)
-            throw new BadRequestError(errors)
+        } catch (err) {
+            throw new StreamCreationError(err)
         }
 
-        const connection = await this.connection
-        await connection.manager.save(stream)
+        try {
+            const repository = await this.streamRepository
+            await repository.save(stream)
+        } catch (err) {
+            throw new DatabaseError(err)
+        }
 
         return stream
     }

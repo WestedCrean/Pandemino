@@ -1,22 +1,25 @@
-import { Request, Response } from "express"
+import "reflect-metadata"
+import { Action } from "routing-controllers"
 import firebase from "./firebaseApp"
+import logger from "winston"
 
 function getAuthToken(req: Request) {
     let authToken: string
-    if (req.headers.authorization && req.headers.authorization.split(" ")[0] === "Bearer") {
-        authToken = req.headers.authorization.split(" ")[1]
+    logger.info(req.headers)
+    if (req.headers.get("authorization") && req.headers.get("authorization").split(" ")[0] === "Bearer") {
+        authToken = req.headers.get("authorization").split(" ")[1]
     } else {
         authToken = ""
     }
     return authToken
 }
 
-export async function AuthenticationMiddleware(req: Request, res: Response, next?: (err?: any) => any): Promise<any> {
-    const authToken = getAuthToken(req)
+export async function AuthenticationMiddleware(action: Action, roles: string[]): Promise<any> {
+    const authToken = getAuthToken(action.request)
     try {
         await firebase.auth().verifyIdToken(authToken)
     } catch (e) {
-        res.status(401).send({ error: "Unauthorized" })
+        return false
     }
-    next()
+    return true
 }

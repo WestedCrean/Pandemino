@@ -1,6 +1,6 @@
 import admin from "firebase-admin"
 
-import * as serviceAccount from "../../../firebaseServiceAccountKey.json"
+import * as serviceAccount from "../../../firebase.json"
 
 const params = {
     type: serviceAccount.type,

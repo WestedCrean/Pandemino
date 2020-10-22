@@ -1,0 +1,70 @@
+{
+  message: '::1 - - [22/Oct/2020:18:22:56 +0000] "POST /streams HTTP/1.1" 401 108 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:22:56.288Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:31:08 +0000] "POST /streams HTTP/1.1" 401 108 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:31:08.829Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:31:14 +0000] "POST /streams HTTP/1.1" 401 108 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:31:14.394Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:31:16 +0000] "POST /streams HTTP/1.1" 401 108 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:31:16.315Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:31:17 +0000] "POST /streams HTTP/1.1" 401 108 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:31:17.222Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:31:20 +0000] "GET /streams HTTP/1.1" 401 4 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:31:20.938Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:31:22 +0000] "GET /streams HTTP/1.1" 401 4 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:31:22.581Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:36:51 +0000] "GET /streams HTTP/1.1" 401 546 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:36:51.932Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:18:49:18 +0000] "GET /streams HTTP/1.1" 500 1216 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T18:49:18.068Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:19:04:20 +0000] "GET /streams HTTP/1.1" 500 533 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T19:04:20.242Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:19:05:00 +0000] "GET /users HTTP/1.1" 401 2 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T19:05:00.510Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:19:09:06 +0000] "GET /users HTTP/1.1" 500 1212 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T19:09:06.653Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:19:12:10 +0000] "GET /users HTTP/1.1" 401 2 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T19:12:10.928Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:19:12:18 +0000] "GET /users HTTP/1.1" 401 2 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T19:12:18.915Z'
+}

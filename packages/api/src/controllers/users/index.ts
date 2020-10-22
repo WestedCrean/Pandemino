@@ -1,30 +1,33 @@
-import { Body, JsonController as Controller, Get, Post, Req, Res } from "routing-controllers"
-import { serialize } from "typeserializer"
-import { createConnection } from "typeorm"
-import { Connection } from "typeorm/connection/Connection"
+import { Body, JsonController as Controller, Get, Post, Req, Res, Authorized } from "routing-controllers"
+import { Repository, getRepository } from "typeorm"
 import { validateOrReject } from "class-validator"
-import { User } from "../../db/entity/User/index"
 
-import { UserNotFoundError, UserCreationError } from "../../db/errors/usersErrors"
+import { User } from "../../db/entity/User/index"
+import { UserNotFoundError, UserCreationError } from "../../db/errors"
+
+import logger from "../../logger"
 
 @Controller()
 export class UserController {
-    connection: Promise<Connection>
+    userRepository: Repository<User>
 
     constructor() {
-        this.connection = createConnection()
+        this.userRepository = getRepository(User)
     }
 
     @Get("/users")
-    async getAll(@Req() request: any, @Res() response: any) {
-        const connection = await this.connection
-        const user = connection.manager.find(User)
+    async getAll() {
+        const repository = await this.userRepository
+        const userList = await repository.find()
 
-        if (!user) throw new UserNotFoundError()
+        if (!userList) {
+            throw new UserNotFoundError()
+        }
 
-        return serialize(user)
+        return userList
     }
 
+    @Authorized()
     @Post("/user")
     async post(@Body() body: any) {
         let user = new User()
@@ -32,15 +35,18 @@ export class UserController {
         try {
             user.firstName = body.firstName
             user.lastName = body.lastName
+            logger.info("Validating")
             await validateOrReject(user)
+            logger.info("Validated, didnt throw")
         } catch (msg) {
+            logger.info("Err during validation")
             throw new UserCreationError(msg)
         }
 
-        const connection = await this.connection
-        await connection.manager.save(user)
+        const repository = await this.userRepository
+        await repository.save(user)
 
-        return serialize(user)
+        return user
     }
 }
 
