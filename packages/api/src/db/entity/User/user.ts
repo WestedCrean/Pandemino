@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 import { ExclusionPolicy, Expose, Groups, Strategy } from "typeserializer"
 
 @Entity()
-export class User {
+class User {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -11,10 +11,6 @@ export class User {
 
     @Column()
     lastName: string
-
-    @Column()
-    age: number
-
-    @Column()
-    password: string
 }
+
+export default User

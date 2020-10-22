@@ -16,6 +16,7 @@
     }
   },
   "dependencies": {
+    "firebase": "^7.24.0",
     "module-alias": "^2.2.2"
   }
 }

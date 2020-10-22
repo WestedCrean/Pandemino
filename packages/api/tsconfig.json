@@ -6,14 +6,19 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
         "noImplicitAny": true,
         "esModuleInterop": true,
         "removeComments": true,
+        "preserveConstEnums": true,
         "sourceMap": true,
         "baseUrl": ".",
         "outDir": "build",
         "paths": {
-            "@routes/*" : ["src/routes/*"]
-        }
-    }
+            "@controllers/*" : ["src/controllers/*"],
+            "@db/*" : ["src/db/*"],
+            "@middleware/*" : ["src/middleware/*"],
+        }  
+    },
+    "exclude": ["node_modules", "**/*.test.ts", "**/*.spec.ts"]
 }

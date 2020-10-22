@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity()
-export class Stream {
+class Stream {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -18,4 +18,9 @@ export class Stream {
 
     @Column()
     isPublished: boolean
+
+    @Column()
+    isLive: boolean
 }
+
+export default Stream
