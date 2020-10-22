@@ -1,6 +1,8 @@
-import React from "react"
+import React, { Fragment } from "react"
 import base from "database/base"
-import Layout from "components/layout"
+
+import ListStreams from "components/listOfStreams"
+import Navbar from "components/navbar"
 
 const HomePage = () => {
     const onSubmitForm = async () => {
@@ -12,7 +14,16 @@ const HomePage = () => {
         }
     }
 
+<<<<<<< HEAD
     return <Layout />
+=======
+    return (
+        <Fragment>
+            <Navbar></Navbar>
+            <ListStreams></ListStreams>
+        </Fragment>
+    )
+>>>>>>> aa7749d0c3be9d100e8ad027499a36db03f7a29e
 }
 
 export default HomePage
