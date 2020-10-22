@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 import { ExclusionPolicy, Expose, Groups, Strategy } from "typeserializer"
 
-@Entity()
+@Entity("users")
 class User {
     @PrimaryGeneratedColumn()
     id: number

@@ -1,11 +1,22 @@
 env:
     browser: true
-    es2021: true
+    es2020: true
 extends:
     - "react-app"
     - "airbnb"
-    - "airbnb/hooks"
-plugins:
     - "prettier"
+    - "prettier/react"
+parserOptions:
+    ecmaVersion: 12
+    sourceType: module
 rules:
-    prettier/prettier: "error"
+    no-unused-vars: "off"
+    no-alert: "off"
+    no-console: "off"
+    import/no-unresolved: "off"
+    react/jsx-filename-extension: "off"
+    react/jsx-props-no-spreading: "off"
+    react/prop-types: "off"
+    jsx-a11y/label-has-associated-control: "off"
+    jsx-a11y/anchor-has-content: "off"
+    semi: 0

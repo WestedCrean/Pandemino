@@ -4,7 +4,7 @@
     "port": 5432,
     "username": "test",
     "password": "test",
-    "database": "test",
+    "database": "pandemino",
     "synchronize": true,
     "logging": false,
     "entities": [
@@ -18,7 +18,7 @@
     ],
     "cli": {
        "entitiesDir": "src/db/entity",
-       "migrationsDir": "src/db/migration",
+       "migrationsDir": "src/db/migrations",
        "subscribersDir": "src/db/subscriber"
     }
  }

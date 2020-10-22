@@ -3,3 +3,58 @@
   level: 'info',
   timestamp: '2020-10-22T10:07:39.860Z'
 }
+{
+  message: '::1 - - [22/Oct/2020:15:54:54 +0000] "POST /streams HTTP/1.1" 500 1019 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T15:54:54.939Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:15:55:48 +0000] "POST /streams HTTP/1.1" 500 1305 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T15:55:48.868Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:15:56:33 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T15:56:33.125Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:02:23 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:02:23.828Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:06:53 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:06:53.497Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:07:24 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:07:24.918Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:08:35 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:08:35.702Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:11:22 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:11:22.677Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:37:04 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:37:04.327Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:52:20 +0000] "POST /streams HTTP/1.1" 500 1124 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:52:20.466Z'
+}
+{
+  message: '::1 - - [22/Oct/2020:16:54:19 +0000] "POST /streams HTTP/1.1" 500 1164 "-" "PostmanRuntime/7.26.5"',
+  level: 'info',
+  timestamp: '2020-10-22T16:54:19.555Z'
+}

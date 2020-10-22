@@ -7,7 +7,7 @@ import Navbar from "components/navbar"
 const Layout = () => {
     return (
         <div>
-            <Navbar></Navbar>
+            <Navbar />
         </div>
     )
 }

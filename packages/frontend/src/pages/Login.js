@@ -36,51 +36,51 @@ const Login = ({ history }) => {
 
     return (
         <div id="login">
-            <h3 class="text-center text-black pt-5">Pandemino</h3>
-            <div class="container">
+            <h3 className="text-center text-black pt-5">Pandemino</h3>
+            <div className="container">
                 <div
                     id="login-row"
-                    class="row justify-content-center align-items-center"
+                    className="row justify-content-center align-items-center"
                 >
-                    <div id="login-column" class="col-md-6">
-                        <div id="login-box" class="col-md-12">
+                    <div id="login-column" className="col-md-6">
+                        <div id="login-box" className="col-md-12">
                             <form
                                 id="login-form"
-                                class="form"
+                                className="form"
                                 onSubmit={handleLogin}
                             >
-                                <h3 class="text-center text-info">Login</h3>
-                                <div class="form-group">
-                                    <label for="email" class="text-info">
+                                <h3 className="text-center text-info">Login</h3>
+                                <div className="form-group">
+                                    <label htmlFor="email" className="text-info">
                                         Email:
                                     </label>
-                                    <br></br>
+                                    <br />
                                     <input
                                         type="text"
                                         name="email"
                                         id="email"
-                                        class="form-control"
-                                    ></input>
+                                        className="form-control"
+                                     />
                                 </div>
-                                <div class="form-group">
-                                    <label for="password" class="text-info">
+                                <div className="form-group">
+                                    <label htmlFor="password" className="text-info">
                                         Haslo:
                                     </label>
-                                    <br></br>
+                                    <br />
                                     <input
                                         type="password"
                                         name="password"
                                         id="password"
-                                        class="form-control"
-                                    ></input>
+                                        className="form-control"
+                                     />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <input
                                         type="submit"
                                         name="submit"
-                                        class="btn btn-info btn-md"
+                                        className="btn btn-info btn-md"
                                         value="submit"
-                                    ></input>
+                                     />
                                 </div>
                             </form>
                         </div>

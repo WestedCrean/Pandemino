@@ -7,38 +7,38 @@ const Navbar = () => {
     const { currentUser } = useContext(AuthContext)
 
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                <ul class="navbar-nav mr-auto">
-                    <a class="navbar-brand ml-4" href="#">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul className="navbar-nav mr-auto">
+                    <a className="navbar-brand ml-4" href="#">
                         Pandemino
                     </a>
                 </ul>
             </div>
-            <div class="mx-auto order-0">
-                <a class="navbar-brand mx-auto" href="#"></a>
+            <div className="mx-auto order-0">
+                <a className="navbar-brand mx-auto" href="#" />
                 <button
-                    class="navbar-toggler"
+                    className="navbar-toggler"
                     type="button"
                     data-toggle="collapse"
                     data-target=".dual-collapse2"
                 >
-                    <span class="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon" />
                 </button>
             </div>
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link my-2 my-lg-0" href="#">
+            <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link my-2 my-lg-0" href="#">
                             {currentUser.email}
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                         <a
-                            class="nav-link"
+                            className="nav-link"
                             onClick={() => base.auth().signOut()}
                         >
-                            Sign Out <span class="sr-only">(current)</span>
+                            Sign Out <span className="sr-only">(current)</span>
                         </a>
                     </li>
                 </ul>

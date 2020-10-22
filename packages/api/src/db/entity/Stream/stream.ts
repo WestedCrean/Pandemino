@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
-@Entity()
+@Entity("streams")
 class Stream {
     @PrimaryGeneratedColumn()
     id: number
@@ -13,7 +13,7 @@ class Stream {
     @Column("text")
     description: string
 
-    @Column("double")
+    @Column("int")
     views: number
 
     @Column()

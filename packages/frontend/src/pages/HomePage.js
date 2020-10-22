@@ -12,7 +12,7 @@ const HomePage = () => {
         }
     }
 
-    return <Layout></Layout>
+    return <Layout />
 }
 
 export default HomePage

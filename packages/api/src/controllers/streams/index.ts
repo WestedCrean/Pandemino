@@ -1,9 +1,11 @@
 import { Body, JsonController as Controller, Get, Post, Req, Res } from "routing-controllers"
-import { serialize } from "typeserializer"
 import { createConnection } from "typeorm"
 import { Connection } from "typeorm/connection/Connection"
-
+import { serialize } from "typeserializer"
 import { Stream } from "@db/entity/Stream/index"
+import { validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max } from "class-validator"
+
+import logger from "winston"
 
 @Controller()
 export class StreamController {
@@ -16,42 +18,53 @@ export class StreamController {
     /**
      * Get single stream
      *
-     * @param request
-     * @param response
+     * @param req
+     * @param res
      */
     @Get("/streams/:id")
-    async getSingle(@Req() request: any, @Res() response: any) {
+    async getSingle(@Req() req: any, @Res() res: any) {
         const connection = await this.connection
-        return connection.manager.find(Stream)
+        return connection.manager.findOne(req.params.id)
     }
 
     /**
      * Get a list of streams
      *
-     * @param request
-     * @param response
+     * @param req
+     * @param res
      */
     @Get("/streams")
-    async getAll(@Req() request: any, @Res() response: any) {
+    async getAll(@Req() req: any, @Res() res: any) {
         const connection = await this.connection
-        return connection.manager.find(Stream)
+        return serialize(connection.manager.find(Stream))
     }
 
     /**
      * Create a new stream session
      *
-     * @param request
-     * @param response
+     * @param req
+     * @param res
      */
     @Post("/streams")
     async post(@Body() body: any) {
-        const stream = new Stream()
+        let stream = new Stream()
 
-        stream.name = body.name
-        stream.description = body.description
-        stream.views = 0
-        stream.isLive = false
-        stream.isPublished = true
+        try {
+            stream.name = body.name
+            stream.description = body.description
+            stream.views = 0
+            stream.isLive = false
+            stream.isPublished = true
+
+            logger.error("New stream object:")
+            logger.error({ stream })
+
+            await validateOrReject(stream)
+        } catch (errors) {
+            logger.error("Error with database:")
+            logger.error(errors)
+            throw new BadRequestError(errors)
+        }
 
         const connection = await this.connection
         await connection.manager.save(stream)
