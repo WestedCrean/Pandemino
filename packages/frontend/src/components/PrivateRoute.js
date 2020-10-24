@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import { Route, Redirect } from "react-router-dom"
-import { AuthContext } from "login/Auth"
+
+import { AuthContext } from "services/auth"
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     const { currentUser } = useContext(AuthContext)

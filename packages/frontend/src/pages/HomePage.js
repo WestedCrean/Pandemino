@@ -1,13 +1,12 @@
 import React, { Fragment } from "react"
-import base from "database/base"
-
-import ListStreams from "components/listOfStreams"
+import firebase from "services/firebase"
+import ListStreams from "components/ListStreams"
 import Navbar from "components/navbar"
 
 const HomePage = () => {
     const onSubmitForm = async () => {
         try {
-            base.auth().signOut()
+            firebase.auth().signOut()
             window.location = "/"
         } catch (error) {
             console.error(error.message)

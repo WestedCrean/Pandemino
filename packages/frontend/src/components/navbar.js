@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import base from "database/base"
+import base from "services/firebase"
 import {Link} from "react-router-dom";
-import { AuthContext } from "login/Auth"
+import { AuthContext } from "services/auth"
 
 const Navbar = () => {
     const { currentUser } = useContext(AuthContext)

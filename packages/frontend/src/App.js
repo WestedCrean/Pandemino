@@ -1,20 +1,18 @@
 import React from "react"
 import { BrowserRouter as Router, Route } from "react-router-dom"
-import PrivateRoute from "login/PrivateRoute"
-import HomePage from "pages/HomePage"
-import Login from "pages/Login"
-import SignUp from "pages/SignUp"
-import { AuthProvider } from "login/Auth"
+
+import { AuthProvider } from "services/auth"
+
+import { PrivateRoute } from "components"
+import { HomePage, Login, SignUp } from "pages"
 
 function App() {
     return (
         <AuthProvider>
             <Router>
-                <div>
-                    <PrivateRoute exact path="/" component={HomePage} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/signup" component={SignUp} />
-                </div>
+                <PrivateRoute exact path="/" component={HomePage} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={SignUp} />
             </Router>
         </AuthProvider>
     )
