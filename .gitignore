@@ -22,6 +22,7 @@ dist
 .env.test.local
 .env.production.local
 **/**/firebase.json
+packages/frontend/src/styles/*.css
 
 npm-debug.log*
 yarn-debug.log*
