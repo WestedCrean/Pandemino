@@ -1,6 +1,7 @@
 import admin from "firebase-admin"
 
-import * as serviceAccount from "../../../firebase.json"
+/**
+ * import * as serviceAccount from "../../../firebase.json"
 
 const params = {
     type: serviceAccount.type,
@@ -14,8 +15,12 @@ const params = {
     authProviderX509CertUrl: serviceAccount.auth_provider_x509_cert_url,
     clientC509CertUrl: serviceAccount.client_x509_cert_url,
 }
+ 
 
 export default admin.initializeApp({
     credential: admin.credential.cert(params),
     databaseURL: "https://pandemino.firebaseio.com",
 })
+*/
+
+export default false

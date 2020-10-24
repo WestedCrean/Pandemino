@@ -1,6 +1,16 @@
-import { Body, JsonController as Controller, Get, Post, Req, Res, Authorized } from "routing-controllers"
+import {
+    Body,
+    JsonController as Controller,
+    Get,
+    Post,
+    Req,
+    Res,
+    Authorized,
+    getMetadataArgsStorage,
+} from "routing-controllers"
 import { Repository, getRepository } from "typeorm"
 import { validateOrReject } from "class-validator"
+import { routingControllersToSpec } from "routing-controllers-openapi"
 
 import { User } from "../../db/entity/User/index"
 import { UserNotFoundError, UserCreationError } from "../../db/errors"
@@ -49,5 +59,9 @@ export class UserController {
         return user
     }
 }
+
+// OpenApi schema generation
+const storage = getMetadataArgsStorage()
+const spec = routingControllersToSpec(storage)
 
 export default UserController

@@ -1,6 +1,6 @@
-import React, { useCallback, useContext } from "react"
-import { withRouter, Redirect } from "react-router"
+import React, { useContext } from "react"
 import base from "database/base"
+import {Link} from "react-router-dom";
 import { AuthContext } from "login/Auth"
 
 const Navbar = () => {
@@ -10,9 +10,9 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul className="navbar-nav mr-auto">
-                    <a className="navbar-brand ml-4" href="#">
-                        Pandemino
-                    </a>
+                    <Link className="navbar-brand ml-4" to="/">
+                    Pandemino
+                    </Link>
                 </ul>
             </div>
             <div className="mx-auto order-0">

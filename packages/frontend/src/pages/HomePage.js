@@ -14,16 +14,12 @@ const HomePage = () => {
         }
     }
 
-<<<<<<< HEAD
-    return <Layout />
-=======
     return (
         <Fragment>
             <Navbar></Navbar>
             <ListStreams></ListStreams>
         </Fragment>
     )
->>>>>>> aa7749d0c3be9d100e8ad027499a36db03f7a29e
 }
 
 export default HomePage

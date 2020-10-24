@@ -8,7 +8,8 @@
     "lerna": "^3.22.1"
   },
   "scripts": {
-    "bootstrap": "lerna exec npm install"
+    "bootstrap": "lerna exec npm install",
+    "start": "lerna exec npm start"
   },
   "husky": {
     "hooks": {

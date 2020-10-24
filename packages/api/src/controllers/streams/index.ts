@@ -1,8 +1,9 @@
-import { Body, JsonController as Controller, Get, Post, Req, Res, BadRequestError, Param } from "routing-controllers"
+import { Body, JsonController as Controller, Get, Post, Param, getMetadataArgsStorage } from "routing-controllers"
 import { getRepository, Repository } from "typeorm"
-import { Stream } from "../../db/entity/Stream/index"
 import { validateOrReject } from "class-validator"
+import { OpenAPI, ResponseSchema, routingControllersToSpec } from "routing-controllers-openapi"
 
+import { Stream } from "../../db/entity/Stream/index"
 import { StreamNotFoundError, StreamCreationError, DatabaseError } from "../../db/errors"
 
 import logger from "winston"
@@ -15,13 +16,21 @@ export class StreamController {
         this.streamRepository = getRepository(Stream)
     }
 
-    /**
-     * Get single stream
-     *
-     * @param req
-     * @param res
-     */
     @Get("/streams/:id")
+    @OpenAPI({
+        description: "Get single stream",
+        responses: {
+            "400": {
+                description: "Bad request",
+            },
+            "404": {
+                description: "Stream not found",
+            },
+            "200": {
+                description: "Returned the stream specified by id",
+            },
+        },
+    })
     async getSingleStream(@Param("id") streamId: number): Promise<any> {
         const repository = await this.streamRepository
         const stream = await repository.findOne({ where: { id: streamId } })
@@ -31,13 +40,18 @@ export class StreamController {
         return stream
     }
 
-    /**
-     * Get a list of streams
-     *
-     * @param req
-     * @param res
-     */
     @Get("/streams")
+    @OpenAPI({
+        description: "Get a list of streams",
+        responses: {
+            "400": {
+                description: "Bad request",
+            },
+            "200": {
+                description: "Returned a list of streams",
+            },
+        },
+    })
     async getAll(): Promise<any> {
         const repository = await this.streamRepository
         const streamList = await repository.find()
@@ -51,6 +65,17 @@ export class StreamController {
      * @param res
      */
     @Post("/streams")
+    @OpenAPI({
+        description: "Get a list of streams",
+        responses: {
+            "400": {
+                description: "Bad request",
+            },
+            "201": {
+                description: "Created a stream",
+            },
+        },
+    })
     async post(@Body() body: any): Promise<any> {
         let stream = new Stream()
 
@@ -78,5 +103,9 @@ export class StreamController {
         return stream
     }
 }
+
+// OpenApi schema generation
+const storage = getMetadataArgsStorage()
+const spec = routingControllersToSpec(storage)
 
 export default StreamController

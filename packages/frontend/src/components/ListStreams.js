@@ -8,13 +8,22 @@ import React, {
 
 const ListStreams = () => {
     const [streams, setStreams] = useState([])
+    /**
+     * single stream schema
+     * {
+     *  id: number
+     *  name: string
+     *  description: string
+     *  views: number
+     *  isPublished: boolean
+     *  isLive: boolean
+     * }
+     */
 
     const getStreams = async () => {
         try {
-            const response = await fetch("http://localhost:5000/stream")
-
-            const jsonData = await response.json()
-            setStreams(jsonData)
+            const response = await fetch("http://localhost:5000/streams").json()
+            setStreams(response)
         } catch (error) {
             console.error(error)
         }
