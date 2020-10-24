@@ -23,10 +23,10 @@ const Login = ({ history }) => {
         [history]
     )
 
-    const { currentUser } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
-    if (currentUser) {
-        console.log(currentUser.email)
+    if (user) {
+        console.log(user.email)
         return <Redirect to="/" />
     }
 

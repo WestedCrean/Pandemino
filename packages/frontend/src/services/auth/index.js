@@ -13,20 +13,36 @@ const AuthProvider = ({ children }) => {
     })
 
     const [pending, setPending] = useState(true)
+    const [error, setError] = useState(null)
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-            setContextState({
-                user: user,
-                isLoggedIn: true
+        try {
+            firebase.auth().onAuthStateChanged((user) => {
+                setContextState({
+                    user: user,
+                    isLoggedIn: true
+                })
+                setPending(false)
             })
-            setPending(false)
-        })
+        } catch (e) {
+            setError(e)
+        }
     }, [])
+
+    if (error) {
+        return (
+            <div className="container-fluid px-lg-5 mt-4">
+                <div class="py-3 alert alert-danger" role="alert">{error.message}</div>
+            </div>
+        ) 
+    }
+
 
     if (pending) {
         return <>Loading...</>
     }
+
+    
 
     return (
         <AuthContext.Provider
