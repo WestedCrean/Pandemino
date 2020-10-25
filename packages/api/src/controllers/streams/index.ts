@@ -1,4 +1,4 @@
-import { Body, JsonController as Controller, Get, Post, Param, getMetadataArgsStorage } from "routing-controllers"
+import { Body, JsonController as Controller, Get, Post, Param, getMetadataArgsStorage, Authorized } from "routing-controllers"
 import { getRepository, Repository } from "typeorm"
 import { validateOrReject } from "class-validator"
 import { OpenAPI, ResponseSchema, routingControllersToSpec } from "routing-controllers-openapi"
@@ -9,6 +9,7 @@ import { StreamNotFoundError, StreamCreationError, DatabaseError } from "../../d
 import logger from "winston"
 
 @Controller()
+@Authorized()
 export class StreamController {
     streamRepository: Repository<Stream>
 

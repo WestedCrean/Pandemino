@@ -18,6 +18,7 @@ import { UserNotFoundError, UserCreationError } from "../../db/errors"
 import logger from "../../logger"
 
 @Controller()
+@Authorized()
 export class UserController {
     userRepository: Repository<User>
 

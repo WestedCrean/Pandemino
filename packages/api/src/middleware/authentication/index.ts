@@ -3,11 +3,16 @@ import { Action } from "routing-controllers"
 import firebase from "./firebaseApp"
 import logger from "winston"
 
-function getAuthToken(req: Request) {
+function getAuthToken(req: any) {
+    
     let authToken: string
-    logger.info(req.headers)
-    if (req.headers.get("authorization") && req.headers.get("authorization").split(" ")[0] === "Bearer") {
-        authToken = req.headers.get("authorization").split(" ")[1]
+    
+    if (req.headers == undefined) {
+        return ""
+    }
+
+    if (req.headers["authorization"] && req.headers["authorization"].split(" ")[0] === "Bearer") {
+        authToken = req.headers["authorization"].split(" ")[1]
     } else {
         authToken = ""
     }
@@ -16,10 +21,13 @@ function getAuthToken(req: Request) {
 
 export async function AuthenticationMiddleware(action: Action, roles: string[]): Promise<any> {
     const authToken = getAuthToken(action.request)
+    logger.info("Auth token: " + authToken)
     try {
         await firebase.auth().verifyIdToken(authToken)
     } catch (e) {
+        logger.info("Authorized: false")
         return false
     }
+    logger.info("Authorized: true")
     return true
 }

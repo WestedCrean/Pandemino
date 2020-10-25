@@ -36,6 +36,7 @@ let app = express()
 
 useExpressServer(app, {
     cors: true,
+    routePrefix: "/api",
     controllers: [...Controllers],
     middlewares: [morgan("tiny"), helmet()],
     authorizationChecker: AuthenticationMiddleware,
@@ -51,7 +52,7 @@ useExpressServer(app, {
 
 createConnection()
     .then(() => logger.info("Connected to database"))
-    .catch((e) => logger.error(e))
+    .catch((e) => logger.error(`Could not connect to database: ${e.message}`))
 
 app.listen(PORT, () => {
     logger.info(`Listening on port ${PORT}`)

@@ -272,3 +272,96 @@
 2020-10-22 22:50:00 [32minfo[39m: 	Connected to database
 2020-10-22 22:50:06 [32minfo[39m: 	Connected to database
 2020-10-22 22:50:06 [31merror[39m: 	EIO: i/o error, write
+2020-10-25 08:42:16 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:42:16 [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:43:03 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:43:04 [32minfo[39m: 	Connected to database
+2020-10-25 08:43:46 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:43:46 [32minfo[39m: 	Connected to database
+2020-10-25 08:44:02 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:44:02 [31merror[39m: 	Couldnt connecto database: Error: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:10 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:44:10 [31merror[39m: 	Couldnt connect to database: Error: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:20 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:44:21 [31merror[39m: 	Couldnt connect to database: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:34 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:44:34 [31merror[39m: 	Could not connect to database: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:49 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:44:49 [32minfo[39m: 	Connected to database
+2020-10-25 08:45:10 [32minfo[39m: 	New stream object:{"name":"First stream","description":" okokok dupa chuj","views":0,"isLive":false,"isPublished":true}
+2020-10-25 08:50:38 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:50:38 [32minfo[39m: 	Connected to database
+2020-10-25 08:50:42 [32minfo[39m: 	New stream object:{"name":"First stream","description":" okokok dupa chuj","views":0,"isLive":false,"isPublished":true}
+2020-10-25 08:51:30 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:51:30 [32minfo[39m: 	Connected to database
+2020-10-25 08:51:43 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:51:43 [32minfo[39m: 	Connected to database
+2020-10-25 08:52:57 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:52:57 [32minfo[39m: 	Connected to database
+2020-10-25 08:53:04 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:53:04 [32minfo[39m: 	Connected to database
+2020-10-25 08:53:05 [32minfo[39m: 	[object Object]
+2020-10-25 08:53:27 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:53:27 [32minfo[39m: 	Connected to database
+2020-10-25 08:53:32 [32minfo[39m: 	[object Object]
+2020-10-25 08:54:16 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:54:16 [32minfo[39m: 	Connected to database
+2020-10-25 08:54:22 [32minfo[39m: 	[object Object]
+2020-10-25 08:55:07 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:55:07 [32minfo[39m: 	Connected to database
+2020-10-25 08:55:30 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:55:30 [32minfo[39m: 	Connected to database
+2020-10-25 08:55:39 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:55:40 [32minfo[39m: 	Connected to database
+2020-10-25 08:55:55 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:55:55 [32minfo[39m: 	Connected to database
+2020-10-25 08:57:29 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:57:29 [32minfo[39m: 	Connected to database
+2020-10-25 08:57:49 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:57:49 [32minfo[39m: 	Connected to database
+2020-10-25 08:59:42 [32minfo[39m: 	Listening on port 5000
+2020-10-25 08:59:42 [32minfo[39m: 	Connected to database
+2020-10-25 09:00:24 [32minfo[39m: 	Listening on port 5000
+2020-10-25 09:00:24 [32minfo[39m: 	Connected to database
+2020-10-25 09:00:28 [32minfo[39m: 	Listening on port 5000
+2020-10-25 09:00:28 [32minfo[39m: 	Connected to database
+2020-10-25 09:00:47 [32minfo[39m: 	Listening on port 5000
+2020-10-25 09:00:48 [32minfo[39m: 	Connected to database
+2020-10-25 09:02:53 [32minfo[39m: 	Listening on port 5000
+2020-10-25 09:02:53 [32minfo[39m: 	Connected to database
+2020-10-25 09:03:12 [32minfo[39m: 	Listening on port 5000
+2020-10-25 09:03:12 [32minfo[39m: 	Connected to database
+2020-10-25 09:03:34 [32minfo[39m: 	Listening on port 5000
+2020-10-25 09:03:34 [32minfo[39m: 	Connected to database
+2020-10-25 09:03:37 [32minfo[39m: 	Auth token: 
+2020-10-25 09:03:37 [32minfo[39m: 	Authorized: false
+2020-10-25 10:40:54 [32minfo[39m: 	Auth token: 
+2020-10-25 10:40:54 [32minfo[39m: 	Authorized: false
+2020-10-25 10:41:00 [32minfo[39m: 	Auth token: 
+2020-10-25 10:41:00 [32minfo[39m: 	Authorized: false
+2020-10-25 10:41:11 [32minfo[39m: 	Auth token: 
+2020-10-25 10:41:11 [32minfo[39m: 	Authorized: false
+2020-10-25 11:38:12 [32minfo[39m: 	Listening on port 5000
+2020-10-25 11:38:12 [32minfo[39m: 	Connected to database
+2020-10-25 11:44:31 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIyNjQ5LCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjI2NDksImV4cCI6MTYwMzYyNjI0OSwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.VGqK1moyBn13vjTpSfYDmPFaWxLcRFFj7VCAVAJrnXWnCi0P_L11-J7OjMGjn_s1NDPLq6EognDXM_pqtvfKuQDhHfRuXPa3jleOXP5cuzEFg9_3uxe6Wd6Qdn7lw0agWJqkNvdDxRmNBpYnygX7UCNHJ7gCxd-24q0M-blZERUGso_vucUUE_uKGkE7ay0AVCIf3cYIdSUYKUfV6e26-xseT7AS6XOl3-rn3MIInqR_x-pyMNy0STgRziZkW4b7twzm31jOObOhc1OTbuuVMjULB5d2xVO1GDpHf4UZJuzoqnLgG89mF2fCR01YYuXxvRYU4W2rw29hQJQmCHecag
+2020-10-25 11:44:31 [32minfo[39m: 	Authorized: true
+2020-10-25 11:51:14 [32minfo[39m: 	Listening on port 5000
+2020-10-25 11:51:14 [32minfo[39m: 	Connected to database
+2020-10-25 11:53:18 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzMTk5LCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjMxOTksImV4cCI6MTYwMzYyNjc5OSwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.UOFjMnvu5fJX1CRtw-KM_A8rJJB_3gLhCCKLcbY9EVt_hRwyBJPX07p6NEkevRJbwJKCjgqz9Uv4uAzSYm1NAcMcRqksdGL6yuO8PORbfKQb115e8AF5IMvMyroZ844zktg8GdUxH76_E5iT8ceBrfys1jifITGimURjUUh7A2tPePrZq216WVMlmtXp8cejAuxPLHCfLdDZcGdrFXb4my74v-iS7BPT1aWFvukINEZ295yj9EkktJGzEZqf0bLMqCDz7c_y9ZCakYAOsbbbZvSo4Ju7btjZyVaQWqlQ5Oy4DSsD7_5DEpobl7_rw6LcJGwUvjjZE4DnJudpITyzMw
+2020-10-25 11:53:18 [32minfo[39m: 	Authorized: true
+2020-10-25 11:54:36 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzMjc3LCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjMyNzcsImV4cCI6MTYwMzYyNjg3NywiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.gzlHvD5heBtHv9OXSvtyTJrGXVkUhAgR0n6LaAgx7nix78RFxO8f7xVDVVrK0Ngao8cjwN3MvVXO-tz4NJF-Z42A65p_8CS-pGZY6EiquGGxpXvCkjpNuuwuMtueX_9wm4qQbkZSX88eD_DDIDgZ7YItR8bo8tg_s_LYJe6tYMeRTCajqp3vyWrnqtKaJvT17e4FA1qVgDmG3CboinYjwWH0sfu5D51egcnn9R_QOAioS08hIwi2Dsm-M4UWItnEivSuu8TQBhhYXjvsDFyHkB79IB89kRknywDdFNljctoC1ymzySC5V46YHth394bvlN9qbhQ-8nS_zZra_F18lw
+2020-10-25 11:54:36 [32minfo[39m: 	Authorized: true
+2020-10-25 11:55:59 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzMzYwLCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjMzNjAsImV4cCI6MTYwMzYyNjk2MCwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.hlqk9vsJ08eSCTTM_Ov4b3c9RhlZCQWw_U1nQzjI5KNYCKhfkR4_kUck_jlVtDVu_dMErdK0w-Zkxa_cS8DoAgX-p_FAkTR3xsEKuzXvmHS44hDOATdZR-uonngTyRW8PF4AwqwcZzyTWGK0o4MceVBHbtGli4pP-msI7Ie-0mN_lrdcbIHfOuyJkDW6SXelkfpBZypO5PT4lIYdvxZ38m-rZ_rtv0WXC-ZtrffydsDZtjjRSvyeYNbG4mlUwsq-s-0nN4ni3NQYc3Xkz7kUeE58A4HZd4BzMUCcXrlpJigzc_JvF61dmrmsd-nTSdqHEYVXH0N46Fr5CXUYiqBCug
+2020-10-25 11:55:59 [32minfo[39m: 	Authorized: true
+2020-10-25 11:56:24 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzMzg2LCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjMzODYsImV4cCI6MTYwMzYyNjk4NiwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.VtmmR30NrXmQpcEsl0z9BLh50ONoVhJNmO8ulqGbRfaifZLdcmxpj9fcEqCXqP45yziCchGbrbWQ5Mv5SeHokRcGPAuF4pfqC7VSTOtMDz0Jn5bf5NurU2dekZG8xRQRmtx_4IbtfAc8kbbib6aE5q4EHhO0BpgRjFFwKJG3oZdBFQi1MldvWdns5zPabFaT0o0etmkbzrNeuYQzk5_UTt5cwPgFgl8Pytah0X48wssLbZOEkO0vYStub83Oogm8qYzjFqAvPMVOeX-fvU9y3kwegJ4USH4vRJ-Tbm05hw7zwbC9YwhQyF5DC6QDa1hwsX0HtoZ4W2K4w8yndtUNjw
+2020-10-25 11:56:24 [32minfo[39m: 	Authorized: true
+2020-10-25 11:56:48 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzNDEwLCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjM0MTAsImV4cCI6MTYwMzYyNzAxMCwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CQ4Axgxz5YXgxFX6K8j1dlA2yNVKI_4WHZtwmNeVEs7VWhkjCINwu6XqiAVRzsQYoTELi5uCegO9J9XFfdS9dXa6filcYoLFfN6FsBl40t_YLpeyl4rFHK31coVNLzss-oMos-h_ZjOOZKcPKzq8jiefgbc7IyU6qA3d9AS2iBk0C5Qj3N0krlrh_S4m5UmeRU_EnUUdgzsFhJPnMz27o1dJVZI97hQZCNoD4iqni84eI2GXYsaw5hjPDmig8Xj2nE_NcuhA6jolQQrhvu6HO9a_0wA2gmwHDE7Iwq470LOpmSNnTutjPiDblY18FipUWdEYC5gfcMxOgbquHWQr1Q
+2020-10-25 11:56:48 [32minfo[39m: 	Authorized: true
+2020-10-25 11:57:25 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzNDQ2LCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjM0NDYsImV4cCI6MTYwMzYyNzA0NiwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Wij6HGdDizePTG6d9pWXdSX9qrfWg8UNXw_kY9MowWUg7wzPhqzF5KbmH7CaVasNAZGDTArJ9RAV0T1Oe6EqnspL9L0OpPCwZ4XoEBqrFjwqopdm428cKeH8vs4ThGc2KXIo6pyZaqs1VtyMU--IQufg81ASMldMtAqTPpOQu5hywNmrt0hUGPMxLEgsJIbATyn4iwAQOLkkI9FfrGQgtejGMsWS5BpdeObcAHD_ZBl3o__RUokgTAqiTwX8lJwufCE_YOF-AxHzI-JbnaZKJPaNPeWHeIjECA0Qy06xXJFNilGCLTaNd-o4fAzGvN2SF9pwYawIthpprqCJLzQNAw
+2020-10-25 11:57:25 [32minfo[39m: 	Authorized: true
+2020-10-25 11:58:44 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzNTI1LCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjM1MjUsImV4cCI6MTYwMzYyNzEyNSwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.PtVtUjpXRdd5yCOJ-t4Wzz8hR9xlMfqn0Jij10cwvsLKZZmaIc4HMyZmqK76XuhUEM6_VDWay3y8rKVMnTuGVf7IXkNEXuHJVPnduQ8yGS1CPy0zyZ7wctNx5gAQwF6KcnGj7H479pWFSbEGostHwo88VoYdjYdpO9ZtyxfISVV--CP46ZYM1UScbPIX0fUjZ7qr1wEN013zLgU2cuGrjRe3rOkOfU4m9qeqZ60Q5F64yeP99ccQlbOg3J7CqIUd2CkYIL4o6GOpADiiyeaP6k8swEmHR0xQyAcB7JIP1percrJgevspA_mJFZzaZkQx9DHYVG61tDL89M1PxHzSsA
+2020-10-25 11:58:44 [32minfo[39m: 	Authorized: true
+2020-10-25 11:59:41 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzNTgyLCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjM1ODIsImV4cCI6MTYwMzYyNzE4MiwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.i5qh_acGXRk8N-LRC5Td7Kn0t2jZI5emZoGfzxQ-sVECYPJA1ovBJAZevbaist1hK9XMhD6LgnZ2IdjALEzyX0aAzwT-pWsIeuXX-woaKr2Bgs4oXrkUhPr-y3SC7kS8ss5ChEBrsCQc_E9LI4Rg0dccyNTjhbo4vHcjZCqLe-erJTXF7owL8X--oJZV6G0qGfnPRiZoBc2FcJ48V2gN_gVu0CsNREhakBcQYKvdqv4dxJqLFXgSiktWsFc6F3xpHF4u646QDnvZv5KXiXKUEZFKO7Ma5_9Os-OSgNDzkLn8pcwJ6JkfxB2g9w5kv1VbYLNH4pptyeu833WJhAloNQ
+2020-10-25 11:59:41 [32minfo[39m: 	Authorized: true
+2020-10-25 12:00:45 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNjIzNjQ2LCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM2MjM2NDYsImV4cCI6MTYwMzYyNzI0NiwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.CWDXnAu-pmWZYFeOSCHWPOrV3hU_cUvXUt46ghh1JAkg8cVm1kYMzl4-SxjVc9M9iAcyDTqV8owm8NpDCUnvUpeffEWcdUsH43I5fY-ecM2SUH2MV4O31wsqd58riG3Of_5qqn7YLMYOSuHUxMH93B6JQFCNBBXCS3rtpw4NyakA7fYPCzFyYZhQ-ug3cKyp8TFvZmQpsEJTHtFehdNA4vt_08GQpV2G78f8QMsvoY9DEk9dsSAzrkZN_fDs6i33-6i-jt41CTY7PpWUHDLXgEYEfDY4nd8j98xr1N_6-M_ZI6mWtO5kb2Kdm4ME8Hdiw1u9iff4EWkRDROCJGIZaQ
+2020-10-25 12:00:45 [32minfo[39m: 	Authorized: true

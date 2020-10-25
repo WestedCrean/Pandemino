@@ -1,7 +1,6 @@
 import React, { Fragment } from "react"
 import firebase from "services/firebase"
-import ListStreams from "components/ListStreams"
-import Navbar from "components/navbar"
+import {Navbar, ListStreams} from "components"
 
 const HomePage = () => {
     const onSubmitForm = async () => {

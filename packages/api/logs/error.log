@@ -20,3 +20,8 @@
 2020-10-22 22:37:16 [31merror[39m: 	EIO: i/o error, write
 2020-10-22 22:38:22 [31merror[39m: 	EIO: i/o error, write
 2020-10-22 22:50:06 [31merror[39m: 	EIO: i/o error, write
+2020-10-25 08:42:16 [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:02 [31merror[39m: 	Couldnt connecto database: Error: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:10 [31merror[39m: 	Couldnt connect to database: Error: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:21 [31merror[39m: 	Couldnt connect to database: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-25 08:44:34 [31merror[39m: 	Could not connect to database: connect ECONNREFUSED 127.0.0.1:5432

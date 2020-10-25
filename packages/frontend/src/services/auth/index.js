@@ -1,33 +1,51 @@
-import React, { useEffect, useState, createContext } from "react"
+import React, { useState, createContext, useContext } from "react"
 import firebase from "services/firebase"
 
 
 const AuthContext = createContext({
     user: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    apiToken: null,
+    toggleLoggedIn: () => {},
+    toggleLoggedOut: () => {}
 })
+
+const useAuthContext = () => useContext(AuthContext)
+
 const AuthProvider = ({ children }) => {
     const [contextState, setContextState] = useState({
         user: null,
         isLoggedIn: false
     })
 
-    const [pending, setPending] = useState(true)
     const [error, setError] = useState(null)
 
-    useEffect(() => {
+
+    const toggleLoggedIn = () => {
         try {
-            firebase.auth().onAuthStateChanged((user) => {
+            let user = firebase.auth().currentUser
+            if (user != null) {
                 setContextState({
                     user: user,
                     isLoggedIn: true
                 })
-                setPending(false)
-            })
+            } else {
+                setError("no user is logged in")
+            }
+            
         } catch (e) {
-            setError(e)
+            
         }
-    }, [])
+    } 
+
+    const toggleLoggedOut = async () => {
+        await firebase.auth().signOut()
+        setContextState({
+            user: null,
+            isLoggedIn: false
+        })
+    }
+
 
     if (error) {
         return (
@@ -37,17 +55,14 @@ const AuthProvider = ({ children }) => {
         ) 
     }
 
-
-    if (pending) {
-        return <>Loading...</>
-    }
-
-    
-
     return (
         <AuthContext.Provider
+
             value={{
-                ...contextState
+                user: contextState.user,
+                isLoggedIn: contextState.isLoggedIn,
+                toggleLoggedIn: toggleLoggedIn,
+                toggleLoggedOut: toggleLoggedOut
             }}
         >
             {children}
@@ -56,4 +71,4 @@ const AuthProvider = ({ children }) => {
 }
 
 
-export { AuthContext, AuthProvider }
+export { AuthContext, useAuthContext, AuthProvider }

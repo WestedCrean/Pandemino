@@ -1,5 +1,5 @@
 import ListStreams from './ListStreams'
-import Navbar from './navbar'
+import Navbar from './Navbar'
 import PrivateRoute from './PrivateRoute'
 
 export {

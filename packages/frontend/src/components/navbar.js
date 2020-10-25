@@ -1,10 +1,9 @@
-import React, { useContext } from "react"
-import base from "services/firebase"
+import React from "react"
 import {Link} from "react-router-dom";
-import { AuthContext } from "services/auth"
+import { useAuthContext } from "services/auth"
 
 const Navbar = () => {
-    const { currentUser } = useContext(AuthContext)
+    const { user, toggleLoggedOut } = useAuthContext()
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,13 +29,13 @@ const Navbar = () => {
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                         <a className="nav-link my-2 my-lg-0" href="#">
-                            {currentUser.email}
+                            {user.email}
                         </a>
                     </li>
                     <li className="nav-item">
                         <a
                             className="nav-link"
-                            onClick={() => base.auth().signOut()}
+                            onClick={toggleLoggedOut}
                         >
                             Sign Out <span className="sr-only">(current)</span>
                         </a>
