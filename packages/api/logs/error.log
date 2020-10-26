@@ -25,3 +25,5 @@
 2020-10-25 08:44:10 [31merror[39m: 	Couldnt connect to database: Error: connect ECONNREFUSED 127.0.0.1:5432
 2020-10-25 08:44:21 [31merror[39m: 	Couldnt connect to database: connect ECONNREFUSED 127.0.0.1:5432
 2020-10-25 08:44:34 [31merror[39m: 	Could not connect to database: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-26 19:58:55 [31merror[39m: 	Could not connect to database: connect ECONNREFUSED 127.0.0.1:5432
+2020-10-26 20:01:56 [31merror[39m: 	Could not connect to database: connect ECONNREFUSED 127.0.0.1:5432

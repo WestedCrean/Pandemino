@@ -2,13 +2,14 @@ version: "3"
 services:
   api:
     container_name: pandemino_api
-    image: oze4/nodemon-docker-test
-
+    build:
+      context: .
+      dockerfile: api.dockerfile
     ports:
-      - "3000:3000"
+      - "5000:5000"
     volumes:
       - ./packages/api:/app
-    command: "npm run dev"
+    command: "npm start"
 
   postgres:
     container_name: pandemino_postgres

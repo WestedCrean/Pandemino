@@ -1,4 +1,12 @@
-import { Body, JsonController as Controller, Get, Post, Param, getMetadataArgsStorage, Authorized } from "routing-controllers"
+import {
+    Body,
+    JsonController as Controller,
+    Get,
+    Post,
+    Param,
+    getMetadataArgsStorage,
+    Authorized,
+} from "routing-controllers"
 import { getRepository, Repository } from "typeorm"
 import { validateOrReject } from "class-validator"
 import { OpenAPI, ResponseSchema, routingControllersToSpec } from "routing-controllers-openapi"
@@ -66,17 +74,6 @@ export class StreamController {
      * @param res
      */
     @Post("/streams")
-    @OpenAPI({
-        description: "Get a list of streams",
-        responses: {
-            "400": {
-                description: "Bad request",
-            },
-            "201": {
-                description: "Created a stream",
-            },
-        },
-    })
     async post(@Body() body: any): Promise<any> {
         let stream = new Stream()
 
