@@ -7,6 +7,8 @@ COPY packages/api/package-lock.json /app
 RUN npm install
 RUN npm install -g nodemon
 
+RUN npm install -g nodemon
+
 COPY packages/api /app
 
 EXPOSE 5000

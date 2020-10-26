@@ -10,7 +10,6 @@ services:
     volumes:
       - ./packages/api:/app
     command: "npm start"
-
   postgres:
     container_name: pandemino_postgres
     image: "postgres"
