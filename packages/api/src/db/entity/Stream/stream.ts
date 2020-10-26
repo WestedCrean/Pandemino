@@ -21,6 +21,9 @@ class Stream {
 
     @Column()
     isLive: boolean
+
+    @Column()
+    isWorthToWatch: boolean
 }
 
 export default Stream
