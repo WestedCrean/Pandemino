@@ -1,6 +1,6 @@
 {
     "type": "postgres",
-    "host": "localhost",
+    "host": "pandemino_postgres",
     "port": 5432,
     "username": "test",
     "password": "test",
