@@ -395,3 +395,111 @@
 2020-10-26 20:06:06 [32minfo[39m: 	Connected to database
 2020-10-26 20:06:23 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNzQyNzgyLCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM3NDI3ODIsImV4cCI6MTYwMzc0NjM4MiwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.SeCmYJJ5N9IrofTqDxp1w8XwluRv4jLRIhAlWEBUZ8usI8YHvmbK3AxeeCzFNYfLs1GjShxe3MTO_HUqyzZsJMpvseSrKHIJok7GFU3r9YNxav89SEeOvjp5X_q72KgYC29vAuE6fGOa53zVjby_r7pzAESOC5TLTnaBqrKbpXuO1TraaQvUz5QVz646nHyyogd182iSnULTQ3uZLB2AHmExLRkvuuClQ4ddcq_jw5iEgfBOc72QOPWOEzIIUiBP0XdY6zMhBr8tBMYI-K4vw9QHuiuVQMwledxv18dlnp96fDWaCX1wiXLojj4XFffjjAL4YBDnMlBREoPiuQUmZQ
 2020-10-26 20:06:24 [32minfo[39m: 	Authorized: true
+2020-10-26 20:10:03 [32minfo[39m: 	Auth token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcGFuZGVtaW5vIiwiYXVkIjoicGFuZGVtaW5vIiwiYXV0aF90aW1lIjoxNjAzNzQyNjAwLCJ1c2VyX2lkIjoiRmNIQk91eXZvVVpCTmx6RFBPSjEyZEFUSDhUMiIsInN1YiI6IkZjSEJPdXl2b1VaQk5sekRQT0oxMmRBVEg4VDIiLCJpYXQiOjE2MDM3NDI2MDAsImV4cCI6MTYwMzc0NjIwMCwiZW1haWwiOiJ3aWtmbGlzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3aWtmbGlzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.e9aRAqNPQwP2HiqhZasryTbfTCTBCkWBLh1LePtoHBhLgpBvzMq58mVN_a5RPRiqXfvHPortYCS4Jb7xTu_LSZ2GEhh-PqKufzd7NK2VrokJlNwXmCJ6eFZRdjyTqHiW_oQzVlNXJju75y7ugH_8XxUwMwvw0KR2SrC5HFXZ0rn6mny0giGW0jxfH2Be2k_ISay4oe35qjr7Na5EKrNnKvwuXsTXyxnfBBSap9IQGIK9ugyCOqQqdmnjGJWepM0Q5bdQJBmP58NvCylKKzOc1bsri145rAZv5jrHZwjgiNMl7uZBFRXB6WT52NtMN-l6jRE_z27m90IbXzwfE_O2iQ
+2020-10-26 20:10:03 [32minfo[39m: 	Authorized: true
+2020-10-26 20:10:03 [32minfo[39m: 	New stream object:{"name":"First stream","description":" okokok dupa chuj","views":0,"isLive":false,"isPublished":true}
+2020-10-27 07:47:35 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:47:35 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:47:42 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:47:42 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:47:51 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:47:51 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:47:57 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:47:57 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:48:09 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:48:09 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:48:17 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:48:17 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:48:32 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:48:32 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:48:36 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:48:36 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:48:41 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:48:41 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:48:47 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:48:47 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:51:03 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:51:03 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:52:32 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:52:32 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:52:42 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:52:42 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:53:10 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:53:10 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:54:19 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:54:19 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:54:31 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:54:31 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:54:45 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:54:45 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:54:56 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:54:56 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:55:17 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:55:17 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:55:21 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:55:22 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:56:12 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:56:12 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:56:17 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:56:17 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:56:27 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:56:27 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:57:16 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:57:16 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:59:14 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:59:14 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:59:27 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:59:27 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 07:59:57 [32minfo[39m: 	Listening on port 5000
+2020-10-27 07:59:57 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 08:01:39 [32minfo[39m: 	[object Object]
+2020-10-27 08:01:39 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:01:39 [31merror[39m: 	Could not connect to database: Wrong driver: "undefined" given. Supported drivers are: "cordova", "expo", "mariadb", "mongodb", "mssql", "mysql", "oracle", "postgres", "sqlite", "better-sqlite3", "sqljs", "react-native", "aurora-data-api", "aurora-data-api-pg".
+2020-10-27 08:02:26 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:02:26 [31merror[39m: 	Could not connect to database: Cannot use import statement outside a module
+2020-10-27 08:02:46 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:02:46 [31merror[39m: 	Could not connect to database: Unexpected token 'export'
+2020-10-27 08:04:53 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:04:53 [31merror[39m: 	Could not connect to database: No connection options were found in any orm configuration files.
+2020-10-27 08:05:16 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:05:16 [31merror[39m: 	Could not connect to database: No connection options were found in any orm configuration files.
+2020-10-27 08:12:07 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:12:07 [31merror[39m: 	Could not connect to database: No connection options were found in any orm configuration files.
+2020-10-27 08:14:01 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:14:01 [32minfo[39m: 	Connected to database
+2020-10-27 08:14:28 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:14:28 [32minfo[39m: 	Connected to database
+2020-10-27 08:14:44 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:14:44 [32minfo[39m: 	Connected to database
+2020-10-27 08:14:53 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:14:53 [32minfo[39m: 	Connected to database
+2020-10-27 08:15:21 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:15:21 [32minfo[39m: 	Connected to database
+2020-10-27 08:16:15 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:16:15 [32minfo[39m: 	Connected to database
+2020-10-27 08:16:18 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:16:19 [32minfo[39m: 	Connected to database
+2020-10-27 08:16:48 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:16:48 [32minfo[39m: 	Connected to database
+2020-10-27 08:18:14 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:18:15 [32minfo[39m: 	Connected to database
+2020-10-27 08:18:27 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:18:27 [32minfo[39m: 	Connected to database
+2020-10-27 08:19:14 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:19:14 [32minfo[39m: 	Connected to database
+2020-10-27 08:19:39 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:19:39 [32minfo[39m: 	Connected to database
+2020-10-27 08:19:49 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:19:49 [32minfo[39m: 	Connected to database
+2020-10-27 08:20:03 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:20:03 [32minfo[39m: 	Connected to database
+2020-10-27 08:20:07 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:20:07 [32minfo[39m: 	Connected to database
+2020-10-27 08:20:26 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:20:26 [32minfo[39m: 	Connected to database
+2020-10-27 08:22:44 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:22:44 [32minfo[39m: 	Connected to database
+2020-10-27 08:27:51 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:27:51 [32minfo[39m: 	Connected to database
+2020-10-27 08:27:58 [32minfo[39m: 	Listening on port 5000
+2020-10-27 08:27:58 [32minfo[39m: 	Connected to database

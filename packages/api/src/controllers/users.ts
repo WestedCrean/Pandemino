@@ -12,10 +12,10 @@ import { Repository, getRepository } from "typeorm"
 import { validateOrReject } from "class-validator"
 import { routingControllersToSpec } from "routing-controllers-openapi"
 
-import { User } from "../../db/entity/User/index"
-import { UserNotFoundError, UserCreationError } from "../../db/errors"
+import { User } from "../db/entity/user"
+import { UserNotFoundError, UserCreationError } from "../db/errors"
 
-import logger from "../../logger"
+import logger from "../logger"
 
 @Controller()
 @Authorized()

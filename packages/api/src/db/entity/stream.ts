@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm"
+import { Course } from "./course"
 
 @Entity("streams")
 class Stream {
@@ -22,8 +23,8 @@ class Stream {
     @Column()
     isLive: boolean
 
-    @Column()
-    isWorthToWatch: boolean
+    @ManyToOne(() => Course, (course: Course) => course.lectures)
+    course: Course
 }
 
-export default Stream
+export { Stream }

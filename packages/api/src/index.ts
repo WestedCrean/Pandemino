@@ -9,7 +9,6 @@ import morgan from "morgan"
 
 import { createConnection } from "typeorm"
 
-import { LoggerStream } from "./middleware/logging"
 import { AuthenticationMiddleware } from "./middleware/authentication"
 
 import Controllers from "./controllers/index"
@@ -49,6 +48,7 @@ useExpressServer(app, {
  *
  *  - connect to database using settings defined in ormconfig.json
  */
+
 
 createConnection()
     .then(() => logger.info("Connected to database"))

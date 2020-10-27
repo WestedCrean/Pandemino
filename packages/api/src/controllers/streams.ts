@@ -9,10 +9,10 @@ import {
 } from "routing-controllers"
 import { getRepository, Repository } from "typeorm"
 import { validateOrReject } from "class-validator"
-import { OpenAPI, ResponseSchema, routingControllersToSpec } from "routing-controllers-openapi"
+import { OpenAPI, routingControllersToSpec } from "routing-controllers-openapi"
 
-import { Stream } from "../../db/entity/Stream/index"
-import { StreamNotFoundError, StreamCreationError, DatabaseError } from "../../db/errors"
+import { Stream, Course } from "../db/entity"
+import { StreamNotFoundError, StreamCreationError, DatabaseError } from "../db/errors"
 
 import logger from "winston"
 
@@ -20,9 +20,11 @@ import logger from "winston"
 @Authorized()
 export class StreamController {
     streamRepository: Repository<Stream>
+    courseRepository: Repository<Course>
 
     constructor() {
         this.streamRepository = getRepository(Stream)
+        this.courseRepository = getRepository(Course)
     }
 
     @Get("/streams/:id")
@@ -83,8 +85,8 @@ export class StreamController {
             stream.views = 0
             stream.isLive = false
             stream.isPublished = true
+            stream.course = body.course
 
-            logger.info("New stream object:" + JSON.stringify(stream))
 
             await validateOrReject(stream)
         } catch (err) {
