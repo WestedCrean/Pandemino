@@ -6,11 +6,21 @@ import React, {
 
 import { useAuthContext } from 'services/auth'
 import ApiService from 'services/api'
+import { useHistory } from "react-router-dom";
 
-const ListStreams = () => {
-    const [streams, setStreams] = useState([])
-    
+const ListCourses = () => {
+    const [courses, setCourses] = useState([])
     const { user } = useAuthContext()
+    const history = useHistory();
+
+    const directToLecture = (id) => {
+
+        history.push({
+            pathname: "/lecture",
+              state: {
+                courseId: id
+            }});
+    }
 
     const getStreams = async () => {
         const token = await user.getIdToken()
@@ -27,8 +37,8 @@ const ListStreams = () => {
              *  isLive: boolean
              * }
              */
-            const response = await streamsRepository.getAvailableStreams()
-            setStreams(response.data)
+            const response = await streamsRepository.getAvailableCourses()
+            setCourses(response.data)
         } catch (error) {
             console.error({error})
         }
@@ -41,18 +51,18 @@ const ListStreams = () => {
         <Fragment>
             <div className="list-container">
                 <div className="list-streams">
-                    {streams.map((stream,i) => (
-                        <div className="list-element" key={`${stream.name}-${stream.views}-${i}`}>
+                    {courses.map((course,i) => (
+                        <div className="list-element" key={`${course.name}-${course.views}-${i}`} onClick={() => directToLecture(course.id)}>
                             <div className="list-element-inside">
                                 <div className="list-element-badge" />
                                 <div className="list-element-leader">
-                                    {stream.name}
+                                    {course.name}
                                 </div>
                                 <div className="list-element-description">
-                                    {stream.description}
+                                    {course.description}
                                 </div>
                                 <div className="list-element-data">
-                                    {stream.views}
+                                    {course.views}
                                 </div>
                             </div>
                         </div>
@@ -63,4 +73,4 @@ const ListStreams = () => {
     )
 }
 
-export default ListStreams
+export default ListCourses

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react"
 import firebase from "services/firebase"
-import {Navbar, ListStreams} from "components"
+import {Navbar, ListCourses} from "components"
 
 const HomePage = () => {
     const onSubmitForm = async () => {
@@ -15,7 +15,7 @@ const HomePage = () => {
     return (
         <Fragment>
             <Navbar></Navbar>
-            <ListStreams></ListStreams>
+            <ListCourses></ListCourses>
         </Fragment>
     )
 }
