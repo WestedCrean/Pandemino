@@ -10,6 +10,16 @@ services:
     volumes:
       - ./packages/api:/app
     command: "npm start"
+    environment:
+      TYPEORM_CONNECTION: "postgres"
+      TYPEORM_HOST: "pandemino_postgres"
+      TYPEORM_USERNAME: "test"
+      TYPEORM_PASSWORD: "test"
+      TYPEORM_DATABASE: "pandemino"
+      TYPEORM_PORT: 5432
+      TYPEORM_SYNCHRONIZE: "true"
+      TYPEORM_LOGGING: "true"
+      TYPEORM_ENTITIES: "src/db/entity/**/*.ts"
   postgres:
     container_name: pandemino_postgres
     image: "postgres"
