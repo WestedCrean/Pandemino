@@ -10,7 +10,6 @@ parserOptions:
     ecmaVersion: 12
     sourceType: module
 rules:
-<<<<<<< HEAD
     no-unused-vars: "off"
     no-alert: "off"
     no-console: "off"
@@ -21,7 +20,3 @@ rules:
     jsx-a11y/label-has-associated-control: "off"
     jsx-a11y/anchor-has-content: "off"
     semi: 0
-=======
-    prettier/prettier: "error"
-    no-unused-vars: "off"
->>>>>>> aa7749d0c3be9d100e8ad027499a36db03f7a29e

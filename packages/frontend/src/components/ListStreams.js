@@ -10,23 +10,11 @@ import ApiService from 'services/api'
 const ListStreams = () => {
     const [streams, setStreams] = useState([])
     
-    const { user } = useAuthContext()
+    const { accessToken } = useAuthContext()
 
     const getStreams = async () => {
-        const token = await user.getIdToken()
-        const streamsRepository = ApiService(token).streams
+        const streamsRepository = ApiService(accessToken).streams
         try {
-            /**
-             * single stream record schema
-             * {
-             *  id: number
-             *  name: string
-             *  description: string
-             *  views: number
-             *  isPublished: boolean
-             *  isLive: boolean
-             * }
-             */
             const response = await streamsRepository.getAvailableStreams()
             setStreams(response.data)
         } catch (error) {
