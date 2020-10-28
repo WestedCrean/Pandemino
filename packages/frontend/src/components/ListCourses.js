@@ -1,46 +1,30 @@
-import React, {
-    Fragment,
-    useEffect,
-    useState,
-} from "react"
+import React, { Fragment, useEffect, useState } from "react"
 
-import { useAuthContext } from 'services/auth'
-import ApiService from 'services/api'
-import { useHistory } from "react-router-dom";
+import { useAuthContext } from "services/auth"
+import ApiService from "services/api"
+import { useHistory } from "react-router-dom"
 
 const ListCourses = () => {
     const [courses, setCourses] = useState([])
-    const { user } = useAuthContext()
-    const history = useHistory();
+    const { accessToken } = useAuthContext()
+    const history = useHistory()
 
     const directToLecture = (id) => {
-
         history.push({
             pathname: "/lecture",
-              state: {
-                courseId: id
-            }});
+            state: {
+                courseId: id,
+            },
+        })
     }
 
     const getStreams = async () => {
-        const token = await user.getIdToken()
-        const streamsRepository = ApiService(token).streams
+        const streamsRepository = ApiService(accessToken).streams
         try {
-            /**
-             * single stream record schema
-             * {
-             *  id: number
-             *  name: string
-             *  description: string
-             *  views: number
-             *  isPublished: boolean
-             *  isLive: boolean
-             * }
-             */
             const response = await streamsRepository.getAvailableCourses()
             setCourses(response.data)
         } catch (error) {
-            console.error({error})
+            console.error({ error })
         }
     }
     useEffect(() => {
@@ -51,8 +35,12 @@ const ListCourses = () => {
         <Fragment>
             <div className="list-container">
                 <div className="list-streams">
-                    {courses.map((course,i) => (
-                        <div className="list-element" key={`${course.name}-${course.views}-${i}`} onClick={() => directToLecture(course.id)}>
+                    {courses.map((course, i) => (
+                        <div
+                            className="list-element"
+                            key={`${course.name}-${course.views}-${i}`}
+                            onClick={() => directToLecture(course.id)}
+                        >
                             <div className="list-element-inside">
                                 <div className="list-element-badge" />
                                 <div className="list-element-leader">

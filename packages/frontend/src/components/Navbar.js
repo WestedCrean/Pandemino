@@ -10,7 +10,7 @@ const Navbar = () => {
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul className="navbar-nav mr-auto">
                     <Link className="navbar-brand ml-4" to="/">
-                    Chujowino
+                    Pandemino
                     </Link>
                 </ul>
             </div>

@@ -1,27 +1,17 @@
 import React, { useCallback } from "react"
 import { withRouter, Redirect } from "react-router"
-
-import firebase from "services/firebase"
-
-import { useAuthContext } from "services/auth"
-
+import { useAuthContext, authMethods } from "services/auth"
 
 const Login = ({ history }) => {
 
-    const { user, isLoggedIn, toggleLoggedIn, toggleLoggedOut } = useAuthContext()
+    const { user} = useAuthContext()
 
     const handleLogin = useCallback(
         async (event) => {
             event.preventDefault()
             const { email, password } = event.target.elements
-            try {
-                const loggedUser = await firebase
-                    .auth()
-                    .signInWithEmailAndPassword(email.value, password.value)
-                toggleLoggedIn(loggedUser)
-            } catch (error) {
-                console.log(error)
-            }
+            await authMethods.signIn(email.value, password.value)
+            history.push("/")
         },
         [history]
     )
