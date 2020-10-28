@@ -1,20 +1,25 @@
-import { HomePage, Login, SignUp } from "pages"
+import { HomePage, Login, SignUp, ListLectures } from "pages"
 
 const routes = [
     {
-        "path": "/login",
-        "component": Login,
-        "needsAuth": false
+        path: "/lectures",
+        component: ListLectures,
+        needsAuth: true,
     },
     {
-        "path": "/signup",
-        "component": SignUp,
-        "needsAuth": false
+        path: "/login",
+        component: Login,
+        needsAuth: false,
     },
     {
-        "path": "/",
-        "component": HomePage,
-        "needsAuth": true
+        path: "/signup",
+        component: SignUp,
+        needsAuth: false,
+    },
+    {
+        path: "/",
+        component: HomePage,
+        needsAuth: true,
     },
 ]
 
