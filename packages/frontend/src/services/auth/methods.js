@@ -13,28 +13,19 @@ const authMethods = {
     signOut: async () => {
         await firebase.auth().signOut()
       },
-    onAuthStateChange: async () => {
-        new Promise( (resolve, reject) => {
+    onAuthStateChange: async (setUser) => {
             firebase.auth().onAuthStateChanged(async function(user) {
                 if (user) {
                     let displayName = user.displayName;
                     let email = user.email;
-                    let providerData = user.providerData
                     let accessToken = await user.getIdToken()
-                    resolve({
-                        user: { 
-                            displayName,
-                            email,
-                            providerData
-                        },
-                        accessToken,
-                        loggedIn: true
-                    })
-                } else {
-                    reject("no user is logged in")
+                    setUser({ 
+                        displayName,
+                        email
+                    }, accessToken)
                 }
             })
-        })
+        
     }
 }
 

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react"
 import AuthContext from './context'
 
 import { authMethods } from './methods'
+import _ from 'lodash'
 
 const AuthProvider = ({ children }) => {
     const [contextState, setContextState] = useState({
         user: null,
         accessToken: null,
-        loggedIn: false
     })
-
     const [error, setError] = useState(null)
 
     
@@ -19,20 +18,20 @@ const AuthProvider = ({ children }) => {
         setContextState({
             user: null,
             accessToken: null,
-            isLoggedIn: false
         })
     }
 
-    const handleAuthObserver = async () => {
-        try {
-            const newState = await authMethods.onAuthStateChange(setContextState)
-            console.log({ newState })
-            if (newState.accessToken != contextState.accessToken) {
-                setContextState(...newState)
-            }
-        } catch (e) {
-            setError(e)
+   
+
+    const setUser = (user,accessToken) => {
+        const currentUser = contextState.user
+        if (!_.isEqual(user, currentUser)) {
+            setContextState({ user, accessToken})
         }
+    }
+
+    const handleAuthObserver = async () => {
+        authMethods.onAuthStateChange(setUser).catch(e => setError(e))
     }
 
     useEffect( () => {
@@ -54,7 +53,6 @@ const AuthProvider = ({ children }) => {
             value={{
                 user: contextState.user,
                 accessToken: contextState.accessToken,
-                loggedIn: contextState.logIn,
                 toggleLoggedOut: toggleLoggedOut
             }}
         >

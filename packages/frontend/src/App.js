@@ -1,19 +1,21 @@
 import React from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
-
-import { AuthProvider } from "services/auth"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
 import { PrivateRoute } from "components"
-import { HomePage, Login, SignUp } from "pages"
+import routes from "config/routes"
+
 
 function App() {
     return (
         <Router>
-        <AuthProvider>
-                <PrivateRoute exact path="/" component={HomePage} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={SignUp} />
-        </AuthProvider>
+            <Switch>
+                {routes.filter( route => !route.needsAuth ).map( route => (
+                    <Route exact key={route.path} path={route.path} component={route.component} />
+                ))}
+                {routes.filter( route => route.needsAuth ).map( route => (
+                    <PrivateRoute exact key={route.path} path={route.path} component={route.component} />
+                ))}
+            </Switch>   
         </Router>
     )
 }
