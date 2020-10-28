@@ -5,13 +5,15 @@ import { useAuthContext } from "services/auth"
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
 
-    const { user } = useAuthContext()
+    const { user, loggedIn, accessToken } = useAuthContext()
+
+    console.log({user, loggedIn, accessToken})
 
     return (
         <Route
             {...rest}
             render={(props) =>
-                user ? (
+                loggedIn ? (
                     <RouteComponent {...props} />
                 ) : (
                     <Redirect  to={{ pathname: '/login', state: { from: props.location } }} />

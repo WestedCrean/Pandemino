@@ -16,17 +16,6 @@ const ListStreams = () => {
         const token = await user.getIdToken()
         const streamsRepository = ApiService(token).streams
         try {
-            /**
-             * single stream record schema
-             * {
-             *  id: number
-             *  name: string
-             *  description: string
-             *  views: number
-             *  isPublished: boolean
-             *  isLive: boolean
-             * }
-             */
             const response = await streamsRepository.getAvailableStreams()
             setStreams(response.data)
         } catch (error) {

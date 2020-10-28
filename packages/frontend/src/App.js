@@ -8,13 +8,13 @@ import { HomePage, Login, SignUp } from "pages"
 
 function App() {
     return (
+        <Router>
         <AuthProvider>
-            <Router>
                 <PrivateRoute exact path="/" component={HomePage} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={SignUp} />
-            </Router>
         </AuthProvider>
+        </Router>
     )
 }
 
