@@ -11,14 +11,13 @@ import {Navbar} from "components"
 
 const ListLectures = (props) => {
     const [lectures, setLectures] = useState([])
-    const { user } = useAuthContext()
+    const { accessToken } = useAuthContext()
     const history = useHistory();
 
     const courseId = props.location.state.courseId;
 
     const getStreams = async () => {
-        const token = await user.getIdToken()
-        const streamsRepository = ApiService(token).streams
+        const streamsRepository = ApiService(accessToken).streams
         try {
             /**
 

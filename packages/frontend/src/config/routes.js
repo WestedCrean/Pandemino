@@ -2,7 +2,7 @@ import { HomePage, Login, SignUp, ListLectures } from "pages"
 
 const routes = [
     {
-        path: "/lectures",
+        path: "/lecture",
         component: ListLectures,
         needsAuth: true,
     },
