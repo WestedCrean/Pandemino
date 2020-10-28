@@ -1,5 +1,5 @@
 import ListCourses from './ListCourses'
-import Navbar from './navbar'
+import Navbar from './Navbar'
 import PrivateRoute from './PrivateRoute'
 
 export {

@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from "react"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
+import AddCourseModal from "./AddCourseModal";
 
 const ListCourses = () => {
     const [courses, setCourses] = useState([])
@@ -32,7 +33,8 @@ const ListCourses = () => {
     }, [])
 
     return (
-        <Fragment>
+        <div>
+            <AddCourseModal></AddCourseModal>
             <div className="list-container">
                 <div className="list-streams">
                     {courses.map((course, i) => (
@@ -57,7 +59,7 @@ const ListCourses = () => {
                     ))}
                 </div>
             </div>
-        </Fragment>
+        </div>
     )
 }
 
