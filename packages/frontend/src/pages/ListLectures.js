@@ -8,6 +8,7 @@ import { useAuthContext } from 'services/auth'
 import ApiService from 'services/api'
 import { useHistory } from "react-router-dom";
 import {Navbar} from "components"
+import AddLectureModal from "../components/AddLectureModal"
 
 const ListLectures = (props) => {
     const [lectures, setLectures] = useState([])
@@ -37,6 +38,7 @@ const ListLectures = (props) => {
         <div>
             <Navbar></Navbar>
             <Fragment>
+                <AddLectureModal courseId={courseId}></AddLectureModal>
                 <div className="list-container">
                     <div className="list-streams">
                         {lectures.map((lecture,i) => (
