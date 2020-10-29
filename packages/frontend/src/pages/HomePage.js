@@ -1,6 +1,7 @@
 import React, { Fragment } from "react"
 import firebase from "services/firebase"
-import {Navbar, ListCourses} from "components"
+import { Navbar, ListCourses } from "components"
+import GridHome from "../components/GridHome"
 
 const HomePage = () => {
     const onSubmitForm = async () => {
@@ -15,7 +16,7 @@ const HomePage = () => {
     return (
         <Fragment>
             <Navbar></Navbar>
-            <ListCourses></ListCourses>
+            <GridHome></GridHome>
         </Fragment>
     )
 }

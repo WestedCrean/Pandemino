@@ -3,7 +3,6 @@ import React, { Fragment, useEffect, useState } from "react"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
-import AddCourseModal from "./AddCourseModal";
 
 const ListCourses = () => {
     const [courses, setCourses] = useState([])
@@ -34,8 +33,34 @@ const ListCourses = () => {
 
     return (
         <div>
-            <AddCourseModal></AddCourseModal>
-            <div className="list-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th>Nazwa </th>
+                        <th>Wykładowca</th>
+                        <th>Stream</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {courses.map((course, i = 0) => (
+                        <tr key={`${course.id}`}>
+                            <td>{i + 1}</td>
+                            <td>{course.name}</td>
+                            <td>{course.lecturer}</td>
+                            <td>
+                                <button
+                                    className="btn btn-primary text-center"
+                                    onClick={() => directToLecture(course.id)}
+                                >
+                                    Stream
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            {/* <div className="list-container">
                 <div className="list-streams">
                     {courses.map((course, i) => (
                         <div
@@ -58,7 +83,7 @@ const ListCourses = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
