@@ -5,26 +5,28 @@ import BodyParser from "koa-bodyparser"
 import { Serve } from "static-koa-router"
 
 import * as dotenv from "dotenv"
-import logger from "winston"
+import { logger } from './logger'
+import winston from "winston"
 
 dotenv.config()
+winston.add(logger)
 
 /**
  * App Variabless
  */
 
 if (!process.env.API_PORT) {
-    logger.info(
+    winston.info(
         "No port specified in .env API_PORT variable. Using default value."
     )
 }
 if (!process.env.REDIS_HOST) {
-    logger.info(
+    winston.info(
         "No redis host specified in .env REDIS_HOST variable. Using default value."
     )
 }
 if (!process.env.REDIS_PORT) {
-    logger.info(
+    winston.info(
         "No redis port specified in .env REDIS_PORT variable. Using default value."
     )
 }

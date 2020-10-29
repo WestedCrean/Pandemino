@@ -20,8 +20,5 @@ const config = {
 }
 const logger = createLogger(config)
 
-// default logger
 
-winston.add(logger)
-
-export default logger
+export { logger }
