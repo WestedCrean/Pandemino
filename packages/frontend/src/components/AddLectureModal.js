@@ -3,12 +3,12 @@ import { Modal, Button } from 'react-bootstrap';
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 
-const AddCourseModal = () => {
+const AddLectureModal = (props) => {
 
-    const [courseName, setCourseName] = useState(null);
-    const [courseDescription, setCourseDescription] = useState(null);
-    const [courseLecturer, setCourseLecturer] = useState(null);     ////need to be get from user table in future
+    const [lecturerName, setLectureName] = useState(null);
+    const [lectureDescription, setLectureDescription] = useState(null);
 
+    const courseId = props.courseId;
     const [show, setShow] = useState(false);
   
     const handleClose = () => setShow(false);
@@ -19,34 +19,32 @@ const AddCourseModal = () => {
     const addNewCourse = async () => {
 
         const streamsRepository = ApiService(accessToken).streams
-        const body = { "name" : courseName, "description" : courseDescription , "lecturer" : courseLecturer };
-            await streamsRepository.createCourse(body)
+        const body = { "name" : lecturerName, "description" : lectureDescription , "course" : courseId };
+            await streamsRepository.createStream(body)
                 .then(response => console.log(response.data))
                 .catch(error => console.log(error));
 
-        window.alert("Dodano nowy kurs");
-        window.location = "/";
+        window.alert("Dodano nowy wyklad");
+        window.location = "/lecture";
         handleClose();
     }
   
     return (
       <>
         <Button variant="primary" onClick={handleShow}>
-          Dodaj kurs
+          Dodaj wyklad
         </Button>
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Dodawanie nowego kursu</Modal.Title>
+            <Modal.Title>Dodawanie nowego wykladu</Modal.Title>
           </Modal.Header>
           <Modal.Body>Podaj niezbedne dane</Modal.Body>
           <form>
-            <input type="text" className="form-control" id="name" placeholder="Nazwa kursu" value={courseName}
-                    onChange={(e) => setCourseName(e.target.value)}/>
-            <input type="text" className="form-control" id="desctiption" placeholder="Opis kursu" value={courseDescription}
-                    onChange={(e) => setCourseDescription(e.target.value)}/>
-            <input type="text" className="form-control" id="lecturer" placeholder="Wykladowca" value={courseLecturer}
-                    onChange={(e) => setCourseLecturer(e.target.value)}/>
+            <input type="text" className="form-control" id="name" placeholder="Nazwa wykladu" value={lecturerName}
+                    onChange={(e) => setLectureName(e.target.value)}/>
+            <input type="text" className="form-control" id="desctiption" placeholder="Opis wykladu" value={lectureDescription}
+                    onChange={(e) => setLectureDescription(e.target.value)}/>
           </form>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -61,4 +59,4 @@ const AddCourseModal = () => {
     );
   }
   
-export default AddCourseModal;
+export default AddLectureModal;
