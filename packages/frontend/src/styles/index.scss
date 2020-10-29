@@ -1,5 +1,5 @@
 @import "./sharedVariables.scss";
-
+@import "./grid.scss";
 body {
     background-color: #e5e5e5;
     margin: 0;
@@ -15,7 +15,7 @@ code {
         monospace;
 }
 .list-container {
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;

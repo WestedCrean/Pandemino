@@ -1,0 +1,28 @@
+{
+    "stream": [
+        {
+            "id": 1,
+            "name_stream": "Pandemino fetures",
+            "leader_stream": "wikflis",
+            "date_stream": "07.03.2020 WTOREK"
+        },
+        {
+            "id": 2,
+            "name_stream": "Get start with Pandemino!",
+            "leader_stream": "jakkalisz",
+            "date_stream": "10.07.2020 WTOREK"
+        },
+        {
+            "id": 3,
+            "name_stream": "#24: OCTOBER UPDATE",
+            "leader_stream": "filjaslik",
+            "date_stream": "12.10.2020 WTOREK"
+        },
+        {
+            "id": 4,
+            "name_stream": "5. Rozklad Cholesky'ego",
+            "leader_stream": "Dr Edyta Lukasik",
+            "date_stream": "24.12.2020 WTOREK"
+        }
+    ]
+}
