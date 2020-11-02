@@ -1,27 +1,23 @@
-const StreamApiRoute = ApiService => {
+const StreamApiRoute = (ApiService) => {
+    const getAvailableStreams = async () => ApiService.get("/lectures")
 
-    const getAvailableStreams = async () => await ApiService.get('/streams')
+    const getStreamById = async (id) => ApiService.get(`/lectures/${id}`)
 
-    const getStreamById = async id => await ApiService.get(`/streams/${id}`)
+    const createStream = async (data) => ApiService.post("/lectures", data)
 
-    const createStream = async data => await ApiService.post('/streams', data)
+    const getAvailableCourses = async (data) => ApiService.get("/courses")
 
+    const getCourseById = async (id) => ApiService.get(`/courses/${id}`)
 
+    const createCourse = async (data) => ApiService.post("/courses", data)
 
-    const getAvailableCourses = async data => await ApiService.get('/courses')
-
-    const getCourseById = async id => await ApiService.get(`/courses/${id}`)
-
-    const createCourse = async data => await ApiService.post('/courses', data)
-
-    
     return {
         getAvailableStreams,
         getStreamById,
         createStream,
         getAvailableCourses,
         getCourseById,
-        createCourse
+        createCourse,
     }
 }
 

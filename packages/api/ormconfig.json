@@ -7,19 +7,6 @@
    "database": "pandemino",
    "synchronize": true,
    "logging": false,
-   "entities": [
-      "src/db/entity/**/*.ts"
-   ],
-   "migrations": [
-      "src/db/migration/**/*.ts"
-   ],
-   "subscribers": [
-      "src/db/subscriber/**/*.ts"
-   ],
-   "cli": {
-      "entitiesDir": "src/db/entity",
-      "migrationsDir": "src/db/migrations",
-      "subscribersDir": "src/db/subscriber"
-   }
+   "entities": ["dist/**/*.entity{.ts,.js}"]
 }
 
