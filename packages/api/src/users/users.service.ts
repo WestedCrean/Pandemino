@@ -44,7 +44,7 @@ export class UsersService {
         return user
       }
       // FIXME: throw error
-      return await new User()
+      throw new Error(`Could not find user id ${updateUserSchema.id}`)
   } 
 
   // FIXME: add pagination

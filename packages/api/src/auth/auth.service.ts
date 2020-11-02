@@ -19,8 +19,6 @@ export class AuthService {
     // FIXME: else add to db
     const newUser = new User()
     newUser.email = email
-    newUser.firstName = 'John'
-    newUser.lastName = 'Doe'
     
     await this.usersService.create(newUser)
     return newUser;
