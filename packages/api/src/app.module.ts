@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Logger } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino/dist'
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -17,14 +17,21 @@ import configuration from './config/configuration';
 @Module({
   imports: [
     LoggerModule.forRoot({
-      pinoHttp:  {
+      pinoHttp: {
+        customSuccessMessage: (res) => {
+          return 'request successful'
+        },
+        customErrorMessage: (res) => {
+          return 'request failed'
+        },
+        level: 'info',
         prettyPrint: {
           crlf: false,
           colorize: true,
           translateTime: 'UTC:mm/dd/yyyy, h:MM:ss TT Z',
           messageKey: 'msg',
           messageFormat: false,
-          ignore: 'pid,hostname,res',
+          ignore: 'pid,hostname,req',
         }
       }
     }),
