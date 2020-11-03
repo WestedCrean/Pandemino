@@ -47,7 +47,6 @@ import configuration from './config/configuration';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       synchronize: true,
-      logging: true,
       entities: [
         join(__dirname, './**/*.entity{.ts,.js}')
       ],
