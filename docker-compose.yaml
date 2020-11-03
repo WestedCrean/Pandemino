@@ -11,15 +11,14 @@ services:
       - ./packages/api:/app
     command: "npm start"
     environment:
-      TYPEORM_CONNECTION: "postgres"
-      TYPEORM_HOST: "pandemino_postgres"
-      TYPEORM_USERNAME: "test"
-      TYPEORM_PASSWORD: "test"
-      TYPEORM_DATABASE: "pandemino"
-      TYPEORM_PORT: 5432
-      TYPEORM_SYNCHRONIZE: "true"
-      TYPEORM_LOGGING: "true"
-      TYPEORM_ENTITIES: "src/db/entity/**/*.ts"
+      PORT: 5000
+      LOG_PATH: "/var/log/"
+      NODE_ENV: "development"
+      DB_HOST: "pandemino_postgres"
+      DB_USERNAME: "test"
+      DB_PASSWORD: "test"
+      DB_DATABASE: "pandemino"
+      DB_PORT: 5432
   postgres:
     container_name: pandemino_postgres
     image: "postgres"
