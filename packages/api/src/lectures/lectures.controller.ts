@@ -16,7 +16,7 @@ export class LecturesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id): Promise<Lecture> {
+  findOne(@Param('id') id: string): Promise<Lecture> {
     return this.lecturesService.findOne(id);
   }
 
