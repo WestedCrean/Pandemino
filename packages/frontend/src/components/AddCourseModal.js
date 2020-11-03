@@ -48,15 +48,15 @@ const AddCourseModal = () => {
                 <form>
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control form-input"
                         id="name"
                         placeholder="Nazwa kursu"
                         value={courseName}
                         onChange={(e) => setCourseName(e.target.value)}
                     />
-                    <input
+                    <textarea
                         type="text"
-                        className="form-control"
+                        className="form-control form-input "
                         id="desctiption"
                         placeholder="Opis kursu"
                         value={courseDescription}
@@ -64,7 +64,7 @@ const AddCourseModal = () => {
                     />
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control form-input"
                         id="lecturer"
                         placeholder="Wykladowca"
                         value={courseLecturer}

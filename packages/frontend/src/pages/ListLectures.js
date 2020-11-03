@@ -1,21 +1,17 @@
-import React, {
-    Fragment,
-    useEffect,
-    useState,
-} from "react"
+import React, { Fragment, useEffect, useState } from "react"
 
-import { useAuthContext } from 'services/auth'
-import ApiService from 'services/api'
-import { useHistory } from "react-router-dom";
-import {Navbar} from "components"
+import { useAuthContext } from "services/auth"
+import ApiService from "services/api"
+import { useHistory } from "react-router-dom"
+import { Navbar } from "components"
 import AddLectureModal from "../components/AddLectureModal"
 
 const ListLectures = (props) => {
     const [lectures, setLectures] = useState([])
     const { accessToken } = useAuthContext()
-    const history = useHistory();
+    const history = useHistory()
 
-    const courseId = props.location.state.courseId;
+    const courseId = props.location.state.courseId
 
     const getStreams = async () => {
         const streamsRepository = ApiService(accessToken).streams
@@ -23,11 +19,11 @@ const ListLectures = (props) => {
             /**
 
              */
-            const response = await streamsRepository.getCourseById(courseId);
+            const response = await streamsRepository.getCourseById(courseId)
             //console.log(response.data);
             setLectures(response.data.lectures)
         } catch (error) {
-            console.error({error})
+            console.error({ error })
         }
     }
     useEffect(() => {
@@ -37,7 +33,7 @@ const ListLectures = (props) => {
     return (
         <div>
             <Navbar></Navbar>
-            <Fragment>
+            {/* <Fragment>
                 <AddLectureModal courseId={courseId}></AddLectureModal>
                 <div className="list-container">
                     <div className="list-streams">
@@ -59,9 +55,33 @@ const ListLectures = (props) => {
                         ))}
                     </div>
                 </div>
+            </Fragment> */}
+            <Fragment>
+                <div className="container-lectures">
+                    <div className="box-addNewCourse">
+                        <AddLectureModal courseId={courseId}></AddLectureModal>
+                    </div>
+                    <div className="wrapper-lectures">
+                        {lectures.map((lecture, i) => (
+                            <div
+                                key={`${lecture.name}-${lecture.views}-${i}`}
+                                className="box-lectures "
+                            >
+                                <div className="box-label">
+                                    <div className="box-label-name">
+                                        {lecture.name}
+                                    </div>
+                                </div>
+                                <div className="box-lectures-content">
+                                    {lecture.description}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </Fragment>
         </div>
     )
 }
 
-export default ListLectures;
+export default ListLectures

@@ -1,7 +1,6 @@
 @import "./sharedVariables.scss";
 @import "./grid.scss";
 body {
-    background-color: #e5e5e5;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
         "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -28,7 +27,7 @@ code {
 .list-element {
     margin: 10px;
     padding: 40px;
-    border: 2px solid black;
+    border: 1px solid black;
     background-color: #ffffff;
     cursor: pointer;
 }
@@ -52,4 +51,8 @@ code {
 }
 .list-element-data {
     margin-left: 270px;
+}
+
+.form-input {
+    margin: 3px 0px 3px 0px;
 }
