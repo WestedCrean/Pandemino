@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react"
-
+import { Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
@@ -49,12 +49,12 @@ const ListCourses = () => {
                             <td>{course.name}</td>
                             <td>{course.lecturer}</td>
                             <td>
-                                <button
-                                    className="btn btn-primary text-center"
+                                <Button
+                                    variant="dark"
                                     onClick={() => directToLecture(course.id)}
                                 >
                                     Stream
-                                </button>
+                                </Button>
                             </td>
                         </tr>
                     ))}
