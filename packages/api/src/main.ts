@@ -2,18 +2,18 @@ declare const module: any;
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { NestFactory,  } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config'
-import { Logger } from "nestjs-pino";
+
 
 import { AppModule } from './app.module';
 
 let config : any
 
 async function bootstrap() {
+  console.log(`Environment: ${process.env.NODE_ENV}`)
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.set('trust proxy', 1)
-  app.useLogger(app.get(Logger));
   app.enableCors({
-    origin: true,
+    origin: '',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   })
