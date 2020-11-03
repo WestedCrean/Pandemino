@@ -21,7 +21,7 @@ export class CoursesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id): Promise<Course> {
+  findOne(@Param('id') id: string): Promise<Course> {
     return this.coursesService.findOne(id);
   }
 

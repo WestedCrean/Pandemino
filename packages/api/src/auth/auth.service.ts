@@ -10,17 +10,27 @@ export class AuthService {
     ) {}
 
   async validateUser(email: string): Promise<any> {
-    const user = await this.usersService.findOneByEmail(email);    
+    const user = await this.usersService.findOneByEmail(email);  
+    console.log({ email })  
     if (user) {
       console.log("Found user")
       return user;
     }
+    console.log("Did not found user")
 
     // FIXME: else add to db
-    const newUser = new User()
-    newUser.email = email
+    try {
+      console.log("Creating new user in database")
+      const newUser = new User()
+      newUser.email = email
+      console.log({ newUser })  
+      await this.usersService.create(newUser)
+
+      return newUser;
+    } catch (e) {
+      console.log("Could not create user")
+      console.log(e)
+    }
     
-    await this.usersService.create(newUser)
-    return newUser;
   }
 }
