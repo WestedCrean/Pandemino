@@ -2,7 +2,6 @@ import { Controller, Get, Delete, Put, Body, UseGuards, Param, Query } from '@ne
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from './users.service';
 import { User } from './users.entity'
-import { FirebaseService } from 'src/firebase/firebase.service';
 
 @Controller('users')
 @UseGuards(AuthGuard('firebase'))
@@ -23,12 +22,12 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id): Promise<User> {
+  findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne(id);
   }
 
   @Get('/single')
-  findOneByEmail(@Query('email') email): Promise<User> {
+  findOneByEmail(@Query('email') email: string): Promise<User> {
     return this.usersService.findOneByEmail(email);
   }
 
