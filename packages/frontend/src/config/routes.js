@@ -1,4 +1,5 @@
-import { HomePage, Login, SignUp, ListLectures } from "pages"
+import { HomePage, Login, SignUp, ListLectures} from "pages"
+import ListCourses from "../pages/ListCourses";
 
 const routes = [
     {
@@ -19,6 +20,11 @@ const routes = [
     {
         path: "/",
         component: HomePage,
+        needsAuth: true,
+    },
+    {
+        path: "/listCourses",
+        component: ListCourses,
         needsAuth: true,
     },
 ]

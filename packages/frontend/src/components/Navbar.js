@@ -1,9 +1,16 @@
 import React from "react"
 import {Link} from "react-router-dom";
 import { useAuthContext } from "services/auth"
+import { useHistory } from "react-router-dom"
 
 const Navbar = () => {
     const { user, toggleLoggedOut } = useAuthContext()
+    const history = useHistory()
+    
+    const moveToListCourses = () => {
+
+        history.push('/listCourses');
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,6 +34,12 @@ const Navbar = () => {
             </div>
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link my-2 my-lg-0" href="#" onClick={moveToListCourses}>
+                            Wszystkie kursy
+
+                        </a>
+                    </li>
                     <li className="nav-item">
                         <a className="nav-link my-2 my-lg-0" href="#">
                             {user.email}
