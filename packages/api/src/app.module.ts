@@ -14,6 +14,7 @@ import { CoursesModule } from './courses/courses.module';
 import { LecturesModule } from './lectures/lectures.module';
 
 import configuration from './config/configuration';
+import { userCoursesModule } from './userCourses/userCourses.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import configuration from './config/configuration';
     UsersModule,
     CoursesModule,
     LecturesModule,
+    userCoursesModule
   ],
   controllers: [AppController],
   providers: [AppService],

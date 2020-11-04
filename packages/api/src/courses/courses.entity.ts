@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm"
 import { Lecture } from "../lectures/lectures.entity"
+import { UserCourse } from "../userCourses/userCourses.entity";
 
 @Entity("courses")
 class Course {
@@ -22,6 +23,9 @@ class Course {
 
     @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course)
     lectures: Lecture[]
+
+    @OneToMany(() => UserCourse, (UserCourse: UserCourse) => UserCourse.course)
+    userCourses: UserCourse[]
 }
 
 export { Course }

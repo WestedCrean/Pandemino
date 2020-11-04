@@ -49,7 +49,8 @@ export class UsersService {
 
   // FIXME: add pagination
   findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+    return this.usersRepository.createQueryBuilder("user")
+    .leftJoinAndSelect("user.userCourses", "userCourses").innerJoinAndSelect("userCourses.course", "courses").getMany();
   }
 
   findOne(id: string): Promise<User> {
