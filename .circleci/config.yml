@@ -3,19 +3,20 @@ orbs:
   node: circleci/node@3.0.0
 
 jobs:
-  build-api-and-test:
-    executor:
-      name: node/default
-      tag: '13.14'
-    working_directory: ./packages/api
+  build:
+    docker:
+      - image: node:14
     steps:
-      - checkout
-      - node/install-packages
-      - run:
-          command: npm run test
+      - run: cd packages/api && npm install
+  test:
+    docker:
+      - image: node:14
+    steps:
+      - run: cd packages/api && npm install
 
 workflows:
   test-api:
     jobs:
-      - build-api-and-test
+      - build
+      - test
 
