@@ -14,12 +14,17 @@ export class CoursesService {
   async create(createCourseSchema: Course): Promise<Course> {
     const course = new Course();
     
-    course.name = createCourseSchema.name
-    course.description = createCourseSchema.description
-    course.lecturer = createCourseSchema.lecturer
+    try {
+      course.name = createCourseSchema.name
+      course.description = createCourseSchema.description
+      course.lecturer = createCourseSchema.lecturer
+      await this.coursesRepository.save(course);
+      return course
+    } catch (e) {
+      throw new Error(e)
+    }
 
-    await this.coursesRepository.save(course);
-    return course
+    
   }
 
   // FIXME: add pagination
