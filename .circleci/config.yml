@@ -15,7 +15,7 @@ jobs:
       - image: node:14
     steps:
       - checkout
-      - run: cd packages/api && npm install
+      - run: cd packages/api && npm run test
 
 workflows:
   test-api:
