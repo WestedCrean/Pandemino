@@ -29,11 +29,19 @@ export class CoursesService {
 
   // FIXME: add pagination
   findAll(): Promise<Course[]> {
-    return this.coursesRepository.find();
+
+    return this.coursesRepository.createQueryBuilder("course")
+      .leftJoinAndSelect("course.lectures", "lectures").getMany();
   }
 
   findOne(id: string): Promise<Course> {
-    return this.coursesRepository.findOne(id);
+
+    return this.coursesRepository.createQueryBuilder("course")
+      .leftJoinAndSelect("course.lectures", "lectures")
+      .where("course.id = :id", { id })
+      .getOne();
+
+    //return this.coursesRepository.findOne(id);
   }
 
   async remove(id: string): Promise<void> {
