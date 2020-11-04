@@ -7,11 +7,14 @@ jobs:
     docker:
       - image: node:14
     steps:
+      - checkout
+      - run: ls
       - run: cd packages/api && npm install
   test:
     docker:
       - image: node:14
     steps:
+      - checkout
       - run: cd packages/api && npm install
 
 workflows:
