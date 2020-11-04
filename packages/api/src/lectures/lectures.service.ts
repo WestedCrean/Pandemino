@@ -23,7 +23,7 @@ export class LecturesService {
     lecture.isPublished = false
 
     try {
-      course = await this.coursesRepository.findOne(createLectureSchema.courseId)
+      course = await this.coursesRepository.findOne(createLectureSchema.course)
     } catch(e) {
       throw new Error(e)
     }

@@ -13,6 +13,7 @@ const ListUsersCourses = () => {
     const userEmail = user.email
 
     const directToLecture = (id) => {
+        console.log(id);
         history.push({
             pathname: "/lecture",
             state: {
@@ -21,23 +22,18 @@ const ListUsersCourses = () => {
         })
     }
 
-    const getStreams = async () => {
-        let id = null
+    const getUser = async () => {
         const streamsRepository = ApiService(accessToken).streams
         try {
-            const response = await streamsRepository.getUsers()
-            response.data.map((response) => {
-                if (response.email == userEmail) {
-                    id = response.id
-                }
-            })
+            const response = await streamsRepository.getUserByEmail(userEmail)
+            getUserCourses(response.data.id);
         } catch (error) {
             console.error({ error })
         }
-        getUser(id)
+
     }
 
-    const getUser = async (id) => {
+    const getUserCourses = async (id) => {
         const streamsRepository = ApiService(accessToken).streams
         try {
             const response = await streamsRepository.getUsersCourses(id)
@@ -48,7 +44,7 @@ const ListUsersCourses = () => {
     }
 
     useEffect(() => {
-        getStreams()
+        getUser()
     }, [])
 
     return (
@@ -71,7 +67,7 @@ const ListUsersCourses = () => {
                             <td>
                                 <Button
                                     variant="dark"
-                                    onClick={() => directToLecture(course.id)}
+                                    onClick={() => directToLecture(course.course.id)}
                                 >
                                     Stream
                                 </Button>

@@ -14,6 +14,10 @@ const StreamApiRoute = (ApiService) => {
     const getUsersCourses = async (id) => ApiService.get(`/users/${id}`)
 
     const getUsers = async () => ApiService.get(`/users`)
+
+    const getUserByEmail = async (email) => ApiService.get(`/users/single/${email}`)
+
+    const addUserCourse = async (data) => ApiService.post("/userCourses", data);
     return {
         getAvailableStreams,
         getStreamById,
@@ -23,6 +27,8 @@ const StreamApiRoute = (ApiService) => {
         createCourse,
         getUsersCourses,
         getUsers,
+        getUserByEmail,
+        addUserCourse
     }
 }
 
