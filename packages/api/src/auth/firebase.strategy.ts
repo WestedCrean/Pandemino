@@ -4,6 +4,7 @@ import { ExtractJwt } from 'passport-jwt';
 import { FirebaseAuthStrategy, FirebaseUser } from '@tfarras/nestjs-firebase-auth';
 import { AuthService } from './auth.service';
 
+
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(FirebaseAuthStrategy, 'firebase') {
   public constructor(
