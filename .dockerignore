@@ -3,5 +3,8 @@ npm-debug.log
 
 packages/api/node_modules
 packages/api/npm-debug.log
+packages/api/dist
 packages/frontend/node_modules
 packages/frontend/npm-debug.log
+packages/streams/node_modules
+packages/streams/npm-debug.log
