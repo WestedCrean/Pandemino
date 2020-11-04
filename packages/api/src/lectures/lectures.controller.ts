@@ -1,4 +1,4 @@
-import { Controller, Get, Delete, UseGuards, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, UseGuards, Body, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { LecturesService } from './lectures.service';
 import { Lecture } from './lectures.entity'
@@ -9,6 +9,11 @@ export class LecturesController {
   constructor(
     private readonly lecturesService: LecturesService,
   ) {}
+
+  @Post()
+  create(@Body() createLecture: any): Promise<Lecture> {
+    return this.lecturesService.create(createLecture);
+  }
 
   @Get()
   findAll(): Promise<Lecture[]> {

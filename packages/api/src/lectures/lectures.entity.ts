@@ -11,16 +11,26 @@ class Lecture {
     })
     name: string
 
-    @Column("text")
+    @Column({
+        type: "text",
+        default: ''
+    })
     description: string
 
-    @Column("int")
+    @Column({
+        type: "int",
+        default: 0
+    })
     views: number
 
-    @Column()
+    @Column({
+        default: false
+    })
     isPublished: boolean
 
-    @Column()
+    @Column({
+        default: false
+    })
     isLive: boolean
 
     @ManyToOne(() => Course, (course: Course) => course.lectures)

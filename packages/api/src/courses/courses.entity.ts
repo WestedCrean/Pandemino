@@ -6,13 +6,18 @@ class Course {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column('text')
     name: string
 
-    @Column()
+    @Column({
+        type: 'text',
+        default: ''
+    })
     description: string
 
-    @Column() //ManyToOne -> users
+    @Column({
+        default: ''
+    }) //ManyToOne -> users
     lecturer: string
 
     @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course)
