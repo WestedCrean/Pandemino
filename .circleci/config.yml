@@ -7,7 +7,7 @@ jobs:
     executor:
       name: node/default
       tag: '13.14'
-    working_directory: ~/packages/api
+    working_directory: ./packages/api
     steps:
       - checkout
       - node/install-packages
