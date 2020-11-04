@@ -27,7 +27,6 @@ const ListCourses = () => {
     }
 
 
-    //FIXME: double userCourse check needed!!
     const joinCourse = async (courseId) => {
 
         const streamsRepository = ApiService(accessToken).streams
@@ -77,6 +76,7 @@ const ListCourses = () => {
             console.error({ error })
         }
 
+        ///Geting list of courses user is already added
         let list = [];
         userCourses.map(course => {
             list.push(course.course.id)
