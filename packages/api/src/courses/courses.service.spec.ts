@@ -15,4 +15,26 @@ describe('CoursesService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  // for each method of CoursesService
+  describe('method', () => {
+
+    it('should create course in database', () => {
+
+    });
+  })
+
+  describe('findAll', () => {
+
+    it('should return a list of courses', () => {
+
+    });
+  })
+
+  describe(':id/lectures', () => {
+
+    it('should return a list of lectures from course', () => {
+
+    });
+  })
 });
