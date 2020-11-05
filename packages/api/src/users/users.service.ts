@@ -51,12 +51,13 @@ export class UsersService {
     }
 
     findOne(id: string): Promise<User> {
-        return this.usersRepository
-            .createQueryBuilder("user")
-            .leftJoinAndSelect("user.userCourses", "userCourses")
-            .innerJoinAndSelect("userCourses.course", "courses")
-            .where("user.id = :id", { id })
-            .getOne()
+        return this.usersRepository.findOne(id, { relations: ['userCourses', 'userCourses.course']});
+
+            // .createQueryBuilder("user")
+            // .leftJoinAndSelect("user.userCourses", "userCourses")
+            // .innerJoinAndSelect("userCourses.course", "courses")
+            // .where("user.id = :id", { id })
+            // .getOne()
     }
 
     findOneByEmail(email: string): Promise<User> {
