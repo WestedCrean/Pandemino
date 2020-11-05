@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Lecture } from 'src/lectures/lectures.entity';
 import { Repository } from 'typeorm';
 import { Course } from './courses.entity'
 
@@ -8,7 +9,9 @@ export class CoursesService {
 
   constructor(
     @InjectRepository(Course)
-    private coursesRepository: Repository<Course>
+    private coursesRepository: Repository<Course>,
+    @InjectRepository(Lecture)
+    private lectureRepository: Repository<Lecture>
   ) {}
 
   async create(createCourseSchema: Course): Promise<Course> {
@@ -44,7 +47,12 @@ export class CoursesService {
     //return this.coursesRepository.findOne(id);
   }
 
+  search(querry: string): Promise<Course[]> {
+    return this.coursesRepository.find({ where: { description: querry } })
+}
+
   async remove(id: string): Promise<void> {
+
     await this.coursesRepository.delete(id);
   }
 }

@@ -77,6 +77,11 @@ const ListCourses = () => {
         }
 
         ///Geting list of courses user is already added
+        if(userCourses == null){
+            setIsWaiting(false);
+            return 
+        }
+        
         let list = [];
         userCourses.map(course => {
             list.push(course.course.id)
