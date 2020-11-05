@@ -8,6 +8,7 @@ jobs:
       - image: node:14
     steps:
       - checkout
+      - run: npm i -g @nestjs/cli
       - run: cd packages/api && npm install && npm run build
   test:
     docker:
@@ -15,6 +16,7 @@ jobs:
     steps:
       - checkout
       - run: npm i -g jest @types/jest
+      - run: npm i -g @nestjs/cli
       - run: cd packages/api && npm install && npm run test
 
 workflows:
