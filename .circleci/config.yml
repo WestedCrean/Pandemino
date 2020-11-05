@@ -21,7 +21,7 @@ workflows:
   test-api:
     jobs:
       - build
-      - test
+      - test:
         requires:
           - test2
 
