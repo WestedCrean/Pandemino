@@ -20,6 +20,5 @@ workflows:
   version: 2
   test-api:
     jobs:
-      - build
       - test
 
