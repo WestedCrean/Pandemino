@@ -33,16 +33,12 @@ export class CoursesService {
   // FIXME: add pagination
   findAll(): Promise<Course[]> {
 
-    return this.coursesRepository.createQueryBuilder("course")
-      .leftJoinAndSelect("course.lectures", "lectures").getMany();
+    return this.coursesRepository.find({ relations: ['lectures'] });
   }
 
   findOne(id: string): Promise<Course> {
 
-    return this.coursesRepository.createQueryBuilder("course")
-      .leftJoinAndSelect("course.lectures", "lectures")
-      .where("course.id = :id", { id })
-      .getOne();
+    return this.coursesRepository.findOne(id, { relations: ['lectures'] });
 
     //return this.coursesRepository.findOne(id);
   }

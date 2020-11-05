@@ -25,6 +25,9 @@ export class UserCoursesController {
     return this.userCoursesService.findOne(id);
   }
 
-
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<void> {
+    return this.userCoursesService.remove(id)
+  }
 
 }

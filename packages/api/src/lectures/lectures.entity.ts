@@ -33,7 +33,8 @@ class Lecture {
     })
     isLive: boolean
 
-    @ManyToOne(() => Course, (course: Course) => course.lectures)
+    @ManyToOne(() => Course, (course: Course) => course.lectures, { onDelete: 'CASCADE' })
+    @JoinColumn()
     course: Course
 
    

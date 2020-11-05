@@ -38,14 +38,19 @@ export class UserCoursesService {
 
     // FIXME: add pagination
     findAll(): Promise<UserCourse[]> {
-        return this.userCoursesRepository
-            .createQueryBuilder("userCourse")
-            .leftJoinAndSelect("userCourse.course", "courses")
-            .leftJoinAndSelect("userCourse.user", "users")
-            .getMany()
+        return this.userCoursesRepository.find({relations: ['course', 'user']});
+        // return this.userCoursesRepository
+        //     .createQueryBuilder("userCourse")
+        //     .leftJoinAndSelect("userCourse.course", "courses")
+        //     .leftJoinAndSelect("userCourse.user", "users")
+        //     .getMany()
     }
 
     findOne(id: string): Promise<UserCourse> {
-        return null
+        return this.userCoursesRepository.findOne(id, {relations: ['course', 'user']});
     }
+
+    async remove(id: string): Promise<void> {
+        await this.userCoursesRepository.delete(id);
+      }
 }
