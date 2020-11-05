@@ -16,9 +16,10 @@ jobs:
       - image: node:14
     steps:
       - checkout
+      - run: cd packages/api
       - run: npm i -g jest @types/jest ts-jest @nestjs/cli
       - run: npm i --save-dev @nestjs/testing
-      - run: cd packages/api && npm install && npm run test
+      - run: npm install && npm run test
 
 workflows:
   version: 2
