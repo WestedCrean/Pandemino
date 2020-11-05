@@ -1,9 +1,9 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
-
 jobs:
   build:
+    description: "App built on CircleCi"
     docker:
       - image: node:14
     steps:
@@ -11,6 +11,7 @@ jobs:
       - run: npm i -g @nestjs/cli
       - run: cd packages/api && npm install && npm run build
   test:
+    description: "Tests passed on CircleCi"
     docker:
       - image: node:14
     steps:
