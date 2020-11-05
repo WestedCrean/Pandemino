@@ -6,17 +6,17 @@ class Course {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('text')
+    @Column("text")
     name: string
 
     @Column({
-        type: 'text',
-        default: ''
+        type: "text",
+        default: "",
     })
     description: string
 
     @Column({
-        default: ''
+        default: "",
     }) //ManyToOne -> users
     lecturer: string
 

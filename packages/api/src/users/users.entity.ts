@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm"
 
 export enum UserRole {
-    lecturer = 'lecturer',
-    student = 'student'
-  }
+    lecturer = "lecturer",
+    student = "student",
+}
 
 @Entity("users")
 export class User {
@@ -25,8 +25,7 @@ export class User {
     @Column({
         type: "enum",
         enum: UserRole,
-        default: UserRole.student
+        default: UserRole.student,
     })
     role: UserRole
-
 }

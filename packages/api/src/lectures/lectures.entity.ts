@@ -13,23 +13,23 @@ class Lecture {
 
     @Column({
         type: "text",
-        default: ''
+        default: "",
     })
     description: string
 
     @Column({
         type: "int",
-        default: 0
+        default: 0,
     })
     views: number
 
     @Column({
-        default: false
+        default: false,
     })
     isPublished: boolean
 
     @Column({
-        default: false
+        default: false,
     })
     isLive: boolean
 
