@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react"
 import { Navbar, ListCourses } from "components"
-import AddCourseModal from "./AddCourseModal"
+
 import ListUsersCourses from "./ListUsersCourses"
 
 const GridHome = () => {
@@ -11,9 +11,6 @@ const GridHome = () => {
                     <div className="box-label-name">TWOJE KURSY</div>
                 </div>
                 <ListUsersCourses />
-                <div className="box-addNewCourse">
-                    <AddCourseModal></AddCourseModal>
-                </div>
             </div>
 
             <div class="box grid-news">
