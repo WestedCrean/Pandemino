@@ -6,7 +6,6 @@ import { LoggerModule } from 'nestjs-pino/dist'
 
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { FirebaseModule } from './firebase/firebase.module';
 import { CoursesModule } from './courses/courses.module';
 import { LecturesModule } from './lectures/lectures.module';
 
@@ -49,7 +48,6 @@ import configuration from './config/configuration';
       ],
       autoLoadEntities: true
     }),
-    FirebaseModule,
     AuthModule,
     UsersModule,
     CoursesModule,
