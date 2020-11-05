@@ -14,11 +14,14 @@ jobs:
       - image: node:14
     steps:
       - checkout
+      - run: npm i -g jest @types/jest
       - run: cd packages/api && npm install && npm run test
 
 workflows:
   version: 2
   test-api:
     jobs:
+      - build
       - test
+      
 
