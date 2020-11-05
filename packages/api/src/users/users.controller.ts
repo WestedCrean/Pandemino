@@ -23,8 +23,8 @@ export class UsersController {
         return this.usersService.findOne(id)
     }
 
-    @Get("/single")
-    findOneByEmail(@Query("email") email: string): Promise<User> {
+    @Get("/single/:email")
+    findOneByEmail(@Param("email") email: string): Promise<User> {
         return this.usersService.findOneByEmail(email)
     }
 

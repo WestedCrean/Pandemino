@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm"
+import { UserCourse } from "../userCourses/userCourses.entity"
 
 export enum UserRole {
     lecturer = "lecturer",
@@ -28,4 +29,7 @@ export class User {
         default: UserRole.student,
     })
     role: UserRole
+
+    @OneToMany(() => UserCourse, (UserCourse: UserCourse) => UserCourse.user)
+    userCourses: UserCourse[]
 }

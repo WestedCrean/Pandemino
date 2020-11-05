@@ -28,8 +28,7 @@
         "lint": "eslint --fix . && echo 'Lint complete.'",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "precommit": "lint-staged"
+        "eject": "react-scripts eject"
     },
     "eslintConfig": {
         "extends": "react-app"

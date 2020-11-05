@@ -4,10 +4,13 @@ import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
 
-const ListCourses = () => {
+const ListUsersCourses = () => {
     const [courses, setCourses] = useState([])
     const { accessToken } = useAuthContext()
     const history = useHistory()
+    const { user } = useAuthContext()
+
+    const userEmail = user.email
 
     const directToLecture = (id) => {
         history.push({
@@ -19,14 +22,31 @@ const ListCourses = () => {
     }
 
     const getStreams = async () => {
+        let id = null
         const streamsRepository = ApiService(accessToken).streams
         try {
-            const response = await streamsRepository.getAvailableCourses()
-            setCourses(response.data)
+            const response = await streamsRepository.getUsers()
+            response.data.map((response) => {
+                if (response.email == userEmail) {
+                    id = response.id
+                }
+            })
+        } catch (error) {
+            console.error({ error })
+        }
+        getUser(id)
+    }
+
+    const getUser = async (id) => {
+        const streamsRepository = ApiService(accessToken).streams
+        try {
+            const response = await streamsRepository.getUsersCourses(id)
+            setCourses(response.data.userCourses)
         } catch (error) {
             console.error({ error })
         }
     }
+
     useEffect(() => {
         getStreams()
     }, [])
@@ -44,10 +64,10 @@ const ListCourses = () => {
                 </thead>
                 <tbody>
                     {courses.map((course, i = 0) => (
-                        <tr key={`${course.id}`}>
+                        <tr key={`${course.course.id}`}>
                             <td>{i + 1}</td>
-                            <td>{course.name}</td>
-                            <td>{course.lecturer}</td>
+                            <td>{course.course.name}</td>
+                            <td>{course.course.lecturer}</td>
                             <td>
                                 <Button
                                     variant="dark"
@@ -60,32 +80,8 @@ const ListCourses = () => {
                     ))}
                 </tbody>
             </table>
-            {/* <div className="list-container">
-                <div className="list-streams">
-                    {courses.map((course, i) => (
-                        <div
-                            className="list-element"
-                            key={`${course.name}-${course.views}-${i}`}
-                            onClick={() => directToLecture(course.id)}
-                        >
-                            <div className="list-element-inside">
-                                <div className="list-element-badge" />
-                                <div className="list-element-leader">
-                                    {course.name}
-                                </div>
-                                <div className="list-element-description">
-                                    {course.description}
-                                </div>
-                                <div className="list-element-data">
-                                    {course.views}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div> */}
         </div>
     )
 }
 
-export default ListCourses
+export default ListUsersCourses

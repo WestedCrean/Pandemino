@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Delete, Post, UseGuards, Param } from "@nestjs/common"
+import { Controller, Body, Get, Delete, Post, UseGuards, Param, Query } from "@nestjs/common"
 import { AuthGuard } from "@nestjs/passport"
 import { CoursesService } from "./courses.service"
 import { Course } from "./courses.entity"
@@ -16,6 +16,11 @@ export class CoursesController {
     @Get()
     findAll(): Promise<Course[]> {
         return this.coursesService.findAll()
+    }
+
+    @Get("/search")
+    search(@Query("querry") querry: string): Promise<Course[]> {
+        return this.coursesService.search(querry)
     }
 
     @Get(":id")

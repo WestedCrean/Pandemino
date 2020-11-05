@@ -2,23 +2,42 @@ import { Test, TestingModule } from "@nestjs/testing"
 import { getRepositoryToken } from "@nestjs/typeorm"
 import { CoursesService } from "./courses.service"
 import { Course } from "./courses.entity"
+import { Lecture } from "../lectures/lectures.entity"
+import { LecturesService } from "../lectures/lectures.service"
 
 describe("CoursesService", () => {
     let service: CoursesService
     let findOne = jest.fn()
     let find = jest.fn()
     let save = jest.fn()
+    let createQueryBuilder = jest.fn(() => ({
+        delete: jest.fn().mockReturnThis(),
+        from: jest.fn().mockReturnThis(),
+        where: jest.fn().mockReturnThis(),
+        execute: jest.fn().mockReturnThis(),
+        leftJoinAndSelect: jest.fn().mockReturnThis(),
+        getOne: jest.fn().mockReturnValue(Promise.resolve({})),
+        getMany: jest.fn().mockReturnValue(Promise.resolve([{}])),
+    }))
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             providers: [
                 CoursesService,
+                LecturesService,
+                {
+                    provide: getRepositoryToken(Lecture),
+                    useValue: {
+                        createQueryBuilder,
+                    },
+                },
                 {
                     provide: getRepositoryToken(Course),
                     useValue: {
                         findOne,
                         find,
                         save,
+                        createQueryBuilder,
                     },
                 },
             ],
@@ -46,7 +65,7 @@ describe("CoursesService", () => {
                         description: "lorem ipsum",
                         lecturer: "dr Test",
                     }),
-                ).resolves.toBe(course)
+                ).resolves.toEqual(course)
             })
         })
 
@@ -80,12 +99,14 @@ describe("CoursesService", () => {
     describe("when getting a course by id", () => {
         describe("and course is matched", () => {
             let course: Course
+            let lecture: Lecture
             beforeEach(() => {
                 course = new Course()
+                lecture = new Lecture()
                 findOne.mockReturnValue(Promise.resolve(course))
             })
             it("should return a Course object", async () => {
-                await expect(service.findOne("1")).resolves.toBe(course)
+                await expect(service.findOne("1")).resolves.toEqual(course)
             })
         })
 

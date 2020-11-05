@@ -3,9 +3,6 @@ import { withRouter, Redirect } from "react-router"
 import { useAuthContext, authMethods } from "services/auth"
 
 const Login = ({ history }) => {
-
-    const { user} = useAuthContext()
-
     const handleLogin = useCallback(
         async (event) => {
             event.preventDefault()
@@ -15,9 +12,7 @@ const Login = ({ history }) => {
         },
         [history]
     )
-
-    
-
+    const { user } = useAuthContext()
     if (user) {
         return <Redirect to="/" />
     }
@@ -43,7 +38,10 @@ const Login = ({ history }) => {
                             >
                                 <h3 className="text-center text-info">Login</h3>
                                 <div className="form-group">
-                                    <label htmlFor="email" className="text-info">
+                                    <label
+                                        htmlFor="email"
+                                        className="text-info"
+                                    >
                                         Email:
                                     </label>
                                     <br />
@@ -52,10 +50,13 @@ const Login = ({ history }) => {
                                         name="email"
                                         id="email"
                                         className="form-control"
-                                     />
+                                    />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="password" className="text-info">
+                                    <label
+                                        htmlFor="password"
+                                        className="text-info"
+                                    >
                                         Haslo:
                                     </label>
                                     <br />
@@ -64,7 +65,7 @@ const Login = ({ history }) => {
                                         name="password"
                                         id="password"
                                         className="form-control"
-                                     />
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <input
@@ -72,7 +73,7 @@ const Login = ({ history }) => {
                                         name="submit"
                                         className="btn btn-info btn-md"
                                         value="submit"
-                                     />
+                                    />
                                 </div>
                             </form>
                         </div>

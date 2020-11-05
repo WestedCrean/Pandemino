@@ -24,24 +24,15 @@ export class UsersService {
     }
 
     async update(updateUserSchema: { id: number; firstName: string; lastName: string }): Promise<User> {
-        // FIXME: find id of current user
-        // compare
-        // if they match, update
-
-        //(await firebaseInstance).
         const user = await this.usersRepository.findOne(updateUserSchema.id)
 
         if (user) {
             const { id, firstName, lastName } = updateUserSchema
-
             user.firstName = firstName
             user.lastName = lastName
-
             await this.usersRepository.update(id, { firstName, lastName })
-
             return user
         }
-        // FIXME: throw error
         throw new Error(`Could not find user id ${updateUserSchema.id}`)
     }
 
@@ -51,7 +42,12 @@ export class UsersService {
     }
 
     findOne(id: string): Promise<User> {
-        return this.usersRepository.findOne(id)
+        return this.usersRepository
+            .createQueryBuilder("user")
+            .leftJoinAndSelect("user.userCourses", "userCourses")
+            .innerJoinAndSelect("userCourses.course", "courses")
+            .where("user.id = :id", { id })
+            .getOne()
     }
 
     findOneByEmail(email: string): Promise<User> {
