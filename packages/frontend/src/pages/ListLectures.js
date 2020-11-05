@@ -16,11 +16,7 @@ const ListLectures = (props) => {
     const getStreams = async () => {
         const streamsRepository = ApiService(accessToken).streams
         try {
-            /**
-
-             */
             const response = await streamsRepository.getCourseById(courseId)
-            //console.log(response.data);
             setLectures(response.data.lectures)
         } catch (error) {
             console.error({ error })

@@ -25,12 +25,8 @@ const ListUsersCourses = () => {
         let id = null
         const streamsRepository = ApiService(accessToken).streams
         try {
-            const response = await streamsRepository.getUsers()
-            response.data.map((response) => {
-                if (response.email == userEmail) {
-                    id = response.id
-                }
-            })
+            const response = await streamsRepository.getUserByEmail(userEmail)
+            id = response.data.id
         } catch (error) {
             console.error({ error })
         }
@@ -71,7 +67,7 @@ const ListUsersCourses = () => {
                             <td>
                                 <Button
                                     variant="dark"
-                                    onClick={() => directToLecture(course.id)}
+                                    onClick={() => directToLecture(course.course.id)}
                                 >
                                     Stream
                                 </Button>
