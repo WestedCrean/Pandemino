@@ -21,7 +21,7 @@ class Course {
     }) //ManyToOne -> users
     lecturer: string
 
-    @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course)
+    @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course, { cascade: true })
     lectures: Lecture[]
 
     @OneToMany(() => UserCourse, (UserCourse: UserCourse) => UserCourse.course)

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm"
 import { Course } from "../courses/courses.entity"
 
 @Entity("lectures")
@@ -35,6 +35,8 @@ class Lecture {
 
     @ManyToOne(() => Course, (course: Course) => course.lectures)
     course: Course
+
+   
 }
 
 export { Lecture }
