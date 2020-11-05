@@ -15,14 +15,14 @@ export class CoursesController {
     return this.coursesService.create(createUser);
   }
 
-  @Get()
-  findAll(): Promise<Course[]> {
-    return this.coursesService.findAll();
-  }
+  // @Get()
+  // findAll(): Promise<Course[]> {
+  //   return this.coursesService.findAll();
+  // }
 
-  @Get('/search')
-  search(@Query('querry') querry: string): Promise<Course[]> {
-    return this.coursesService.search(querry);
+  @Get()
+  searchAll(@Query('querry') querry: string): Promise<Course[]> {
+    return this.coursesService.searchAll(querry);
   }
 
   @Get(':id')

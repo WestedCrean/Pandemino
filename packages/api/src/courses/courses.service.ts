@@ -43,8 +43,13 @@ export class CoursesService {
     //return this.coursesRepository.findOne(id);
   }
 
-  search(querry: string): Promise<Course[]> {
-    return this.coursesRepository.find({ where: { description: querry } })
+  searchAll(querry: string): Promise<Course[]> {
+    return this.coursesRepository
+    .createQueryBuilder("course")
+    .where(`UPPER(course.description) like UPPER('%${querry}%') 
+          or UPPER(course.name) like UPPER('%${querry}%') 
+          or UPPER(course.lecturer) like UPPER('%${querry}%')`).getMany();
+    //find({ where: { description: querry } })
 }
 
   async remove(id: string): Promise<void> {
