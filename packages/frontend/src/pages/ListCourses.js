@@ -7,7 +7,8 @@ import { Navbar } from "components"
 import AddCourseModal from "../components/AddCourseModal"
 
 const ListCourses = () => {
-    const [userIdTest, setUserIdTest] = useState()
+
+    const [userId, setUserId] = useState()
     const [courses, setCourses] = useState([])
     const [existedCourseLists, setExistedCourseList] = useState([])
     const [isWaiting, setIsWaiting] = useState(true)
@@ -17,7 +18,6 @@ const ListCourses = () => {
     const [userCoursesId, setUserCoursesId] = useState([])
 
     const userEmail = user.email
-    let userId = null
 
     const directToLecture = (id) => {
         history.push({
@@ -28,33 +28,26 @@ const ListCourses = () => {
         })
     }
 
-    const joinCourse = async (courseId) => {
-        const streamsRepository = ApiService(accessToken).streams
-        const body = {
-            userId: userIdTest,
-            courseId: courseId,
-        }
-        await streamsRepository
-            .addUserCourse(body)
-            .then((response) => console.log(response.data))
-            .catch((error) => console.log(error))
+    useEffect(() => {
 
-        window.alert("Dodano uzytkownika do wykladu wykladu")
-        window.location = "/"
-    }
+        getUser();
+        getStreams();
+        getUserCourses();
+    },[userId])
 
     const getUser = async () => {
+    
         const streamsRepository = ApiService(accessToken).streams
         try {
-            const response = await streamsRepository.getUserByEmail(userEmail)
-            setUserIdTest(response.data.id)
-            getStreams()
+            await streamsRepository.getUserByEmail(userEmail).then(
+                (response) =>  setUserId(response.data.id)
+            )
         } catch (error) {
             console.error({ error })
         }
-        console.log(userIdTest)
     }
 
+    //FIX_ME first reponse fails
     const getStreams = async () => {
         const streamsRepository = ApiService(accessToken).streams
         try {
@@ -63,15 +56,13 @@ const ListCourses = () => {
         } catch (error) {
             console.error({ error })
         }
-        console.log(userEmail)
-        getUserCourses()
     }
 
     const getUserCourses = async () => {
         let userCourses = null
         const streamsRepository = ApiService(accessToken).streams
         try {
-            const response = await streamsRepository.getUsersCourses(userIdTest)
+            const response = await streamsRepository.getUsersCourses(userId)
             userCourses = response.data.userCourses
         } catch (error) {
             console.error({ error })
@@ -91,8 +82,6 @@ const ListCourses = () => {
             listId.push(course.id)
         })
 
-        console.log(list)
-        console.log(listId)
         if (existedCourseLists.length != null) {
             setExistedCourseList(list)
             setIsWaiting(false)
@@ -109,13 +98,28 @@ const ListCourses = () => {
         window.location = "/"
     }
 
-    useEffect(() => {
-        getUser()
-    }, [])
+
+    const joinCourse = async (courseId) => {
+        const streamsRepository = ApiService(accessToken).streams
+        const body = {
+            userId: userId,
+            courseId: courseId,
+        }
+        await streamsRepository
+            .addUserCourse(body)
+            .then((response) => console.log(response.data))
+            .catch((error) => console.log(error))
+
+        window.alert("Dodano uzytkownika do wykladu wykladu")
+        window.location = "/"
+    }
+
 
     if (isWaiting) {
         return <div>Czekamy</div>
     }
+
+
 
     return (
         <div>
