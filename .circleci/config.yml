@@ -17,8 +17,8 @@ jobs:
     steps:
       - checkout
       - run: cd packages/api
-      - run: npm i -g jest @types/jest ts-jest @nestjs/cli
-      - run: npm i --save-dev @nestjs/testing
+      - run: npm i -g jest @nestjs/cli
+      - run: npm i --save-dev @nestjs/testing @types/jest ts-jest
       - run: npm install && npm run test
 
 workflows:
