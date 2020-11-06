@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
-import { Lecture } from "src/lectures/lectures.entity"
+import { Lecture } from "../lectures/lectures.entity"
 import { Repository } from "typeorm"
 import { Course } from "./courses.entity"
 
@@ -13,7 +13,7 @@ export class CoursesService {
         private lectureRepository: Repository<Lecture>,
     ) {}
 
-    async create(createCourseSchema: Course): Promise<Course> {
+    async create(createCourseSchema: any): Promise<Course> {
         const course = new Course()
 
         try {

@@ -53,19 +53,17 @@ describe("CoursesService", () => {
     // for each method of CoursesService
     describe("when creating course", () => {
         describe("if all fields are filled", () => {
-            let course = new Course()
+            let course = {
+                name: "test",
+                description: "lorem ipsum",
+                lecturer: "dr Test",
+            }
             beforeEach(() => {
                 save.mockReturnValue(Promise.resolve(course))
             })
 
             it("should create course succesfully", async () => {
-                await expect(
-                    service.create({
-                        name: "test",
-                        description: "lorem ipsum",
-                        lecturer: "dr Test",
-                    }),
-                ).resolves.toEqual(course)
+                await expect(service.create(course)).resolves.toEqual(course)
             })
         })
 
