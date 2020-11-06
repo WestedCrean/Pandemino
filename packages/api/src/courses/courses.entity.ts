@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinColumn } from "typeorm"
 import { Lecture } from "../lectures/lectures.entity"
 import { UserCourse } from "../userCourses/userCourses.entity"
 
@@ -21,7 +21,7 @@ class Course {
     }) //ManyToOne -> users
     lecturer: string
 
-    @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course, { cascade: true })
+    @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course)
     lectures: Lecture[]
 
     @OneToMany(() => UserCourse, (UserCourse: UserCourse) => UserCourse.course)

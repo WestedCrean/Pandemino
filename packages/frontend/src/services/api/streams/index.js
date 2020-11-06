@@ -5,7 +5,8 @@ const StreamApiRoute = (ApiService) => {
 
     const createStream = async (data) => ApiService.post("/lectures", data)
 
-    const getAvailableCourses = async (data) => ApiService.get("/courses")
+    const getAvailableCourses = async (data = "") =>
+        ApiService.get(`/courses?querry=${data}`)
 
     const getCourseById = async (id) => ApiService.get(`/courses/${id}`)
 
@@ -15,9 +16,14 @@ const StreamApiRoute = (ApiService) => {
 
     const getUsers = async () => ApiService.get(`/users`)
 
-    const getUserByEmail = async (email) => ApiService.get(`/users/single/${email}`)
+    const getUserByEmail = async (email) =>
+        ApiService.get(`/users/single/${email}`)
 
-    const addUserCourse = async (data) => ApiService.post("/userCourses", data);
+    const addUserCourse = async (data) => ApiService.post("/userCourses", data)
+
+    const deleteUserCourse = async (id) =>
+        ApiService.delete(`/userCourses/${id}`)
+
     return {
         getAvailableStreams,
         getStreamById,
@@ -28,7 +34,8 @@ const StreamApiRoute = (ApiService) => {
         getUsersCourses,
         getUsers,
         getUserByEmail,
-        addUserCourse
+        addUserCourse,
+        deleteUserCourse,
     }
 }
 

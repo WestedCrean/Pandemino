@@ -5,7 +5,6 @@ import { UserCoursesService } from "./userCourses.service"
 import { UserCourse } from "./userCourses.entity"
 
 @ApiTags("userCourses")
-@Controller("userCourses")
 @UseGuards(AuthGuard("firebase"))
 export class UserCoursesController {
     constructor(private readonly userCoursesService: UserCoursesService) {}
@@ -23,5 +22,10 @@ export class UserCoursesController {
     @Get(":id")
     findOne(@Param("id") id: string): Promise<UserCourse> {
         return this.userCoursesService.findOne(id)
+    }
+
+    @Delete(":id")
+    remove(@Param("id") id: string): Promise<void> {
+        return this.userCoursesService.remove(id)
     }
 }

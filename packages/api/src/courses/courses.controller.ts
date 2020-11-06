@@ -16,13 +16,8 @@ export class CoursesController {
     }
 
     @Get()
-    findAll(): Promise<Course[]> {
-        return this.coursesService.findAll()
-    }
-
-    @Get("/search")
-    search(@Query("querry") querry: string): Promise<Course[]> {
-        return this.coursesService.search(querry)
+    searchAll(@Query("querry") querry: string): Promise<Course[]> {
+        return this.coursesService.searchAll(querry)
     }
 
     @Get(":id")
