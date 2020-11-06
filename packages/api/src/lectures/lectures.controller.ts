@@ -1,8 +1,10 @@
 import { Controller, Get, Post, Delete, UseGuards, Body, Param } from "@nestjs/common"
+import { ApiTags } from "@nestjs/swagger"
 import { AuthGuard } from "@nestjs/passport"
 import { LecturesService } from "./lectures.service"
 import { Lecture } from "./lectures.entity"
 
+@ApiTags("lectures")
 @Controller("lectures")
 @UseGuards(AuthGuard("firebase"))
 export class LecturesController {

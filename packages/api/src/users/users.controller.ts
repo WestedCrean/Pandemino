@@ -1,8 +1,10 @@
 import { Controller, Get, Delete, Put, Body, UseGuards, Param, Query } from "@nestjs/common"
 import { AuthGuard } from "@nestjs/passport"
+import { ApiTags } from "@nestjs/swagger"
 import { UsersService } from "./users.service"
 import { User } from "./users.entity"
 
+@ApiTags("users")
 @Controller("users")
 @UseGuards(AuthGuard("firebase"))
 export class UsersController {
