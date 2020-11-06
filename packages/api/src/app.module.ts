@@ -2,6 +2,8 @@ import { join } from "path"
 import { Module } from "@nestjs/common"
 import { ConfigModule } from "@nestjs/config"
 import { TypeOrmModule } from "@nestjs/typeorm"
+import { ServeStaticModule } from "@nestjs/serve-static"
+import { SwaggerModule } from "@nestjs/swagger"
 import { LoggerModule } from "nestjs-pino/dist"
 
 import { AuthModule } from "./auth/auth.module"
@@ -14,6 +16,7 @@ import configuration from "./config/configuration"
 
 @Module({
     imports: [
+        SwaggerModule,
         LoggerModule.forRoot({
             pinoHttp: {
                 customSuccessMessage: (res) => {
