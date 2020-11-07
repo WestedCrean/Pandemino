@@ -16,13 +16,20 @@ const AddCourseModal = () => {
     const handleShow = () => setShow(true)
 
     const { accessToken } = useAuthContext()
+    const { user } = useAuthContext()
+    const userEmail = user.email
 
     const addNewCourse = async () => {
         const streamsRepository = ApiService(accessToken).streams
+        
+        const userReponse = await streamsRepository.getUserByEmail(userEmail);
+        const userId = userReponse.data.id;
+
+
         const body = {
             name: courseName,
             description: courseDescription,
-            lecturer: courseLecturer,
+            userId: userId,
         }
         await streamsRepository
             .createCourse(body)

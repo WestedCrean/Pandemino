@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinColumn } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from "typeorm"
 import { Lecture } from "../lectures/lectures.entity"
 import { UserCourse } from "../userCourses/userCourses.entity";
+import { User } from "../users/users.entity";
 
 @Entity("courses")
 class Course {
@@ -16,10 +17,10 @@ class Course {
     })
     description: string
 
-    @Column({
-        default: ''
-    }) //ManyToOne -> users
-    lecturer: string
+ 
+    @ManyToOne(() => User, (user: User) => user.courses)
+    @JoinColumn()
+    lecturer: User
 
     @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course)
     lectures: Lecture[]
