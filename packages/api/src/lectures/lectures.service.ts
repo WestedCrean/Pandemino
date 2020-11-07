@@ -34,6 +34,25 @@ export class LecturesService {
     return lecture
   }
 
+  async update(id: string, updateLectureSchema: any): Promise<void> {
+    let lecture = null;
+
+    try {
+      lecture = await this.lecturesRepository.findOne(id);
+    } catch(e) {
+      throw new Error(e)
+    }
+
+    if(updateLectureSchema.name !== null){
+      lecture.name = updateLectureSchema.name;
+    }
+    if(updateLectureSchema.description !== null){
+      lecture.description = updateLectureSchema.description;
+    }
+
+    await this.lecturesRepository.save(lecture);
+  }
+
   // FIXME: add pagination
   findAll(): Promise<Lecture[]> {
     return this.lecturesRepository.find();
