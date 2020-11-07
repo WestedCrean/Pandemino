@@ -12,6 +12,10 @@ const Navbar = () => {
         history.push('/listCourses');
     }
 
+    const moveToUserPanel = () => {
+        history.push('/userPanel')
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -41,7 +45,7 @@ const Navbar = () => {
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link my-2 my-lg-0" href="#">
+                        <a className="nav-link my-2 my-lg-0" href="#" onClick={moveToUserPanel}>
                             {user.email}
                         </a>
                     </li>

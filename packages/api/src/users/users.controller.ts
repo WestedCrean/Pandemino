@@ -10,11 +10,11 @@ export class UsersController {
     private readonly usersService: UsersService,
   ) {}
 
-  @Put()
-  async updateUser(@Body() updateUser: { id: number, firstName: string, lastName: string }): Promise<User> {
-    return this.usersService.update(updateUser)
-  }
 
+  @Put(':id')
+  async updateUser(@Param('id') id: string, @Body() updateUser: any): Promise<void> {
+    await this.usersService.update(id, updateUser)
+  }
 
   @Get()
   findAll(): Promise<User[]> {

@@ -24,26 +24,29 @@ export class UsersService {
         return user
     }
 
-    async update(updateUserSchema: { id: number; firstName: string; lastName: string }): Promise<User> {
-        // FIXME: find id of current user
-        // compare
-        // if they match, update
+    async update(id: string, updateUserSchema: any): Promise<void> {
+        let user: User
 
-        //(await firebaseInstance).
-        const user = await this.usersRepository.findOne(updateUserSchema.id)
-
-        if (user) {
-            const { id, firstName, lastName } = updateUserSchema
-
-            user.firstName = firstName
-            user.lastName = lastName
-
-            await this.usersRepository.update(id, { firstName, lastName })
-
-            return user
+        try {
+            user = await this.usersRepository.findOne(id);
+        } catch {
+            throw new Error(`Could not find user id ${updateUserSchema.id}`)
         }
-        // FIXME: throw error
-        throw new Error(`Could not find user id ${updateUserSchema.id}`)
+
+        if(updateUserSchema.name !== null){
+            user.title = updateUserSchema.title;
+        }
+        if(updateUserSchema.description !== null){
+            user.firstName = updateUserSchema.firstName;
+        }
+        if(updateUserSchema.description !== null){
+            user.lastName = updateUserSchema.lastName;
+        }
+
+        //FIXME: add more possible fields
+
+        await this.usersRepository.save(user);
+        
     }
 
     // FIXME: add pagination
