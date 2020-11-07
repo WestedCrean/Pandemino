@@ -10,8 +10,6 @@ export class CoursesService {
   constructor(
     @InjectRepository(Course)
     private coursesRepository: Repository<Course>,
-    @InjectRepository(Lecture)
-    private lectureRepository: Repository<Lecture>
   ) {}
 
   async create(createCourseSchema: Course): Promise<Course> {
@@ -25,9 +23,26 @@ export class CoursesService {
       return course
     } catch (e) {
       throw new Error(e)
+    }    
+  }
+
+  async update(id: string, updateCourseSchema: any): Promise<void> {
+    let course = null;
+
+    try {
+      course = await this.coursesRepository.findOne(id);
+    } catch(e) {
+      throw new Error(e)
     }
 
-    
+    if(updateCourseSchema.name !== null){
+      course.name = updateCourseSchema.name;
+    }
+    if(updateCourseSchema.description !== null){
+      course.description = updateCourseSchema.description;
+    }
+
+    await this.coursesRepository.save(course);
   }
 
   // FIXME: add pagination

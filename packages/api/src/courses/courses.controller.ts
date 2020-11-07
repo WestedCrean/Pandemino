@@ -1,10 +1,10 @@
-import { Controller, Body, Get, Delete, Post, UseGuards, Param, Query } from '@nestjs/common';
+import { Controller, Body, Get, Delete, Post, UseGuards, Param, Query, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CoursesService } from './courses.service';
 import { Course } from './courses.entity'
 
 @Controller('courses')
-@UseGuards(AuthGuard('firebase'))
+//@UseGuards(AuthGuard('firebase'))
 export class CoursesController {
   constructor(
     private readonly coursesService: CoursesService,
@@ -19,6 +19,12 @@ export class CoursesController {
   // findAll(): Promise<Course[]> {
   //   return this.coursesService.findAll();
   // }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCourse: any): Promise<void> {
+    return this.coursesService.update(id, updateCourse);
+  }
+
 
   @Get()
   searchAll(@Query('querry') querry: string): Promise<Course[]> {
