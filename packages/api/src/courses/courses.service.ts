@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Lecture } from 'src/lectures/lectures.entity';
+import { User } from "../users/users.entity";
 import { Repository } from 'typeorm';
 import { Course } from './courses.entity'
 
@@ -10,15 +10,24 @@ export class CoursesService {
   constructor(
     @InjectRepository(Course)
     private coursesRepository: Repository<Course>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
-  async create(createCourseSchema: Course): Promise<Course> {
+  async create(createCourseSchema: any): Promise<Course> {
     const course = new Course();
+    let user : User;
     
+    try {
+      user = await this.userRepository.findOne(createCourseSchema.userId);
+    } catch(e) {
+      throw new Error(e)
+    }
+
     try {
       course.name = createCourseSchema.name
       course.description = createCourseSchema.description
-      course.lecturer = createCourseSchema.lecturer
+      course.lecturer = user;
       await this.coursesRepository.save(course);
       return course
     } catch (e) {
@@ -48,22 +57,26 @@ export class CoursesService {
   // FIXME: add pagination
   findAll(): Promise<Course[]> {
 
-    return this.coursesRepository.find({ relations: ['lectures'] });
+    return this.coursesRepository.find({ relations: ['lectures', 'lecturer'] });
   }
 
   findOne(id: string): Promise<Course> {
 
-    return this.coursesRepository.findOne(id, { relations: ['lectures'] });
+    return this.coursesRepository.findOne(id, { relations: ['lectures', 'lecturer'] });
 
     //return this.coursesRepository.findOne(id);
   }
 
+  //FIXME: added lecturer filtering
   searchAll(querry: string): Promise<Course[]> {
     return this.coursesRepository
     .createQueryBuilder("course")
-    .where(`UPPER(course.description) like UPPER('%${querry}%') 
-          or UPPER(course.name) like UPPER('%${querry}%') 
-          or UPPER(course.lecturer) like UPPER('%${querry}%')`).getMany();
+      .leftJoinAndSelect("course.lecturer", "users.courses")
+      .where(`UPPER(course.description) like UPPER('%${querry}%') 
+             or UPPER(course.name) like UPPER('%${querry}%')
+             `)
+    .getMany();
+        // 
     //find({ where: { description: querry } })
 }
 
