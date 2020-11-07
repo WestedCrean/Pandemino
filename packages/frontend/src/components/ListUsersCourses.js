@@ -63,7 +63,7 @@ const ListUsersCourses = () => {
                         <tr key={`${course.course.id}`}>
                             <td>{i + 1}</td>
                             <td>{course.course.name}</td>
-                            <td>{course.course.lecturer}</td>
+                            <td>{course.course.lecturer.email}</td>
                             <td>
                                 <Button
                                     variant="dark"

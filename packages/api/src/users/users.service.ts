@@ -4,6 +4,7 @@ import { Repository } from "typeorm"
 import { User } from "./users.entity"
 
 import { app } from "firebase-admin"
+import { UserCourse } from "src/userCourses/userCourses.entity"
 
 @Injectable()
 export class UsersService {
@@ -51,7 +52,7 @@ export class UsersService {
     }
 
     findOne(id: string): Promise<User> {
-        return this.usersRepository.findOne(id, { relations: ['userCourses', 'userCourses.course']});
+        return this.usersRepository.findOne(id, { relations: ['userCourses', 'userCourses.course', 'userCourses.course.lecturer']});
 
             // .createQueryBuilder("user")
             // .leftJoinAndSelect("user.userCourses", "userCourses")

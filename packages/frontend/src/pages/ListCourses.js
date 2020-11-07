@@ -1,23 +1,28 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState, useCallback } from "react"
 import { Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
 import { Navbar } from "components"
 import AddCourseModal from "../components/AddCourseModal"
+import { css } from "@emotion/core";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const ListCourses = () => {
 
-    const [userId, setUserId] = useState()
+    const [userId, setUserId] = useState(null)
     const [courses, setCourses] = useState([])
-    const [existedCourseLists, setExistedCourseList] = useState([])
-    const [isWaiting, setIsWaiting] = useState(true)
-    const { accessToken } = useAuthContext()
-    const history = useHistory()
-    const { user } = useAuthContext()
     const [userCoursesId, setUserCoursesId] = useState([])
+    const [existedCourseLists, setExistedCourseList] = useState([])
+    const [query, setQuery] = useState();
+    const [isWaiting, setIsWaiting] = useState(true)
+
+    const history = useHistory()
+    const { accessToken } = useAuthContext()
+    const { user } = useAuthContext()
 
     const userEmail = user.email
+    const streamsRepository = ApiService(accessToken).streams
 
     const directToLecture = (id) => {
         history.push({
@@ -30,14 +35,15 @@ const ListCourses = () => {
 
     useEffect(() => {
 
-        getUser();
-        getStreams();
-        getUserCourses();
-    },[userId])
+        if(userId === null){
+            getUser();
+        } else {
+            getStreams();
+            getUserCourses();
+        }
+    },[userId, query])
 
     const getUser = async () => {
-    
-        const streamsRepository = ApiService(accessToken).streams
         try {
             await streamsRepository.getUserByEmail(userEmail).then(
                 (response) =>  setUserId(response.data.id)
@@ -45,14 +51,14 @@ const ListCourses = () => {
         } catch (error) {
             console.error({ error })
         }
-    }
+    };
 
-    //FIX_ME first reponse fails
+    //FIX_ME first response fails
     const getStreams = async () => {
-        const streamsRepository = ApiService(accessToken).streams
         try {
-            const response = await streamsRepository.getAvailableCourses()
-            setCourses(response.data)
+            await streamsRepository.getAvailableCourses(query).then(
+                (response) => setCourses(response.data)
+            )
         } catch (error) {
             console.error({ error })
         }
@@ -60,10 +66,10 @@ const ListCourses = () => {
 
     const getUserCourses = async () => {
         let userCourses = null
-        const streamsRepository = ApiService(accessToken).streams
         try {
-            const response = await streamsRepository.getUsersCourses(userId)
-            userCourses = response.data.userCourses
+            await streamsRepository.getUsersCourses(userId).then(
+                (response) => userCourses = response.data.userCourses
+            )
         } catch (error) {
             console.error({ error })
         }
@@ -115,8 +121,10 @@ const ListCourses = () => {
     }
 
 
+
+
     if (isWaiting) {
-        return <div>Czekamy</div>
+        return <FadeLoader></FadeLoader>
     }
 
 
@@ -146,7 +154,7 @@ const ListCourses = () => {
                                     <tr key={`${course.id}`}>
                                         <td>{i + 1}</td>
                                         <td>{course.name}</td>
-                                        <td>{course.lecturer}</td>
+                                        <td>{course.lecturer.email}</td>
                                         <td>
                                             <Button
                                                 variant="dark"
@@ -188,8 +196,13 @@ const ListCourses = () => {
                                 ))}
                             </tbody>
                         </table>
-                        <div className="box-addNewCourse">
-                            <AddCourseModal></AddCourseModal>
+                        <div className="d-flexs p-2">
+                            <div className="md-form active-pink active-pink-2 mb-3 mt-0">
+                                <input className="form-control" type="text" placeholder="Search" aria-label="Search" value={query} onChange={e => setQuery(e.target.value)}></input>
+                            </div>
+                            <div className="box-addNewCourse">
+                                <AddCourseModal></AddCourseModal>
+                            </div>
                         </div>
                     </div>
                 </div>
