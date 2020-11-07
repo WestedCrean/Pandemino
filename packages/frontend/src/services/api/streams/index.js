@@ -6,7 +6,7 @@ const StreamApiRoute = (ApiService) => {
     const createStream = async (data) => ApiService.post("/lectures", data)
 
     const getAvailableCourses = async (data = "") =>
-        ApiService.get(`/courses?querry=${data}`)
+        ApiService.get(`/courses?query=${data}`)
 
     const getCourseById = async (id) => ApiService.get(`/courses/${id}`)
 

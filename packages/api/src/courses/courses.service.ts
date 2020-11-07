@@ -73,9 +73,8 @@ export class CoursesService {
     .createQueryBuilder("course")
       .leftJoinAndSelect("course.lecturer", "users.courses")
       .where(`UPPER(course.description) like UPPER('%${querry}%') 
-             or UPPER(course.name) like UPPER('%${querry}%')
-             `)
-    .getMany();
+             or UPPER(course.name) like UPPER('%${querry}%')`)
+      .getMany();
         // 
     //find({ where: { description: querry } })
 }
