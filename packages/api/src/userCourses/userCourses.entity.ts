@@ -7,7 +7,7 @@ class UserCourse {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToOne(() => Course, (course: Course) => course.userCourses, { onDelete: 'NO ACTION' })
+    @ManyToOne(() => Course, (course: Course) => course.userCourses, { onDelete: 'CASCADE' })
     @JoinColumn()
     course: Course
 
