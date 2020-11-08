@@ -7,6 +7,8 @@ const UserPanel = () => {
 
     const [ userData, setUserData ] = useState(null);
 
+    ///FIXME: more values
+    const [ id, setId ] = useState();
     const [ name, setName ] = useState();
     const [ lastName, setlastName ] = useState();
     const [ title, setTitle ] = useState();
@@ -34,12 +36,25 @@ const UserPanel = () => {
     };
     
     const saveUserInfo = async () => {
+        console.log('elo');
 
-        
+        const body = {
+            firstName: name,
+            lastName: lastName,
+            title: title,
+        }
+        try {
+            await streamsRepository.putUserData(id, body)
+            .then((response) => console.log(response.data))
+            .catch((error) => console.log(error))
+
+            window.alert("Edytowano dane użytkownika")
+            window.location = "/lecture"
+        } catch{}
     }
 
     const setStates = () => {
-
+        setId(userData.id);
         setName(userData.firstName);
         setlastName(userData.lastName)
         setTitle(userData.title)
@@ -74,25 +89,25 @@ const UserPanel = () => {
                                         <div class="form-group">
                                         <label for="inputtext1" class="col-sm-4  col-md-4 col-lg-3 control-label">Imie</label>
                                         <div class="col-sm-8 col-lg-9">
-                                            <input type="text" class="form-control" id="inputtext1" placeholder="" value={name}></input>
+                                            <input type="text" class="form-control" id="inputtext1" placeholder="" value={name} onChange={e => setName(e.target.value)}></input>
                                         </div>
                                         </div>
                                         <div class="form-group">
                                         <label for="inputtext2" class="col-sm-4  col-md-4 col-lg-3 control-label">Nazwisko</label>
                                         <div class="col-sm-8 col-lg-9">
-                                            <input type="text" class="form-control" id="inputtext2" placeholder="" value={lastName}></input>
+                                            <input type="text" class="form-control" id="inputtext2" placeholder="" value={lastName} onChange={e => setlastName(e.target.value)}></input>
                                         </div>
                                         </div>
                                         <div class="form-group">
                                         <label for="inputtext3" class="col-sm-4   col-md-4 col-lg-3 control-label">Tytuł</label>
                                         <div class="col-sm-8 col-lg-9">
-                                            <input type="text" class="form-control" id="inputtext3" placeholder="" value={title}></input>
+                                            <input type="text" class="form-control" id="inputtext3" placeholder="" value={title} onChange={e => setTitle(e.target.value)}></input>
                                         </div>
                                         </div>
                                         <div class="form-group">
                                         <label for="inputtext2" class="col-sm-4  col-md-4 col-lg-3 control-label">Email</label>
                                         <div class="col-sm-8 col-md-8  col-lg-9">
-                                            <input type="email" class="form-control" id="inputtext2" placeholder="" value={email}></input>
+                                            <input type="email" class="form-control" id="inputtext2" placeholder="" value={email} onChange={e => setEmail(e.target.value)}></input>
                                         </div>
                                         </div>
                                         <div class="form-group">
@@ -104,7 +119,7 @@ const UserPanel = () => {
                                     </div>
                                     </div>
                                     <div class="row text-center">
-                                    <button type="button" class="btn btn-danger">Zapisz</button>
+                                    <button type="button" class="btn btn-danger" onClick={saveUserInfo}>Zapisz</button>
                                 </div>
                                 </form>
   
