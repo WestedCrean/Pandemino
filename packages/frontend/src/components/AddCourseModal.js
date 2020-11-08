@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const AddCourseModal = () => {
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
-    const [courseLecturer, setCourseLecturer] = useState(null) ////need to be get from user table in future
 
     const [show, setShow] = useState(false)
 
@@ -33,7 +32,17 @@ const AddCourseModal = () => {
         }
         await streamsRepository
             .createCourse(body)
-            .then((response) => console.log(response.data))
+            .then(async (response) => {
+                const userCourseBody = {
+                    courseId: response.data.id,
+                    userId : userId,
+                }
+                await streamsRepository
+                    .addUserCourse(userCourseBody)
+                    .then((response))
+                    .catch((error) => console.log(error))
+                
+            })
             .catch((error) => console.log(error))
 
         window.alert("Dodano nowy kurs")
@@ -52,8 +61,8 @@ const AddCourseModal = () => {
                     <Modal.Title>Dodawanie nowego kursu</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Podaj niezbedne dane</Modal.Body>
-                <form>
-                    <input
+                <form className="p-3">
+                    <input 
                         type="text"
                         className="form-control form-input"
                         id="name"
@@ -68,14 +77,6 @@ const AddCourseModal = () => {
                         placeholder="Opis kursu"
                         value={courseDescription}
                         onChange={(e) => setCourseDescription(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        className="form-control form-input"
-                        id="lecturer"
-                        placeholder="Wykladowca"
-                        value={courseLecturer}
-                        onChange={(e) => setCourseLecturer(e.target.value)}
                     />
                 </form>
                 <Modal.Footer>
