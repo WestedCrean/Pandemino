@@ -24,6 +24,9 @@ const StreamApiRoute = (ApiService) => {
     const deleteUserCourse = async (id) =>
         ApiService.delete(`/userCourses/${id}`)
 
+    const deleteCourse = async (id) =>
+        ApiService.delete(`/courses/${id}`)
+
     const putUserData = async (id, data) => ApiService.put(`/users/${id}`, data)
 
     return {
@@ -38,7 +41,8 @@ const StreamApiRoute = (ApiService) => {
         getUserByEmail,
         addUserCourse,
         deleteUserCourse,
-        putUserData
+        putUserData,
+        deleteCourse
     }
 }
 

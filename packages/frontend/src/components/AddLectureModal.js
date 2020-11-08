@@ -5,6 +5,7 @@ import ApiService from "services/api"
 import { Fab } from "@material-ui/core"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 const AddLectureModal = (props) => {
     const [lecturerName, setLectureName] = useState(null)
     const [lectureDescription, setLectureDescription] = useState(null)

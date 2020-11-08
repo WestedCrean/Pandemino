@@ -18,7 +18,7 @@ class Course {
     description: string
 
  
-    @ManyToOne(() => User, (user: User) => user.courses)
+    @ManyToOne(() => User, (user: User) => user.courses,  { onDelete: 'NO ACTION' })
     @JoinColumn()
     lecturer: User
 

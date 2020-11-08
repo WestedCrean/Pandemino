@@ -5,6 +5,7 @@ import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
 import { Navbar } from "components"
 import AddLectureModal from "../components/AddLectureModal"
+import DeleteCourseModal from "../components/DeleteCourseModal"
 
 const ListLectures = (props) => {
     const [lectures, setLectures] = useState([])
@@ -56,6 +57,9 @@ const ListLectures = (props) => {
                 <div className="container-lectures">
                     <div className="box-addNewCourse">
                         <AddLectureModal courseId={courseId}></AddLectureModal>
+                    </div>
+                    <div className="box-deleteCourse">
+                        <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
                     </div>
                     <div className="wrapper-lectures">
                         {lectures.map((lecture, i) => (
