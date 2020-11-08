@@ -9,16 +9,31 @@ import DeleteCourseModal from "../components/DeleteCourseModal"
 
 const ListLectures = (props) => {
     const [lectures, setLectures] = useState([])
+    const [courseOwnerEmail, setCourseOwnerEmail] = useState();
     const { accessToken } = useAuthContext()
-    const history = useHistory()
 
+    const { user } = useAuthContext()
+
+    const userEmail = user.email
     const courseId = props.location.state.courseId
+
+    const deleteComponent = () => {
+
+        if(userEmail === courseOwnerEmail){
+            return (
+                <div className="box-deleteCourse">
+                    <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
+                </div>
+            )
+        } return null
+    }
 
     const getStreams = async () => {
         const streamsRepository = ApiService(accessToken).streams
         try {
             const response = await streamsRepository.getCourseById(courseId)
             setLectures(response.data.lectures)
+            setCourseOwnerEmail(response.data.lecturer.email)
         } catch (error) {
             console.error({ error })
         }
@@ -58,9 +73,7 @@ const ListLectures = (props) => {
                     <div className="box-addNewCourse">
                         <AddLectureModal courseId={courseId}></AddLectureModal>
                     </div>
-                    <div className="box-deleteCourse">
-                        <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
-                    </div>
+                    {deleteComponent()}
                     <div className="wrapper-lectures">
                         {lectures.map((lecture, i) => (
                             <div
