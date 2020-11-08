@@ -4,7 +4,7 @@ import { LecturesService } from './lectures.service';
 import { Lecture } from './lectures.entity'
 
 @Controller('lectures')
-@UseGuards(AuthGuard('firebase'))
+//@UseGuards(AuthGuard('firebase'))
 export class LecturesController {
   constructor(
     private readonly lecturesService: LecturesService,
