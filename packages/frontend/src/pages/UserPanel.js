@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState, useCallback } from "react"
-import Navbar from "../components/Navbar"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 
@@ -71,9 +70,6 @@ const UserPanel = () => {
 
 
     return (
-        <div>
-            <Navbar></Navbar>
-            <Fragment>
                 <div class="wrapper">
                     <div class="box grid-courses">
                         <div className="box-label">
@@ -127,8 +123,6 @@ const UserPanel = () => {
                         </div>
                     </div>
                 </div>
-            </Fragment>
-        </div>
     )
 }
 

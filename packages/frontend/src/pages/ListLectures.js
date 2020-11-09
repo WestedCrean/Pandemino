@@ -19,7 +19,7 @@ const ListLectures = (props) => {
 
     const deleteComponent = () => {
 
-        if(userEmail === courseOwnerEmail){
+        if (userEmail === courseOwnerEmail) {
             return (
                 <div className="box-deleteCourse">
                     <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
@@ -42,10 +42,7 @@ const ListLectures = (props) => {
         getStreams()
     }, [])
 
-    return (
-        <div>
-            <Navbar></Navbar>
-            {/* <Fragment>
+    /* <Fragment>
                 <AddLectureModal courseId={courseId}></AddLectureModal>
                 <div className="list-container">
                     <div className="list-streams">
@@ -67,33 +64,35 @@ const ListLectures = (props) => {
                         ))}
                     </div>
                 </div>
-            </Fragment> */}
-            <Fragment>
-                <div className="container-lectures">
-                    <div className="box-addNewCourse">
-                        <AddLectureModal courseId={courseId}></AddLectureModal>
-                    </div>
-                    {deleteComponent()}
-                    <div className="wrapper-lectures">
-                        {lectures.map((lecture, i) => (
-                            <div
-                                key={`${lecture.name}-${lecture.views}-${i}`}
-                                className="box-lectures "
-                            >
-                                <div className="box-label">
-                                    <div className="box-label-name">
-                                        {lecture.name}
-                                    </div>
-                                </div>
-                                <div className="box-lectures-content">
-                                    {lecture.description}
-                                </div>
+            </Fragment> */
+
+    return (
+
+
+        <div className="container-lectures">
+            <div className="box-addNewCourse">
+                <AddLectureModal courseId={courseId}></AddLectureModal>
+            </div>
+            {deleteComponent()}
+            <div className="wrapper-lectures">
+                {lectures.map((lecture, i) => (
+                    <div
+                        key={`${lecture.name}-${lecture.views}-${i}`}
+                        className="box-lectures "
+                    >
+                        <div className="box-label">
+                            <div className="box-label-name">
+                                {lecture.name}
                             </div>
-                        ))}
+                        </div>
+                        <div className="box-lectures-content">
+                            {lecture.description}
+                        </div>
                     </div>
-                </div>
-            </Fragment>
+                ))}
+            </div>
         </div>
+
     )
 }
 

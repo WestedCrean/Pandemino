@@ -3,9 +3,7 @@ import { Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
-import { Navbar } from "components"
-import AddCourseModal from "../components/AddCourseModal"
-import { css } from "@emotion/core";
+import { Navbar, AddCourseModal } from "components"
 import FadeLoader from "react-spinners/FadeLoader";
 
 const ListCourses = () => {
@@ -35,18 +33,18 @@ const ListCourses = () => {
 
     useEffect(() => {
 
-        if(userId === null){
+        if (userId === null) {
             getUser();
         } else {
             getStreams();
             getUserCourses();
         }
-    },[userId, query])
+    }, [userId, query])
 
     const getUser = async () => {
         try {
             await streamsRepository.getUserByEmail(userEmail).then(
-                (response) =>  setUserId(response.data.id)
+                (response) => setUserId(response.data.id)
             )
         } catch (error) {
             console.error({ error })
@@ -130,84 +128,81 @@ const ListCourses = () => {
 
 
     return (
-        <div>
-            <Navbar></Navbar>
-            <Fragment>
-                <div class="wrapper">
-                    <div class="box grid-courses">
-                        <div className="box-label">
-                            <div className="box-label-name">
-                                WSZYSTKIE KURSY
+
+        <div class="wrapper">
+            <div class="box grid-courses">
+                <div className="box-label">
+                    <div className="box-label-name">
+                        WSZYSTKIE KURSY
                             </div>
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th>Nazwa </th>
-                                    <th>Wykładowca</th>
-                                    <th>Stream</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {courses.map((course, i = 0) => (
-                                    <tr key={`${course.id}`}>
-                                        <td>{i + 1}</td>
-                                        <td>{course.name}</td>
-                                        <td>{course.lecturer.email}</td>
-                                        <td>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th>Nazwa </th>
+                            <th>Wykładowca</th>
+                            <th>Stream</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {courses.map((course, i = 0) => (
+                            <tr key={`${course.id}`}>
+                                <td>{i + 1}</td>
+                                <td>{course.name}</td>
+                                <td>{course.lecturer.email}</td>
+                                <td>
+                                    <Button
+                                        variant="dark"
+                                        onClick={() =>
+                                            directToLecture(course.id)
+                                        }
+                                    >
+                                        Stream
+                                            </Button>
+                                </td>
+                                <td>
+                                    {existedCourseLists.includes(
+                                        course.id
+                                    ) === false ? (
                                             <Button
                                                 variant="dark"
                                                 onClick={() =>
-                                                    directToLecture(course.id)
+                                                    joinCourse(course.id)
                                                 }
                                             >
-                                                Stream
+                                                Dolacz do kursu
                                             </Button>
-                                        </td>
-                                        <td>
-                                            {existedCourseLists.includes(
-                                                course.id
-                                            ) === false ? (
-                                                <Button
-                                                    variant="dark"
-                                                    onClick={() =>
-                                                        joinCourse(course.id)
-                                                    }
-                                                >
-                                                    Dolacz do kursu
-                                                </Button>
-                                            ) : (
-                                                <Button
-                                                    onClick={() =>
-                                                        deleteUserCourses(
-                                                            existedCourseLists.indexOf(
-                                                                course.id
-                                                            )
+                                        ) : (
+                                            <Button
+                                                onClick={() =>
+                                                    deleteUserCourses(
+                                                        existedCourseLists.indexOf(
+                                                            course.id
                                                         )
-                                                    }
-                                                    variant="danger"
-                                                >
-                                                    Odejdź z kursu
-                                                </Button>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <div className="d-flexs p-2">
-                            <div className="md-form active-pink active-pink-2 mb-3 mt-0">
-                                <input className="form-control" type="text" placeholder="Search" aria-label="Search" value={query} onChange={e => setQuery(e.target.value)}></input>
-                            </div>
-                            <div className="box-addNewCourse">
-                                <AddCourseModal></AddCourseModal>
-                            </div>
-                        </div>
+                                                    )
+                                                }
+                                                variant="danger"
+                                            >
+                                                Odejdź z kursu
+                                            </Button>
+                                        )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div className="d-flexs p-2">
+                    <div className="md-form active-pink active-pink-2 mb-3 mt-0">
+                        <input className="form-control" type="text" placeholder="Search" aria-label="Search" value={query} onChange={e => setQuery(e.target.value)}></input>
+                    </div>
+                    <div className="box-addNewCourse">
+                        <AddCourseModal></AddCourseModal>
                     </div>
                 </div>
-            </Fragment>
+            </div>
         </div>
+
     )
 }
 
