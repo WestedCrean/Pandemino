@@ -5,7 +5,9 @@ import ApiService from "services/api"
 import { Fab } from "@material-ui/core"
 import { faFolderPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-const AddCourseModal = () => {
+import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
+
+const AddCourseModal = ({ courseIdProps, type }) => {
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
 
@@ -20,10 +22,9 @@ const AddCourseModal = () => {
 
     const addNewCourse = async () => {
         const streamsRepository = ApiService(accessToken).streams
-        
-        const userReponse = await streamsRepository.getUserByEmail(userEmail);
-        const userId = userReponse.data.id;
 
+        const userReponse = await streamsRepository.getUserByEmail(userEmail)
+        const userId = userReponse.data.id
 
         const body = {
             name: courseName,
@@ -35,15 +36,38 @@ const AddCourseModal = () => {
             .then(async (response) => {
                 const userCourseBody = {
                     courseId: response.data.id,
-                    userId : userId,
+                    userId: userId,
                 }
                 await streamsRepository
                     .addUserCourse(userCourseBody)
-                    .then((response))
+                    .then(response)
                     .catch((error) => console.log(error))
-                
             })
             .catch((error) => console.log(error))
+
+        window.alert("Dodano nowy kurs")
+        window.location = "/"
+        handleClose()
+    }
+    const editCourse = async () => {
+        const streamsRepository = ApiService(accessToken).streams
+
+        const userReponse = await streamsRepository.getUserByEmail(userEmail)
+        const userId = userReponse.data.id
+
+        const courseResponse = await streamsRepository.getCourseById(
+            courseIdProps
+        )
+
+        const idCourse = courseResponse.data.id
+
+        const body = {
+            name: courseName,
+            description: courseDescription,
+        }
+        console.log(idCourse)
+        console.log(body)
+        await streamsRepository.editCourse(idCourse, body)
 
         window.alert("Dodano nowy kurs")
         window.location = "/"
@@ -52,9 +76,16 @@ const AddCourseModal = () => {
 
     return (
         <>
-            <Fab color="default" aria-label="add" onClick={handleShow}>
-                <FontAwesomeIcon icon={faFolderPlus} size="2x" />
-            </Fab>
+            {type === "edit" ? (
+                <Button variant="dark" onClick={handleShow}>
+                    <FontAwesomeIcon icon={faEdit} size="1x" />
+                    Edit
+                </Button>
+            ) : (
+                <Fab color="default" aria-label="add" onClick={handleShow}>
+                    <FontAwesomeIcon icon={faFolderPlus} size="2x" />
+                </Fab>
+            )}
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -62,7 +93,7 @@ const AddCourseModal = () => {
                 </Modal.Header>
                 <Modal.Body>Podaj niezbedne dane</Modal.Body>
                 <form className="p-3">
-                    <input 
+                    <input
                         type="text"
                         className="form-control form-input"
                         id="name"
@@ -83,13 +114,23 @@ const AddCourseModal = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Anuluj
                     </Button>
-                    <Button
-                        type="submit"
-                        variant="primary"
-                        onClick={addNewCourse}
-                    >
-                        Dodaj
-                    </Button>
+                    {type === "edit" ? (
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            onClick={editCourse}
+                        >
+                            Edit
+                        </Button>
+                    ) : (
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            onClick={addNewCourse}
+                        >
+                            Dodaj
+                        </Button>
+                    )}
                 </Modal.Footer>
             </Modal>
         </>
