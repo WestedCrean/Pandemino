@@ -3,8 +3,10 @@ import { AuthGuard } from "@nestjs/passport"
 import { UsersService } from "./users.service"
 import { User } from "./users.entity"
 
+
 @Controller("users")
 @UseGuards(AuthGuard("firebase"))
+
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
