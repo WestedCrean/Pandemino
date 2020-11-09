@@ -3,7 +3,9 @@ import { Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
-
+import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { AddCourseModal } from "components"
 const ListUsersCourses = () => {
     const [courses, setCourses] = useState([])
     const { accessToken } = useAuthContext()
@@ -56,6 +58,7 @@ const ListUsersCourses = () => {
                         <th>Nazwa </th>
                         <th>Wykładowca</th>
                         <th>Stream</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,10 +70,22 @@ const ListUsersCourses = () => {
                             <td>
                                 <Button
                                     variant="dark"
-                                    onClick={() => directToLecture(course.course.id)}
+                                    onClick={() =>
+                                        directToLecture(course.course.id)
+                                    }
                                 >
+                                    <FontAwesomeIcon
+                                        icon={faHandPointRight}
+                                        size="1x"
+                                    />{" "}
                                     Stream
                                 </Button>
+                            </td>
+                            <td>
+                                <AddCourseModal
+                                    courseIdProps={course.course.id}
+                                    type="edit"
+                                ></AddCourseModal>
                             </td>
                         </tr>
                     ))}

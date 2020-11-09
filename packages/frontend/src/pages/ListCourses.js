@@ -4,16 +4,15 @@ import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
 import { Navbar, AddCourseModal } from "components"
-import FadeLoader from "react-spinners/FadeLoader";
+import FadeLoader from "react-spinners/FadeLoader"
 
 const ListCourses = () => {
-
     const [userId, setUserId] = useState(null)
     const [courses, setCourses] = useState([])
     const [userCoursesId, setUserCoursesId] = useState([])
     const [existedCourseLists, setExistedCourseList] = useState([])
-    const [query, setQuery] = useState();
-    const [isWaiting, setIsWaiting] = useState(true)
+    const [query, setQuery] = useState()
+    // const [isWaiting, setIsWaiting] = useState(true)
 
     const history = useHistory()
     const { accessToken } = useAuthContext()
@@ -32,31 +31,30 @@ const ListCourses = () => {
     }
 
     useEffect(() => {
-
         if (userId === null) {
-            getUser();
+            getUser()
         } else {
-            getStreams();
-            getUserCourses();
+            getStreams()
+            getUserCourses()
         }
     }, [userId, query])
 
     const getUser = async () => {
         try {
-            await streamsRepository.getUserByEmail(userEmail).then(
-                (response) => setUserId(response.data.id)
-            )
+            await streamsRepository
+                .getUserByEmail(userEmail)
+                .then((response) => setUserId(response.data.id))
         } catch (error) {
             console.error({ error })
         }
-    };
+    }
 
     //FIX_ME first response fails
     const getStreams = async () => {
         try {
-            await streamsRepository.getAvailableCourses(query).then(
-                (response) => setCourses(response.data)
-            )
+            await streamsRepository
+                .getAvailableCourses(query)
+                .then((response) => setCourses(response.data))
         } catch (error) {
             console.error({ error })
         }
@@ -65,18 +63,18 @@ const ListCourses = () => {
     const getUserCourses = async () => {
         let userCourses = null
         try {
-            await streamsRepository.getUsersCourses(userId).then(
-                (response) => userCourses = response.data.userCourses
-            )
+            await streamsRepository
+                .getUsersCourses(userId)
+                .then((response) => (userCourses = response.data.userCourses))
         } catch (error) {
             console.error({ error })
         }
 
         ///Geting list of courses user is already added
-        if (userCourses == null) {
-            setIsWaiting(false)
-            return
-        }
+        // if (userCourses == null) {
+        //     setIsWaiting(false)
+        //     return
+        // }
 
         let list = []
         let listId = []
@@ -88,7 +86,7 @@ const ListCourses = () => {
 
         if (existedCourseLists.length != null) {
             setExistedCourseList(list)
-            setIsWaiting(false)
+            //setIsWaiting(false)
             setUserCoursesId(listId)
         }
     }
@@ -101,7 +99,6 @@ const ListCourses = () => {
         }
         window.location = "/"
     }
-
 
     const joinCourse = async (courseId) => {
         const streamsRepository = ApiService(accessToken).streams
@@ -118,23 +115,15 @@ const ListCourses = () => {
         window.location = "/"
     }
 
-
-
-
-    if (isWaiting) {
-        return <FadeLoader></FadeLoader>
-    }
-
-
+    // if (isWaiting) {
+    //     return <FadeLoader></FadeLoader>
+    // }
 
     return (
-
         <div class="wrapper">
             <div class="box grid-courses">
                 <div className="box-label">
-                    <div className="box-label-name">
-                        WSZYSTKIE KURSY
-                            </div>
+                    <div className="box-label-name">WSZYSTKIE KURSY</div>
                 </div>
                 <table class="table">
                     <thead>
@@ -159,34 +148,33 @@ const ListCourses = () => {
                                         }
                                     >
                                         Stream
-                                            </Button>
+                                    </Button>
                                 </td>
                                 <td>
-                                    {existedCourseLists.includes(
-                                        course.id
-                                    ) === false ? (
-                                            <Button
-                                                variant="dark"
-                                                onClick={() =>
-                                                    joinCourse(course.id)
-                                                }
-                                            >
-                                                Dolacz do kursu
-                                            </Button>
-                                        ) : (
-                                            <Button
-                                                onClick={() =>
-                                                    deleteUserCourses(
-                                                        existedCourseLists.indexOf(
-                                                            course.id
-                                                        )
+                                    {existedCourseLists.includes(course.id) ===
+                                    false ? (
+                                        <Button
+                                            variant="dark"
+                                            onClick={() =>
+                                                joinCourse(course.id)
+                                            }
+                                        >
+                                            Dolacz do kursu
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={() =>
+                                                deleteUserCourses(
+                                                    existedCourseLists.indexOf(
+                                                        course.id
                                                     )
-                                                }
-                                                variant="danger"
-                                            >
-                                                Odejdź z kursu
-                                            </Button>
-                                        )}
+                                                )
+                                            }
+                                            variant="danger"
+                                        >
+                                            Odejdź z kursu
+                                        </Button>
+                                    )}
                                 </td>
                             </tr>
                         ))}
@@ -194,15 +182,21 @@ const ListCourses = () => {
                 </table>
                 <div className="d-flexs p-2">
                     <div className="md-form active-pink active-pink-2 mb-3 mt-0">
-                        <input className="form-control" type="text" placeholder="Search" aria-label="Search" value={query} onChange={e => setQuery(e.target.value)}></input>
+                        <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Search"
+                            aria-label="Search"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                        ></input>
                     </div>
                     <div className="box-addNewCourse">
-                        <AddCourseModal></AddCourseModal>
+                        <AddCourseModal />
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
 
