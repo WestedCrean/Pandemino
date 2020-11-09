@@ -17,6 +17,7 @@ export class LectureFrequencyService {
         private userRepository: Repository<User>,
     ) {}
 
+    ///FIXME check for lecture or user is not null 
     async create(createUserCourseSchema: any): Promise<LectureFrequency> {
         let lecture: Lecture
         let user: User
@@ -38,10 +39,12 @@ export class LectureFrequencyService {
         }
     }
 
+    ///FIXME join columns if needed
     findAll(): Promise<LectureFrequency[]> {
         return this.lectureFrequencyRepository.find();
     }
 
+    ///FIXME join columns if needed
     findOne(id: string): Promise<LectureFrequency> {
         return this.lectureFrequencyRepository.findOne(id);
     }
