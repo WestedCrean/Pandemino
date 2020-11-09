@@ -69,7 +69,7 @@ const AddCourseModal = ({ courseIdProps, type }) => {
         console.log(body)
         await streamsRepository.editCourse(idCourse, body)
 
-        window.alert("Dodano nowy kurs")
+        window.alert("Edytowano nowy kurs")
         window.location = "/"
         handleClose()
     }
@@ -89,7 +89,13 @@ const AddCourseModal = ({ courseIdProps, type }) => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Dodawanie nowego kursu</Modal.Title>
+                    <Modal.Title>
+                        {type === "edit" ? (
+                            <div>Edytowanie nowego kursu</div>
+                        ) : (
+                            <div>Dodawanie nowego kursu</div>
+                        )}
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Podaj niezbedne dane</Modal.Body>
                 <form className="p-3">
