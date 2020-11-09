@@ -15,51 +15,12 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
-.list-container {
-    min-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.list-streams {
-    width: 70em;
-    position: relative;
-    height: 45em;
-}
-.list-element {
-    margin: 10px;
-    padding: 40px;
-    border: 1px solid black;
-    background-color: #ffffff;
-    cursor: pointer;
-}
-.list-element-inside {
-    display: inline-flex;
-}
-.list-element-badge {
-    background-color: crimson;
-    width: 30px;
-    height: 30px;
-    margin-right: 3px;
-    border-radius: 50%;
-    border: 1px solid black;
-}
-.list-element-leader {
-    margin-left: 30px;
-}
-
-.list-element-description {
-    margin-left: 100px;
-}
-.list-element-data {
-    margin-left: 270px;
-}
 
 .form-input {
     margin: 3px 0px 3px 0px;
 }
 
-.user-panel-container{
+.user-panel-container {
     padding: 30px;
     justify-content: center;
 
