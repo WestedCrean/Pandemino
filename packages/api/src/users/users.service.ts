@@ -64,6 +64,10 @@ export class UsersService {
             // .getOne()
     }
 
+    getUserWithoutRelation(id: string): Promise<User> {
+        return this.usersRepository.findOne(id);
+    }
+
     findOneByEmail(email: string): Promise<User> {
         return this.usersRepository.findOne({ where: { email: email } })
     }
