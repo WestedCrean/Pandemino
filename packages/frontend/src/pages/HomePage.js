@@ -14,10 +14,7 @@ const HomePage = () => {
     }
 
     return (
-        <Fragment>
-            <Navbar></Navbar>
-            <GridHome></GridHome>
-        </Fragment>
+        <GridHome></GridHome>
     )
 }
 

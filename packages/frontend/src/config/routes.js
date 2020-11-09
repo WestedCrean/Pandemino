@@ -1,8 +1,13 @@
-import { HomePage, Login, SignUp, ListLectures} from "pages"
+import { HomePage, Login, SignUp, ListLectures, Lecture } from "pages"
 import ListCourses from "../pages/ListCourses";
 import UserPanel from "../pages/UserPanel"
 
 const routes = [
+    {
+        path: "/lecture/:id",
+        component: Lecture,
+        needsAuth: false,
+    },
     {
         path: "/lecture",
         component: ListLectures,

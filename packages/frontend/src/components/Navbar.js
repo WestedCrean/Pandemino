@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom"
 const Navbar = () => {
     const { user, toggleLoggedOut } = useAuthContext()
     const history = useHistory()
+
     
     const moveToListCourses = () => {
 
@@ -37,27 +38,32 @@ const Navbar = () => {
                 </button>
             </div>
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <a className="nav-link my-2 my-lg-0" href="#" onClick={moveToListCourses}>
-                            Wszystkie kursy
+                {
+                    user && (
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <a className="nav-link my-2 my-lg-0" href="#" onClick={moveToListCourses}>
+                                    Wszystkie kursy
 
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link my-2 my-lg-0" href="#" onClick={moveToUserPanel}>
-                            {user.email}
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a
-                            className="nav-link"
-                            onClick={toggleLoggedOut}
-                        >
-                            Sign Out <span className="sr-only">(current)</span>
-                        </a>
-                    </li>
-                </ul>
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link my-2 my-lg-0" href="#" onClick={moveToUserPanel}>
+                                    {user.email}
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a
+                                    className="nav-link"
+                                    onClick={toggleLoggedOut}
+                                >
+                                    Sign Out <span className="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    )
+                }
+                
             </div>
         </nav>
     )
