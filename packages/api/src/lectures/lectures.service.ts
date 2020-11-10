@@ -28,6 +28,7 @@ export class LecturesService {
       throw new Error(e)
     }
 
+    lecture.createdAt = new Date();
     lecture.course = course
 
     await this.lecturesRepository.save(lecture);
@@ -55,7 +56,7 @@ export class LecturesService {
 
   // FIXME: add pagination
   findAll(): Promise<Lecture[]> {
-    return this.lecturesRepository.find();
+    return this.lecturesRepository.find({relations: ["course"]});
   }
 
   findOne(id: string): Promise<Lecture> {

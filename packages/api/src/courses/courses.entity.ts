@@ -17,6 +17,9 @@ class Course {
     })
     description: string
 
+    @Column("timestamp")
+    createdAt: Date;
+
  
     @ManyToOne(() => User, (user: User) => user.courses,  { onDelete: 'NO ACTION' })
     @JoinColumn()

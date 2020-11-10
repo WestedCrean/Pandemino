@@ -28,6 +28,7 @@ export class CoursesService {
       course.name = createCourseSchema.name
       course.description = createCourseSchema.description
       course.lecturer = user;
+      course.createdAt = new Date();
       await this.coursesRepository.save(course);
       return course
     } catch (e) {

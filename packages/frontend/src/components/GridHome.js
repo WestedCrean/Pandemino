@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react"
 import { Navbar, ListCourses } from "components"
 
 import ListUsersCourses from "./ListUsersCourses"
+import NewsList from "./NewsList"
 
 const GridHome = () => {
     return (
@@ -17,7 +18,7 @@ const GridHome = () => {
                 <div className="box-label">
                     <div className="box-label-name">AKTUALNOŚCI</div>
                 </div>
-                TUTAJ SĄ NAJNOWSZE WYKŁADY
+                <NewsList></NewsList>
             </div>
         </div>
     )
