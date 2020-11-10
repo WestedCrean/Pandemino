@@ -15,7 +15,7 @@ const NewsList = () => {
         return (
             <div className="news-wrapper"> 
                 <div className="news-data">
-                    {news.createdAt}
+                    {setDate(news.createdAt)}
                 </div>
 
                 <div className="news-body">
@@ -29,7 +29,7 @@ const NewsList = () => {
         return(
             <div className="news-wrapper">
                 <div className="news-data">
-                    {news.createdAt}
+                    {setDate(news.createdAt)}
                 </div>
                 <div className="news-body">
                 Dodano wyklad {news.name}
@@ -38,6 +38,14 @@ const NewsList = () => {
 
         )
     }
+
+    //formating data
+    const setDate = (props) => {
+        const date = props.slice(0, 10);
+        const time = props.slice(11, 19);
+        return date + " " + time;
+      };
+
     ///Concat arrays
     function flatMap(array, fn) {  
         return array.reduce((newArray, el) => [...newArray, ...fn(el)], [])
