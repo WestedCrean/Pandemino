@@ -1,0 +1,82 @@
+import React, { Fragment, useEffect, useState } from "react"
+import { useAuthContext } from "services/auth"
+import ApiService from "services/api"
+
+
+
+const NewsList = () => {
+    const [news, setNews] = useState([])
+
+    const { accessToken } = useAuthContext()
+
+
+    const courseComponent = (news) => {
+
+        return (
+            <div className="news-wrapper"> 
+                <div className="news-data">
+                    {news.createdAt}
+                </div>
+
+                <div className="news-body">
+                    Użytkownik {news.lecturer.email} dodal kurs {news.name}
+                </div>
+            </div>
+        )
+    }
+
+    const lectureComponent = (news) => {
+        return(
+            <div className="news-wrapper">
+                <div className="news-data">
+                    {news.createdAt}
+                </div>
+                <div className="news-body">
+                Dodano wyklad {news.name}
+                </div>
+            </div>
+
+        )
+    }
+    ///Concat arrays
+    function flatMap(array, fn) {  
+        return array.reduce((newArray, el) => [...newArray, ...fn(el)], [])
+    }
+
+    Array.prototype.sortBy = function(p) {
+        return this.slice(0).sort(function(a,b) {
+          return (a[p] < b[p]) ? 1 : (a[p] > b[p]) ? -1 : 0;
+        });
+      }
+
+    const getStreams = async () => {
+
+        const streamsRepository = ApiService(accessToken).streams
+        try {
+            const response = await streamsRepository.getAvailableCourses()
+            const response2 = await streamsRepository.getLectures()
+
+            const list = flatMap([response.data, response2.data], x => x).sortBy('createdAt');
+            setNews(list);
+
+        } catch (error) {
+            console.error({ error })
+        }
+    }
+
+    useEffect(() =>{
+        getStreams()
+    },[])
+
+
+    return (
+        <div>
+           <h1>Tu sa najnowsze njusy</h1>
+           {news.map((singleNews) => (
+               singleNews.lecturer == null ? lectureComponent(singleNews) : courseComponent(singleNews)
+            ))}
+        </div>
+    )
+}
+
+export default NewsList
