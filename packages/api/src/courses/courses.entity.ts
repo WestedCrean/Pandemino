@@ -1,27 +1,26 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from "typeorm"
 import { Lecture } from "../lectures/lectures.entity"
-import { UserCourse } from "../userCourses/userCourses.entity";
-import { User } from "../users/users.entity";
+import { UserCourse } from "../userCourses/userCourses.entity"
+import { User } from "../users/users.entity"
 
 @Entity("courses")
 class Course {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('text')
+    @Column("text")
     name: string
 
     @Column({
-        type: 'text',
-        default: ''
+        type: "text",
+        default: "",
     })
     description: string
 
     @Column("timestamp")
-    createdAt: Date;
+    createdAt: Date
 
- 
-    @ManyToOne(() => User, (user: User) => user.courses,  { onDelete: 'NO ACTION' })
+    @ManyToOne(() => User, (user: User) => user.courses, { onDelete: "NO ACTION" })
     @JoinColumn()
     lecturer: User
 

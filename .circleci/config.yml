@@ -1,0 +1,31 @@
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+jobs:
+  build:
+    description: "App built on CircleCi"
+    docker:
+      - image: node:14
+    steps:
+      - checkout
+      - run: npm i -g @nestjs/cli
+      - run: cd packages/api && npm install && npm run build
+  test:
+    description: "Tests passed on CircleCi"
+    docker:
+      - image: node:14
+    steps:
+      - checkout
+      - run: cd packages/api
+      - run: npm i -g jest @nestjs/cli
+      - run: npm i --save-dev @nestjs/testing @types/jest ts-jest
+      - run: npm install && npm run test
+
+workflows:
+  version: 2
+  test-api:
+    jobs:
+      - build
+      - test
+      
+

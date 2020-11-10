@@ -1,12 +1,12 @@
 import { Controller, Get, Delete, Put, Body, UseGuards, Param, Query } from "@nestjs/common"
+import { ApiTags } from "@nestjs/swagger"
 import { AuthGuard } from "@nestjs/passport"
 import { UsersService } from "./users.service"
 import { User } from "./users.entity"
 
-
+@ApiTags("users")
 @Controller("users")
 @UseGuards(AuthGuard("firebase"))
-
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 

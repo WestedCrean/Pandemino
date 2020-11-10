@@ -17,7 +17,7 @@ export class LectureFrequencyService {
         private userRepository: Repository<User>,
     ) {}
 
-    ///FIXME check for lecture or user is not null 
+    ///FIXME check for lecture or user is not null
     async create(createUserCourseSchema: any): Promise<LectureFrequency> {
         let lecture: Lecture
         let user: User
@@ -35,21 +35,21 @@ export class LectureFrequencyService {
             await this.lectureFrequencyRepository.save(lectureFrequency)
             return lectureFrequency
         } catch (e) {
-            return null;
+            return null
         }
     }
 
     ///FIXME join columns if needed
     findAll(): Promise<LectureFrequency[]> {
-        return this.lectureFrequencyRepository.find();
+        return this.lectureFrequencyRepository.find()
     }
 
     ///FIXME join columns if needed
     findOne(id: string): Promise<LectureFrequency> {
-        return this.lectureFrequencyRepository.findOne(id);
+        return this.lectureFrequencyRepository.findOne(id)
     }
 
     async remove(id: string): Promise<void> {
-        await this.lectureFrequencyRepository.delete(id);
-      }
+        await this.lectureFrequencyRepository.delete(id)
+    }
 }

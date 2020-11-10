@@ -28,25 +28,24 @@ export class UsersService {
         let user: User
 
         try {
-            user = await this.usersRepository.findOne(id);
+            user = await this.usersRepository.findOne(id)
         } catch {
             throw new Error(`Could not find user id ${updateUserSchema.id}`)
         }
 
-        if(updateUserSchema.name !== null){
-            user.title = updateUserSchema.title;
+        if (updateUserSchema.name !== null) {
+            user.title = updateUserSchema.title
         }
-        if(updateUserSchema.description !== null){
-            user.firstName = updateUserSchema.firstName;
+        if (updateUserSchema.description !== null) {
+            user.firstName = updateUserSchema.firstName
         }
-        if(updateUserSchema.description !== null){
-            user.lastName = updateUserSchema.lastName;
+        if (updateUserSchema.description !== null) {
+            user.lastName = updateUserSchema.lastName
         }
 
         //FIXME: add more possible fields
 
-        await this.usersRepository.save(user);
-        
+        await this.usersRepository.save(user)
     }
 
     // FIXME: add pagination
@@ -55,17 +54,19 @@ export class UsersService {
     }
 
     findOne(id: string): Promise<User> {
-        return this.usersRepository.findOne(id, { relations: ['userCourses', 'userCourses.course', 'userCourses.course.lecturer']});
+        return this.usersRepository.findOne(id, {
+            relations: ["userCourses", "userCourses.course", "userCourses.course.lecturer"],
+        })
 
-            // .createQueryBuilder("user")
-            // .leftJoinAndSelect("user.userCourses", "userCourses")
-            // .innerJoinAndSelect("userCourses.course", "courses")
-            // .where("user.id = :id", { id })
-            // .getOne()
+        // .createQueryBuilder("user")
+        // .leftJoinAndSelect("user.userCourses", "userCourses")
+        // .innerJoinAndSelect("userCourses.course", "courses")
+        // .where("user.id = :id", { id })
+        // .getOne()
     }
 
     getUserWithoutRelation(id: string): Promise<User> {
-        return this.usersRepository.findOne(id);
+        return this.usersRepository.findOne(id)
     }
 
     findOneByEmail(email: string): Promise<User> {

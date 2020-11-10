@@ -1,18 +1,17 @@
-import { Course } from "src/courses/courses.entity";
-import { LectureFrequency } from "src/lectureFrequency/lectureFrequency.entity";
+import { Course } from "src/courses/courses.entity"
+import { LectureFrequency } from "src/lectureFrequency/lectureFrequency.entity"
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm"
-import { UserCourse } from '../userCourses/userCourses.entity';
+import { UserCourse } from "../userCourses/userCourses.entity"
 
 export enum UserRole {
-    lecturer = 'lecturer',
-    student = 'student'
-  }
+    lecturer = "lecturer",
+    student = "student",
+}
 
 @Entity("users")
 export class User {
     @PrimaryGeneratedColumn()
     id: number
-
 
     @Column({ nullable: true })
     title: string
@@ -29,10 +28,9 @@ export class User {
     @Column({
         type: "enum",
         enum: UserRole,
-        default: UserRole.student
+        default: UserRole.student,
     })
     role: UserRole
-
 
     @OneToMany(() => Course, (course: Course) => course.lecturer)
     courses: Course[]
@@ -42,5 +40,4 @@ export class User {
 
     @OneToMany(() => LectureFrequency, (LectureFrequency: LectureFrequency) => LectureFrequency.user)
     lectureFrequency: LectureFrequency[]
-
 }

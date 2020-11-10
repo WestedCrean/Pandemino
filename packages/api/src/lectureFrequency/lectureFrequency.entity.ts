@@ -7,20 +7,20 @@ import { User } from "../users/users.entity"
 class LectureFrequency {
     @PrimaryGeneratedColumn()
     id: number
-    
+
     @Column({
         type: "int",
-        default: 0
+        default: 0,
     })
     status: number
-    //0 stands for absend  
+    //0 stands for absend
     //1 present
 
-    @ManyToOne(() => Lecture, (lecture: Lecture) => lecture.lectureFrequency, { onDelete: 'CASCADE' })
+    @ManyToOne(() => Lecture, (lecture: Lecture) => lecture.lectureFrequency, { onDelete: "CASCADE" })
     @JoinColumn()
     lecture: Lecture
 
-    @ManyToOne(() => User, (user: User) => user.lectureFrequency, { onDelete: 'NO ACTION' })
+    @ManyToOne(() => User, (user: User) => user.lectureFrequency, { onDelete: "NO ACTION" })
     @JoinColumn()
     user: User
 }
