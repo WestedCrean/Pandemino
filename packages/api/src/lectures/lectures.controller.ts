@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, UseGuards, Body, Param } from "@nestjs/common"
+import { Controller, Get, Post, Delete, UseGuards, Body, Param, Put } from "@nestjs/common"
 import { ApiTags } from "@nestjs/swagger"
 import { AuthGuard } from "@nestjs/passport"
 import { LecturesService } from "./lectures.service"
@@ -6,13 +6,18 @@ import { Lecture } from "./lectures.entity"
 
 @ApiTags("lectures")
 @Controller("lectures")
-@UseGuards(AuthGuard("firebase"))
+//@UseGuards(AuthGuard("firebase"))
 export class LecturesController {
     constructor(private readonly lecturesService: LecturesService) {}
 
     @Post()
     create(@Body() createLecture: any): Promise<Lecture> {
         return this.lecturesService.create(createLecture)
+    }
+
+    @Put(":id")
+    update(@Param("id") id: string, @Body() updateLecture: any): Promise<void> {
+        return this.lecturesService.update(id, updateLecture)
     }
 
     @Get()

@@ -1,15 +1,19 @@
 import React from "react"
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom"
 import { useAuthContext } from "services/auth"
 import { useHistory } from "react-router-dom"
+import logo from "../styles/logo/logo.png"
 
 const Navbar = () => {
     const { user, toggleLoggedOut } = useAuthContext()
     const history = useHistory()
-    
-    const moveToListCourses = () => {
 
-        history.push('/listCourses');
+    const moveToListCourses = () => {
+        history.push("/listCourses")
+    }
+
+    const moveToUserPanel = () => {
+        history.push("/userPanel")
     }
 
     return (
@@ -17,7 +21,7 @@ const Navbar = () => {
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul className="navbar-nav mr-auto">
                     <Link className="navbar-brand ml-4" to="/">
-                    Pandemino
+                        <img src={logo}></img>
                     </Link>
                 </ul>
             </div>
@@ -33,27 +37,34 @@ const Navbar = () => {
                 </button>
             </div>
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <a className="nav-link my-2 my-lg-0" href="#" onClick={moveToListCourses}>
-                            Wszystkie kursy
-
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link my-2 my-lg-0" href="#">
-                            {user.email}
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a
-                            className="nav-link"
-                            onClick={toggleLoggedOut}
-                        >
-                            Sign Out <span className="sr-only">(current)</span>
-                        </a>
-                    </li>
-                </ul>
+                {user && (
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <a
+                                className="nav-link my-2 my-lg-0"
+                                href="#"
+                                onClick={moveToListCourses}
+                            >
+                                Wszystkie kursy
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a
+                                className="nav-link my-2 my-lg-0"
+                                href="#"
+                                onClick={moveToUserPanel}
+                            >
+                                {user.email}
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" onClick={toggleLoggedOut}>
+                                Sign Out{" "}
+                                <span className="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+                )}
             </div>
         </nav>
     )

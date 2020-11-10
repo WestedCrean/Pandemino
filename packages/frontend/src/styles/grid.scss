@@ -27,6 +27,15 @@
 
         margin: 0 3px 0 0;
     }
+
+    .box-deleteCourse {
+        position: absolute;
+        bottom: $bot;
+        right: $rig;
+        padding: 30px;
+
+        margin: 0 90px 0 0;
+    }
 }
 
 //////////////////
@@ -51,12 +60,15 @@
 .wrapper {
     display: grid;
     grid-gap: 3px;
-    min-height: 90vh;
+    min-height: 92vh;
     color: #444;
     padding: 75px;
+    background-image: url(./logo/wave.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .box {
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.849);
     border: 2px solid rgb(0, 0, 0);
     color: rgb(0, 0, 0);
     border-radius: 5px;

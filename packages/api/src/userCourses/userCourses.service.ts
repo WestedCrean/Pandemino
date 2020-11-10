@@ -38,7 +38,7 @@ export class UserCoursesService {
 
     // FIXME: add pagination
     findAll(): Promise<UserCourse[]> {
-        return this.userCoursesRepository.find({ relations: ["course", "user"] })
+        return this.userCoursesRepository.find({ relations: ["course", "user", "course.lecturer"] })
         // return this.userCoursesRepository
         //     .createQueryBuilder("userCourse")
         //     .leftJoinAndSelect("userCourse.course", "courses")
@@ -47,7 +47,7 @@ export class UserCoursesService {
     }
 
     findOne(id: string): Promise<UserCourse> {
-        return this.userCoursesRepository.findOne(id, { relations: ["course", "user"] })
+        return this.userCoursesRepository.findOne(id, { relations: ["course", "user", "course.lecturer"] })
     }
 
     async remove(id: string): Promise<void> {

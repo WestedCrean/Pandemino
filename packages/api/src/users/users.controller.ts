@@ -1,6 +1,6 @@
 import { Controller, Get, Delete, Put, Body, UseGuards, Param, Query } from "@nestjs/common"
-import { AuthGuard } from "@nestjs/passport"
 import { ApiTags } from "@nestjs/swagger"
+import { AuthGuard } from "@nestjs/passport"
 import { UsersService } from "./users.service"
 import { User } from "./users.entity"
 
@@ -10,9 +10,9 @@ import { User } from "./users.entity"
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
-    @Put()
-    async updateUser(@Body() updateUser: { id: number; firstName: string; lastName: string }): Promise<User> {
-        return this.usersService.update(updateUser)
+    @Put(":id")
+    async updateUser(@Param("id") id: string, @Body() updateUser: any): Promise<void> {
+        await this.usersService.update(id, updateUser)
     }
 
     @Get()

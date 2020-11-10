@@ -2,17 +2,17 @@ import { join } from "path"
 import { Module } from "@nestjs/common"
 import { ConfigModule } from "@nestjs/config"
 import { TypeOrmModule } from "@nestjs/typeorm"
-import { ServeStaticModule } from "@nestjs/serve-static"
 import { SwaggerModule } from "@nestjs/swagger"
 import { LoggerModule } from "nestjs-pino/dist"
+
+import configuration from "./config/configuration"
 
 import { AuthModule } from "./auth/auth.module"
 import { UsersModule } from "./users/users.module"
 import { CoursesModule } from "./courses/courses.module"
 import { LecturesModule } from "./lectures/lectures.module"
 import { userCoursesModule } from "./userCourses/userCourses.module"
-
-import configuration from "./config/configuration"
+import { lectureFrequencyModule } from "./lectureFrequency/lectureFrequency.module"
 
 @Module({
     imports: [
@@ -55,6 +55,7 @@ import configuration from "./config/configuration"
         CoursesModule,
         LecturesModule,
         userCoursesModule,
+        lectureFrequencyModule,
     ],
 })
 export class AppModule {}

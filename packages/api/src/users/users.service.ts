@@ -4,6 +4,7 @@ import { Repository } from "typeorm"
 import { User } from "./users.entity"
 
 import { app } from "firebase-admin"
+import { UserCourse } from "src/userCourses/userCourses.entity"
 
 @Injectable()
 export class UsersService {
@@ -23,17 +24,28 @@ export class UsersService {
         return user
     }
 
-    async update(updateUserSchema: { id: number; firstName: string; lastName: string }): Promise<User> {
-        const user = await this.usersRepository.findOne(updateUserSchema.id)
+    async update(id: string, updateUserSchema: any): Promise<void> {
+        let user: User
 
-        if (user) {
-            const { id, firstName, lastName } = updateUserSchema
-            user.firstName = firstName
-            user.lastName = lastName
-            await this.usersRepository.update(id, { firstName, lastName })
-            return user
+        try {
+            user = await this.usersRepository.findOne(id)
+        } catch {
+            throw new Error(`Could not find user id ${updateUserSchema.id}`)
         }
-        throw new Error(`Could not find user id ${updateUserSchema.id}`)
+
+        if (updateUserSchema.name !== null) {
+            user.title = updateUserSchema.title
+        }
+        if (updateUserSchema.description !== null) {
+            user.firstName = updateUserSchema.firstName
+        }
+        if (updateUserSchema.description !== null) {
+            user.lastName = updateUserSchema.lastName
+        }
+
+        //FIXME: add more possible fields
+
+        await this.usersRepository.save(user)
     }
 
     // FIXME: add pagination
@@ -42,13 +54,19 @@ export class UsersService {
     }
 
     findOne(id: string): Promise<User> {
-        return this.usersRepository.findOne(id, { relations: ["userCourses", "userCourses.course"] })
+        return this.usersRepository.findOne(id, {
+            relations: ["userCourses", "userCourses.course", "userCourses.course.lecturer"],
+        })
 
         // .createQueryBuilder("user")
         // .leftJoinAndSelect("user.userCourses", "userCourses")
         // .innerJoinAndSelect("userCourses.course", "courses")
         // .where("user.id = :id", { id })
         // .getOne()
+    }
+
+    getUserWithoutRelation(id: string): Promise<User> {
+        return this.usersRepository.findOne(id)
     }
 
     findOneByEmail(email: string): Promise<User> {

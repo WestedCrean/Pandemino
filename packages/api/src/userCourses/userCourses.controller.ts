@@ -5,7 +5,8 @@ import { UserCoursesService } from "./userCourses.service"
 import { UserCourse } from "./userCourses.entity"
 
 @ApiTags("userCourses")
-@UseGuards(AuthGuard("firebase"))
+@Controller("userCourses")
+//@UseGuards(AuthGuard("firebase"))
 export class UserCoursesController {
     constructor(private readonly userCoursesService: UserCoursesService) {}
 

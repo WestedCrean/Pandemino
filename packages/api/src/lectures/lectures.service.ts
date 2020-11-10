@@ -27,15 +27,35 @@ export class LecturesService {
             throw new Error(e)
         }
 
+        lecture.createdAt = new Date()
         lecture.course = course
 
         await this.lecturesRepository.save(lecture)
         return lecture
     }
 
+    async update(id: string, updateLectureSchema: any): Promise<void> {
+        let lecture = null
+
+        try {
+            lecture = await this.lecturesRepository.findOne(id)
+        } catch (e) {
+            throw new Error(e)
+        }
+
+        if (updateLectureSchema.name !== null) {
+            lecture.name = updateLectureSchema.name
+        }
+        if (updateLectureSchema.description !== null) {
+            lecture.description = updateLectureSchema.description
+        }
+
+        await this.lecturesRepository.save(lecture)
+    }
+
     // FIXME: add pagination
     findAll(): Promise<Lecture[]> {
-        return this.lecturesRepository.find()
+        return this.lecturesRepository.find({ relations: ["course"] })
     }
 
     findOne(id: string): Promise<Lecture> {

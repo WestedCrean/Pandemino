@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm"
 import { Course } from "../courses/courses.entity"
+import { LectureFrequency } from "../lectureFrequency/lectureFrequency.entity"
 
 @Entity("lectures")
 class Lecture {
@@ -33,9 +34,15 @@ class Lecture {
     })
     isLive: boolean
 
+    @Column("timestamp")
+    createdAt: Date
+
     @ManyToOne(() => Course, (course: Course) => course.lectures, { onDelete: "CASCADE" })
     @JoinColumn()
     course: Course
+
+    @OneToMany(() => LectureFrequency, (LectureFrequency: LectureFrequency) => LectureFrequency.lecture)
+    lectureFrequency: LectureFrequency[]
 }
 
 export { Lecture }
