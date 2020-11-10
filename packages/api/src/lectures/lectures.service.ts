@@ -28,6 +28,7 @@ export class LecturesService {
       throw new Error(e)
     }
 
+    lecture.createdAt = new Date();
     lecture.course = course
 
     await this.lecturesRepository.save(lecture);

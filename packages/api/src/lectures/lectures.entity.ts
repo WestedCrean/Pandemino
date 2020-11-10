@@ -34,6 +34,9 @@ class Lecture {
     })
     isLive: boolean
 
+    @Column("timestamp")
+    createdAt: Date;
+
     @ManyToOne(() => Course, (course: Course) => course.lectures, { onDelete: 'CASCADE' })
     @JoinColumn()
     course: Course
