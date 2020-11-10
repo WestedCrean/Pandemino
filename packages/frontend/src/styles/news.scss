@@ -1,8 +1,38 @@
 .news-wrapper{
-    padding: 10px;
-    border: 1px solid grey;
-    background-color: pink;
+    padding: 8px;  
+    background-color: rgba(255, 255, 255, 0.849);
+    border: 2px solid rgb(50, 50, 50);
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    position: relative;
+    margin: 10px;
 }
+
+.news-wrapper:hover {
+    border: 2px dotted rgb(100, 100, 50);
+    background: #fff;
+
+    animation: bounce 0.5s;
+    
+
+  }
+
+  @keyframes bounce {
+    0%, 20%, 60%, 100% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+  
+    40% {
+      -webkit-transform: translateY(-20px);
+      transform: translateY(-20px);
+    }
+  
+    80% {
+      -webkit-transform: translateY(-10px);
+      transform: translateY(-10px);
+    }
+  }
 
 .news-body{
     text-align: right;

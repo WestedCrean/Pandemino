@@ -19,7 +19,7 @@ const NewsList = () => {
                 </div>
 
                 <div className="news-body">
-                    Użytkownik {news.lecturer.email} dodal kurs {news.name}
+                    Użytkownik {news.lecturer.email} dodal kurs {news.name} 
                 </div>
             </div>
         )
@@ -32,7 +32,7 @@ const NewsList = () => {
                     {setDate(news.createdAt)}
                 </div>
                 <div className="news-body">
-                Dodano wyklad {news.name}
+                Dodano wyklad {news.name} do kursu {news.course.name}
                 </div>
             </div>
 
@@ -64,7 +64,8 @@ const NewsList = () => {
             const response = await streamsRepository.getAvailableCourses()
             const response2 = await streamsRepository.getLectures()
 
-            const list = flatMap([response.data, response2.data], x => x).sortBy('createdAt');
+            const list = flatMap([response.data, response2.data], x => x).sortBy('createdAt').slice(0,7)
+
             setNews(list);
 
         } catch (error) {
@@ -79,10 +80,19 @@ const NewsList = () => {
 
     return (
         <div>
-           <h1>Tu sa najnowsze njusy</h1>
-           {news.map((singleNews) => (
-               singleNews.lecturer == null ? lectureComponent(singleNews) : courseComponent(singleNews)
-            ))}
+            <table class="table">
+                <tbody>
+
+
+                {news.map((singleNews) => (
+
+
+                    <tr>
+                        {singleNews.lecturer == null ? lectureComponent(singleNews) : courseComponent(singleNews)}
+                    </tr>
+                ))}
+                </tbody>
+            </table>
         </div>
     )
 }
