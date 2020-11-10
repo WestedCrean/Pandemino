@@ -31,7 +31,7 @@ const AddLectureModal = (props) => {
             .catch((error) => console.log(error))
 
         window.alert("Dodano nowy wyklad")
-        window.location = "/lecture"
+        window.location = `/course/${courseId}`
         handleClose()
     }
 

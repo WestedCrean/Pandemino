@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState } from "react"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
-import { Navbar } from "components"
+
 import AddLectureModal from "../components/AddLectureModal"
 import DeleteCourseModal from "../components/DeleteCourseModal"
 import { AddCourseModal } from "components"
@@ -13,9 +13,18 @@ const ListLectures = (props) => {
     const { accessToken } = useAuthContext()
 
     const { user } = useAuthContext()
-
+    const history = useHistory();
     const userEmail = user.email
     const courseId = props.location.state.courseId
+
+    const moveToLecturePage = (id) => {
+        history.push({
+            pathname: `/lecture/${id}`,
+            state: {
+                lectureId: id,
+            },
+        })
+    }
 
     const deleteComponent = () => {
         if (userEmail === courseOwnerEmail) {
@@ -94,9 +103,11 @@ const ListLectures = (props) => {
             {editComponent()}
             <div className="wrapper-lectures">
                 {lectures.map((lecture, i) => (
+                    
                     <div
                         key={`${lecture.name}-${lecture.views}-${i}`}
                         className="box-lectures "
+                        onClick={() => moveToLecturePage(lecture.id)}
                     >
                         <div className="box-label">
                             <div className="box-label-name">{lecture.name}</div>

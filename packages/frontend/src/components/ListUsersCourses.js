@@ -16,7 +16,7 @@ const ListUsersCourses = () => {
 
     const directToLecture = (id) => {
         history.push({
-            pathname: "/lecture",
+            pathname: `/course/${id}`,
             state: {
                 courseId: id,
             },

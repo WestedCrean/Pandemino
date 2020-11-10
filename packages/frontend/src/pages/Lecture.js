@@ -8,7 +8,7 @@ const Lecture = ({ ...props }) => {
 
     const [streamInfo, setStreamInfo] = useState({
         "title": "Stream o niczym",
-        "id": "1",
+        "id": "2",
         "url": "/asdf",
         "lecturer": "dr Edyta Lukasik",
         "isLive": true,
