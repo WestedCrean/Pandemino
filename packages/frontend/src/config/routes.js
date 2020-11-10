@@ -9,7 +9,7 @@ const routes = [
         needsAuth: false,
     },
     {
-        path: "/lecture",
+        path: "/course/:id",
         component: ListLectures,
         needsAuth: true,
     },

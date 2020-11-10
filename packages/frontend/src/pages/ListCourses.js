@@ -21,9 +21,9 @@ const ListCourses = () => {
     const userEmail = user.email
     const streamsRepository = ApiService(accessToken).streams
 
-    const directToLecture = (id) => {
+    const moveToCourse = (id) => {
         history.push({
-            pathname: "/lecture",
+            pathname: `/course/${id}`,
             state: {
                 courseId: id,
             },
@@ -144,7 +144,7 @@ const ListCourses = () => {
                                     <Button
                                         variant="dark"
                                         onClick={() =>
-                                            directToLecture(course.id)
+                                            moveToCourse(course.id)
                                         }
                                     >
                                         Stream
