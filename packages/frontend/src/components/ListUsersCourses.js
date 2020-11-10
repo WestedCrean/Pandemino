@@ -58,7 +58,6 @@ const ListUsersCourses = () => {
                         <th>Nazwa </th>
                         <th>Wykładowca</th>
                         <th>Stream</th>
-                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,12 +79,6 @@ const ListUsersCourses = () => {
                                     />{" "}
                                     Stream
                                 </Button>
-                            </td>
-                            <td>
-                                <AddCourseModal
-                                    courseIdProps={course.course.id}
-                                    type="edit"
-                                ></AddCourseModal>
                             </td>
                         </tr>
                     ))}

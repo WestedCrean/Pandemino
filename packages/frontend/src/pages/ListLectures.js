@@ -6,10 +6,10 @@ import { useHistory } from "react-router-dom"
 import { Navbar } from "components"
 import AddLectureModal from "../components/AddLectureModal"
 import DeleteCourseModal from "../components/DeleteCourseModal"
-
+import { AddCourseModal } from "components"
 const ListLectures = (props) => {
     const [lectures, setLectures] = useState([])
-    const [courseOwnerEmail, setCourseOwnerEmail] = useState();
+    const [courseOwnerEmail, setCourseOwnerEmail] = useState()
     const { accessToken } = useAuthContext()
 
     const { user } = useAuthContext()
@@ -18,14 +18,35 @@ const ListLectures = (props) => {
     const courseId = props.location.state.courseId
 
     const deleteComponent = () => {
-
         if (userEmail === courseOwnerEmail) {
             return (
                 <div className="box-deleteCourse">
                     <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
                 </div>
             )
-        } return null
+        }
+        return null
+    }
+    const addComponent = () => {
+        if (userEmail === courseOwnerEmail) {
+            return (
+                <div className="box-addNewCourse">
+                    <AddLectureModal courseId={courseId}></AddLectureModal>
+                </div>
+            )
+        }
+    }
+    const editComponent = () => {
+        if (userEmail === courseOwnerEmail) {
+            return (
+                <div className="box-editCourse">
+                    <AddCourseModal
+                        courseIdProps={courseId}
+                        type="edit"
+                    ></AddCourseModal>
+                </div>
+            )
+        }
     }
 
     const getStreams = async () => {
@@ -67,13 +88,10 @@ const ListLectures = (props) => {
             </Fragment> */
 
     return (
-
-
         <div className="container-lectures">
-            <div className="box-addNewCourse">
-                <AddLectureModal courseId={courseId}></AddLectureModal>
-            </div>
+            {addComponent()}
             {deleteComponent()}
+            {editComponent()}
             <div className="wrapper-lectures">
                 {lectures.map((lecture, i) => (
                     <div
@@ -81,9 +99,7 @@ const ListLectures = (props) => {
                         className="box-lectures "
                     >
                         <div className="box-label">
-                            <div className="box-label-name">
-                                {lecture.name}
-                            </div>
+                            <div className="box-label-name">{lecture.name}</div>
                         </div>
                         <div className="box-lectures-content">
                             {lecture.description}
@@ -92,7 +108,6 @@ const ListLectures = (props) => {
                 ))}
             </div>
         </div>
-
     )
 }
 
