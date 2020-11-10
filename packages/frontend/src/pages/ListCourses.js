@@ -12,7 +12,7 @@ const ListCourses = () => {
     const [userCoursesId, setUserCoursesId] = useState([])
     const [existedCourseLists, setExistedCourseList] = useState([])
     const [query, setQuery] = useState()
-    // const [isWaiting, setIsWaiting] = useState(true)
+    const [isWaiting, setIsWaiting] = useState(true)
 
     const history = useHistory()
     const { accessToken } = useAuthContext()
@@ -70,11 +70,11 @@ const ListCourses = () => {
             console.error({ error })
         }
 
-        ///Geting list of courses user is already added
-        // if (userCourses == null) {
-        //     setIsWaiting(false)
-        //     return
-        // }
+        //Geting list of courses user is already added
+        if (userCourses == null) {
+            setIsWaiting(false)
+            return
+        }
 
         let list = []
         let listId = []
@@ -86,7 +86,7 @@ const ListCourses = () => {
 
         if (existedCourseLists.length != null) {
             setExistedCourseList(list)
-            //setIsWaiting(false)
+            setIsWaiting(false)
             setUserCoursesId(listId)
         }
     }
@@ -115,9 +115,9 @@ const ListCourses = () => {
         window.location = "/"
     }
 
-    // if (isWaiting) {
-    //     return <FadeLoader></FadeLoader>
-    // }
+    if (isWaiting) {
+        return <FadeLoader></FadeLoader>
+    }
 
     return (
         <div class="wrapper">

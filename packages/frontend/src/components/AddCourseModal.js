@@ -77,10 +77,9 @@ const AddCourseModal = ({ courseIdProps, type }) => {
     return (
         <>
             {type === "edit" ? (
-                <Button variant="dark" onClick={handleShow}>
-                    <FontAwesomeIcon icon={faEdit} size="1x" />
-                    Edit
-                </Button>
+                <Fab color="default" aria-label="add" onClick={handleShow}>
+                    <FontAwesomeIcon icon={faEdit} size="2x" />
+                </Fab>
             ) : (
                 <Fab color="default" aria-label="add" onClick={handleShow}>
                     <FontAwesomeIcon icon={faFolderPlus} size="2x" />
