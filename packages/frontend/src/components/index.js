@@ -10,7 +10,8 @@ import StreamWindow from './StreamWindow'
 import StreamPublisher from './StreamPublisher'
 import StreamConsumer from './StreamConsumer'
 import Chat from './Chat'
-
+import Spinner from './Spinner'
+import SpinnerFullPage from './SpinnerFullPage'
 
 export {
     Navbar,
@@ -24,5 +25,7 @@ export {
     StreamWindow,
     StreamPublisher,
     StreamConsumer,
-    Chat
+    Chat,
+    Spinner,
+    SpinnerFullPage
 }

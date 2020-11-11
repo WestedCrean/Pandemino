@@ -27,3 +27,16 @@ code {
 
     margin: 0 auto;
 }
+
+.full-page {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: grid;
+}
+
+.margin-auto {
+    margin: auto;
+}

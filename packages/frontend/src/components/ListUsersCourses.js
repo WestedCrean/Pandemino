@@ -6,12 +6,11 @@ import { useHistory } from "react-router-dom"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { AddCourseModal } from "components"
+
 const ListUsersCourses = () => {
     const [courses, setCourses] = useState([])
-    const { accessToken } = useAuthContext()
+    const { user, accessToken } = useAuthContext()
     const history = useHistory()
-    const { user } = useAuthContext()
-
     const userEmail = user.email
 
     const directToLecture = (id) => {
@@ -51,7 +50,7 @@ const ListUsersCourses = () => {
 
     return (
         <div>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

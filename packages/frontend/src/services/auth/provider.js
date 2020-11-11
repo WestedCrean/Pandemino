@@ -1,42 +1,64 @@
-import React, { useState, useEffect } from "react"
-import AuthContext from './context'
+import React, { useState, useEffect, useCallback } from "react"
+import { AuthContext, authMethods } from 'services/auth'
+import { firebaseAuth } from 'services/firebase'
+import { SpinnerFullPage } from 'components'
 
-import { authMethods } from './methods'
-import _ from 'lodash'
+const getDefaultState = () => {
+    return ({
+        user: {},
+        accessToken: null
+    })
+}
 
 const AuthProvider = ({ children }) => {
-    const [contextState, setContextState] = useState({
-        user: null,
-        accessToken: null,
-    })
+    const [contextState, setContextState] = useState(getDefaultState())
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(contextState.accessToken === null ? true : false)
 
-    
+    const setContext = useCallback(
+        updates => {
+            setContextState({ ...contextState, ...updates })
+        },
+        [contextState, setContextState],
+    )
+
+    const getContextValue = useCallback(
+        () => ({
+            ...contextState,
+            toggleLoggedOut: () => toggleLoggedOut(),
+            setContext,
+        }),
+        [contextState, setContext],
+    )
 
     const toggleLoggedOut = async () => {
         await authMethods.signOut()
-        setContextState({
-            user: null,
-            accessToken: null,
-        })
+        setContext(getDefaultState())
     }
 
-   
 
-    const setUser = (user,accessToken) => {
-        const currentUser = contextState.user
-        if (!_.isEqual(user, currentUser)) {
-            setContextState({ user, accessToken})
+    useEffect(() => {
+        const unlisten = firebaseAuth.onAuthStateChanged(
+            async user => {
+                if (user) {
+                    let accessToken = await user.getIdToken()
+                    setContext({ user, accessToken })
+                    setLoading(false)
+                } else {
+                    setContext(getDefaultState())
+                    setLoading(false)
+                }
+            },
+        );
+        return () => {
+            unlisten();
         }
-    }
+    }, []);
 
-    const handleAuthObserver = async () => {
-        authMethods.onAuthStateChange(setUser).catch(e => setError(e))
-    }
 
-    useEffect( () => {
-        handleAuthObserver()
-    },[])
+    if (loading) {
+        return (<SpinnerFullPage />)
+    }
 
 
     if (error) {
@@ -44,20 +66,16 @@ const AuthProvider = ({ children }) => {
             <div className="container-fluid px-lg-5 mt-4">
                 <div class="py-3 alert alert-danger" role="alert">{error.message}</div>
             </div>
-        ) 
+        )
     }
 
     return (
         <AuthContext.Provider
-
-            value={{
-                user: contextState.user,
-                accessToken: contextState.accessToken,
-                toggleLoggedOut: toggleLoggedOut
-            }}
+            value={getContextValue()}
         >
             {children}
         </AuthContext.Provider>
+
     )
 }
 

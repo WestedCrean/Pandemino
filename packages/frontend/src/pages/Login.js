@@ -1,25 +1,28 @@
 import React, { useCallback } from "react"
 import { withRouter, Redirect } from "react-router"
-import { useAuthContext, authMethods } from "services/auth"
+import { authMethods } from "services/auth"
+import { useAuthContext } from 'services/auth'
 
-const Login = ({ history }) => {
-    const handleLogin = useCallback(
-        async (event) => {
-            event.preventDefault()
-            const { email, password } = event.target.elements
-            await authMethods.signIn(email.value, password.value)
-            history.push("/")
-        },
-        [history]
-    )
-    const { user } = useAuthContext()
-    if (user) {
-        return <Redirect to="/" />
+const Login = ({ history, location, }) => {
+    const { accessToken } = useAuthContext()
+    let referrer
+    try {
+        const { state: { referrer: { pathname } } } = location
+        referrer = pathname || "/"
+    } catch (e) {
+        referrer = "/"
     }
 
-    // const showUser = () => {
-    //   console.log(`#APP: ${currentUser}`);
-    // };
+    if (accessToken) {
+        return <Redirect to={referrer} />
+    }
+
+    const handleLogin = async (event) => {
+        event.preventDefault()
+        const { email, password } = event.target.elements
+        await authMethods.signIn(email.value, password.value)
+        history.push(referrer)
+    }
 
     return (
         <div id="login">

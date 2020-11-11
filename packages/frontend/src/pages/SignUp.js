@@ -10,7 +10,7 @@ const SignUp = ({ history }) => {
             const { email, password } = event.target.elements
             try {
                 await authMethods.signUp(email.value, password.value)
-                history.push("/")
+                /* history.push("/") */
             } catch (error) {
                 alert(error)
             }
@@ -46,7 +46,7 @@ const SignUp = ({ history }) => {
                                         name="email"
                                         id="email"
                                         className="form-control"
-                                     />
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password" className="text-info">
@@ -58,7 +58,7 @@ const SignUp = ({ history }) => {
                                         name="password"
                                         id="password"
                                         className="form-control"
-                                     />
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <input
@@ -66,7 +66,7 @@ const SignUp = ({ history }) => {
                                         name="submit"
                                         className="btn btn-info btn-md"
                                         value="submit"
-                                     />
+                                    />
                                 </div>
                             </form>
                         </div>
