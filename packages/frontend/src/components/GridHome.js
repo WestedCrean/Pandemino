@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react"
-import { Navbar, ListCourses } from "components"
-
-import ListUsersCourses from "./ListUsersCourses"
+import { Navbar, ListCourses, ListUsersCourses } from "components"
 import NewsList from "./NewsList"
 
 const GridHome = () => {

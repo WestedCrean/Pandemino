@@ -6,7 +6,7 @@ const routes = [
     {
         path: "/lecture/:id",
         component: Lecture,
-        needsAuth: false,
+        needsAuth: true,
     },
     {
         path: "/course/:id",

@@ -10,6 +10,7 @@ import StreamWindow from './StreamWindow'
 import StreamPublisher from './StreamPublisher'
 import StreamConsumer from './StreamConsumer'
 import Chat from './Chat'
+import Spinner from './Spinner'
 
 
 export {
@@ -24,5 +25,6 @@ export {
     StreamWindow,
     StreamPublisher,
     StreamConsumer,
-    Chat
+    Chat,
+    Spinner
 }

@@ -1,63 +1,51 @@
-import React, { useState, useEffect } from "react"
-import AuthContext from './context'
-
-import { authMethods } from './methods'
+import React, { useState, useCallback } from "react"
+import { AuthContext, useAuthState } from 'services/auth'
+import { useFirebaseContext } from 'services/firebase'
 import _ from 'lodash'
 
-const AuthProvider = ({ children }) => {
-    const [contextState, setContextState] = useState({
-        user: null,
-        accessToken: null,
+const getDefaultState = () => {
+    return ({
+        user: {},
+        accessToken: null
     })
+}
+
+const AuthProvider = ({ children }) => {
+    const firebase = useFirebaseContext();
+    const [contextState, setContextState] = useAuthState(firebase, getDefaultState())
     const [error, setError] = useState(null)
 
-    
 
-    const toggleLoggedOut = async () => {
-        await authMethods.signOut()
-        setContextState({
-            user: null,
-            accessToken: null,
-        })
-    }
+    const setContext = useCallback(
+        updates => {
+            setContextState({ ...contextState, ...updates })
+        },
+        [contextState, setContextState],
+    )
 
-   
-
-    const setUser = (user,accessToken) => {
-        const currentUser = contextState.user
-        if (!_.isEqual(user, currentUser)) {
-            setContextState({ user, accessToken})
-        }
-    }
-
-    const handleAuthObserver = async () => {
-        authMethods.onAuthStateChange(setUser).catch(e => setError(e))
-    }
-
-    useEffect( () => {
-        handleAuthObserver()
-    },[])
-
+    const getContextValue = useCallback(
+        () => ({
+            ...contextState,
+            setContext,
+        }),
+        [contextState, setContext],
+    )
 
     if (error) {
         return (
             <div className="container-fluid px-lg-5 mt-4">
                 <div class="py-3 alert alert-danger" role="alert">{error.message}</div>
             </div>
-        ) 
+        )
     }
 
     return (
         <AuthContext.Provider
-
-            value={{
-                user: contextState.user,
-                accessToken: contextState.accessToken,
-                toggleLoggedOut: toggleLoggedOut
-            }}
+            value={getContextValue()}
         >
             {children}
         </AuthContext.Provider>
+
     )
 }
 

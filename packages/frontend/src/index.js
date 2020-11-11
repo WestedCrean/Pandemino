@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 
 import App from "App"
 import { AuthProvider } from "services/auth"
+import { FirebaseProvider } from 'services/firebase'
 import * as serviceWorker from "serviceWorker"
 
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -10,9 +11,11 @@ import "styles/index.scss"
 
 ReactDOM.render(
     <React.StrictMode>
-        <AuthProvider>
-            <App />
-        </AuthProvider>
+        <FirebaseProvider>
+            <AuthProvider>
+                <App />
+            </AuthProvider>
+        </FirebaseProvider>
     </React.StrictMode>,
     document.getElementById("root")
 )
