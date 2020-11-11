@@ -4,14 +4,24 @@ import { authMethods } from "services/auth"
 import { useAuthContext } from 'services/auth'
 
 const Login = ({ history, location }) => {
-    const { accessToken } = useAuthContext()
+    let referrer
+    try {
+        const { state: { referrer: { pathname } } } = location
+        referrer = pathname || "/"
+    } catch (e) {
+        referrer = "/"
+    }
 
-    console.log({ accessToken })
+    console.log({ history, referrer })
+
+
     const handleLogin = async (event) => {
         event.preventDefault()
         const { email, password } = event.target.elements
         await authMethods.signIn(email.value, password.value)
-        history.push(location.state.referrer)
+        console.log("Pushing")
+        history.push("/")
+        console.log("Pushing")
     }
 
     return (

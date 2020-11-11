@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react'
-import firebaseApp from 'services/firebase'
+import { firebaseAuth } from 'services/firebase'
 
 
 const useAuthState = (firebase, defaultState) => {
     const [auth, setAuth] = useState(defaultState);
 
-    if (firebase === undefined) {
-        firebase = firebaseApp
-    }
     useEffect(() => {
-        const unlisten = firebase.auth().onAuthStateChanged(
+        const unlisten = firebaseAuth.onAuthStateChanged(
             async user => {
                 if (user) {
                     let accessToken = await user.getIdToken()

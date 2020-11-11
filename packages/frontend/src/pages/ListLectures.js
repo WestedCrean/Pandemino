@@ -7,15 +7,21 @@ import { useHistory } from "react-router-dom"
 import AddLectureModal from "../components/AddLectureModal"
 import DeleteCourseModal from "../components/DeleteCourseModal"
 import { AddCourseModal } from "components"
-const ListLectures = (props) => {
+
+const ListLectures = ({ location }) => {
     const [lectures, setLectures] = useState([])
     const [courseOwnerEmail, setCourseOwnerEmail] = useState()
     const { accessToken } = useAuthContext()
-
+    const history = useHistory()
     const { user } = useAuthContext()
-    const history = useHistory();
     const userEmail = user.email
-    const courseId = props.location.state.courseId
+
+    let courseId
+    try {
+        courseId = location.state.courseId
+    } catch (e) {
+        courseId = null
+    }
 
     const moveToLecturePage = (id) => {
         history.push({
@@ -103,7 +109,7 @@ const ListLectures = (props) => {
             {editComponent()}
             <div className="wrapper-lectures">
                 {lectures.map((lecture, i) => (
-                    
+
                     <div
                         key={`${lecture.name}-${lecture.views}-${i}`}
                         className="box-lectures "

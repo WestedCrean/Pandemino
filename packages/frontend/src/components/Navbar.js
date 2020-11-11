@@ -6,15 +6,6 @@ import logo from "../styles/logo/logo.png"
 
 const Navbar = () => {
     const { user, toggleLoggedOut } = useAuthContext()
-    const history = useHistory()
-
-    const moveToListCourses = () => {
-        history.push("/listCourses")
-    }
-
-    const moveToUserPanel = () => {
-        history.push("/userPanel")
-    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -42,8 +33,7 @@ const Navbar = () => {
                         <li className="nav-item">
                             <a
                                 className="nav-link my-2 my-lg-0"
-                                href="#"
-                                onClick={moveToListCourses}
+                                href="/listCourses"
                             >
                                 Wszystkie kursy
                             </a>
@@ -51,14 +41,13 @@ const Navbar = () => {
                         <li className="nav-item">
                             <a
                                 className="nav-link my-2 my-lg-0"
-                                href="#"
-                                onClick={moveToUserPanel}
+                                href="/userPanel"
                             >
                                 {user.email}
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" onClick={toggleLoggedOut}>
+                            <a className="nav-link my-2 my-lg-0" href="#" onClick={() => toggleLoggedOut()}>
                                 Sign Out{" "}
                                 <span className="sr-only">(current)</span>
                             </a>

@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react"
-import { AuthContext, useAuthState } from 'services/auth'
-import { useFirebaseContext } from 'services/firebase'
-import _ from 'lodash'
+import React, { useState, useEffect, useCallback } from "react"
+import { AuthContext } from 'services/auth'
+import { firebaseAuth } from 'services/firebase'
+import { Spinner } from 'components'
 
 const getDefaultState = () => {
     return ({
@@ -11,10 +11,9 @@ const getDefaultState = () => {
 }
 
 const AuthProvider = ({ children }) => {
-    const firebase = useFirebaseContext();
-    const [contextState, setContextState] = useAuthState(firebase, getDefaultState())
+    const [contextState, setContextState] = useState(getDefaultState())
     const [error, setError] = useState(null)
-
+    const [loading, setLoading] = useState(true)
 
     const setContext = useCallback(
         updates => {
@@ -26,10 +25,40 @@ const AuthProvider = ({ children }) => {
     const getContextValue = useCallback(
         () => ({
             ...contextState,
+            toggleLoggedOut,
             setContext,
         }),
         [contextState, setContext],
     )
+
+    const toggleLoggedOut = () => {
+        setContext(getDefaultState())
+    }
+
+
+    useEffect(() => {
+        const unlisten = firebaseAuth.onAuthStateChanged(
+            async user => {
+                if (user) {
+                    let accessToken = await user.getIdToken()
+                    setContext({ user, accessToken })
+                    setLoading(false)
+                } else {
+                    setContext(getDefaultState())
+                    setLoading(false)
+                }
+            },
+        );
+        return () => {
+            unlisten();
+        }
+    }, []);
+
+
+    if (loading) {
+        return (<Spinner />)
+    }
+
 
     if (error) {
         return (

@@ -34,8 +34,6 @@ const UserPanel = () => {
     }
 
     const saveUserInfo = async () => {
-        console.log("elo")
-
         const body = {
             firstName: name,
             lastName: lastName,
@@ -49,7 +47,7 @@ const UserPanel = () => {
 
             window.alert("Edytowano dane użytkownika")
             window.location = "/lecture"
-        } catch {}
+        } catch { }
     }
 
     const setStates = () => {

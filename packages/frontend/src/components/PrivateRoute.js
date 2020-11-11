@@ -1,11 +1,11 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import { useAuthContext, useAuthState } from "services/auth"
+import { useAuthContext } from "services/auth"
 
 const PrivateRoute = ({ component: RouteComponent, ...props }) => {
-    const { accessToken } = useAuthState()
+    const { accessToken } = useAuthContext()
 
-    return accessToken ? (<Route path={props.path} exact={props.exact} component={props.component} />) :
+    return accessToken !== null ? (<RouteComponent {...props} />) :
         (<Redirect to={{ pathname: '/login', state: { referrer: props.location } }} />);
 
 }

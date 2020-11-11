@@ -11,7 +11,7 @@ const ListCourses = () => {
     const [courses, setCourses] = useState([])
     const [userCoursesId, setUserCoursesId] = useState([])
     const [existedCourseLists, setExistedCourseList] = useState([])
-    const [query, setQuery] = useState()
+    const [query, setQuery] = useState("")
     const [isWaiting, setIsWaiting] = useState(true)
 
     const history = useHistory()
@@ -38,6 +38,7 @@ const ListCourses = () => {
             getUserCourses()
         }
     }, [userId, query])
+
 
     const getUser = async () => {
         try {
@@ -93,11 +94,10 @@ const ListCourses = () => {
     const deleteUserCourses = async (id) => {
         const streamsRepository = ApiService(accessToken).streams
         try {
-            await streamsRepository.deleteUserCourse(userCoursesId[id])
+            await streamsRepository.deleteUserCourse(id)
         } catch (error) {
             console.error(error)
         }
-        window.location = "/"
     }
 
     const joinCourse = async (courseId) => {
@@ -110,22 +110,32 @@ const ListCourses = () => {
             .addUserCourse(body)
             .then((response) => console.log(response.data))
             .catch((error) => console.log(error))
-
         window.alert("Dodano uzytkownika do wykladu wykladu")
-        window.location = "/"
+    }
+    const handleJoinCourse = async (course) => {
+        console.log({ course })
+        await joinCourse(course.id)
+        getUserCourses()
     }
 
+    const handleQuitCourse = async (course) => {
+        console.log({ course })
+        await deleteUserCourses(course.id)
+        getUserCourses()
+    }
+
+    /*
     if (isWaiting) {
         return <FadeLoader></FadeLoader>
-    }
+    } */
 
     return (
-        <div class="wrapper">
-            <div class="box grid-courses">
+        <div className="wrapper">
+            <div className="box grid-courses">
                 <div className="box-label">
                     <div className="box-label-name">WSZYSTKIE KURSY</div>
                 </div>
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -152,29 +162,23 @@ const ListCourses = () => {
                                 </td>
                                 <td>
                                     {existedCourseLists.includes(course.id) ===
-                                    false ? (
-                                        <Button
-                                            variant="dark"
-                                            onClick={() =>
-                                                joinCourse(course.id)
-                                            }
-                                        >
-                                            Dolacz do kursu
-                                        </Button>
-                                    ) : (
-                                        <Button
-                                            onClick={() =>
-                                                deleteUserCourses(
-                                                    existedCourseLists.indexOf(
-                                                        course.id
-                                                    )
-                                                )
-                                            }
-                                            variant="danger"
-                                        >
-                                            Odejdź z kursu
-                                        </Button>
-                                    )}
+                                        false ? (
+                                            <Button
+                                                variant="dark"
+                                                onClick={() =>
+                                                    handleJoinCourse(course)
+                                                }
+                                            >
+                                                Dolacz do kursu
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                onClick={() => handleQuitCourse(course)}
+                                                variant="danger"
+                                            >
+                                                Odejdź z kursu
+                                            </Button>
+                                        )}
                                 </td>
                             </tr>
                         ))}

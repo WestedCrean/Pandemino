@@ -1,4 +1,5 @@
-import firebase from "services/firebase"
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 const authMethods = {
     signUp: async (email, password) => {
