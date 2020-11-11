@@ -11,7 +11,7 @@ import StreamPublisher from './StreamPublisher'
 import StreamConsumer from './StreamConsumer'
 import Chat from './Chat'
 import Spinner from './Spinner'
-
+import SpinnerFullPage from './SpinnerFullPage'
 
 export {
     Navbar,
@@ -26,5 +26,6 @@ export {
     StreamPublisher,
     StreamConsumer,
     Chat,
-    Spinner
+    Spinner,
+    SpinnerFullPage
 }

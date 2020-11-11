@@ -6,10 +6,10 @@ import { useHistory } from "react-router-dom"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { AddCourseModal } from "components"
+
 const ListUsersCourses = () => {
     const [courses, setCourses] = useState([])
     const { user, accessToken } = useAuthContext()
-    console.log({ listuserscourses: { user, accessToken } })
     const history = useHistory()
     const userEmail = user.email
 

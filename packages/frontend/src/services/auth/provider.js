@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { AuthContext } from 'services/auth'
+import { AuthContext, authMethods } from 'services/auth'
 import { firebaseAuth } from 'services/firebase'
-import { Spinner } from 'components'
+import { SpinnerFullPage } from 'components'
 
 const getDefaultState = () => {
     return ({
@@ -13,7 +13,7 @@ const getDefaultState = () => {
 const AuthProvider = ({ children }) => {
     const [contextState, setContextState] = useState(getDefaultState())
     const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(contextState.accessToken === null ? true : false)
 
     const setContext = useCallback(
         updates => {
@@ -25,13 +25,14 @@ const AuthProvider = ({ children }) => {
     const getContextValue = useCallback(
         () => ({
             ...contextState,
-            toggleLoggedOut,
+            toggleLoggedOut: () => toggleLoggedOut(),
             setContext,
         }),
         [contextState, setContext],
     )
 
-    const toggleLoggedOut = () => {
+    const toggleLoggedOut = async () => {
+        await authMethods.signOut()
         setContext(getDefaultState())
     }
 
@@ -56,7 +57,7 @@ const AuthProvider = ({ children }) => {
 
 
     if (loading) {
-        return (<Spinner />)
+        return (<SpinnerFullPage />)
     }
 
 

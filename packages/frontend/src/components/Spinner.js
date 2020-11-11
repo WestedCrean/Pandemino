@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Spinner = () => (
+const Spinner = ({ size }) => (
     <div className="text-center">
-        <div className="spinner-border" role="status">
+        <div className="spinner-border" style={{
+            width: `${size}rem`,
+            height: `${size}rem`
+        }} role="status">
             <span className="sr-only">Loading...</span>
         </div>
     </div>
