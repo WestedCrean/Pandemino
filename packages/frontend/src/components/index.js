@@ -12,6 +12,8 @@ import StreamConsumer from './StreamConsumer'
 import Chat from './Chat'
 import Spinner from './Spinner'
 import SpinnerFullPage from './SpinnerFullPage'
+import StreamInfo from './StreamInfo'
+import Toast from './Toast'
 
 import { LiveBadge } from './Badges'
 
@@ -31,5 +33,7 @@ export {
     Chat,
     Spinner,
     SpinnerFullPage,
-    LiveBadge
+    StreamInfo,
+    LiveBadge,
+    Toast
 }

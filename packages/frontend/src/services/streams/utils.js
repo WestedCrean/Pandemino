@@ -1,4 +1,5 @@
-const getStreamRole = (userRole) => {
+const getStreamRole = (user) => {
+    const userRole = user.role
     switch (userRole) {
         case 'lecturer':
             return 'publisher'

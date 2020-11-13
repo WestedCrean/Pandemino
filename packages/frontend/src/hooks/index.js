@@ -1,3 +1,3 @@
 import { useUserInfo } from './user'
-
-export { useUserInfo }
+import { useMediaDevice } from './mediaDevice'
+export { useUserInfo, useMediaDevice }

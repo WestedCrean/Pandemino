@@ -1,13 +1,19 @@
 
 
 .stream-window {
-    height: 50vh;
-    min-height: 400px;
+    height: auto;
     width: auto;
 }
 
 .chat-window {
-    width: 400px; 
-    height: 600px;
+    height: 100%;
     margin: auto;
+    width: 100%;
 }
+
+@media (min-width: 992px) {
+    .chat-window {
+        min-width: 400px;
+    }
+}
+

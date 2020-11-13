@@ -1,3 +1,5 @@
+@import "~video-react/styles/scss/video-react";
+
 @import "./sharedVariables.scss";
 @import "./grid.scss";
 @import "./streamView.scss";
@@ -15,6 +17,10 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
+}
+
+.margin-toast {
+    margin: 5rem;
 }
 
 .form-input {
