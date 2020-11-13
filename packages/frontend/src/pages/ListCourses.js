@@ -19,7 +19,7 @@ const ListCourses = () => {
     const { user } = useAuthContext()
 
     const userEmail = user.email
-    const streamsRepository = ApiService(accessToken).streams
+    const api = ApiService(accessToken)
 
     const moveToCourse = (id) => {
         history.push({
@@ -42,7 +42,7 @@ const ListCourses = () => {
 
     const getUser = async () => {
         try {
-            await streamsRepository
+            await api
                 .getUserByEmail(userEmail)
                 .then((response) => setUserId(response.data.id))
         } catch (error) {
@@ -53,7 +53,7 @@ const ListCourses = () => {
     //FIX_ME first response fails
     const getStreams = async () => {
         try {
-            await streamsRepository
+            await api
                 .getAvailableCourses(query)
                 .then((response) => setCourses(response.data))
         } catch (error) {
@@ -64,7 +64,7 @@ const ListCourses = () => {
     const getUserCourses = async () => {
         let userCourses = null
         try {
-            await streamsRepository
+            await api
                 .getUsersCourses(userId)
                 .then((response) => (userCourses = response.data.userCourses))
         } catch (error) {
@@ -92,7 +92,7 @@ const ListCourses = () => {
         }
     }
     const deleteUserCourses = async (id) => {
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
         try {
             await streamsRepository.deleteUserCourse(id)
         } catch (error) {
@@ -101,12 +101,12 @@ const ListCourses = () => {
     }
 
     const joinCourse = async (courseId) => {
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
         const body = {
             userId: userId,
             courseId: courseId,
         }
-        await streamsRepository
+        await api
             .addUserCourse(body)
             .then((response) => console.log(response.data))
             .catch((error) => console.log(error))
@@ -166,14 +166,28 @@ const ListCourses = () => {
                                             <Button
                                                 variant="dark"
                                                 onClick={() =>
+<<<<<<< Updated upstream
                                                     handleJoinCourse(course)
+=======
+                                                    joinCourse(course.id)
+>>>>>>> Stashed changes
                                                 }
                                             >
                                                 Dolacz do kursu
                                             </Button>
                                         ) : (
                                             <Button
+<<<<<<< Updated upstream
                                                 onClick={() => handleQuitCourse(course)}
+=======
+                                                onClick={() =>
+                                                    deleteUserCourses(
+                                                        existedCourseLists.indexOf(
+                                                            course.id
+                                                        )
+                                                    )
+                                                }
+>>>>>>> Stashed changes
                                                 variant="danger"
                                             >
                                                 Odejdź z kursu

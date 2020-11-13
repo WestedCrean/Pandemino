@@ -20,8 +20,8 @@ const DeleteCourseModal = (props) => {
     const userEmail = user.email
 
     const deleteCourse = async () => {
-        const streamsRepository = ApiService(accessToken).streams
-        await streamsRepository
+        const api = ApiService(accessToken)
+        await api
             .deleteCourse(courseId)
 
         window.alert("Usunieto kurs")

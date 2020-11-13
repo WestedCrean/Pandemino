@@ -65,9 +65,9 @@ const ListLectures = ({ location }) => {
     }
 
     const getStreams = async () => {
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
         try {
-            const response = await streamsRepository.getCourseById(courseId)
+            const response = await api.getCourseById(courseId)
             setLectures(response.data.lectures)
             setCourseOwnerEmail(response.data.lecturer.email)
         } catch (error) {

@@ -13,6 +13,9 @@ import Chat from './Chat'
 import Spinner from './Spinner'
 import SpinnerFullPage from './SpinnerFullPage'
 
+import { LiveBadge } from './Badges'
+
+
 export {
     Navbar,
     PrivateRoute,
@@ -28,4 +31,5 @@ export {
     Chat,
     Spinner,
     SpinnerFullPage
+    LiveBadge
 }

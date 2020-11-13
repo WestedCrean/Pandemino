@@ -19,13 +19,13 @@ const AddLectureModal = (props) => {
     const { accessToken } = useAuthContext()
 
     const addNewCourse = async () => {
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
         const body = {
             name: lecturerName,
             description: lectureDescription,
             course: courseId,
         }
-        await streamsRepository
+        await api
             .createStream(body)
             .then((response) => console.log(response.data))
             .catch((error) => console.log(error))

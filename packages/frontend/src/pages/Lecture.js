@@ -1,11 +1,14 @@
 import React, { Fragment, useState } from 'react'
-import { StreamWindow, Chat } from 'components'
+import { withRouter } from 'react-router'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle } from "@fortawesome/free-solid-svg-icons"
 
-const Lecture = ({ ...props }) => {
+import { useUserInfo } from 'hooks'
+import { useAuthContext } from 'services/auth'
+import { getStreamRole } from 'services/streams'
+import { StreamWindow, Chat, LiveBadge } from 'components'
 
+const Lecture = ({ history, location }) => {
+    const { user } = useUserInfo()
     const [streamInfo, setStreamInfo] = useState({
         "title": "Stream o niczym",
         "id": "2",
@@ -14,6 +17,9 @@ const Lecture = ({ ...props }) => {
         "isLive": true,
         "description": "Lorem ipsum dolor sit amet"
     })
+
+    console.log({ user })
+
 
     return (
         <div className="container">
@@ -30,7 +36,7 @@ const Lecture = ({ ...props }) => {
                     <Fragment>
                         <div className="row">
                             <div className="col">
-                                {streamInfo.isLive && <span class="badge badge-danger h5"><FontAwesomeIcon icon={faCircle} /> Na żywo</span>}
+                                {streamInfo.isLive && <LiveBadge />}
                                 <h1>{streamInfo.title}</h1>
                             </div>
                         </div>
@@ -53,4 +59,4 @@ const Lecture = ({ ...props }) => {
     )
 }
 
-export default Lecture
+export default withRouter(Lecture)

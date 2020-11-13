@@ -21,9 +21,9 @@ const AddCourseModal = ({ courseIdProps, type }) => {
     const userEmail = user.email
 
     const addNewCourse = async () => {
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
 
-        const userReponse = await streamsRepository.getUserByEmail(userEmail)
+        const userReponse = await api.getUserByEmail(userEmail)
         const userId = userReponse.data.id
 
         const body = {
@@ -31,14 +31,14 @@ const AddCourseModal = ({ courseIdProps, type }) => {
             description: courseDescription,
             userId: userId,
         }
-        await streamsRepository
+        await api
             .createCourse(body)
             .then(async (response) => {
                 const userCourseBody = {
                     courseId: response.data.id,
                     userId: userId,
                 }
-                await streamsRepository
+                await api
                     .addUserCourse(userCourseBody)
                     .then(response)
                     .catch((error) => console.log(error))
@@ -50,12 +50,12 @@ const AddCourseModal = ({ courseIdProps, type }) => {
         handleClose()
     }
     const editCourse = async () => {
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
 
-        const userReponse = await streamsRepository.getUserByEmail(userEmail)
+        const userReponse = await api.getUserByEmail(userEmail)
         const userId = userReponse.data.id
 
-        const courseResponse = await streamsRepository.getCourseById(
+        const courseResponse = await api.getCourseById(
             courseIdProps
         )
 
@@ -67,7 +67,7 @@ const AddCourseModal = ({ courseIdProps, type }) => {
         }
         console.log(idCourse)
         console.log(body)
-        await streamsRepository.editCourse(idCourse, body)
+        await api.editCourse(idCourse, body)
 
         window.alert("Edytowano nowy kurs")
         window.location = "/"
@@ -81,10 +81,10 @@ const AddCourseModal = ({ courseIdProps, type }) => {
                     <FontAwesomeIcon icon={faEdit} size="2x" />
                 </Fab>
             ) : (
-                <Fab color="default" aria-label="add" onClick={handleShow}>
-                    <FontAwesomeIcon icon={faFolderPlus} size="2x" />
-                </Fab>
-            )}
+                    <Fab color="default" aria-label="add" onClick={handleShow}>
+                        <FontAwesomeIcon icon={faFolderPlus} size="2x" />
+                    </Fab>
+                )}
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -92,8 +92,8 @@ const AddCourseModal = ({ courseIdProps, type }) => {
                         {type === "edit" ? (
                             <div>Edytowanie nowego kursu</div>
                         ) : (
-                            <div>Dodawanie nowego kursu</div>
-                        )}
+                                <div>Dodawanie nowego kursu</div>
+                            )}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Podaj niezbedne dane</Modal.Body>
@@ -128,14 +128,14 @@ const AddCourseModal = ({ courseIdProps, type }) => {
                             Edit
                         </Button>
                     ) : (
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            onClick={addNewCourse}
-                        >
-                            Dodaj
-                        </Button>
-                    )}
+                            <Button
+                                type="submit"
+                                variant="primary"
+                                onClick={addNewCourse}
+                            >
+                                Dodaj
+                            </Button>
+                        )}
                 </Modal.Footer>
             </Modal>
         </>
