@@ -1,14 +1,18 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { withRouter } from 'react-router'
 
-
-import { useUserInfo } from 'hooks'
+import ApiService from "services/api"
 import { useAuthContext } from 'services/auth'
 import { getStreamRole } from 'services/streams'
+
+import { useUserInfo } from 'hooks'
 import { StreamWindow, Chat, LiveBadge } from 'components'
 
 const Lecture = ({ history, location }) => {
-    const { user } = useUserInfo()
+    const { accessToken } = useAuthContext()
+    const userInfo = useUserInfo()
+
+    const { state: { lectureId } } = location
     const [streamInfo, setStreamInfo] = useState({
         "title": "Stream o niczym",
         "id": "2",
@@ -18,7 +22,23 @@ const Lecture = ({ history, location }) => {
         "description": "Lorem ipsum dolor sit amet"
     })
 
-    console.log({ user })
+    const api = ApiService(accessToken)
+
+    const getStreamInfo = async () => {
+        try {
+            const response = await api
+                .getStreamById(lectureId)
+            setStreamInfo(response.data)
+        } catch (error) {
+            console.error({ error })
+        }
+    }
+
+
+    /*useEffect(() => {
+        getStreamInfo()
+    }, [])*/
+
 
 
     return (

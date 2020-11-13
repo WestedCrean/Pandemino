@@ -12,7 +12,7 @@ const ListCourses = () => {
     const [userCoursesId, setUserCoursesId] = useState([])
     const [existedCourseLists, setExistedCourseList] = useState([])
     const [query, setQuery] = useState("")
-    const [isWaiting, setIsWaiting] = useState(true)
+    const [isWaiting, setIsWaiting] = useState(false)
 
     const history = useHistory()
     const { accessToken } = useAuthContext()
@@ -50,12 +50,12 @@ const ListCourses = () => {
         }
     }
 
-    //FIX_ME first response fails
+    // FIXME first response fails
     const getStreams = async () => {
         try {
-            await api
+            const response = await api
                 .getAvailableCourses(query)
-                .then((response) => setCourses(response.data))
+            setCourses(response.data)
         } catch (error) {
             console.error({ error })
         }
@@ -71,7 +71,7 @@ const ListCourses = () => {
             console.error({ error })
         }
 
-        //Geting list of courses user is already added
+        // Geting list of courses user is already added
         if (userCourses == null) {
             setIsWaiting(false)
             return
@@ -92,16 +92,14 @@ const ListCourses = () => {
         }
     }
     const deleteUserCourses = async (id) => {
-        const api = ApiService(accessToken)
         try {
-            await streamsRepository.deleteUserCourse(id)
+            await api.deleteUserCourse(id)
         } catch (error) {
             console.error(error)
         }
     }
 
     const joinCourse = async (courseId) => {
-        const api = ApiService(accessToken)
         const body = {
             userId: userId,
             courseId: courseId,
@@ -124,10 +122,10 @@ const ListCourses = () => {
         getUserCourses()
     }
 
-    /*
+
     if (isWaiting) {
         return <FadeLoader></FadeLoader>
-    } */
+    }
 
     return (
         <div className="wrapper">
@@ -166,28 +164,14 @@ const ListCourses = () => {
                                             <Button
                                                 variant="dark"
                                                 onClick={() =>
-<<<<<<< Updated upstream
                                                     handleJoinCourse(course)
-=======
-                                                    joinCourse(course.id)
->>>>>>> Stashed changes
                                                 }
                                             >
                                                 Dolacz do kursu
                                             </Button>
                                         ) : (
                                             <Button
-<<<<<<< Updated upstream
                                                 onClick={() => handleQuitCourse(course)}
-=======
-                                                onClick={() =>
-                                                    deleteUserCourses(
-                                                        existedCourseLists.indexOf(
-                                                            course.id
-                                                        )
-                                                    )
-                                                }
->>>>>>> Stashed changes
                                                 variant="danger"
                                             >
                                                 Odejdź z kursu

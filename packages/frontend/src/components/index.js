@@ -30,6 +30,6 @@ export {
     StreamConsumer,
     Chat,
     Spinner,
-    SpinnerFullPage
+    SpinnerFullPage,
     LiveBadge
 }
