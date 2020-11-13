@@ -6,7 +6,7 @@ import { useMediaDevice } from 'hooks'
 
 const StreamPublisher = ({ videoSrc }) => {
     const localVideo = useRef(null);
-    const mediaDevice = useMediaDevice((msg) => console.log(msg))
+    const mediaDevice = useMediaDevice()
     const [video, setVideo] = useState(true)
 
     const toggleMediaDevice = (deviceType) => {

@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import ApiService from "services/api"
+import { useToasts } from 'react-toast-notifications'
 
 function useMediaDevice(callback) {
+    const { addToast } = useToasts()
+
     const [mediaDevice, setMediaDevice] = useState({});
     var config = {
         "video": true,
@@ -13,17 +16,20 @@ function useMediaDevice(callback) {
             setMediaDevice(md)
             callback('Created stream!');
         } catch (e) {
+            let msg = ''
+
             if (encodeURI.name === 'ConstraintNotSatisfiedError') {
-                callback('The resolution ' + config.video.width.exact + 'x' +
-                    config.video.height.exact + ' px is not supported by your device.');
+                msg = 'The resolution ' + config.video.width.exact + 'x' +
+                    config.video.height.exact + ' px is not supported by your device.'
             } else if (e.name === 'PermissionDeniedError') {
-                callback('Permission to use your camera has not been granted.');
+                msg = 'Permission to use your camera has not been granted.'
             } else if (e.name === "NotFoundError") {
-                callback("Your browser does not have access to the camera.")
+                msg = "Your browser does not have access to the camera."
             } else {
-                callback(`getUserMedia error: ${e.name}. See console for more details.`)
+                msg = `MediaDevice error: ${e.name}. See console for more details.`
                 console.log(e)
             }
+            addToast(msg, { appearance: 'error' })
         }
 
     }

@@ -32,7 +32,6 @@ const Lecture = ({ history, location }) => {
             const response = await api
                 .getStreamById(lectureId)
             setStreamInfo(response.data)
-            console.log("sukces")
             addToast("Sukces", { appearance: 'success' })
         } catch (error) {
             addToast("Błąd połączenia z serwerem", { appearance: 'error' })
