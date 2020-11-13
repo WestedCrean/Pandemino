@@ -5,11 +5,15 @@ import { faVideo } from "@fortawesome/free-solid-svg-icons"
 
 const StreamPublisher = ({ localSrc, config, mediaDevice }) => {
     const localVideo = useRef(null);
-    const [video, setVideo] = useState(config.video)
+    const [video, setVideo] = useState(true)
+    var constraints = window.constraints = {
+        audio: false,
+        video: true
+    }
 
     const getMediaDevice = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: true })
+            const stream = await navigator.mediaDevices.getUserMedia(constraints)
             var videoTracks = stream.getVideoTracks();
             console.log('Got stream with constraints:', constraints);
             console.log('Using video device: ' + videoTracks[0].label);
@@ -19,28 +23,32 @@ const StreamPublisher = ({ localSrc, config, mediaDevice }) => {
             window.stream = stream; // make variable available to browser console
             localVideo = stream
         } catch (e) {
-            if (error.name === 'ConstraintNotSatisfiedError') {
+            if (encodeURI.name === 'ConstraintNotSatisfiedError') {
                 console.log('The resolution ' + constraints.video.width.exact + 'x' +
                     constraints.video.height.exact + ' px is not supported by your device.');
-            } else if (error.name === 'PermissionDeniedError') {
+            } else if (e.name === 'PermissionDeniedError') {
                 console.log('Permissions have not been granted to use your camera and ' +
                     'microphone, you need to allow the page access to your devices in ' +
                     'order for the demo to work.');
+            } else if (e.name === "NotFoundError") {
+                console.log("Your browser does not have access to the camera.")
+            } else {
+                console.log('getUserMedia error: ' + e.name, e);
             }
-            console.log('getUserMedia error: ' + error.name, error);
+
         }
     }
 
     useEffect(() => {
-        if (localVideo.current && localSrc) localVideo.current.srcObject = localSrc;
+        getMediaDevice()
     });
 
-    useEffect(() => {
+    /**useEffect(() => {
         if (mediaDevice) {
             mediaDevice.toggle('Video', video);
         }
     });
-
+ */
     const toggleMediaDevice = (deviceType) => {
         if (deviceType === 'video') {
             setVideo(!video);

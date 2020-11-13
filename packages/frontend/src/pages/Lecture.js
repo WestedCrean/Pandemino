@@ -14,7 +14,7 @@ const Lecture = ({ history, location }) => {
 
     const { state: { lectureId } } = location
     const [streamInfo, setStreamInfo] = useState({
-        "title": "Stream o niczym",
+        "title": "Metoda najmniejszych kwadratów",
         "id": "2",
         "url": "/asdf",
         "lecturer": "dr Edyta Lukasik",
