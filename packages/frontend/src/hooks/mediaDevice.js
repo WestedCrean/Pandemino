@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import ApiService from "services/api"
 import { useToasts } from "react-toast-notifications"
 
-function useMediaDevice(callback) {
+function useMediaDevice() {
     const { addToast } = useToasts()
 
     const [mediaDevice, setMediaDevice] = useState({})
@@ -14,7 +14,7 @@ function useMediaDevice(callback) {
         try {
             const md = await navigator.mediaDevices.getUserMedia(config)
             setMediaDevice(md)
-            callback("Created stream!")
+            addToast("Created stream!", { appearance: "success" })
         } catch (e) {
             let msg = ""
 
