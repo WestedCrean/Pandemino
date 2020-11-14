@@ -1,12 +1,19 @@
-import React, { Fragment } from 'react'
-import { LiveBadge } from './Badges'
+import React, { Fragment } from "react"
+import { LiveBadge } from "./Badges"
 
-const StreamInfo = ({ title, lecturer, description, isLive }) => (
+const StreamInfo = ({
+    name,
+    lecturer,
+    description,
+    isLive,
+    views,
+    createdAt,
+}) => (
     <Fragment>
         <div className="row">
             <div className="col">
                 {isLive && <LiveBadge />}
-                <h1>{title}</h1>
+                <h1>{name}</h1>
             </div>
         </div>
         <div className="row">
@@ -16,11 +23,10 @@ const StreamInfo = ({ title, lecturer, description, isLive }) => (
         </div>
         <div className="row">
             <div className="col">
-                <p>
-                    {description}
-                </p>
+                <p>{description}</p>
             </div>
         </div>
-    </Fragment>)
+    </Fragment>
+)
 
 export default StreamInfo

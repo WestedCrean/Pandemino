@@ -1,5 +1,3 @@
-import { getStreamRole } from './utils'
+import { getStreamRole } from "./utils"
 
-export {
-    getStreamRole
-}
+export { getStreamRole }

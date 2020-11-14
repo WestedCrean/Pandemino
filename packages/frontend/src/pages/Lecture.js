@@ -1,40 +1,39 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { withRouter } from 'react-router'
+import React, { Fragment, useEffect, useState } from "react"
+import { withRouter } from "react-router"
 
 import ApiService from "services/api"
-import { useAuthContext } from 'services/auth'
-import { getStreamRole } from 'services/streams'
-import { useToasts } from 'react-toast-notifications'
+import { useAuthContext } from "services/auth"
+import { getStreamRole } from "services/streams"
+import { useToasts } from "react-toast-notifications"
 
-import { useUserInfo } from 'hooks'
-import { StreamWindow, Chat, LiveBadge, StreamInfo } from 'components'
+import { useUserInfo } from "hooks"
+import { StreamWindow, Chat, StreamInfo } from "components"
 
 const Lecture = ({ history, location }) => {
     const { accessToken } = useAuthContext()
+    const { addToast, toastStack } = useToasts()
     const userInfo = useUserInfo()
     const userRole = getStreamRole(userInfo)
-    const lectureId = location.pathname.split("/")[1]
+    const lectureId = location.pathname.split("/").slice(-1)[0]
     const [streamInfo, setStreamInfo] = useState({
-        "title": "Metoda najmniejszych kwadratów",
-        "id": "2",
-        "url": "/asdf",
-        "lecturer": "dr Edyta Lukasik",
-        "isLive": true,
-        "description": "Lorem ipsum dolor sit amet"
+        id: 2,
+        name: "Metoda najmniejszych kwadratów",
+        description: "Lorem ipsum dolor sit amet",
+        url: "/asdf",
+        views: 14,
+        createdAt: "2020-11-14T14:07:05.898Z",
+        lecturer: "dr Edyta Lukasik",
+        isLive: true,
     })
-    const { addToast } = useToasts()
 
     const api = ApiService(accessToken)
 
     const getStreamInfo = async () => {
         try {
-            console.log({ lectureId })
-            const response = await api
-                .getStreamById(lectureId)
+            const response = await api.getStreamById(lectureId)
             setStreamInfo(response.data)
-            addToast("Sukces", { appearance: 'success' })
         } catch (error) {
-            addToast("Błąd połączenia z serwerem", { appearance: 'error' })
+            addToast("Błąd połączenia z serwerem", { appearance: "error" })
         }
     }
 
@@ -42,30 +41,26 @@ const Lecture = ({ history, location }) => {
         getStreamInfo()
     }, [])
 
-
-
-
     return (
         <div className="container-md py-5">
             <div className="row py-5">
                 <div className="col-sm-12 col-md-9">
-
                     <div className="row">
                         <div className="col-sm-12 pb-4">
-                            <StreamWindow role={userRole} />
+                            <StreamWindow
+                                role={"publisher"}
+                                streamId={lectureId}
+                            />
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="col-sm-12">
-                            {
-                                streamInfo && <StreamInfo {...streamInfo} />
-                            }
+                            {streamInfo && <StreamInfo {...streamInfo} />}
                         </div>
                     </div>
-
                 </div>
-                <div className="col-sm-12 col-md-3">
+                <div className="col-sm-12 col-md-2">
                     <Chat />
                 </div>
             </div>
