@@ -12,14 +12,14 @@ const ListCourses = () => {
     const [userCoursesId, setUserCoursesId] = useState([])
     const [existedCourseLists, setExistedCourseList] = useState([])
     const [query, setQuery] = useState("")
-    const [isWaiting, setIsWaiting] = useState(true)
+    const [isWaiting, setIsWaiting] = useState(false)
 
     const history = useHistory()
     const { accessToken } = useAuthContext()
     const { user } = useAuthContext()
 
     const userEmail = user.email
-    const streamsRepository = ApiService(accessToken).streams
+    const api = ApiService(accessToken)
 
     const moveToCourse = (id) => {
         history.push({
@@ -42,7 +42,7 @@ const ListCourses = () => {
 
     const getUser = async () => {
         try {
-            await streamsRepository
+            await api
                 .getUserByEmail(userEmail)
                 .then((response) => setUserId(response.data.id))
         } catch (error) {
@@ -50,12 +50,12 @@ const ListCourses = () => {
         }
     }
 
-    //FIX_ME first response fails
+    // FIXME first response fails
     const getStreams = async () => {
         try {
-            await streamsRepository
+            const response = await api
                 .getAvailableCourses(query)
-                .then((response) => setCourses(response.data))
+            setCourses(response.data)
         } catch (error) {
             console.error({ error })
         }
@@ -64,14 +64,14 @@ const ListCourses = () => {
     const getUserCourses = async () => {
         let userCourses = null
         try {
-            await streamsRepository
+            await api
                 .getUsersCourses(userId)
                 .then((response) => (userCourses = response.data.userCourses))
         } catch (error) {
             console.error({ error })
         }
 
-        //Geting list of courses user is already added
+        // Geting list of courses user is already added
         if (userCourses == null) {
             setIsWaiting(false)
             return
@@ -92,21 +92,19 @@ const ListCourses = () => {
         }
     }
     const deleteUserCourses = async (id) => {
-        const streamsRepository = ApiService(accessToken).streams
         try {
-            await streamsRepository.deleteUserCourse(id)
+            await api.deleteUserCourse(id)
         } catch (error) {
             console.error(error)
         }
     }
 
     const joinCourse = async (courseId) => {
-        const streamsRepository = ApiService(accessToken).streams
         const body = {
             userId: userId,
             courseId: courseId,
         }
-        await streamsRepository
+        await api
             .addUserCourse(body)
             .then((response) => console.log(response.data))
             .catch((error) => console.log(error))
@@ -124,10 +122,10 @@ const ListCourses = () => {
         getUserCourses()
     }
 
-    /*
+
     if (isWaiting) {
         return <FadeLoader></FadeLoader>
-    } */
+    }
 
     return (
         <div className="wrapper">

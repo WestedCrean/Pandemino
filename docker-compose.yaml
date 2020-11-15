@@ -16,6 +16,22 @@ services:
     - NODE_ENV=production
     - DB_HOST=pandemino_postgres
     - LOG_PATH=/var/log/
+  streams:
+    container_name: pandemino_api-websocket
+    build:
+      context: .
+      dockerfile: api-websocket.dockerfile
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./packages/streams:/app
+    command: "npm start"
+    env_file:
+      - ./packages/streams/.env
+    environment:
+    - NODE_ENV=production
+    - DB_HOST=pandemino_postgres
+    - LOG_PATH=/var/log/
   postgres:
     container_name: pandemino_postgres
     image: "postgres"

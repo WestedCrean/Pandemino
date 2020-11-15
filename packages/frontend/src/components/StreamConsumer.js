@@ -1,10 +1,20 @@
-import React from 'react'
+import React from "react"
+import { Player, ControlBar, VolumeMenuButton } from "video-react"
 
-const StreamConsumer = () => {
+const StreamConsumer = ({ videoSrc }) => {
+    console.log("Using stream consumer (component)")
     return (
-        <div className="card border-dark mb-3 stream-window">
-            <div class="card-body">
-                Tu ogladaj stream
+        <div className="card border-dark stream-window">
+            <div className="card-body p-0">
+                <Player autoPlay src={videoSrc}>
+                    <ControlBar
+                        autoHide={false}
+                        disableDefaultControls
+                        className="my-class"
+                    >
+                        <VolumeMenuButton />
+                    </ControlBar>
+                </Player>
             </div>
         </div>
     )

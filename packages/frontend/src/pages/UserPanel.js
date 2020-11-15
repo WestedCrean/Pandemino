@@ -17,12 +17,12 @@ const UserPanel = () => {
     const { accessToken } = useAuthContext()
     const { user } = useAuthContext()
 
-    const streamsRepository = ApiService(accessToken).streams
+    const api = ApiService(accessToken)
     const userEmail = user.email
 
     const getUserData = async () => {
         try {
-            await streamsRepository
+            await api
                 .getUserByEmail(userEmail)
                 .then((response) => {
                     setUserData(response.data)
@@ -40,7 +40,7 @@ const UserPanel = () => {
             title: title,
         }
         try {
-            await streamsRepository
+            await api
                 .putUserData(id, body)
                 .then((response) => console.log(response.data))
                 .catch((error) => console.log(error))

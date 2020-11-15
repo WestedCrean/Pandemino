@@ -24,9 +24,9 @@ const ListUsersCourses = () => {
 
     const getStreams = async () => {
         let id = null
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
         try {
-            const response = await streamsRepository.getUserByEmail(userEmail)
+            const response = await api.getUserByEmail(userEmail)
             id = response.data.id
         } catch (error) {
             console.error({ error })
@@ -35,9 +35,9 @@ const ListUsersCourses = () => {
     }
 
     const getUser = async (id) => {
-        const streamsRepository = ApiService(accessToken).streams
+        const api = ApiService(accessToken)
         try {
-            const response = await streamsRepository.getUsersCourses(id)
+            const response = await api.getUsersCourses(id)
             setCourses(response.data.userCourses)
         } catch (error) {
             console.error({ error })

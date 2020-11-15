@@ -1,56 +1,71 @@
-import React, { Fragment, useState } from 'react'
-import { StreamWindow, Chat } from 'components'
+import React, { Fragment, useEffect, useState } from "react"
+import { withRouter } from "react-router"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle } from "@fortawesome/free-solid-svg-icons"
+import ApiService from "services/api"
+import { useAuthContext } from "services/auth"
+import { getStreamRole } from "services/streams"
+import { useToasts } from "react-toast-notifications"
 
-const Lecture = ({ ...props }) => {
+import { useUserInfo } from "hooks"
+import { StreamWindow, Chat, StreamInfo } from "components"
 
+const Lecture = ({ history, location }) => {
+    const { accessToken } = useAuthContext()
+    const { addToast, toastStack } = useToasts()
+    const userInfo = useUserInfo()
+    const userRole = getStreamRole(userInfo)
+    const lectureId = location.pathname.split("/").slice(-1)[0]
     const [streamInfo, setStreamInfo] = useState({
-        "title": "Stream o niczym",
-        "id": "2",
-        "url": "/asdf",
-        "lecturer": "dr Edyta Lukasik",
-        "isLive": true,
-        "description": "Lorem ipsum dolor sit amet"
+        id: 2,
+        name: "Metoda najmniejszych kwadratów",
+        description: "Lorem ipsum dolor sit amet",
+        url: "/asdf",
+        views: 14,
+        createdAt: "2020-11-14T14:07:05.898Z",
+        lecturer: "dr Edyta Lukasik",
+        isLive: true,
     })
 
+    const api = ApiService(accessToken)
+
+    const getStreamInfo = async () => {
+        try {
+            const response = await api.getStreamById(lectureId)
+            setStreamInfo(response.data)
+        } catch (error) {
+            addToast("Błąd połączenia z serwerem", { appearance: "error" })
+        }
+    }
+
+    useEffect(() => {
+        getStreamInfo()
+    }, [])
+
     return (
-        <div className="container">
-            <div className="row mt-5 mb-2 justify-content-between">
-                <div className="col-sm-12 col-md-8">
-                    <StreamWindow role={'publisher'} />
+        <div className="container-md py-5">
+            <div className="row py-5">
+                <div className="col-sm-12 col-md-9">
+                    <div className="row">
+                        <div className="col-sm-12 pb-4">
+                            <StreamWindow
+                                role={"publisher"}
+                                streamId={lectureId}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-sm-12">
+                            {streamInfo && <StreamInfo {...streamInfo} />}
+                        </div>
+                    </div>
                 </div>
-                <div className="col-sm-12 col-md-4">
+                <div className="col-sm-12 col-md-2">
                     <Chat />
                 </div>
             </div>
-            {
-                streamInfo && (
-                    <Fragment>
-                        <div className="row">
-                            <div className="col">
-                                {streamInfo.isLive && <span class="badge badge-danger h5"><FontAwesomeIcon icon={faCircle} /> Na żywo</span>}
-                                <h1>{streamInfo.title}</h1>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <h2 class="h5">{streamInfo.lecturer}</h2>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <p>
-                                    {streamInfo.description}
-                                </p>
-                            </div>
-                        </div>
-                    </Fragment>
-                )
-            }
         </div>
     )
 }
 
-export default Lecture
+export default withRouter(Lecture)

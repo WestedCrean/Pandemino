@@ -1,13 +1,55 @@
-
-
 .stream-window {
-    height: 50vh;
-    min-height: 400px;
+    height: auto;
     width: auto;
+    background-color: black;
 }
 
 .chat-window {
-    width: 400px; 
-    height: 600px;
+    height: 100%;
     margin: auto;
+    width: 100%;
+}
+
+.video-container {
+    position: relative;
+}
+
+.video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #22313abb;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.video-controls button {
+    background-color: #00000000;
+    border: none;
+    color: white;
+
+    outline: none;
+    position: relative;
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    width: 2rem;
+}
+
+.video-controls button:hover {
+    background-color: #4b5963bb;
+}
+
+.time-counter {
+    font-family: monospace;
+    color: white;
+    font-size: 1rem;
+    position: absolute;
+    right: 0.5rem;
 }
