@@ -1,0 +1,53 @@
+<!DOCTYPE html> <!--[if gt IE 8]><!-->
+<html class="no-js" lang="en-US">
+    <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title></title>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background-color: white;
+                font-family: "Cascadia Code", "Roboto", sans-serif;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            .container {
+                width: 100%;
+                height: 100%;
+            }
+            .video-component {
+                width: 720px;
+                height: auto;
+                margin: 10px auto;
+                display: block;
+                border: 1px black solid;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Streamy wideo</h1>
+            <video
+                id="video"
+                class="video-component"
+                width="720"
+                controls
+                autoplay
+            >
+                <source src="/streams/lectures/1" type="video/mp4" />
+            </video>
+        </div>
+
+        <script async defer></script>
+    </body>
+</html>

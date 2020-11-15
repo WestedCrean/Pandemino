@@ -21,7 +21,7 @@ export class StreamsGateway
 
     private logger: Logger = new Logger("MessageGateway")
 
-    @SubscribeMessage("events")
+    @SubscribeMessage("streamChunk")
     handleEvent(client: Socket, data: string): string {
         this.logger.log(`Message: ${data}`)
         return data

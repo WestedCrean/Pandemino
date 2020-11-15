@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react"
-import ApiService from "services/api"
 import { useToasts } from "react-toast-notifications"
 
-function useMediaDevice() {
+function useMediaDevice(constraints) {
     const { addToast } = useToasts()
+    const [mediaStream, setMediaStream] = useState(null)
 
-    const [mediaDevice, setMediaDevice] = useState({})
-    var config = {
-        video: true,
-        audio: true,
-    }
     const createMediaDevice = async () => {
         try {
-            const md = await navigator.mediaDevices.getUserMedia(config)
-            setMediaDevice(md)
+            // or MediaDevices.getUserMedia(constraints)
+            const md = await navigator.mediaDevices.getUserMedia(constraints)
+            setMediaStream(md)
             addToast("Created stream!", { appearance: "success" })
         } catch (e) {
             let msg = ""
@@ -21,26 +17,35 @@ function useMediaDevice() {
             if (encodeURI.name === "ConstraintNotSatisfiedError") {
                 msg =
                     "The resolution " +
-                    config.video.width.exact +
+                    constraints.video.width.exact +
                     "x" +
-                    config.video.height.exact +
+                    constraints.video.height.exact +
                     " px is not supported by your device."
             } else if (e.name === "PermissionDeniedError") {
                 msg = "Permission to use your camera has not been granted."
             } else if (e.name === "NotFoundError") {
-                msg = "Your browser does not have access to the camera."
+                msg = "Your browser does not have access to a camera."
             } else {
-                msg = `MediaDevice error: ${e.name}. See console for more details.`
+                msg = `MediaDevice ${e.name}. See console for more details.`
                 console.log(e)
             }
             addToast(msg, { appearance: "error" })
         }
     }
-    useEffect(() => {
-        createMediaDevice()
-    }, [])
 
-    return mediaDevice
+    useEffect(() => {
+        if (!mediaStream) {
+            createMediaDevice()
+        } else {
+            return function cleanup() {
+                mediaStream.getTracks().forEach((track) => {
+                    track.stop()
+                })
+            }
+        }
+    }, [mediaStream, constraints])
+
+    return mediaStream
 }
 
 export { useMediaDevice }
