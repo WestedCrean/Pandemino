@@ -2,25 +2,49 @@ import React, { useEffect } from "react";
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { firebaseAuth } from "services/firebase"
-
+import { useUserInfo } from "../hooks/user"
+import ApiService from "services/api"
+import { useAuthContext } from "services/auth"
 
 const FileAdding = () => {
-  const [fileUrl, setFileUrl] = React.useState(null);
   const [fileUpload, setFileUpload] = React.useState(null);
-  const [fileRef1, setFileRef] = React.useState(null);
+  const [fileReference, setFileRef] = React.useState(null);
 
-  const [users, setUsers] = React.useState([]);
+  const [lectureId, setLectureId] 
+    = React.useState(window.location.pathname.split("/").slice(-1)[0])
 
+  
+  const user = useUserInfo();
+  const { accessToken } = useAuthContext()
+
+
+  ///FIXME: check if file is already in storage
   const addFile = async () => {
-      
       if(fileUpload != null){
-        const file = fileUpload;
-        const storageRef = firebaseAuth.storage().ref();
-        const fileRef = storageRef.child(file.name);
-        await fileRef.put(file);
+        if(user){
+          ///Adding to firebase storage
+          const file = fileUpload;
+          const storageRef = firebaseAuth.storage().ref();
+          const fileRef = storageRef.child(file.name);
+          await fileRef.put(file);
 
-        setFileRef(fileRef.fullPath);
-        window.alert("Dodano plik");
+          setFileRef(fileRef.fullPath);
+
+          //adding to api database
+          console.log(lectureId)
+          const api = ApiService(accessToken)
+          const body = {
+              userId: user.id,
+              lectureId: lectureId,
+              name: fileRef.fullPath,
+          }
+          await api
+              .addFile(body)
+              .then((response) => console.log(response.data))
+              .catch((error) => console.log(error))
+  
+          window.alert("Dodano plik");
+        }
       }else {
         window.alert("Dodaj plik");
       }
@@ -28,9 +52,8 @@ const FileAdding = () => {
 
   //FOR EXAMPLE
   const remove = async () => {
-      console.log(fileRef1)
       const storageRef = firebaseAuth.storage().ref();
-      const fileRef = storageRef.child(fileRef1)
+      const fileRef = storageRef.child(fileReference)
       await fileRef.delete();
   }
 

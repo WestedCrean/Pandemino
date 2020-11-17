@@ -6,6 +6,8 @@ const ApiRoutes = (ApiService) => {
 
     const createStream = async (data) => ApiService.post("/lectures", data)
 
+    const getLectures = async () => ApiService.get('/lectures/')
+
     //KURSY
     const getAvailableCourses = async (data = "") =>
         ApiService.get(`/courses?query=${data}`)
@@ -34,7 +36,9 @@ const ApiRoutes = (ApiService) => {
     const getUserByEmail = async (email) =>
         ApiService.get(`/users/single/${email}`)
 
-    const getLectures = async () => ApiService.get('/lectures/')
+
+    //PLIKI
+    const addFile = async (data) => ApiService.post("/file", data)
 
     return {
         getAvailableStreams,
@@ -51,7 +55,8 @@ const ApiRoutes = (ApiService) => {
         putUserData,
         deleteCourse,
         editCourse,
-        getLectures
+        getLectures,
+        addFile
     }
 }
 
