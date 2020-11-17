@@ -37,7 +37,7 @@ const routes = [
         path: "/userPanel",
         component: UserPanel,
         needsAuth: true,
-    }
+    },
 ]
 
 export default routes
