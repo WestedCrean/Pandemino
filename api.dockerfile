@@ -1,12 +1,13 @@
 FROM node:14
-
-WORKDIR /app
 RUN npm i -g @nestjs/cli
+RUN mkdir /app
 
 COPY packages/api/package.json /app
 COPY packages/api/package-lock.json /app
 
-RUN npm install
+WORKDIR /app
+
+RUN NODE_ENV=development npm install
 COPY packages/api /app
 
 EXPOSE 5000

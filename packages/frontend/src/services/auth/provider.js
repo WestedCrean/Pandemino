@@ -10,6 +10,8 @@ const getDefaultState = () => {
     })
 }
 
+
+
 const AuthProvider = ({ children }) => {
     const [contextState, setContextState] = useState(getDefaultState())
     const [error, setError] = useState(null)
@@ -38,7 +40,7 @@ const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-        const unlisten = firebaseAuth.onAuthStateChanged(
+        const unlisten = firebaseAuth.auth().onAuthStateChanged(
             async user => {
                 if (user) {
                     let accessToken = await user.getIdToken()
