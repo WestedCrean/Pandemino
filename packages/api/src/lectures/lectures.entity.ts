@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm"
 import { Course } from "../courses/courses.entity"
 import { LectureFrequency } from "../lectureFrequency/lectureFrequency.entity"
+import { File } from "../file/file.entity"
 
 @Entity("lectures")
 class Lecture {
@@ -43,6 +44,9 @@ class Lecture {
 
     @OneToMany(() => LectureFrequency, (LectureFrequency: LectureFrequency) => LectureFrequency.lecture)
     lectureFrequency: LectureFrequency[]
+
+    @OneToMany(() => File, (file: File) => file.lecture)
+    file: File[]
 }
 
 export { Lecture }

@@ -13,6 +13,7 @@ import { CoursesModule } from "./courses/courses.module"
 import { LecturesModule } from "./lectures/lectures.module"
 import { userCoursesModule } from "./userCourses/userCourses.module"
 import { lectureFrequencyModule } from "./lectureFrequency/lectureFrequency.module"
+import { fileModule } from "./file/file.module"
 
 @Module({
     imports: [
@@ -56,6 +57,7 @@ import { lectureFrequencyModule } from "./lectureFrequency/lectureFrequency.modu
         LecturesModule,
         userCoursesModule,
         lectureFrequencyModule,
+        fileModule,
     ],
 })
 export class AppModule {}
