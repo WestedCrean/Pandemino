@@ -40,6 +40,10 @@ const ApiRoutes = (ApiService) => {
     //PLIKI
     const addFile = async (data) => ApiService.post("/file", data)
 
+    const getFileById = async (id) => ApiService.get(`/file/${id}`)
+
+    const deleteFile = async (id) => ApiService.delete(`/file/${id}`)
+
     return {
         getAvailableStreams,
         getStreamById,
@@ -56,7 +60,9 @@ const ApiRoutes = (ApiService) => {
         deleteCourse,
         editCourse,
         getLectures,
-        addFile
+        addFile,
+        getFileById,
+        deleteFile
     }
 }
 
