@@ -5,6 +5,7 @@ import { firebaseAuth } from "services/firebase"
 import { useUserInfo } from "../hooks/user"
 import ApiService from "services/api"
 import { useAuthContext } from "services/auth"
+import { v4 as uuidv4 } from 'uuid';
 
 const FileAdding = () => {
   const [fileUpload, setFileUpload] = React.useState(null);
@@ -25,7 +26,7 @@ const FileAdding = () => {
           ///Adding to firebase storage
           const file = fileUpload;
           const storageRef = firebaseAuth.storage().ref();
-          const fileRef = storageRef.child(file.name);
+          const fileRef = storageRef.child(uuidv4());
           await fileRef.put(file);
 
           setFileRef(fileRef.fullPath);
