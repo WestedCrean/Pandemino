@@ -55,11 +55,11 @@ export class LecturesService {
 
     // FIXME: add pagination
     findAll(): Promise<Lecture[]> {
-        return this.lecturesRepository.find({ relations: ["course"] })
+        return this.lecturesRepository.find({ relations: ["course", "file"] })
     }
 
     findOne(id: string): Promise<Lecture> {
-        return this.lecturesRepository.findOne(id)
+        return this.lecturesRepository.findOne(id, { relations: ["course", "file"]})
     }
 
     async remove(id: string): Promise<void> {

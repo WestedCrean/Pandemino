@@ -8,7 +8,8 @@ import { useToasts } from "react-toast-notifications"
 
 import { useUserInfo } from "hooks"
 import { StreamWindow, Chat, StreamInfo } from "components"
-import FileAdding from "components/FileAdding"
+
+import Files from "components/Files"
 
 const Lecture = ({ history, location }) => {
     const { accessToken } = useAuthContext()
@@ -45,7 +46,7 @@ const Lecture = ({ history, location }) => {
     return (
         <div className="container-md py-5">
             <div className="row py-5">
-                <div className="col-sm-12 col-md-9">
+                <div className="col-sm-12 col-md-8">
                     <div className="row">
                         <div className="col-sm-12 pb-4">
                             <StreamWindow
@@ -64,11 +65,9 @@ const Lecture = ({ history, location }) => {
                 <div className="col-sm-12 col-md-2">
                     <Chat />
                 </div>
-                <div>
-                    {/* FiXME: only for lecturer */}
-                    <FileAdding>
+                <div className="col-sm-12 col-md-2">
+                    <Files/>
 
-                    </FileAdding>
                 </div>
             </div>
         </div>
