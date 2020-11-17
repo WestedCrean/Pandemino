@@ -41,12 +41,12 @@ export class FileService {
 
 
     findAll(): Promise<File[]> {
-        return this.fileRepository.find()
+        return this.fileRepository.find({ relations: ["lecture", "user"] })
     }
 
 
     findOne(id: string): Promise<File> {
-        return this.fileRepository.findOne(id)
+        return this.fileRepository.findOne(id, { relations: ["lecture", "user"] })
     }
 
     async remove(id: string): Promise<void> {

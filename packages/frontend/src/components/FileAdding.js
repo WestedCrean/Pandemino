@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import * as firebase from 'firebase';
+import * as firebase from 'firebase'; ///CANT BE DELETED
 import 'firebase/firestore';
 import { firebaseAuth } from "services/firebase"
 import { useUserInfo } from "../hooks/user"
 import ApiService from "services/api"
 import { useAuthContext } from "services/auth"
 import { v4 as uuidv4 } from 'uuid';
+import {Button} from "react-bootstrap"
 
 const FileAdding = () => {
   const [fileUpload, setFileUpload] = React.useState(null);
@@ -67,8 +68,8 @@ const FileAdding = () => {
 
   return (
     <>
-        <input type="file" onChange={handleChange}/>
-        <button onClick={addFile}>Dodaj</button>
+        <input className="file-upload" type="file" onChange={handleChange} size="30" />
+        <Button valiant="secondary" onClick={addFile}>Dodaj</Button>
 
     </>
   );

@@ -8,7 +8,7 @@ import { useToasts } from "react-toast-notifications"
 
 import { useUserInfo } from "hooks"
 import { StreamWindow, Chat, StreamInfo } from "components"
-import FileAdding from "components/FileAdding"
+
 import Files from "components/Files"
 
 const Lecture = ({ history, location }) => {
@@ -67,12 +67,7 @@ const Lecture = ({ history, location }) => {
                 </div>
                 <div className="col-sm-12 col-md-2">
                     <Files/>
-                </div>
-                <div>
-                    {/* FiXME: only for lecturer */}
-                    <FileAdding>
 
-                    </FileAdding>
                 </div>
             </div>
         </div>
