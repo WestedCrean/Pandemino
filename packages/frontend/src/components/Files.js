@@ -9,26 +9,47 @@ import { useAuthContext } from "services/auth"
 import { useHistory } from 'react-router'
 import {Button } from "react-bootstrap"
 import FileAdding from "components/FileAdding"
+import DeleteFile from "./FileRemove"
 
 const Files = () => {
 
     const { addToast, toastStack } = useToasts()
-    const [files, setFiles] = useState([]);
+    const [lectures, setLectures] = useState(null);
     const [urls, setUrls] = useState([]);
+    const [ids, setIds] = useState([]);
+
     const lectureId = window.location.pathname.split("/").slice(-1)[0]
 
     const user = useUserInfo();
     const { accessToken } = useAuthContext()
 
-    const { replace } = useHistory()
 
+    const addFile = () => {
+        if(lectures != null){
+            if(user.email == lectures.course.lecturer.email){
+                return(
+                    <FileAdding/>
+                )
+            }
+        }
+    }
+
+    const deleteFile = (id) => {
+        if(lectures != null){
+            if(user.email == lectures.course.lecturer.email){
+                return(
+                    <DeleteFile fileId={id}/>
+                )
+            }
+        }
+    }
 
     const getStream = async () => {
 
         const api = ApiService(accessToken)
         try {
             const response = await api.getStreamById(lectureId)
-            setFiles(response.data.file)
+            setLectures(response.data)
         } catch (error) {
             addToast("Błąd połączenia z serwerem", { appearance: "error" })
         }
@@ -36,23 +57,27 @@ const Files = () => {
 
     const getFiles = async () => {
         let urlList = []
-        files.map(async file => {
-            const storageRef = firebaseAuth.storage().ref();
-            const fileRef = storageRef.child(file.name)
-            urlList.push(await fileRef.getDownloadURL())
-
-        })
-        setUrls(urlList);
+        let idList = []
+        if(lectures !== null){
+            lectures.file.map(async file => {
+                const storageRef = firebaseAuth.storage().ref();
+                const fileRef = storageRef.child(file.name)
+                urlList.push(await fileRef.getDownloadURL())
+                idList.push(file.id)
+            })
+            setIds(idList)
+            setUrls(urlList);
+        }
     }
 
     useEffect(() => {
-        if(files.length == 0){
+        if(lectures == null){
             getStream()
         }
         if(urls.length == 0){
             getFiles();
         }
-    }, [files]);
+    }, [lectures]);
 
     return (
         <>
@@ -62,12 +87,13 @@ const Files = () => {
                 {urls.map((url, i)=>(
                     <div className="file-container">
                         <Button variant="secondary">Przycisk nr {i}</Button><br></br>
+                        {deleteFile(ids[i])}
                         <p1>{url}</p1>
                     </div>
                 ))}
             </div>
-             {/* FiXME: only for lecturer */}
-            <FileAdding/>
+            {addFile()}
+            
         </div>
         </>
     )

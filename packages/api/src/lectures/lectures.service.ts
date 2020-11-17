@@ -59,7 +59,7 @@ export class LecturesService {
     }
 
     findOne(id: string): Promise<Lecture> {
-        return this.lecturesRepository.findOne(id, { relations: ["course", "file"]})
+        return this.lecturesRepository.findOne(id, { relations: ["course", "file", "course.lecturer"]})
     }
 
     async remove(id: string): Promise<void> {

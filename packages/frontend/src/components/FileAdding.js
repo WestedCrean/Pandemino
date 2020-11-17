@@ -20,7 +20,7 @@ const FileAdding = () => {
   const { accessToken } = useAuthContext()
 
 
-  ///FIXME: check if file is already in storage
+
   const addFile = async () => {
       if(fileUpload != null){
         if(user){
@@ -30,7 +30,6 @@ const FileAdding = () => {
           const fileRef = storageRef.child(uuidv4());
           await fileRef.put(file);
 
-          setFileRef(fileRef.fullPath);
 
           //adding to api database
           console.log(lectureId)
@@ -68,9 +67,8 @@ const FileAdding = () => {
 
   return (
     <>
-        <input className="file-upload" type="file" onChange={handleChange} size="30" />
-        <Button valiant="secondary" onClick={addFile}>Dodaj</Button>
-
+      <input className="file-upload" type="file" onChange={handleChange} size="30" />
+      <Button valiant="secondary" onClick={addFile}>Dodaj</Button>
     </>
   );
 }
