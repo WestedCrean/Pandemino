@@ -8,21 +8,51 @@ import AddLectureModal from "../components/AddLectureModal"
 import DeleteCourseModal from "../components/DeleteCourseModal"
 import { AddCourseModal } from "components"
 
-const ListLectures = ({ location }) => {
+import Button from 'react-bootstrap/Button'
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
+import Pagination from '../components/pagination';
+import * as Icon from "react-bootstrap-icons";
+
+const ListLectures = ( props ) => {
     const [lectures, setLectures] = useState([])
     const [courseOwnerEmail, setCourseOwnerEmail] = useState()
+    const [tabKey, setTabKey] = useState('live')
+   
     const { accessToken } = useAuthContext()
     const history = useHistory()
     const { user } = useAuthContext()
     const userEmail = user.email
 
+    //pagination variables
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(12);
+
+    const indexOfLastReq = currentPage * postsPerPage;
+    const indexOfFirstReq = indexOfLastReq - postsPerPage;
+    const currentReqs = lectures.slice(indexOfFirstReq, indexOfLastReq);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    
+    console.log(props)
+
     let courseId
     try {
-        courseId = location.state.courseId
+        courseId = props.location.state.courseId
     } catch (e) {
         courseId = null
     }
 
+    let courseName=props.location.state.courseName
+    console.log(courseName)
+    
+   
+
+    
+
+ 
+
+    
     const moveToLecturePage = (id) => {
         history.push({
             pathname: `/lecture/${id}`,
@@ -78,37 +108,24 @@ const ListLectures = ({ location }) => {
         getStreams()
     }, [])
 
-    /* <Fragment>
-                <AddLectureModal courseId={courseId}></AddLectureModal>
-                <div className="list-container">
-                    <div className="list-streams">
-                        {lectures.map((lecture,i) => (
-                            <div className="list-element" key={`${lecture.name}-${lecture.views}-${i}`}>
-                                <div className="list-element-inside">
-                                    <div className="list-element-badge" />
-                                    <div className="list-element-leader">
-                                        {lecture.name}
-                                    </div>
-                                    <div className="list-element-description">
-                                        {lecture.description}
-                                    </div>
-                                    <div className="list-element-data">
-                                        {lecture.views}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </Fragment> */
 
-    return (
-        <div className="container-lectures">
+    return (     
+        <div>
+        <h1 className="d-flex justify-content-center mt-2">{courseName}</h1>
+        <div className="tabElement"> 
+    <Tabs
+      id="controlled-tab-example"
+      activeKey={tabKey}
+      onSelect={(k) => setTabKey(k)}
+    >
+      <Tab eventKey="live" title="Live">
+      
+      <div className="container-lectures">
             {addComponent()}
             {deleteComponent()}
             {editComponent()}
             <div className="wrapper-lectures">
-                {lectures.map((lecture, i) => (
+                {currentReqs.map((lecture, i) => (
 
                     <div
                         key={`${lecture.name}-${lecture.views}-${i}`}
@@ -124,7 +141,25 @@ const ListLectures = ({ location }) => {
                     </div>
                 ))}
             </div>
+            <Pagination postsPerPage={postsPerPage} 
+    totalPosts={lectures.length} 
+    paginate={paginate}>
+
+    </Pagination>
         </div>
+        
+      </Tab>
+      <Tab eventKey="saved " title="Zapisane Wideo">
+      It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+      </Tab>
+      <Tab eventKey="materials" title="Materiały" >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+      </Tab>
+    </Tabs>
+
+    </div>
+    </div>
+    
     )
 }
 

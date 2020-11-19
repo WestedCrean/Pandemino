@@ -21,13 +21,17 @@ const ListCourses = () => {
     const userEmail = user.email
     const api = ApiService(accessToken)
 
-    const directToLecture = (id) => {
+    const directToLecture = (id, name) => {
+        
         history.push({
             pathname: `/course/${id}`,
             state: {
                 courseId: id,
+                courseName: name,
+                
             },
         })
+        
     }
 
     useEffect(() => {
@@ -155,7 +159,7 @@ const ListCourses = () => {
                                             <Button
                                                 variant="dark"
                                                 onClick={() =>
-                                                    directToLecture(course.id)
+                                                    directToLecture(course.id, course.name)
                                                 }
                                             >
                                                 Stream
