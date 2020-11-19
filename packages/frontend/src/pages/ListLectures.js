@@ -11,10 +11,10 @@ import { AddCourseModal } from "components"
 import Button from 'react-bootstrap/Button'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-
+import Pagination from '../components/pagination';
 import * as Icon from "react-bootstrap-icons";
 
-const ListLectures = ({ location }) => {
+const ListLectures = ( props ) => {
     const [lectures, setLectures] = useState([])
     const [courseOwnerEmail, setCourseOwnerEmail] = useState()
     const [tabKey, setTabKey] = useState('live')
@@ -24,84 +24,35 @@ const ListLectures = ({ location }) => {
     const { user } = useAuthContext()
     const userEmail = user.email
 
+    //pagination variables
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(13);
-    
-      //pagination variables
-  const indexOfLastReq = currentPage * postsPerPage;
-  const indexOfFirstReq = indexOfLastReq - postsPerPage;
-  const currentReqs = lectures.slice(indexOfFirstReq, indexOfLastReq);
+    const [postsPerPage, setPostsPerPage] = useState(12);
 
-  const lastPageIndex = Math.ceil(lectures.length / postsPerPage);
+    const indexOfLastReq = currentPage * postsPerPage;
+    const indexOfFirstReq = indexOfLastReq - postsPerPage;
+    const currentReqs = lectures.slice(indexOfFirstReq, indexOfLastReq);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    
+    console.log(props)
 
     let courseId
     try {
-        courseId = location.state.courseId
+        courseId = props.location.state.courseId
     } catch (e) {
         courseId = null
     }
 
-    const simplePaging = () => {
-        return (
-          <div className="pagineButtons d-flex justify-content-center">
-            {currentPage != 1 ? (
-              <button
-                className="btn btn-dark mx-3 pagineBarLeft navButton"
-                onClick={() => setCurrentPage(1)}
-              >
-                <Icon.ArrowBarLeft color="white" size={20} />
-              </button>
-            ) : (
-              <button
-                className="btn btn-dark  mx-3 pagineBarLeft navButton"
-                disabled
-              >
-                <Icon.ArrowBarLeft color="white" size={20} />
-              </button>
-            )}
-            {currentPage > 1 ? (
-              <button
-                className="btn btn-dark mx-3 pagineLeft navButton"
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                <Icon.ArrowLeft color="white" size={20} />
-              </button>
-            ) : (
-              <button className="btn btn-dark mx-3 pagineLeft navButton" disabled>
-                <Icon.ArrowLeft color="white" size={20} />
-              </button>
-            )}
-            {currentPage < lastPageIndex ? (
-              <button
-                className="btn btn-dark mx-3 pagineRight navButton"
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                <Icon.ArrowRight color="white" size={20} />
-              </button>
-            ) : (
-              <button className="btn btn-dark mx-3 pagineRight navButton" disabled>
-                <Icon.ArrowRight color="white" size={20} />
-              </button>
-            )}
-            {currentPage < lastPageIndex ? (
-              <button
-                className="btn btn-dark mx-3 pagineBarRight navButton"
-                onClick={() => setCurrentPage(lastPageIndex)}
-              >
-                <Icon.ArrowBarRight color="white" size={20} />
-              </button>
-            ) : (
-              <button
-                className="btn btn-dark mx-3 pagineBarRight navButton"
-                disabled
-              >
-                <Icon.ArrowBarRight color="white" size={20} />
-              </button>
-            )}
-          </div>
-        );
-      };
+    let courseName=props.location.state.courseName
+    console.log(courseName)
+    
+   
 
+    
+
+ 
+
+    
     const moveToLecturePage = (id) => {
         history.push({
             pathname: `/lecture/${id}`,
@@ -159,7 +110,8 @@ const ListLectures = ({ location }) => {
 
 
     return (     
-        
+        <div>
+        <h1 className="d-flex justify-content-center mt-2">{courseName}</h1>
         <div className="tabElement"> 
     <Tabs
       id="controlled-tab-example"
@@ -189,17 +141,23 @@ const ListLectures = ({ location }) => {
                     </div>
                 ))}
             </div>
+            <Pagination postsPerPage={postsPerPage} 
+    totalPosts={lectures.length} 
+    paginate={paginate}>
+
+    </Pagination>
         </div>
         
       </Tab>
-      <Tab eventKey="saved " title="Saved streams">
+      <Tab eventKey="saved " title="Zapisane Wideo">
       It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
       </Tab>
-      <Tab eventKey="materials" title="Materials" >
+      <Tab eventKey="materials" title="Materiały" >
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
       </Tab>
     </Tabs>
-    {simplePaging()}
+
+    </div>
     </div>
     
     )

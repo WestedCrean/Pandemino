@@ -75,10 +75,10 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-.tabElement{
-    padding:50px;
+.tabElement {
+    padding: 50px;
 }
-.container-tab{
+.container-tab {
     border: 1px black solid;
 }
 .box {
@@ -101,23 +101,26 @@
 /* Widok Wykładów */
 ////////////////////
 .container-lectures {
-    min-height: 75vh;
+    min-height: 77vh;
     $bot: 35px;
     $rig: 80px;
     @include fab($bot, $rig);
 
     border-color: #e0e4e8;
-    border-style: solid ;
+    border-style: solid;
     border-width: 0 1px 1px 1px;
-    border-radius:0 0 15px 15px;
-    
-
+    border-radius: 0 0 15px 15px;
+    .pagination {
+        position: absolute;
+        bottom: 150px;
+        left: 170px;
+    }
     .wrapper-lectures {
         grid-gap: 30px;
         width: 100%;
         display: inline-flex;
         padding: 40px;
-        margin-left:60px;
+        margin-left: 60px;
         display: block;
 
         .box-lectures {
@@ -130,7 +133,7 @@
             position: relative;
             margin: 7px;
             overflow: hidden;
-            
+
             box-shadow: 0 0.8px 1px rgba(0, 0, 0, 0.034),
                 0 3.7px 3px rgba(0, 0, 0, 0.048),
                 0 3.5px 6px rgba(0, 0, 0, 0.06),
