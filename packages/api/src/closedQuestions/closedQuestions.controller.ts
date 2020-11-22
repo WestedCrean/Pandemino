@@ -11,9 +11,9 @@ export class ClosedQuestionsController {
     constructor(private readonly closedQuestionsService: ClosedQuestionsService) {}
 
     @Post()
-    create(@Body() createQuiz: any): Promise<ClosedQuestion> {
+    create(@Body() createClosedQuestion: any): Promise<ClosedQuestion> {
 
-        return this.closedQuestionsService.create(createQuiz)
+        return this.closedQuestionsService.create(createClosedQuestion)
     }
 
     @Get()

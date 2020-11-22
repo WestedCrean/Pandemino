@@ -1,16 +1,17 @@
-import { Lecture } from "src/lectures/lectures.entity"
 import { Quiz } from "src/quiz/quiz.entity"
-import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne,  } from "typeorm"
 
 
-@Entity("quiz")
+@Entity("closedQuestion")
 class ClosedQuestion {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
-    name: string
+    content: string
 
+    @Column({default: false})
+    multiple: boolean
 
 
     @ManyToOne(() => Quiz, (quiz: Quiz) => quiz.closedQuestions, { onDelete: "CASCADE" })

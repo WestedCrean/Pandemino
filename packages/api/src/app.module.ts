@@ -15,7 +15,6 @@ import { userCoursesModule } from "./userCourses/userCourses.module"
 import { lectureFrequencyModule } from "./lectureFrequency/lectureFrequency.module"
 import { fileModule } from "./file/file.module"
 import { QuizModule } from "./quiz/quiz.module"
-import { ClosedQuestionsService } from "./closedQuestions/closedQuestions.service"
 import { ClosedQuestionsModule } from "./closedQuestions/closedQuestions.module"
 
 @Module({
