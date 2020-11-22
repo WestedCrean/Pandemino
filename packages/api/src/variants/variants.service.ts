@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
+import { ClosedQuestion } from "src/closedQuestions/closedQuestions.entity"
 import { Lecture } from "src/lectures/lectures.entity"
 import { Quiz } from "src/quiz/quiz.entity"
 import { Repository } from "typeorm"
@@ -12,6 +13,8 @@ export class VariantsService {
     constructor(
         @InjectRepository(Variants)
         private variantsRepository: Repository<Variants>,
+        @InjectRepository(ClosedQuestion)
+        private closedClestionRepository: Repository<ClosedQuestion>,
 
     ) {}
 
@@ -19,7 +22,19 @@ export class VariantsService {
     async create(createVariant: any): Promise<Variants> {
 
         try {
-          
+            const closedQuestion = await this.closedClestionRepository.findOne(createVariant.closedQuestionId)
+
+            let variant = new Variants()
+
+            if(createVariant.isTrue != null){
+                variant.isTrue = createVariant.isTrue
+            }
+
+            variant.content = createVariant.content
+            variant.closedQuestion = closedQuestion
+
+            await this.variantsRepository.save(variant)
+            return variant
         } catch (e) {
             return null
         }
