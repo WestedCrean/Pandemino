@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Modal, Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
@@ -9,19 +9,40 @@ import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 
 const AddClosedQuestionModal = () => {
 
+    const [questionCount, setQuestionCount] = useState(1)
+    const [list, setList] = useState([])
+
     const [show, setShow] = useState(false)
+    const [showSecondStep, setShowSecondStep] = useState(false)
 
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
+    const handleShowSecondStep = () => setShowSecondStep(true)
+    const handleCloseSecondStep = () => setShowSecondStep(false)
 
 
-    const addNewCourse = async () => {
+    const addNewQuestion = async () => {
         //const api = ApiService(accessToken)
-
 
     }
 
+    const moveToStepTwo = () => {
+
+        handleClose()
+        let list = []
+        for(var i = 0; i < questionCount; i++){
+            list.push(i)
+        }
+
+        setList(list)
+
+        handleShowSecondStep()
+    }
+
+    useEffect(() => {
+
+    },[showSecondStep]);
 
     return (
         <>
@@ -32,24 +53,14 @@ const AddClosedQuestionModal = () => {
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <div>Dodawanie nowego kursu</div>
+                        <div>Dodawanie nowego pytania</div>
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Podaj niezbedne dane</Modal.Body>
+                <Modal.Body>Podaj ile pytan chcesz dodac</Modal.Body>
                 <form className="p-3">
                     <div>
-                        <input type="text" id="question" name="question"/>
-                        <label for="question">Question</label>
-                    </div>
-
-                    <div>
-                        <input type="text" id="answer1" name="answer1"/>
-                        <label for="answer1">Answer1</label>
-                    </div>
-                
-                    <div>
-                        <input type="text" id="answer2" name="answer2"/>
-                        <label for="answer2">Answer2</label>
+                        <input type="number" id="question" name="question" onChange={e => setQuestionCount(e.target.value)}/>
+                        <label for="question">Ilość pytań</label>
                     </div>
                 </form>
                 <Modal.Footer>
@@ -59,7 +70,37 @@ const AddClosedQuestionModal = () => {
                     <Button
                         type="submit"
                         variant="primary"
-                        onClick={addNewCourse}
+                        onClick={()=>moveToStepTwo()}
+                    >
+                        Przejdz dalej
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+  
+
+            <Modal show={showSecondStep} onHide={handleCloseSecondStep}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <div>Dodawanie nowego pytania</div>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Podaj niezbedne dane</Modal.Body>
+                <form className="p-3">
+                    {list.map((element, i) => (
+                        <div>
+                            <input type="text" id={`question${5}`} name="question"/>
+                            <label for="question">Question</label>
+                        </div>
+                    ))}
+                </form>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseSecondStep}>
+                        Anuluj
+                    </Button>
+                    <Button
+                        type="submit"
+                        variant="primary"
+                        onClick={null}
                     >
                         Dodaj
                     </Button>

@@ -156,7 +156,7 @@ const ListLectures = ( props ) => {
 
       </Tab>
       <Tab eventKey="create-quiz" title="Utwórz quiz" >
-          <CreateQuiz></CreateQuiz>
+      <CreateQuiz></CreateQuiz>
       </Tab>
 
     </Tabs>

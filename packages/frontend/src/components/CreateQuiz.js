@@ -33,6 +33,7 @@ const CreateQuiz = () => {
 
         const api = ApiService(accessToken)
         const body = {
+            //At this moment it gets courseId need to be changed 
             lectureId: window.location.pathname.split("/").slice(-1)[0],
             description: "do zmiany",
             name: "do zmiany",
