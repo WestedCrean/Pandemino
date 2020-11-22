@@ -14,6 +14,8 @@ import Tabs from 'react-bootstrap/Tabs'
 import Pagination from '../components/pagination';
 import * as Icon from "react-bootstrap-icons";
 
+import CreateQuiz from "../components/CreateQuiz";
+
 const ListLectures = ( props ) => {
     const [lectures, setLectures] = useState([])
     const [courseOwnerEmail, setCourseOwnerEmail] = useState()
@@ -46,12 +48,6 @@ const ListLectures = ( props ) => {
     let courseName=props.location.state.courseName
     console.log(courseName)
     
-   
-
-    
-
- 
-
     
     const moveToLecturePage = (id) => {
         history.push({
@@ -155,6 +151,14 @@ const ListLectures = ( props ) => {
       <Tab eventKey="materials" title="Materiały" >
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
       </Tab>
+
+      <Tab eventKey="quizes" title="Quiz" >
+
+      </Tab>
+      <Tab eventKey="create-quiz" title="Utwórz quiz" >
+      <CreateQuiz></CreateQuiz>
+      </Tab>
+
     </Tabs>
 
     </div>
