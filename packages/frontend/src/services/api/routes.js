@@ -44,6 +44,14 @@ const ApiRoutes = (ApiService) => {
 
     const deleteFile = async (id) => ApiService.delete(`/file/${id}`)
 
+    //QUIZ
+
+    const getQuizById = async (id) => ApiService.get(`quiz/${id}`)
+
+    const addQuiz = async (data) => ApiService.post("quiz", data)
+
+
+
     return {
         getAvailableStreams,
         getStreamById,
@@ -62,7 +70,9 @@ const ApiRoutes = (ApiService) => {
         getLectures,
         addFile,
         getFileById,
-        deleteFile
+        deleteFile,
+        getQuizById,
+        addQuiz
     }
 }
 
