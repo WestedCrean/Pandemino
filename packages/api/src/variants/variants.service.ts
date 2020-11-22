@@ -1,8 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { ClosedQuestion } from "src/closedQuestions/closedQuestions.entity"
-import { Lecture } from "src/lectures/lectures.entity"
-import { Quiz } from "src/quiz/quiz.entity"
 import { Repository } from "typeorm"
 import { Variants } from "./variants.entity"
 

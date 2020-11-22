@@ -39,12 +39,12 @@ export class ClosedQuestionsService {
     }
 
     findAll(): Promise<ClosedQuestion[]> {
-        return this.closedQuestionRepository.find()
+        return this.closedQuestionRepository.find({ relations: ["variants"] })
     }
 
 
     findOne(id: string): Promise<ClosedQuestion> {
-        return this.closedQuestionRepository.findOne(id)
+        return this.closedQuestionRepository.findOne(id, { relations: ["variants"] })
     }
 
     async remove(id: string): Promise<void> {
