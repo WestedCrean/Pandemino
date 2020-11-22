@@ -46,6 +46,8 @@ const ApiRoutes = (ApiService) => {
 
     //QUIZ
 
+    const getQuizes = async () => ApiService.get(`quiz`)
+
     const getQuizById = async (id) => ApiService.get(`quiz/${id}`)
 
     const addQuiz = async (data) => ApiService.post("quiz", data)
@@ -72,7 +74,8 @@ const ApiRoutes = (ApiService) => {
         getFileById,
         deleteFile,
         getQuizById,
-        addQuiz
+        addQuiz,
+        getQuizes
     }
 }
 

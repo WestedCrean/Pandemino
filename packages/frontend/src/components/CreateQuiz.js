@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect, useState, createFactory} from "react"
 import AddClosedQuestionModal from "./AddClosedQuestionModal";
 import { useAuthContext } from "services/auth"
-import { useHistory } from "react-router-dom"
 import ApiService from "services/api"
 
 
 const CreateQuiz = () => {
 
     const [childrens, setChildren] = useState([]);
+    const [quizes, setQuizes] = useState([]);
 
     const { accessToken } = useAuthContext()
 
@@ -20,7 +20,15 @@ const CreateQuiz = () => {
         console.log(childrens)
     }
 
-    
+
+    const getQuizes = async () => {
+
+        const api = ApiService(accessToken);
+        const response = await api.getQuizes()
+
+        setQuizes(response.data);
+    }
+
     const addNewQuiz = async () => {
 
         const api = ApiService(accessToken)
@@ -40,7 +48,7 @@ const CreateQuiz = () => {
 
 
     useEffect(() => {
-    
+        getQuizes()
     }, [childrens])
 
 
@@ -49,7 +57,16 @@ const CreateQuiz = () => {
         <div>
             <h1>Tutaj moze utworzyc quiz</h1>
             <button onClick={addNewQuiz}>Dodaj nowy quiz do tego kursu</button>
-            <AddClosedQuestionModal></AddClosedQuestionModal>
+
+            <h1>Quizy w tym kurwidołku</h1>
+            {quizes.map((quiz,i) => (
+                <div>{quiz.name}
+                    
+                <AddClosedQuestionModal></AddClosedQuestionModal>
+                </div>
+            ))}
+
+
 
 
         </div>
