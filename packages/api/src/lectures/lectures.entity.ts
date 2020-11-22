@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMan
 import { Course } from "../courses/courses.entity"
 import { LectureFrequency } from "../lectureFrequency/lectureFrequency.entity"
 import { File } from "../file/file.entity"
+import { Quiz } from "src/quiz/quiz.entity"
 
 @Entity("lectures")
 class Lecture {
@@ -47,6 +48,9 @@ class Lecture {
 
     @OneToMany(() => File, (file: File) => file.lecture)
     file: File[]
+
+    @OneToMany(() => Quiz, (quiz: Quiz) => quiz.lecture)
+    quiz: Quiz[]
 }
 
 export { Lecture }
