@@ -16,6 +16,7 @@ import { lectureFrequencyModule } from "./lectureFrequency/lectureFrequency.modu
 import { fileModule } from "./file/file.module"
 import { QuizModule } from "./quiz/quiz.module"
 import { ClosedQuestionsModule } from "./closedQuestions/closedQuestions.module"
+import { VariantsModule } from "./variants/variants.module"
 
 @Module({
     imports: [
@@ -62,8 +63,7 @@ import { ClosedQuestionsModule } from "./closedQuestions/closedQuestions.module"
         fileModule,
         QuizModule,
         ClosedQuestionsModule,
-        
-
+        VariantsModule,
     ],
 })
 export class AppModule {}

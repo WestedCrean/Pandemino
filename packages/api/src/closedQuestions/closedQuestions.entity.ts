@@ -1,5 +1,6 @@
 import { Quiz } from "src/quiz/quiz.entity"
-import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne,  } from "typeorm"
+import { Variants } from "src/variants/variants.entity"
+import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany,  } from "typeorm"
 
 
 @Entity("closedQuestion")
@@ -18,7 +19,8 @@ class ClosedQuestion {
     @JoinColumn()
     quiz: Quiz
 
-
+    @OneToMany(() => Variants, (variants: Variants) => variants.closedQuestion)
+    variants: Variants[]
 
 }
 

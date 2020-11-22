@@ -23,6 +23,10 @@ export class ClosedQuestionsService {
             const quiz = await this.quizRepository.findOne(createClosedQuestion.quizId)
 
             let closedQuestions = new ClosedQuestion()
+
+            if(createClosedQuestion.multiple != null){
+                closedQuestions.multiple = createClosedQuestion.multiple
+            }
             closedQuestions.content = createClosedQuestion.content
             closedQuestions.quiz = quiz
 
