@@ -4,12 +4,15 @@ import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 
 
-const CreateQuiz = () => {
+const CreateQuiz = (props) => {
 
+    let currentLectureId = props.lectureId
     const [childrens, setChildren] = useState([]);
     const [quizes, setQuizes] = useState([]);
 
     const { accessToken } = useAuthContext()
+
+
 
     const addComponent = () =>{
 
@@ -34,7 +37,7 @@ const CreateQuiz = () => {
         const api = ApiService(accessToken)
         const body = {
             //At this moment it gets courseId need to be changed 
-            lectureId: window.location.pathname.split("/").slice(-1)[0],
+            lectureId: currentLectureId,
             description: "do zmiany",
             name: "do zmiany",
         }
