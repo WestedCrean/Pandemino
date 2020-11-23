@@ -20,6 +20,8 @@ const ListLectures = ( props ) => {
     const [lectures, setLectures] = useState([])
     const [courseOwnerEmail, setCourseOwnerEmail] = useState()
     const [tabKey, setTabKey] = useState('live')
+
+    const [currentLecture, setCurrentLecture] = useState(1)
    
     const { accessToken } = useAuthContext()
     const history = useHistory()
@@ -36,7 +38,7 @@ const ListLectures = ( props ) => {
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
     
-    console.log(props)
+
 
     let courseId
     try {
@@ -46,8 +48,7 @@ const ListLectures = ( props ) => {
     }
 
     let courseName=props.location.state.courseName
-    console.log(courseName)
-    
+   
     
     const moveToLecturePage = (id) => {
         history.push({
@@ -101,68 +102,66 @@ const ListLectures = ( props ) => {
         }
     }
     useEffect(() => {
-        getStreams()
-    }, [])
+        if(lectures.length == 0){
+            getStreams()
+        }
+    }, [currentLecture])
 
 
     return (     
-        <div>
-        <h1 className="d-flex justify-content-center mt-2">{courseName}</h1>
-        <div className="tabElement"> 
-    <Tabs
-      id="controlled-tab-example"
-      activeKey={tabKey}
-      onSelect={(k) => setTabKey(k)}
-    >
-      <Tab eventKey="live" title="Live">
-      
-      <div className="container-lectures">
-            {addComponent()}
-            {deleteComponent()}
-            {editComponent()}
-            <div className="wrapper-lectures">
-                {currentReqs.map((lecture, i) => (
+        <div className="conatiner">
+            <div class="row">
+                <div className="container-lectures col-3">
+                    {addComponent()}
+                    {deleteComponent()}
+                    {editComponent()}
+                    <div className="wrapper-lectures">
+                        {currentReqs.map((lecture, i) => (
 
-                    <div
-                        key={`${lecture.name}-${lecture.views}-${i}`}
-                        className="box-lectures "
-                        onClick={() => moveToLecturePage(lecture.id)}
-                    >
-                        <div className="box-label">
-                            <div className="box-label-name">{lecture.name}</div>
-                        </div>
-                        <div className="box-lectures-content">
-                            {lecture.description}
-                        </div>
+                            <div
+                                key={`${lecture.name}-${lecture.views}-${i}`}
+                                className="box-lectures "
+                                // onClick={() => moveToLecturePage(lecture.id)}
+                                onClick={() => {setCurrentLecture(lecture.id); console.log(lecture.id)}}
+                            >
+                                <div className="box-label">
+                                    <div className="box-label-name">{lecture.name}</div>
+                                </div>
+                                <div className="box-lectures-content">
+                                    {lecture.description}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                                                {/* <Pagination postsPerPage={postsPerPage} 
+                                        totalPosts={lectures.length} 
+                                        paginate={paginate}>
+
+                                        </Pagination> */}
+                </div>
+
+                <div className="col-9">
+                <Tabs 
+                    id="controlled-tab-example"
+                    activeKey={tabKey}
+                    onSelect={(k) => setTabKey(k)}>
+
+                    <Tab eventKey="live" title="Live"></Tab>
+                    <Tab eventKey="saved " title="Zapisane Wideo">
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                    </Tab>
+                    <Tab eventKey="materials" title="Materiały" >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                    </Tab>
+                    <Tab eventKey="quizes" title="Quiz"></Tab>
+                    <Tab eventKey="create-quiz" title="Utwórz quiz" >
+                        <CreateQuiz lectureId={currentLecture}></CreateQuiz>
+                    </Tab>
+
+                </Tabs>
+                </div>
             </div>
-            <Pagination postsPerPage={postsPerPage} 
-    totalPosts={lectures.length} 
-    paginate={paginate}>
-
-    </Pagination>
         </div>
-        
-      </Tab>
-      <Tab eventKey="saved " title="Zapisane Wideo">
-      It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-      </Tab>
-      <Tab eventKey="materials" title="Materiały" >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-      </Tab>
-
-      <Tab eventKey="quizes" title="Quiz" >
-
-      </Tab>
-      <Tab eventKey="create-quiz" title="Utwórz quiz" >
-      <CreateQuiz></CreateQuiz>
-      </Tab>
-
-    </Tabs>
-
-    </div>
-    </div>
     
     )
 }
