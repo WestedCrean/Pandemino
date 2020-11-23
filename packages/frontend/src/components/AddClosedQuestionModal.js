@@ -9,9 +9,16 @@ import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 
 const AddClosedQuestionModal = () => {
 
+    ///form data
+    const [question, setQuestion] = useState(null);
+    const [anwserList, setAnswerList] = useState([])
+    const [checkInputs, setCheckInputs] = useState([])
+
+
+    const [elementList, setElementList] = useState([])
+
     const [questionCount, setQuestionCount] = useState(1)
     const [multiple , setMultiple] = useState(false)
-    const [list, setList] = useState([])
 
     const [show, setShow] = useState(false)
     const [showSecondStep, setShowSecondStep] = useState(false)
@@ -31,15 +38,54 @@ const AddClosedQuestionModal = () => {
     const moveToStepTwo = () => {
 
         handleClose()
-        let list = []
+        let elementListTemp = []
+        let anwserListTemp = []
+        let checkInputsTemp = []
+
         for(var i = 0; i < questionCount; i++){
-            list.push(i)
+            elementListTemp.push(i)
+            anwserListTemp.push("0")
+            checkInputsTemp.push(false)
         }
 
-        setList(list)
+        setElementList(elementListTemp)
+        setAnswerList(anwserListTemp)
+        setCheckInputs(checkInputsTemp)
 
         handleShowSecondStep()
     }
+
+
+    const handleMultipleFormInput = (e, i) => {
+
+        let list = anwserList
+        list[i] = e
+        setAnswerList(list)
+
+        console.log(anwserList)
+    }
+
+    const handleMultipleFormChecks = (e, i) => {
+
+        let list = checkInputs
+        list[i] = e
+        setCheckInputs(checkInputs)
+
+        console.log(checkInputs)
+    }
+
+    const handleMultipleFormRadio = (e, i) => {
+
+        let list = checkInputs
+        for(let i = 0; i < checkInputs.length; i++){
+            list[i] = false
+        }
+        list[i] = e
+        setCheckInputs(checkInputs)
+
+        console.log(checkInputs)
+    }
+
 
     useEffect(() => {
 
@@ -62,7 +108,7 @@ const AddClosedQuestionModal = () => {
                 <Modal.Body>Podaj treść i ilość możliwych wariantów odpowiedzi</Modal.Body>
                 <form className="p-3">
                     <div>
-                        <input type="text" id={`question`} name="question"/>
+                        <input type="text" id={`question`} name="question" onChange={e => setQuestion(e.target.value)} />
                         <label for="question">Pytanie  </label>
                         <input type="radio" name="multiple" onChange={e => setMultiple(e.target.value)}/>
                         <label for="multiple">Wielokrotnego wyboru? </label><br></br>
@@ -93,18 +139,18 @@ const AddClosedQuestionModal = () => {
                 </Modal.Header>
                 <Modal.Body>Podaj niezbedne dane</Modal.Body>
                 <form className="p-3">
-                    {list.map((element, i) => (
+                    {elementList.map((i) => (
                         <div>
-                            <input type="text" id={`answer${i}`} name={`answer${i}`}/>
+                            <input type="text" id={`answer${i}`} name={`answer${i}`} onChange={e => handleMultipleFormInput(e.target.value, i)}/>
                             <label>Odpowiedz nr {i}</label>
                             {multiple == false ? 
                             <div>
-                                <input type="radio" name="isTrue" value={`isTrue${i}`}/>
+                                <input type="radio" name="isTrue" onChange={e => handleMultipleFormRadio(e.target.checked, i)}/>
                                 <label>Poprawna? </label><br></br>
                             </div>
                              : 
                             <div>
-                                <input type="checkbox" name="isTrue" value={`isTrue${i}`}/>
+                                <input type="checkbox" name="isTrue" onChange={e => handleMultipleFormChecks(e.target.checked, i)}/>
                                 <label>Poprawna? </label><br></br>
                             </div>}
                         </div>
