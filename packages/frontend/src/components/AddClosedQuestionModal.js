@@ -10,6 +10,7 @@ import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 const AddClosedQuestionModal = () => {
 
     const [questionCount, setQuestionCount] = useState(1)
+    const [multiple , setMultiple] = useState(false)
     const [list, setList] = useState([])
 
     const [show, setShow] = useState(false)
@@ -44,6 +45,8 @@ const AddClosedQuestionModal = () => {
 
     },[showSecondStep]);
 
+
+
     return (
         <>
             <Fab color="default" aria-label="add" onClick={handleShow}>
@@ -56,9 +59,13 @@ const AddClosedQuestionModal = () => {
                         <div>Dodawanie nowego pytania</div>
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Podaj ile pytan chcesz dodac</Modal.Body>
+                <Modal.Body>Podaj treść i ilość możliwych wariantów odpowiedzi</Modal.Body>
                 <form className="p-3">
                     <div>
+                        <input type="text" id={`question`} name="question"/>
+                        <label for="question">Pytanie  </label>
+                        <input type="radio" name="multiple" onChange={e => setMultiple(e.target.value)}/>
+                        <label for="multiple">Wielokrotnego wyboru? </label><br></br>
                         <input type="number" id="question" name="question" onChange={e => setQuestionCount(e.target.value)}/>
                         <label for="question">Ilość pytań</label>
                     </div>
@@ -88,8 +95,18 @@ const AddClosedQuestionModal = () => {
                 <form className="p-3">
                     {list.map((element, i) => (
                         <div>
-                            <input type="text" id={`question${5}`} name="question"/>
-                            <label for="question">Question</label>
+                            <input type="text" id={`answer${i}`} name={`answer${i}`}/>
+                            <label>Odpowiedz nr {i}</label>
+                            {multiple == false ? 
+                            <div>
+                                <input type="radio" name="isTrue" value={`isTrue${i}`}/>
+                                <label>Poprawna? </label><br></br>
+                            </div>
+                             : 
+                            <div>
+                                <input type="checkbox" name="isTrue" value={`isTrue${i}`}/>
+                                <label>Poprawna? </label><br></br>
+                            </div>}
                         </div>
                     ))}
                 </form>
