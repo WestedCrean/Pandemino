@@ -7,7 +7,9 @@ import { faFolderPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 
-const AddClosedQuestionModal = () => {
+const AddClosedQuestionModal = ({quizId}) => {
+
+    const { accessToken } = useAuthContext()
 
     ///form data
     const [question, setQuestion] = useState(null);
@@ -28,10 +30,24 @@ const AddClosedQuestionModal = () => {
 
     const handleShowSecondStep = () => setShowSecondStep(true)
     const handleCloseSecondStep = () => setShowSecondStep(false)
-
+    
+    const api = ApiService(accessToken)
 
     const addNewQuestion = async () => {
-        //const api = ApiService(accessToken)
+        
+        const body = {
+            quizId:quizId,
+            multiple:multiple,
+            question:question
+        }
+        console.log(body)
+
+        try {
+           let response =  await api.addQuestion(body)
+            console.log(response)
+        } catch (error) {
+            console.error({ error })
+        }
 
     }
 
@@ -52,7 +68,9 @@ const AddClosedQuestionModal = () => {
         setAnswerList(anwserListTemp)
         setCheckInputs(checkInputsTemp)
 
+        addNewQuestion()
         handleShowSecondStep()
+        
     }
 
 
@@ -85,6 +103,10 @@ const AddClosedQuestionModal = () => {
 
         console.log(checkInputs)
     }
+
+    
+
+    
 
 
     useEffect(() => {

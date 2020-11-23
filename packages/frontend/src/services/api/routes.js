@@ -52,7 +52,17 @@ const ApiRoutes = (ApiService) => {
 
     const addQuiz = async (data) => ApiService.post("quiz", data)
 
+    const removeQuiz = async (id) => ApiService.delete(`quiz/${id}`)
 
+    const getQuestions = async () => ApiService.get("closedQuestions")
+
+    const getQuestionById = async (id) => ApiService.get(`closedQuestions/${id}`)
+
+    const addQuestion = async (data) => ApiService.post("closedQuestions",data)
+
+    const getVariants = async () => ApiService.get("variants")
+    
+    const addVariant = async () => ApiService.post("variants")
 
     return {
         getAvailableStreams,
@@ -75,7 +85,13 @@ const ApiRoutes = (ApiService) => {
         deleteFile,
         getQuizById,
         addQuiz,
-        getQuizes
+        removeQuiz,
+        getQuizes,
+        getQuestions,
+        getQuestionById,
+        addQuestion,
+        getVariants,
+        addVariant
     }
 }
 

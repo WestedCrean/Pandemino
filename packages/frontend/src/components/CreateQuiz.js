@@ -66,7 +66,7 @@ const CreateQuiz = (props) => {
             {quizes.map((quiz,i) => (
                 <div>{quiz.name}
                     
-                <AddClosedQuestionModal></AddClosedQuestionModal>
+                <AddClosedQuestionModal quizId={quiz.id}></AddClosedQuestionModal>
                 </div>
             ))}
 
