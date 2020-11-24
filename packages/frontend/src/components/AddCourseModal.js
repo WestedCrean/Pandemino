@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { Fab } from "@material-ui/core"
-import { faFolderPlus } from "@fortawesome/free-solid-svg-icons"
+import { faBaby, faFolderPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 
@@ -77,11 +77,11 @@ const AddCourseModal = ({ courseIdProps, type }) => {
     return (
         <>
             {type === "edit" ? (
-                <Fab color="default" aria-label="add" onClick={handleShow}>
+                <Button className="awsome-button" color="default" aria-label="add" onClick={handleShow}>
                     <FontAwesomeIcon icon={faEdit} size="2x" />
-                </Fab>
+                </Button>
             ) : (
-                    <Fab color="default" aria-label="add" onClick={handleShow}>
+                    <Fab className="awsome-button" color="default" aria-label="add" onClick={handleShow}>
                         <FontAwesomeIcon icon={faFolderPlus} size="2x" />
                     </Fab>
                 )}

@@ -13,10 +13,26 @@ import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import Pagination from '../components/pagination';
 import * as Icon from "react-bootstrap-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 
 import CreateQuiz from "../components/CreateQuiz";
 
 const ListLectures = ( props ) => {
+
+    //styles
+    const [sidebar, setSidebar] = useState("sidebar")
+
+    const showSideBar = () =>{
+
+        if(sidebar == "sidebar"){
+            setSidebar("sidebar-active")
+        }else { setSidebar("sidebar")}
+    }
+
+    
+    ////main code
+
     const [lectures, setLectures] = useState([])
     const [courseOwnerEmail, setCourseOwnerEmail] = useState()
     const [tabKey, setTabKey] = useState('live')
@@ -30,7 +46,7 @@ const ListLectures = ( props ) => {
 
     //pagination variables
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(12);
+    const [postsPerPage, setPostsPerPage] = useState(15);
 
     const indexOfLastReq = currentPage * postsPerPage;
     const indexOfFirstReq = indexOfLastReq - postsPerPage;
@@ -109,44 +125,57 @@ const ListLectures = ( props ) => {
 
 
     return (     
-        <div className="conatiner">
-            <div class="row">
-                <div className="container-lectures col-3">
-                    {addComponent()}
-                    {deleteComponent()}
-                    {editComponent()}
-                    <div className="wrapper-lectures">
-                        {currentReqs.map((lecture, i) => (
-
-                            <div
-                                key={`${lecture.name}-${lecture.views}-${i}`}
-                                className="box-lectures "
-                                // onClick={() => moveToLecturePage(lecture.id)}
-                                onClick={() => {setCurrentLecture(lecture.id); console.log(lecture.id)}}
-                            >
-                                <div className="box-label">
-                                    <div className="box-label-name">{lecture.name}</div>
-                                </div>
-                                <div className="box-lectures-content">
-                                    {lecture.description}
-                                </div>
+        <div className="">
+            <div className="main-lectures-wrapper">
+                <nav className={`sidebar ${sidebar}`}>
+                    
+                        <div className="sidebar-header-main">
+                            <div className="sidebar-header">
+                                <h3>Lista kursów</h3>
                             </div>
-                        ))}
-                    </div>
-                                                {/* <Pagination postsPerPage={postsPerPage} 
-                                        totalPosts={lectures.length} 
-                                        paginate={paginate}>
+                            <div className="left-arrow-icon-wrapper">
+                                <FontAwesomeIcon className="left-arrow-icon" icon={faArrowLeft} size="2x" onClick={() => showSideBar()}/>
+                            </div>
+                        </div>
 
-                                        </Pagination> */}
-                </div>
+                        <ul className="list-unstyled components">
 
-                <div className="col-9">
+                            {currentReqs.map((lecture, i) => (
+                            <div className="wrapper-lectures">
+                                <li  
+                                    key={`${lecture.name}-${lecture.views}-${i}`}
+                                    className="box-lectures "
+                                    // onClick={() => moveToLecturePage(lecture.id)}
+                                    onClick={() => {setCurrentLecture(lecture.id); showSideBar() }}
+                                >
+                                    <div className="box-label">
+                                        <div className="box-label-name">{lecture.name}</div>
+                                    </div>
+
+                                </li>
+                            </div>
+                            ))}
+                        </ul>
+                                                    {/* <Pagination postsPerPage={postsPerPage} 
+                                            totalPosts={lectures.length} 
+                                            paginate={paginate}>
+
+                                            </Pagination> */}
+                        <div className="nav-buttons">
+                            {addComponent()}
+                            {deleteComponent()}
+                            {editComponent()}
+                        </div>
+                </nav>
+
+                <div className="bookmarks-wrapper">
+                    <button onClick={() => showSideBar()}>| | |</button> 
                 <Tabs 
                     id="controlled-tab-example"
                     activeKey={tabKey}
                     onSelect={(k) => setTabKey(k)}>
 
-                    <Tab eventKey="live" title="Live"></Tab>
+                    <Tab eventKey="live" title="Live">Witaj w kursie nr {currentLecture}</Tab>
                     <Tab eventKey="saved " title="Zapisane Wideo">
                         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                     </Tab>
@@ -159,9 +188,13 @@ const ListLectures = ( props ) => {
                     </Tab>
 
                 </Tabs>
+
                 </div>
+                <div class="overlay"></div>
             </div>
         </div>
+
+
     
     )
 }
