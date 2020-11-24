@@ -14,7 +14,8 @@ import Tabs from 'react-bootstrap/Tabs'
 import Pagination from '../components/pagination';
 import * as Icon from "react-bootstrap-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeft,faArrowRight } from "@fortawesome/free-solid-svg-icons"
+
 
 import CreateQuiz from "../components/CreateQuiz";
 
@@ -133,9 +134,6 @@ const ListLectures = ( props ) => {
                             <div className="sidebar-header">
                                 <h3>Lista kursów</h3>
                             </div>
-                            <div className="left-arrow-icon-wrapper">
-                                <FontAwesomeIcon className="left-arrow-icon" icon={faArrowLeft} size="2x" onClick={() => showSideBar()}/>
-                            </div>
                         </div>
 
                         <ul className="list-unstyled components">
@@ -169,7 +167,11 @@ const ListLectures = ( props ) => {
                 </nav>
 
                 <div className="bookmarks-wrapper">
-                    <button onClick={() => showSideBar()}>| | |</button> 
+                    {
+                        sidebar=="sidebar" ? <FontAwesomeIcon className="show-sidebar-button" onClick={() => showSideBar()} size="2x" icon={faArrowRight}></FontAwesomeIcon> 
+                        : <FontAwesomeIcon className="show-sidebar-button" onClick={() => showSideBar()} size="2x" icon={faArrowLeft}></FontAwesomeIcon> 
+                    }
+
                 <Tabs 
                     id="controlled-tab-example"
                     activeKey={tabKey}
