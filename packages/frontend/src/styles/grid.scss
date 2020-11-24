@@ -18,10 +18,10 @@
     }
 }
 
-@mixin fab($bot, $rig) {
+@mixin fab($top, $rig) {
     .box-addNewCourse {
         position: absolute;
-        bottom: $bot;
+        top: $top;
         right: $rig;
         padding: 30px;
 
@@ -30,7 +30,7 @@
 
     .box-deleteCourse {
         position: absolute;
-        bottom: $bot;
+        top: $top;
         right: $rig;
         padding: 30px;
 
@@ -38,7 +38,7 @@
     }
     .box-editCourse {
         position: absolute;
-        bottom: $bot;
+        top: $top;
         right: $rig;
         padding: 30px;
 
@@ -68,11 +68,12 @@
 .wrapper {
     display: grid;
     grid-gap: 3px;
-    min-height: 93vh;
+    min-height: 90vh;
     color: #444;
     padding: 75px;
+    margin-bottom: 0px;
     background-image: url(./logo/wave.svg);
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
 }
 .tabElement {
@@ -97,62 +98,175 @@
     $rig: 0;
     @include fab($bot, $rig);
 }
+
+
 ////////////////////
 /* Widok Wykładów */
 ////////////////////
-.container-lectures {
-    min-height: 77vh;
-    $bot: 35px;
-    $rig: 80px;
-    @include fab($bot, $rig);
 
-    border-color: #e0e4e8;
-    border-style: solid;
-    border-width: 0 1px 1px 1px;
-    border-radius: 0 0 15px 15px;
-    .pagination {
-        position: absolute;
-        bottom: 150px;
-        left: 170px;
-    }
-    .wrapper-lectures {
-        grid-gap: 30px;
-        width: 100%;
-        display: inline-flex;
-        padding: 40px;
-        margin-left: 60px;
-        display: block;
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-        .box-lectures {
-            cursor: pointer;
-            display: inline-flex;
-            width: 250px;
-            height: 200px;
-            background-color: white;
-            border: 2px solid #292b2c;
-            position: relative;
-            margin: 7px;
-            overflow: hidden;
 
-            box-shadow: 0 0.8px 1px rgba(0, 0, 0, 0.034),
-                0 3.7px 3px rgba(0, 0, 0, 0.048),
-                0 3.5px 6px rgba(0, 0, 0, 0.06),
-                0 8px 9.9px rgba(0, 0, 0, 0.072),
-                0 11px 21.4px rgba(0, 0, 0, 0.086),
-                0 44px 30px rgba(0, 0, 0, 0.12);
+.main-lectures-wrapper{
 
-            $hei: 45px;
-            $pos: absolute;
-            @include box-name($hei, $pos);
+    overflow: hidden;
+}
+.bookmarks-wrapper{
 
-            .box-lectures-content {
-                margin-top: 65px;
-                margin-left: 20px;
-                white-space: normal;
-                letter-spacing: 0.5px;
-                height: 40%;
-                font-size: smaller;
-            }
-        }
-    }
+    overflow: hidden;
+}
+
+.sidebar {
+    padding-right: 0px;
+    height: 92.6vh;
+    z-index: 999;
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+    overflow-y: scroll;
+}
+
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+
+.bookmarks-wrapper{
+    padding: 30px;
+}
+
+
+
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+
+
+.sidebar > div, div:hover, div:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+
+.sidebar ul.components {
+    padding: 5px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+.sidebar-header-main{
+
+    padding: 30px;
+    margin: 0;
+    background: #6d7fcc;
+    display: flex;
+    align-items: center;
+}
+
+.left-arrow-icon-wrapper{
+
+    align-items: right;
+    margin-left: 30px;
+}
+
+.left-arrow-icon:hover{
+
+    color: black;
+}
+
+.sidebar ul li div {
+    padding: 5px;
+    text-align: center;
+    font-size: 1.1em;
+    display: block;
+}
+
+
+
+.sidebar ul li div:hover {
+    color: black;
+    background: #fff;
+    
+}
+
+
+
+
+
+
+.main-lectures-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+
+
+.sidebar {
+    min-width: 300px;
+    max-width: 300px;
+}
+
+
+.sidebar {
+        margin-left: -300px;
+}
+
+.sidebar-active {
+        margin-left: 0;
+}
+
+
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+#dismiss {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.awsome-button{
+    background-color: #6d7fcc;
+    width: 100%;
+}
+
+
+.nav-buttons{
+    display: flex;
+    column-gap: 30px;
+    text-align: center;
+    align-items: center;
+    margin-left: 30px;
 }

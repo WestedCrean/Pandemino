@@ -16,6 +16,7 @@ const AddLectureModal = (props) => {
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
+
     const { accessToken } = useAuthContext()
 
     const addNewCourse = async () => {
@@ -37,9 +38,9 @@ const AddLectureModal = (props) => {
 
     return (
         <>
-            <Fab color="default" aria-label="add" onClick={handleShow}>
+            <Button className="awsome-button" color="default" aria-label="add" onClick={handleShow}>
                 <FontAwesomeIcon icon={faPlus} size="2x" />
-            </Fab>
+            </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

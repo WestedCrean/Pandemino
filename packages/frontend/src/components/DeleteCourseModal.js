@@ -31,9 +31,9 @@ const DeleteCourseModal = (props) => {
 
     return (
         <>
-            <Fab color="default" aria-label="add" onClick={handleShow}>
+            <Button className="awsome-button"color="default" aria-label="add" onClick={handleShow}>
                 <FontAwesomeIcon icon={faMinus} size="2x" />
-            </Fab>
+            </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
