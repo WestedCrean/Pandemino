@@ -48,7 +48,7 @@ const AddClosedQuestionModal = ({quizId}) => {
         try {
            let response =  await api.addQuestion(body)
             addVariants(response.data.id)
-            
+            handleCloseSecondStep()
         } catch (error) {
             console.error({ error })
         }
