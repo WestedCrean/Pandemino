@@ -23,10 +23,10 @@ export class QuizService {
 
             quiz.name = createQuiz.name
             quiz.description = createQuiz.description
-            //quiz.startDate = createQuiz.startDate
-            //quiz.endDate = createQuiz.startDate
-            quiz.startDate = new Date() //only for debugind pupropse
-            quiz.endDate = new Date() 
+            quiz.startDate = createQuiz.startDate
+            quiz.endDate = createQuiz.endDate
+           
+             
 
             const lecture = await this.lectureRepository.findOne(createQuiz.lectureId)
             quiz.lecture = lecture
