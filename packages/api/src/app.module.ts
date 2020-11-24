@@ -15,7 +15,7 @@ import { userCoursesModule } from "./userCourses/userCourses.module"
 import { lectureFrequencyModule } from "./lectureFrequency/lectureFrequency.module"
 import { fileModule } from "./file/file.module"
 import { QuizModule } from "./quiz/quiz.module"
-import { ClosedQuestionsModule } from "./closedQuestions/closedQuestions.module"
+import { QuestionsModule } from "./questions/questions.module"
 import { VariantsModule } from "./variants/variants.module"
 
 @Module({
@@ -62,7 +62,7 @@ import { VariantsModule } from "./variants/variants.module"
         lectureFrequencyModule,
         fileModule,
         QuizModule,
-        ClosedQuestionsModule,
+        QuestionsModule,
         VariantsModule,
     ],
 })

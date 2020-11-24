@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
-import { ClosedQuestion } from "src/closedQuestions/closedQuestions.entity"
+import { Question } from "src/questions/questions.entity"
 import { Repository } from "typeorm"
 import { Variants } from "./variants.entity"
 
@@ -11,8 +11,8 @@ export class VariantsService {
     constructor(
         @InjectRepository(Variants)
         private variantsRepository: Repository<Variants>,
-        @InjectRepository(ClosedQuestion)
-        private closedClestionRepository: Repository<ClosedQuestion>,
+        @InjectRepository(Question)
+        private closedClestionRepository: Repository<Question>,
 
     ) {}
 
@@ -29,7 +29,7 @@ export class VariantsService {
             }
 
             variant.content = createVariant.content
-            variant.closedQuestion = closedQuestion
+            variant.questions = closedQuestion
 
             await this.variantsRepository.save(variant)
             return variant

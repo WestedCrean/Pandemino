@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
-import { ClosedQuestion } from "src/closedQuestions/closedQuestions.entity"
+import { Question } from "src/questions/questions.entity"
 
 
 import { VariantsController } from "./variants.controller"
@@ -10,7 +10,7 @@ import { VariantsService } from "./variants.service"
 
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Variants, ClosedQuestion])],
+    imports: [TypeOrmModule.forFeature([Variants, Question])],
     providers: [VariantsService],
     controllers: [VariantsController],
     exports: [VariantsService],
