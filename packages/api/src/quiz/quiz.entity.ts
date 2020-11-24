@@ -1,4 +1,4 @@
-import { ClosedQuestion } from "src/closedQuestions/closedQuestions.entity"
+import { Question } from "src/questions/questions.entity"
 import { Lecture } from "src/lectures/lectures.entity"
 import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from "typeorm"
 
@@ -24,8 +24,8 @@ class Quiz {
     //pytOtw
 
 
-    @OneToMany(() => ClosedQuestion, (closedQuestions: ClosedQuestion) => closedQuestions.quiz)
-    closedQuestions: Quiz[]
+    @OneToMany(() => Question, (questions: Question) => questions.quiz)
+    questions: Quiz[]
 
     @ManyToOne(() => Lecture, (lecture: Lecture) => lecture.quiz, { onDelete: "CASCADE" })
     @JoinColumn()

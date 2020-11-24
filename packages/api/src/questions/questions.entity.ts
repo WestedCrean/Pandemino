@@ -4,7 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMan
 
 
 @Entity("closedQuestion")
-class ClosedQuestion {
+class Question {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -14,14 +14,16 @@ class ClosedQuestion {
     @Column({default: false})
     multiple: boolean
 
+    @Column({default: false})
+    isOpen: boolean
 
-    @ManyToOne(() => Quiz, (quiz: Quiz) => quiz.closedQuestions, { onDelete: "CASCADE" })
+    @ManyToOne(() => Quiz, (quiz: Quiz) => quiz.questions, { onDelete: "CASCADE" })
     @JoinColumn()
     quiz: Quiz
 
-    @OneToMany(() => Variants, (variants: Variants) => variants.closedQuestion)
+    @OneToMany(() => Variants, (variants: Variants) => variants.questions)
     variants: Variants[]
 
 }
 
-export { ClosedQuestion }
+export { Question }

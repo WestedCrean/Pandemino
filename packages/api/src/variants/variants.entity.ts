@@ -1,4 +1,4 @@
-import { ClosedQuestion } from "src/closedQuestions/closedQuestions.entity"
+import { Question } from "src/questions/questions.entity"
 import { Quiz } from "src/quiz/quiz.entity"
 import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne,  } from "typeorm"
 
@@ -15,9 +15,9 @@ class Variants {
     isTrue: boolean
 
 
-    @ManyToOne(() => ClosedQuestion, (closedQuestion: ClosedQuestion) => closedQuestion.variants, { onDelete: "CASCADE" })
+    @ManyToOne(() => Question, (question: Question) => question.variants, { onDelete: "CASCADE" })
     @JoinColumn()
-    closedQuestion: ClosedQuestion
+    questions: Question
 
 
 
