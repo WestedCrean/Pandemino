@@ -16,6 +16,7 @@ import * as Icon from "react-bootstrap-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft,faArrowRight } from "@fortawesome/free-solid-svg-icons"
 
+
 import CreateQuiz from "../components/CreateQuiz";
 
 const ListLectures = ( props ) => {
@@ -170,7 +171,7 @@ const ListLectures = ( props ) => {
                         sidebar=="sidebar" ? <FontAwesomeIcon className="show-sidebar-button" onClick={() => showSideBar()} size="2x" icon={faArrowRight}></FontAwesomeIcon> 
                         : <FontAwesomeIcon className="show-sidebar-button" onClick={() => showSideBar()} size="2x" icon={faArrowLeft}></FontAwesomeIcon> 
                     }
-                    
+
                 <Tabs 
                     id="controlled-tab-example"
                     activeKey={tabKey}
