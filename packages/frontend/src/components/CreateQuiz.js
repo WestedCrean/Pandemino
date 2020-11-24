@@ -4,7 +4,7 @@ import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { Modal, Button } from "react-bootstrap"
 import { Fab } from "@material-ui/core"
-import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faTrash, faArrowRight, faArrowUp,faArrowDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const CreateQuiz = (props) => {
@@ -12,6 +12,8 @@ const CreateQuiz = (props) => {
     let currentLectureId = props.lectureId
     const [childrens, setChildren] = useState([]);
     const [quizes, setQuizes] = useState([]);
+
+    const [visibleIndex, setVisibleIndex] = useState(null);
 
     const [quizName,setQuizName] = useState();
     const [quizDescription,setQuizDescription] = useState();
@@ -25,7 +27,14 @@ const CreateQuiz = (props) => {
 
     const { accessToken } = useAuthContext()
 
+    const handleShowQuestion = (index) => {
 
+        if(visibleIndex == index){
+            setVisibleIndex(null)
+        }else{
+            setVisibleIndex(index)
+        }
+    }
 
     const addComponent = () =>{
 
@@ -81,7 +90,7 @@ const CreateQuiz = (props) => {
 
     useEffect(() => {
         getQuizes()
-    }, [childrens])
+    }, [quizes])
 
 
     return (
@@ -162,6 +171,12 @@ const CreateQuiz = (props) => {
                         >
                             <FontAwesomeIcon icon={faTrash} size="2x" />
                         </Fab>
+                        <Fab onClick={()=>handleShowQuestion(i)}>
+                            {visibleIndex == i ?<FontAwesomeIcon icon={faArrowRight} size="2x"/> : <FontAwesomeIcon icon={faArrowDown} size="2x"></FontAwesomeIcon>}
+                        </Fab>
+                        {quiz.questions.map((question, j) =>(
+                            visibleIndex == i ? <div>{question.content}</div> : null
+                        ))}
                     </div>
                 ))}
             </div>
