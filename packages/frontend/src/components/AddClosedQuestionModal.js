@@ -22,6 +22,8 @@ const AddClosedQuestionModal = ({quizId}) => {
     const [questionCount, setQuestionCount] = useState(1)
     const [multiple , setMultiple] = useState(false)
 
+    const [closedQuestion, setClosedQuestion] = useState()
+
     const [show, setShow] = useState(false)
     const [showSecondStep, setShowSecondStep] = useState(false)
 
@@ -31,23 +33,49 @@ const AddClosedQuestionModal = ({quizId}) => {
     const handleShowSecondStep = () => setShowSecondStep(true)
     const handleCloseSecondStep = () => setShowSecondStep(false)
     
-    const api = ApiService(accessToken)
+    
 
     const addNewQuestion = async () => {
-        
+        const api = ApiService(accessToken)
         const body = {
             quizId:quizId,
             multiple:multiple,
-            question:question
+            content:question,
+            isOpen:false
         }
         console.log(body)
 
         try {
            let response =  await api.addQuestion(body)
+            addVariants(response.data.id)
+            
+        } catch (error) {
+            console.error({ error })
+        }
+
+    }
+
+    const addVariants = async (id) => {
+        const api = ApiService(accessToken)
+        console.log(id)
+        for (let index = 0; index < anwserList.length; index++) {
+            const body = {
+                closedQuestionId:id,
+                isTrue:checkInputs[index],
+                content:anwserList[index]
+            }
+            
+        console.log(body)
+
+        try {
+           let response =  await api.addVariant(body)
             console.log(response)
         } catch (error) {
             console.error({ error })
         }
+            
+        }
+
 
     }
 
@@ -68,7 +96,7 @@ const AddClosedQuestionModal = ({quizId}) => {
         setAnswerList(anwserListTemp)
         setCheckInputs(checkInputsTemp)
 
-        addNewQuestion()
+       
         handleShowSecondStep()
         
     }
@@ -185,7 +213,7 @@ const AddClosedQuestionModal = ({quizId}) => {
                     <Button
                         type="submit"
                         variant="primary"
-                        onClick={null}
+                        onClick={()=>addNewQuestion()}
                     >
                         Dodaj
                     </Button>
