@@ -8,7 +8,7 @@ const Navbar = () => {
     const { user, toggleLoggedOut } = useAuthContext()
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul className="navbar-nav mr-auto">
                     <Link className="navbar-brand ml-4" to="/">
@@ -47,7 +47,11 @@ const Navbar = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link my-2 my-lg-0" href="#" onClick={() => toggleLoggedOut()}>
+                            <a
+                                className="nav-link my-2 my-lg-0"
+                                href="#"
+                                onClick={() => toggleLoggedOut()}
+                            >
                                 Sign Out{" "}
                                 <span className="sr-only">(current)</span>
                             </a>
