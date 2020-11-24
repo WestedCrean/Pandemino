@@ -13,3 +13,5 @@ COPY packages/api /app
 EXPOSE 5000
 CMD ["npm", "start"]
 
+
+

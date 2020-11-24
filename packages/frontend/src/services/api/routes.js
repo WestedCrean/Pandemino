@@ -54,15 +54,15 @@ const ApiRoutes = (ApiService) => {
 
     const removeQuiz = async (id) => ApiService.delete(`quiz/${id}`)
 
-    const getQuestions = async () => ApiService.get("closedQuestions")
+    const getQuestions = async () => ApiService.get("questions")
 
-    const getQuestionById = async (id) => ApiService.get(`closedQuestions/${id}`)
+    const getQuestionById = async (id) => ApiService.get(`questions/${id}`)
 
-    const addQuestion = async (data) => ApiService.post("closedQuestions",data)
+    const addQuestion = async (data) => ApiService.post("questions",data)
 
     const getVariants = async () => ApiService.get("variants")
     
-    const addVariant = async () => ApiService.post("variants")
+    const addVariant = async (data) => ApiService.post("variants",data)
 
     return {
         getAvailableStreams,

@@ -1,6 +1,6 @@
 import Navbar from "./Navbar"
 import PrivateRoute from "./PrivateRoute"
-import Sidebar from "./Sidebar"
+
 import AddCourseModal from "./AddCourseModal"
 import DeleteCourseModal from "./DeleteCourseModal"
 import AddLectureModal from "./AddLectureModal"
@@ -26,7 +26,7 @@ export {
     DeleteCourseModal,
     GridHome,
     ListUsersCourses,
-    Sidebar,
+
     StreamWindow,
     StreamPublisher,
     VideoControls,
