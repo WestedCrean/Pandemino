@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, createFactory} from "react"
+import React, { Fragment, useEffect, useState, useRef} from "react"
 import AddClosedQuestionModal from "./AddClosedQuestionModal";
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
@@ -8,9 +8,11 @@ import { faTrash, faArrowRight, faArrowUp,faArrowDown } from "@fortawesome/free-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const CreateQuiz = (props) => {
-    let currentLectureId = props.lectureId
+    const [currentLectureId, setCurrentLectureId] = useState(props.lectureId)
     const [childrens, setChildren] = useState([])
     const [quizes, setQuizes] = useState([])
+
+    let changeFlag = useRef(false);
 
     const [visibleIndex, setVisibleIndex] = useState(null)
     const [visibleVariantIndex,setVisibleVariantIndex] = useState(null)
@@ -26,7 +28,16 @@ const CreateQuiz = (props) => {
 
     const { accessToken } = useAuthContext()
 
+
+    const handleChangeInQuiz  = () => {
+        changeFlag.current = !changeFlag.current;
+    }
+
     const handleShowQuestion = (index) => {
+        if(index === null){
+            setVisibleIndex(null)
+            setVisibleVariantIndex(null)
+        }
         if (visibleIndex === index) {
             setVisibleIndex(null)
         } else {
@@ -35,6 +46,7 @@ const CreateQuiz = (props) => {
     }
 
     const handleShowVariant = (index) =>{
+ 
         if(visibleVariantIndex === index){
             setVisibleVariantIndex(null)
         }
@@ -42,6 +54,7 @@ const CreateQuiz = (props) => {
             setVisibleVariantIndex(index)
         }
     }
+
 
     const addComponent = () => {
         let list = childrens
@@ -51,11 +64,11 @@ const CreateQuiz = (props) => {
         console.log(childrens)
     }
 
+
     const getQuizes = async () => {
         const api = ApiService(accessToken)
-        const response = await api.getQuizes()
-
-        setQuizes(response.data)
+        const response = await api.getStreamById(props.lectureId)
+        setQuizes(response.data.quiz)
     }
 
     const addNewQuiz = async () => {
@@ -63,7 +76,7 @@ const CreateQuiz = (props) => {
         const api = ApiService(accessToken)
         const body = {
             //At this moment it gets courseId need to be changed
-            lectureId: currentLectureId,
+            lectureId: props.lectureId,
             description: quizDescription,
             name: quizName,
             startDate: quizDateStart,
@@ -72,6 +85,7 @@ const CreateQuiz = (props) => {
 
         try {
             await api.addQuiz(body)
+            handleChangeInQuiz()
             handleClose()
         } catch (error) {
             console.error({ error })
@@ -84,6 +98,7 @@ const CreateQuiz = (props) => {
         try {
             await api.removeQuiz(id)
             setQuizes(quizes.filter((quiz) => quiz.id != id))
+            handleChangeInQuiz()
         } catch (error) {
             console.error(error)
         }
@@ -93,12 +108,22 @@ const CreateQuiz = (props) => {
         const api = ApiService(accessToken)
         try {
             await api.removeQuestion(id)
+            handleChangeInQuiz()
         } catch (error) {}
     }
 
     useEffect(() => {
-        getQuizes()
-    }, [quizes])
+
+        if(currentLectureId != props.lectureId){    ///otherwise it wont work. And state will be reloading over and over and corupting stack memory
+            setCurrentLectureId(props.lectureId)    ///
+            getQuizes()
+        }
+        if(changeFlag.current == true){
+            handleShowQuestion(null)  ///FIXME
+            getQuizes()
+            handleChangeInQuiz()
+        }
+    }, [props.lectureId, changeFlag.current])
 
     return (
         <>
@@ -169,7 +194,7 @@ const CreateQuiz = (props) => {
                         {quiz.name}
 
                         <AddClosedQuestionModal
-                            quizId={quiz.id}
+                            quizId={quiz.id} forwardRef={changeFlag}
                         ></AddClosedQuestionModal>
                         <Fab
                             color="secondary"
@@ -179,7 +204,7 @@ const CreateQuiz = (props) => {
                             <FontAwesomeIcon icon={faTrash} size="2x" />
                         </Fab>
                         <Fab onClick={() => handleShowQuestion(i)}>
-                            {visibleIndex == i ? (
+                            {visibleIndex === i ? (
                                 <FontAwesomeIcon
                                     icon={faArrowRight}
                                     size="2x"
@@ -192,7 +217,7 @@ const CreateQuiz = (props) => {
                             )}
                         </Fab>
                         {quiz.questions.map((question, j) =>
-                            visibleIndex == i ? (
+                            visibleIndex === i ? (
                                 <div>
                                     <Card>
                                         <Card.Body className="d-flex">
@@ -216,11 +241,11 @@ const CreateQuiz = (props) => {
                                                 <Fab
                                                     className="ml-3"
                                                     onClick={() =>
-                                                        handleShowVariant(i)
+                                                        handleShowVariant(j)
                                                     }
                                                 >
-                                                    {visibleVariantIndex ==
-                                                    i ? (
+                                                    {visibleVariantIndex ===
+                                                    j ? (
                                                         <FontAwesomeIcon
                                                             icon={faArrowRight}
                                                             size="2x"
@@ -235,34 +260,36 @@ const CreateQuiz = (props) => {
                                             </div>
                                         </Card.Body>
                                     </Card>
+                                    <div>
+                                        {question.variants.map((variant, g) =>
+                                            visibleVariantIndex === j ? (
+                                                <div>
+                                                    <Card>
+                                                        <Card.Body className="d-flex">
+                                                            <div className="quiz-left">
+                                                                {variant.content}
+                                                            </div>
+                                                            <div className="quiz-end">
+                                                                <Fab
+                                                                    color="secondary"
+                                                                >
+                                                                    <FontAwesomeIcon
+                                                                        icon={faTrash}
+                                                                        size="2x"
+                                                                    />
+                                                                </Fab>
+                                                            </div>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </div>
+                                            ) : null
+                                        )}
+                                    </div>
                                 </div>
                             ) : null
                         )}
 
-                        {quiz.questions.variants.map((variant, j) =>
-                            visibleVariantIndex == i ? (
-                                <div>
-                                    <Card>
-                                        <Card.Body className="d-flex">
-                                            <div className="quiz-left">
-                                                {variant.content}
-                                            </div>
-                                            <div className="quiz-end">
-                                                <Fab
-                                                    color="secondary"
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faTrash}
-                                                        size="2x"
-                                                    />
-                                                </Fab>
 
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            ) : null
-                        )}
                     </div>
                 ))}
             </div>
