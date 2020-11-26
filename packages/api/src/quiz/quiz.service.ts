@@ -39,7 +39,7 @@ export class QuizService {
     }
 
     findAll(): Promise<Quiz[]> {
-        return this.quizRepository.find({ relations: ["questions"] })
+        return this.quizRepository.find({ relations: ["questions", "variants"] })
     }
 
 

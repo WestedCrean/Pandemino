@@ -2,74 +2,77 @@ import React, { Fragment, useEffect, useState, createFactory} from "react"
 import AddClosedQuestionModal from "./AddClosedQuestionModal";
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
-import { Modal, Button } from "react-bootstrap"
+import { Modal, Button, Card } from "react-bootstrap"
 import { Fab } from "@material-ui/core"
 import { faTrash, faArrowRight, faArrowUp,faArrowDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const CreateQuiz = (props) => {
-
     let currentLectureId = props.lectureId
-    const [childrens, setChildren] = useState([]);
-    const [quizes, setQuizes] = useState([]);
+    const [childrens, setChildren] = useState([])
+    const [quizes, setQuizes] = useState([])
 
-    const [visibleIndex, setVisibleIndex] = useState(null);
+    const [visibleIndex, setVisibleIndex] = useState(null)
+    const [visibleVariantIndex,setVisibleVariantIndex] = useState(null)
 
-    const [quizName,setQuizName] = useState();
-    const [quizDescription,setQuizDescription] = useState();
-    const [quizDateStart,setQuizDateStart] = useState();
-    const [quizDateEnd,setQuizDateEnd] = useState();
+    const [quizName, setQuizName] = useState()
+    const [quizDescription, setQuizDescription] = useState()
+    const [quizDateStart, setQuizDateStart] = useState()
+    const [quizDateEnd, setQuizDateEnd] = useState()
 
-
-    const [show,setShow] = useState();
+    const [show, setShow] = useState()
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
     const { accessToken } = useAuthContext()
 
     const handleShowQuestion = (index) => {
-
-        if(visibleIndex == index){
+        if (visibleIndex === index) {
             setVisibleIndex(null)
-        }else{
+        } else {
             setVisibleIndex(index)
         }
     }
 
-    const addComponent = () =>{
+    const handleShowVariant = (index) =>{
+        if(visibleVariantIndex === index){
+            setVisibleVariantIndex(null)
+        }
+        else{
+            setVisibleVariantIndex(index)
+        }
+    }
 
-        let list = childrens;
+    const addComponent = () => {
+        let list = childrens
         list.push(1)
         setChildren(list)
 
         console.log(childrens)
     }
 
-
     const getQuizes = async () => {
-
-        const api = ApiService(accessToken);
+        const api = ApiService(accessToken)
         const response = await api.getQuizes()
 
-        setQuizes(response.data);
+        setQuizes(response.data)
     }
 
     const addNewQuiz = async () => {
         console.log(quizDateStart)
         const api = ApiService(accessToken)
         const body = {
-            //At this moment it gets courseId need to be changed 
+            //At this moment it gets courseId need to be changed
             lectureId: currentLectureId,
             description: quizDescription,
             name: quizName,
-            startDate:quizDateStart,
-            endDate:quizDateEnd
+            startDate: quizDateStart,
+            endDate: quizDateEnd,
         }
 
         try {
             await api.addQuiz(body)
             handleClose()
-
         } catch (error) {
             console.error({ error })
         }
@@ -80,18 +83,22 @@ const CreateQuiz = (props) => {
 
         try {
             await api.removeQuiz(id)
-            setQuizes(quizes.filter(quiz => quiz.id !=id))
+            setQuizes(quizes.filter((quiz) => quiz.id != id))
         } catch (error) {
             console.error(error)
         }
-        
     }
 
+    const deleteQuestion = async (id) => {
+        const api = ApiService(accessToken)
+        try {
+            await api.removeQuestion(id)
+        } catch (error) {}
+    }
 
     useEffect(() => {
         getQuizes()
     }, [quizes])
-
 
     return (
         <>
@@ -171,12 +178,91 @@ const CreateQuiz = (props) => {
                         >
                             <FontAwesomeIcon icon={faTrash} size="2x" />
                         </Fab>
-                        <Fab onClick={()=>handleShowQuestion(i)}>
-                            {visibleIndex == i ?<FontAwesomeIcon icon={faArrowRight} size="2x"/> : <FontAwesomeIcon icon={faArrowDown} size="2x"></FontAwesomeIcon>}
+                        <Fab onClick={() => handleShowQuestion(i)}>
+                            {visibleIndex == i ? (
+                                <FontAwesomeIcon
+                                    icon={faArrowRight}
+                                    size="2x"
+                                />
+                            ) : (
+                                <FontAwesomeIcon
+                                    icon={faArrowDown}
+                                    size="2x"
+                                ></FontAwesomeIcon>
+                            )}
                         </Fab>
-                        {quiz.questions.map((question, j) =>(
-                            visibleIndex == i ? <div>{question.content}</div> : null
-                        ))}
+                        {quiz.questions.map((question, j) =>
+                            visibleIndex == i ? (
+                                <div>
+                                    <Card>
+                                        <Card.Body className="d-flex">
+                                            <div className="quiz-left">
+                                                {question.content}
+                                            </div>
+                                            <div className="quiz-end">
+                                                <Fab
+                                                    color="secondary"
+                                                    onClick={() =>
+                                                        deleteQuestion(
+                                                            question.id
+                                                        )
+                                                    }
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faTrash}
+                                                        size="2x"
+                                                    />
+                                                </Fab>
+                                                <Fab
+                                                    className="ml-3"
+                                                    onClick={() =>
+                                                        handleShowVariant(i)
+                                                    }
+                                                >
+                                                    {visibleVariantIndex ==
+                                                    i ? (
+                                                        <FontAwesomeIcon
+                                                            icon={faArrowRight}
+                                                            size="2x"
+                                                        />
+                                                    ) : (
+                                                        <FontAwesomeIcon
+                                                            icon={faArrowDown}
+                                                            size="2x"
+                                                        ></FontAwesomeIcon>
+                                                    )}
+                                                </Fab>
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            ) : null
+                        )}
+
+                        {quiz.questions.variants.map((variant, j) =>
+                            visibleVariantIndex == i ? (
+                                <div>
+                                    <Card>
+                                        <Card.Body className="d-flex">
+                                            <div className="quiz-left">
+                                                {variant.content}
+                                            </div>
+                                            <div className="quiz-end">
+                                                <Fab
+                                                    color="secondary"
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faTrash}
+                                                        size="2x"
+                                                    />
+                                                </Fab>
+
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            ) : null
+                        )}
                     </div>
                 ))}
             </div>
