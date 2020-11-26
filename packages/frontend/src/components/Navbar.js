@@ -7,6 +7,11 @@ import logo from "../styles/logo/logo.png"
 const Navbar = () => {
     const { user, toggleLoggedOut } = useAuthContext()
 
+    const logout = () => {
+        toggleLoggedOut()
+        window.location = "/"
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -50,7 +55,7 @@ const Navbar = () => {
                             <a
                                 className="nav-link my-2 my-lg-0"
                                 href="#"
-                                onClick={() => toggleLoggedOut()}
+                                onClick={() => logout()}
                             >
                                 Sign Out{" "}
                                 <span className="sr-only">(current)</span>

@@ -59,6 +59,8 @@ const ApiRoutes = (ApiService) => {
     const getQuestionById = async (id) => ApiService.get(`questions/${id}`)
 
     const addQuestion = async (data) => ApiService.post("questions",data)
+    
+    const removeQuestion = async (id) => ApiService.delete(`questions/${id}`)
 
     const getVariants = async () => ApiService.get("variants")
     
@@ -91,7 +93,8 @@ const ApiRoutes = (ApiService) => {
         getQuestionById,
         addQuestion,
         getVariants,
-        addVariant
+        addVariant,
+        removeQuestion,
     }
 }
 
