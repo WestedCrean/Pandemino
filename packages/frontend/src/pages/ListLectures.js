@@ -38,7 +38,7 @@ const ListLectures = ( props ) => {
     const [courseOwnerEmail, setCourseOwnerEmail] = useState()
     const [tabKey, setTabKey] = useState('live')
 
-    const [currentLecture, setCurrentLecture] = useState(1)
+    const [currentLecture, setCurrentLecture] = useState(null)
    
     const { accessToken } = useAuthContext()
     const history = useHistory()
@@ -122,6 +122,8 @@ const ListLectures = ( props ) => {
         if(lectures.length == 0){
             getStreams()
         }
+
+        console.log(currentLecture)
     }, [currentLecture])
 
 

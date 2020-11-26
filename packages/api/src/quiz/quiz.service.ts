@@ -25,8 +25,7 @@ export class QuizService {
             quiz.description = createQuiz.description
             quiz.startDate = createQuiz.startDate
             quiz.endDate = createQuiz.endDate
-           
-             
+
 
             const lecture = await this.lectureRepository.findOne(createQuiz.lectureId)
             quiz.lecture = lecture
@@ -39,7 +38,7 @@ export class QuizService {
     }
 
     findAll(): Promise<Quiz[]> {
-        return this.quizRepository.find({ relations: ["questions", "variants"] })
+        return this.quizRepository.find({ relations: ["questions", "questions.variants"] })
     }
 
 

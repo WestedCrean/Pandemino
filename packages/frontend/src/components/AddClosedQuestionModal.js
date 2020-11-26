@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef} from "react"
 import { Modal, Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
@@ -7,10 +7,11 @@ import { faFolderPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 
-const AddClosedQuestionModal = ({quizId}) => {
+const AddClosedQuestionModal = (props) => {
 
     const { accessToken } = useAuthContext()
 
+    const quizId = props.quizId
     ///form data
     const [question, setQuestion] = useState(null);
     const [anwserList, setAnswerList] = useState([])
@@ -46,7 +47,7 @@ const AddClosedQuestionModal = ({quizId}) => {
         console.log(body)
 
         try {
-           let response =  await api.addQuestion(body)
+            let response =  await api.addQuestion(body)
             addVariants(response.data.id)
             handleCloseSecondStep()
         } catch (error) {
@@ -68,7 +69,7 @@ const AddClosedQuestionModal = ({quizId}) => {
         console.log(body)
 
         try {
-           let response =  await api.addVariant(body)
+            let response =  await api.addVariant(body)
             console.log(response)
         } catch (error) {
             console.error({ error })
@@ -96,7 +97,6 @@ const AddClosedQuestionModal = ({quizId}) => {
         setAnswerList(anwserListTemp)
         setCheckInputs(checkInputsTemp)
 
-       
         handleShowSecondStep()
         
     }
