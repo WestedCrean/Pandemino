@@ -160,7 +160,7 @@ const CreateQuiz = (props) => {
                             name="dateQuestionStart"
                             onChange={(e) => setQuizDateStart(e.target.value)}
                         />
-                        <label for="dateQuestionStart">Data Rozpoczecia</label>
+                        <label for="dateQuestionStart">Data rozpoczecia</label>
                         <br></br>
                         <input
                             type="date"
@@ -168,7 +168,7 @@ const CreateQuiz = (props) => {
                             name="dateQuestionEnd"
                             onChange={(e) => setQuizDateEnd(e.target.value)}
                         />
-                        <label for="dateQuestionEnd">Data Rozpoczecia</label>
+                        <label for="dateQuestionEnd">Data zakończenia</label>
                         <br></br>
                     </div>
                 </form>
