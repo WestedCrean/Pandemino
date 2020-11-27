@@ -1,4 +1,5 @@
 import { Quiz } from "src/quiz/quiz.entity"
+import { UserAnswer } from "src/userAnswer/UserAnswer.entity"
 import { Variants } from "src/variants/variants.entity"
 import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany,  } from "typeorm"
 
@@ -23,6 +24,9 @@ class Question {
 
     @OneToMany(() => Variants, (variants: Variants) => variants.questions)
     variants: Variants[]
+
+    @OneToMany(() => UserAnswer, (userAnswer: UserAnswer) => userAnswer.question)
+    userAnswer: UserAnswer[]
 
 }
 

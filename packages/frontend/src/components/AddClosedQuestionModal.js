@@ -49,6 +49,7 @@ const AddClosedQuestionModal = (props) => {
         try {
             let response =  await api.addQuestion(body)
             addVariants(response.data.id)
+            props.handleChangeInQuiz()
             handleCloseSecondStep()
         } catch (error) {
             console.error({ error })
@@ -163,7 +164,7 @@ const AddClosedQuestionModal = (props) => {
                         <input type="radio" name="multiple" onChange={e => setMultiple(e.target.value)}/>
                         <label for="multiple">Wielokrotnego wyboru? </label><br></br>
                         <input type="number" id="question" name="question" onChange={e => setQuestionCount(e.target.value)}/>
-                        <label for="question">Ilość pytań</label>
+                        <label for="question">Ilość odpowiedzi</label>
                     </div>
                 </form>
                 <Modal.Footer>

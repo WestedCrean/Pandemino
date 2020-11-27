@@ -99,6 +99,7 @@ const CreateQuiz = (props) => {
             await api.removeQuiz(id)
             setQuizes(quizes.filter((quiz) => quiz.id != id))
             handleChangeInQuiz()
+            window.alert("Usunieto quiz")
         } catch (error) {
             console.error(error)
         }
@@ -109,6 +110,7 @@ const CreateQuiz = (props) => {
         try {
             await api.removeQuestion(id)
             handleChangeInQuiz()
+            window.alert("Usnieto pytanie")
         } catch (error) {}
     }
 
@@ -158,7 +160,7 @@ const CreateQuiz = (props) => {
                             name="dateQuestionStart"
                             onChange={(e) => setQuizDateStart(e.target.value)}
                         />
-                        <label for="dateQuestionStart">Data Rozpoczecia</label>
+                        <label for="dateQuestionStart">Data rozpoczecia</label>
                         <br></br>
                         <input
                             type="date"
@@ -166,7 +168,7 @@ const CreateQuiz = (props) => {
                             name="dateQuestionEnd"
                             onChange={(e) => setQuizDateEnd(e.target.value)}
                         />
-                        <label for="dateQuestionEnd">Data Rozpoczecia</label>
+                        <label for="dateQuestionEnd">Data zakończenia</label>
                         <br></br>
                     </div>
                 </form>
@@ -188,13 +190,11 @@ const CreateQuiz = (props) => {
                 <button onClick={handleShow}>
                     Dodaj nowy quiz do tego kursu
                 </button>
-
                 {quizes.map((quiz, i) => (
                     <div>
                         {quiz.name}
-
                         <AddClosedQuestionModal
-                            quizId={quiz.id} forwardRef={changeFlag}
+                            quizId={quiz.id} handleChangeInQuiz={handleChangeInQuiz}
                         ></AddClosedQuestionModal>
                         <Fab
                             color="secondary"
@@ -288,8 +288,6 @@ const CreateQuiz = (props) => {
                                 </div>
                             ) : null
                         )}
-
-
                     </div>
                 ))}
             </div>
