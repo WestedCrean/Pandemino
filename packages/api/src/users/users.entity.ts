@@ -1,5 +1,7 @@
 import { Course } from "src/courses/courses.entity"
 import { LectureFrequency } from "src/lectureFrequency/lectureFrequency.entity"
+import { Question } from "src/questions/questions.entity"
+import { UserAnswer } from "src/userAnswer/UserAnswer.entity"
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm"
 import { UserCourse } from "../userCourses/userCourses.entity"
 
@@ -40,4 +42,7 @@ export class User {
 
     @OneToMany(() => LectureFrequency, (LectureFrequency: LectureFrequency) => LectureFrequency.user)
     lectureFrequency: LectureFrequency[]
+
+    @OneToMany(() => UserAnswer, (userAnswer: UserAnswer) => userAnswer.user)
+    userAnswer: UserAnswer[]
 }

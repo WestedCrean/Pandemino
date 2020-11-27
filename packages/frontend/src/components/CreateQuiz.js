@@ -190,11 +190,9 @@ const CreateQuiz = (props) => {
                 <button onClick={handleShow}>
                     Dodaj nowy quiz do tego kursu
                 </button>
-
                 {quizes.map((quiz, i) => (
                     <div>
                         {quiz.name}
-
                         <AddClosedQuestionModal
                             quizId={quiz.id} handleChangeInQuiz={handleChangeInQuiz}
                         ></AddClosedQuestionModal>
@@ -290,8 +288,6 @@ const CreateQuiz = (props) => {
                                 </div>
                             ) : null
                         )}
-
-
                     </div>
                 ))}
             </div>
