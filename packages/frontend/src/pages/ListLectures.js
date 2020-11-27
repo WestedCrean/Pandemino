@@ -65,7 +65,6 @@ const ListLectures = ( props ) => {
     }
 
     let courseName=props.location.state.courseName
-   
     
     const moveToLecturePage = (id) => {
         history.push({
@@ -134,7 +133,7 @@ const ListLectures = ( props ) => {
                     
                         <div className="sidebar-header-main">
                             <div className="sidebar-header">
-                                <h3>Lista kursów</h3>
+                                <h3>Lista wykładów</h3>
                             </div>
                         </div>
 

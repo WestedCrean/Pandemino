@@ -99,6 +99,7 @@ const CreateQuiz = (props) => {
             await api.removeQuiz(id)
             setQuizes(quizes.filter((quiz) => quiz.id != id))
             handleChangeInQuiz()
+            window.alert("Usunieto quiz")
         } catch (error) {
             console.error(error)
         }
@@ -109,6 +110,7 @@ const CreateQuiz = (props) => {
         try {
             await api.removeQuestion(id)
             handleChangeInQuiz()
+            window.alert("Usnieto pytanie")
         } catch (error) {}
     }
 
@@ -194,7 +196,7 @@ const CreateQuiz = (props) => {
                         {quiz.name}
 
                         <AddClosedQuestionModal
-                            quizId={quiz.id} forwardRef={changeFlag}
+                            quizId={quiz.id} handleChangeInQuiz={handleChangeInQuiz}
                         ></AddClosedQuestionModal>
                         <Fab
                             color="secondary"
