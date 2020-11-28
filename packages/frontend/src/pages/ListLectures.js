@@ -109,11 +109,18 @@ const ListLectures = ( props ) => {
 
     const getStreams = async () => {
         const api = ApiService(accessToken)
+
         try {
             const response = await api.getCourseById(courseId)
-            setLectures(response.data.lectures)
-            setCurrentLecture(response.data.lectures[0].id)
+            if(response.data.lectures.length !== 0){
+                setLectures(response.data.lectures)
+                setCurrentLecture(response.data.lectures[0].id)
+            }else{
+                setLectures([])
+                setCurrentLecture(null)
+            }
             setCourseOwnerEmail(response.data.lecturer.email)
+
         } catch (error) {
             console.error({ error })
         }
