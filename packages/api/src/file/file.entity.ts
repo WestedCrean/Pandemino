@@ -8,9 +8,14 @@ class File {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({})
-    name: string
+    @Column()
+    fireBaseUUID: string
 
+    @Column()
+    originalName: string
+
+    @Column()
+    extension: string
 
     @ManyToOne(() => Lecture, (lecture: Lecture) => lecture.file, { onDelete: "CASCADE" })
     @JoinColumn()

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as firebase from 'firebase'; ///CANT BE DELETED
 import 'firebase/firestore';
 import { firebaseAuth } from "services/firebase"
@@ -6,29 +6,32 @@ import { useUserInfo } from "../hooks/user"
 import ApiService from "services/api"
 import { useToasts } from "react-toast-notifications"
 import { useAuthContext } from "services/auth"
-import { useHistory } from 'react-router'
-import {Button } from "react-bootstrap"
+
 import FileAdding from "components/FileAdding"
 import DeleteFile from "./FileRemove"
 
-const Files = () => {
+const Files = (props) => {
 
+    let lectureId = props.lectureId
     const { addToast, toastStack } = useToasts()
     const [lectures, setLectures] = useState(null);
     const [urls, setUrls] = useState([]);
-    const [ids, setIds] = useState([]);
-
-    const lectureId = window.location.pathname.split("/").slice(-1)[0]
+    const [files, setFiles] = useState([]);
 
     const user = useUserInfo();
     const { accessToken } = useAuthContext()
 
 
+    const [changeFlag, setChangeFlag] = useState(false);
+    const handleChangeInFiles = () => {
+        setChangeFlag(!changeFlag)
+    }
+
     const addFile = () => {
         if(lectures != null){
             if(user.email == lectures.course.lecturer.email){
                 return(
-                    <FileAdding/>
+                    <FileAdding lectureId={lectureId} handleChange={handleChangeInFiles}></FileAdding>
                 )
             }
         }
@@ -38,7 +41,7 @@ const Files = () => {
         if(lectures != null){
             if(user.email == lectures.course.lecturer.email){
                 return(
-                    <DeleteFile fileId={id}/>
+                    <DeleteFile fileId={id} handleChange={handleChangeInFiles}/>
                 )
             }
         }
@@ -51,50 +54,77 @@ const Files = () => {
             const response = await api.getStreamById(lectureId)
             setLectures(response.data)
         } catch (error) {
-            addToast("Błąd połączenia z serwerem", { appearance: "error" })
+            //addToast("Błąd połączenia z serwerem", { appearance: "error" })
         }
     }
 
     const getFiles = async () => {
         let urlList = []
-        let idList = []
+        let fileList = []
+        console.log(lectures)
         if(lectures !== null){
             lectures.file.map(async file => {
-                const storageRef = firebaseAuth.storage().ref();
-                const fileRef = storageRef.child(file.name)
-                urlList.push(await fileRef.getDownloadURL())
-                idList.push(file.id)
+                try {
+                    const storageRef = firebaseAuth.storage().ref();
+                    const fileRef = storageRef.child(file.fireBaseUUID)
+                    urlList.push(await fileRef.getDownloadURL())
+                    fileList.push({"id" : file.id, "extension" : file.extension, "name" : file.originalName})
+                }catch {
+                    
+                }
+
             })
-            setIds(idList)
+            setFiles(fileList)
             setUrls(urlList);
         }
     }
 
     useEffect(() => {
+        if(changeFlag === true){
+            getFiles()
+            handleChangeInFiles()
+        }
         if(lectures == null){
             getStream()
         }
         if(urls.length == 0){
-            getFiles();
+            getFiles()
         }
-    }, [lectures]);
+    }, [lectures, lectureId, changeFlag]);
 
     return (
         <>
-        <div className="card border-dark chat-window">
+        <div className="card border-dark">
             <div className="card-body text-dark">
                 <h5 className="card-title">Pliki</h5>
-                {urls.map((url, i)=>(
-                    <div className="file-container">
-                        <Button variant="secondary">Przycisk nr {i}</Button><br></br>
-                        {deleteFile(ids[i])}
-                        <p1>{url}</p1>
+                    <div>
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nazwa</th>
+                                <th scope="col">Link</th>
+                                <th scope="col">Rozszerzenie</th>
+                                <th scope="col">Usuń</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {urls.map((url, i)=>(
+                            <tr>
+                                <th scope="row">{i+1}</th>
+                                    <td>{files[i].name}</td>
+                                    <td><a href={url}>Przenieś mnie</a></td>
+                                    <td>{files[i].extension}</td>
+                                    <td>{deleteFile(files[i].id)}</td>
+                            </tr>
+                            ))}
+                        </tbody>
+                        </table>
                     </div>
-                ))}
+
             </div>
-            {addFile()}
-            
         </div>
+        {addFile()}
         </>
     )
 }

@@ -199,7 +199,7 @@ const AddClosedQuestionModal = (props) => {
                                 <input type="radio" name="isTrue" onChange={e => handleMultipleFormRadio(e.target.checked, i)}/>
                                 <label>Poprawna? </label><br></br>
                             </div>
-                             : 
+                                : 
                             <div>
                                 <input type="checkbox" name="isTrue" onChange={e => handleMultipleFormChecks(e.target.checked, i)}/>
                                 <label>Poprawna? </label><br></br>

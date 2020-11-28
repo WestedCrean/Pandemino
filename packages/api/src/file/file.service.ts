@@ -29,7 +29,9 @@ export class FileService {
 
             file.lecture = lecture
             file.user = user
-            file.name = createFile.name
+            file.fireBaseUUID = createFile.fireBaseUUID
+            file.originalName = createFile.originalName
+            file.extension = createFile.extention
 
             await this.fileRepository.save(file)
             return file

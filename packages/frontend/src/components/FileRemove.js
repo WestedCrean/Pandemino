@@ -7,9 +7,10 @@ import { useAuthContext } from "services/auth"
 import {Button} from "react-bootstrap"
 
 
-const FileRemove = ({fileId}) => {
+const FileRemove = (props) => {
 
   const { accessToken } = useAuthContext()
+  const fileId = props.fileId
 
   const remove = async () => {
 
@@ -26,15 +27,15 @@ const FileRemove = ({fileId}) => {
       }
 
       try{
-        const storageRef = firebaseAuth.storage().ref();
-        const fileRef = storageRef.child(file.name)
-        await fileRef.delete();
-
         await api.deleteFile(fileId)
 
-        console.log("Usunieto plik")
-      }catch{}
+        const storageRef = firebaseAuth.storage().ref();
+        const fileRef = storageRef.child(file.fireBaseUUID)
+        await fileRef.delete();
 
+        console.log("Usunieto plik")
+        await props.handleChange()
+      }catch{}
   }
 
 
