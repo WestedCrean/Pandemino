@@ -21,17 +21,15 @@ const ListCourses = () => {
     const userEmail = user.email
     const api = ApiService(accessToken)
 
-    const directToLecture = (id, name) => {
-        
+    const directToLecture = (id, name, description) => {
         history.push({
             pathname: `/course/${id}`,
             state: {
                 courseId: id,
                 courseName: name,
-                
+                courseDescription:  description,
             },
         })
-        
     }
 
     useEffect(() => {
@@ -159,7 +157,12 @@ const ListCourses = () => {
                                             <Button
                                                 variant="dark"
                                                 onClick={() =>
-                                                    directToLecture(course.id, course.name)
+                                                    directToLecture(
+                                                        course.id,
+                                                        course.name,
+                                                        course.course
+                                                            .description
+                                                    )
                                                 }
                                             >
                                                 Stream
@@ -198,7 +201,14 @@ const ListCourses = () => {
                         </table>
                         <div className="d-flexs p-2">
                             <div className="md-form active-pink active-pink-2 mb-3 mt-0">
-                                <input className="form-control" type="text" placeholder="Search" aria-label="Search" value={query} onChange={e => setQuery(e.target.value)}></input>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                ></input>
                             </div>
                             <div className="box-addNewCourse">
                                 <AddCourseModal></AddCourseModal>

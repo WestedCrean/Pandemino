@@ -1,5 +1,5 @@
-.news-wrapper{
-    padding: 8px;  
+.news-wrapper {
+    padding: 8px;
     background-color: rgba(255, 255, 255, 0.849);
     border: 2px solid rgb(50, 50, 50);
     color: rgb(0, 0, 0);
@@ -13,32 +13,36 @@
     background: #fff;
 
     animation: bounce 0.5s;
-    
+}
 
-  }
-
-  @keyframes bounce {
-    0%, 20%, 60%, 100% {
-      -webkit-transform: translateY(0);
-      transform: translateY(0);
+@keyframes bounce {
+    0%,
+    20%,
+    60%,
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
     }
-  
+
     40% {
-      -webkit-transform: translateY(-20px);
-      transform: translateY(-20px);
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
     }
-  
-    80% {
-      -webkit-transform: translateY(-10px);
-      transform: translateY(-10px);
-    }
-  }
 
-.news-body{
+    80% {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+}
+
+.news-body {
     text-align: right;
 }
 
+.quiz-end {
+    margin-left: 310px;
+}
 
-.quiz-end{
-  margin-left:310px;
+.createQuiz-textfield {
+    margin: 1000px;
 }

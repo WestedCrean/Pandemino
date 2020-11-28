@@ -13,11 +13,13 @@ const ListUsersCourses = () => {
     const history = useHistory()
     const userEmail = user.email
 
-    const directToLecture = (id) => {
+    const directToLecture = (id, name, description) => {
         history.push({
             pathname: `/course/${id}`,
             state: {
                 courseId: id,
+                courseName: name,
+                courseDescription:  description,
             },
         })
     }
@@ -69,7 +71,11 @@ const ListUsersCourses = () => {
                                 <Button
                                     variant="dark"
                                     onClick={() =>
-                                        directToLecture(course.course.id)
+                                        directToLecture(
+                                            course.course.id,
+                                            course.course.name,
+                                            course.course.description
+                                        )
                                     }
                                 >
                                     <FontAwesomeIcon
