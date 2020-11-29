@@ -140,7 +140,6 @@ const ListLectures = (props) => {
         if (lectures.length == 0) {
             getStreams()
         }
-
         console.log(currentLecture)
     }, [currentLecture])
 

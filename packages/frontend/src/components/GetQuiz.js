@@ -1,24 +1,44 @@
 import React, { Fragment, useEffect, useState, useRef } from "react"
-
+import { useHistory } from "react-router-dom"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
+
 const GetQuiz = (props) => {
-    const [quizes, setQuizes] = useState()
+    
+    const [quizes, setQuizes] = useState([])
 
     const { accessToken } = useAuthContext()
-    const lectureId = props.lectureId
+    const history = useHistory()
+
+    const moveToQuizPage = (id) => {
+        history.push({
+            pathname: `/quiz/${id}`,
+            state: {
+                quizId: id,
+            },
+        })
+    }
 
     const getQuizes = async () => {
-        const api = ApiService(accessToken)
-
-        const response = await api.getStreamById(lectureId)
-
-        setQuizes(response.data.quiz)
+        if(props.lectureId !== null){
+            try {
+                const api = ApiService(accessToken)
+                const response = await api.getStreamById(props.lectureId)
+                setQuizes(response.data.quiz)
+            }catch(error){console.log(error)}
+        }
     }
+
+    const formatDate = (string) => {
+        return string.slice(0,10) + " " + string.slice(11,19)
+    }   
+    
     useEffect(() => {
+        
         getQuizes()
-        console.log(quizes)
-    }, [])
+        console.log(props.lectureId)
+
+    }, [props.lectureId])
 
     return (
         <>
@@ -28,7 +48,7 @@ const GetQuiz = (props) => {
 
             <div className="card border-dark">
                 <div className="card-body text-dark">
-                    <h5 className="card-title">Pliki</h5>
+                <h5 className="card-title">Pliki {props.lectureId}</h5>
                     <div>
                         <table class="table">
                             <thead>
@@ -43,16 +63,16 @@ const GetQuiz = (props) => {
                             </thead>
                             <tbody>
                                 {/* Fixme: why quizes are undefined?! */}
-                                {/* {quizes.map((quiz, i) => (
+                                {quizes.map((quiz, i) => (
                                     <tr>
                                         <th scope="row">{i + 1}</th>
                                         <td>{quiz.name}</td>
                                         <td>Status</td>
-                                        <td>{quiz.startDate}</td>
-                                        <td>{quiz.endDate}</td>
-                                        <td>Quiz</td>
+                                        <td>{formatDate(quiz.startDate)}</td>
+                                        <td>{formatDate(quiz.endDate)}</td>
+                                        <td><button onClick={()=>moveToQuizPage(quiz.id)}>Quiz</button></td>
                                     </tr>
-                                ))} */}
+                                ))}
                             </tbody>
                         </table>
                     </div>
