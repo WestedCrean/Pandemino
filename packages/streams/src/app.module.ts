@@ -9,9 +9,10 @@ import { join } from "path"
     imports: [
         StreamsModule,
         UsersModule,
+        /*
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, "..", "client"),
-        }),
+        }), */
     ],
 })
 export class AppModule {}
