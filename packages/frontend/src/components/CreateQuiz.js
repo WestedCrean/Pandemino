@@ -94,6 +94,7 @@ const CreateQuiz = (props) => {
 
     const addNewQuiz = async () => {
         console.log(quizDateStart)
+        console.log(quizDateEnd)
         const api = ApiService(accessToken)
         const body = {
             //At this moment it gets courseId need to be changed
