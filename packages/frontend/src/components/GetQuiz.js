@@ -11,6 +11,7 @@ const GetQuiz = (props) => {
     const history = useHistory()
 
     const moveToQuizPage = (id) => {
+
         history.push({
             pathname: `/quiz/${id}`,
             state: {

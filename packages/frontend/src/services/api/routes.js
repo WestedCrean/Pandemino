@@ -66,6 +66,10 @@ const ApiRoutes = (ApiService) => {
     
     const addVariant = async (data) => ApiService.post("variants",data)
 
+    //USERANSWER - connecton between user <--> answer <--> quiz
+
+    const putUserAnswer = async (data) => ApiService.post("userAnswer", data)
+
     return {
         getAvailableStreams,
         getStreamById,
@@ -95,6 +99,7 @@ const ApiRoutes = (ApiService) => {
         getVariants,
         addVariant,
         removeQuestion,
+        putUserAnswer
     }
 }
 
