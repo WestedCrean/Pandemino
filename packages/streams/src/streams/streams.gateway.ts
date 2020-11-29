@@ -6,9 +6,11 @@ import {
     OnGatewayInit,
     OnGatewayConnection,
     OnGatewayDisconnect,
+    ConnectedSocket,
     WsResponse,
 } from "@nestjs/websockets"
 import { Logger } from "@nestjs/common"
+import { UsersService } from "../users/users.service"
 import { from, Observable } from "rxjs"
 import { map } from "rxjs/operators"
 import { Server, Socket } from "socket.io"
@@ -16,42 +18,52 @@ import { Server, Socket } from "socket.io"
 @WebSocketGateway({ transports: ["websocket"] })
 export class StreamsGateway
     implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+    constructor(private usersService: UsersService) {}
+
     @WebSocketServer()
     server: Server
 
     private logger: Logger = new Logger("MessageGateway")
 
-    @SubscribeMessage("streamChunk")
-    handleEvent(client: Socket, data: string): string {
-        this.logger.log(`Message: ${data}`)
-        return data
+    // call => createLecture-> joinLecture ( call ) if lecture exists
+
+    @SubscribeMessage("call")
+    async createStream(
+        @ConnectedSocket() client: Socket,
+        @MessageBody() data: any
+    ) {
+        const { id } = client
+        const { to } = data
+        const receiver = this.usersService.get(to)
+        if (receiver) {
+            receiver.emit("call", { ...data, from: id })
+        } else {
+            receiver.emit("failed")
+        }
     }
 
-    @SubscribeMessage("msgToServer")
-    public handleMessage(client: Socket, payload: any): void {
-        client.emit("", payload)
-    }
-
-    @SubscribeMessage("joinStream")
-    async joinStream(client: Socket, stream: string): Promise<string> {
-        return stream
-    }
-
-    @SubscribeMessage("leaveStream")
-    async leaveStream(@MessageBody() data: number): Promise<number> {
-        return data
+    @SubscribeMessage("end")
+    async endStream(@MessageBody() data: any) {
+        const { to } = data
+        const receiver = this.usersService.get(to)
+        if (receiver) {
+            receiver.emit("end")
+        }
     }
 
     public afterInit(server: Server): void {
-        return this.logger.log("Initialized Websocket gateway")
+        this.logger.log("Initialized Websocket gateway")
     }
 
-    public handleDisconnect(client: Socket): void {
-        return this.logger.log(`Client disconnected: ${client.id}`)
+    public handleDisconnect(@ConnectedSocket() client: Socket): void {
+        const { id } = client
+        this.usersService.remove(id)
+        this.logger.log(`Client ${id} connected`)
     }
 
-    public handleConnection(client: Socket): void {
-        client.emit("events", "HALO KURWA")
-        return this.logger.log(`Client connected: ${client.id}`)
+    public handleConnection(@ConnectedSocket() client: Socket): void {
+        const id = this.usersService.create(client)
+        this.logger.log(`Client connected: ${id}`)
+        client.emit("init", { id })
     }
 }

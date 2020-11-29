@@ -18,7 +18,7 @@ const calculateStreamHeight = () => {
     height = 360
     return { min: height, max: 1080, ideal: 720 }
 }
-const StreamPublisher = ({ mediaStreamId }) => {
+const StreamPublisher = ({ mediaDeviceId }) => {
     const { addToast, toastStack } = useToasts()
     const [heightDimensions, setHeightDimensions] = useState(
         calculateStreamHeight()
@@ -31,9 +31,9 @@ const StreamPublisher = ({ mediaStreamId }) => {
         audio: true,
     })
     const localVideoRef = useRef(null)
-    const mediaStream = useMediaDevice(cameraConfig)
+    const mediaDevice = useMediaDevice(cameraConfig)
 
-    const response = usePublisherConnection({ mediaStreamId })
+    const response = usePublisherConnection({ mediaDeviceId })
 
     const [streaming, setStreaming] = useState(false)
     const [video, setVideo] = useState(true)
@@ -45,20 +45,11 @@ const StreamPublisher = ({ mediaStreamId }) => {
     const toggleMediaDevice = (deviceType) => {
         if (deviceType === "video") {
             setVideo(!video)
-            // FIXME: videotrack could also be stream from desktop!
-            const videoTrack = mediaStream.getVideoTracks()[0]
-            videoTrack.enabled = !videoTrack.enabled
-            addToast(`Video ${videoTrack.enabled ? "enabled" : "disabled"}`, {
-                appearance: "info",
-            })
+            mediaDevice.toggle("Video")
         }
         if (deviceType === "audio") {
             setAudio(!audio)
-            const audioTrack = mediaStream.getAudioTracks()[0]
-            audioTrack.enabled = !audioTrack.enabled
-            addToast(`Audio ${audioTrack.enabled ? "enabled" : "disabled"}`, {
-                appearance: "info",
-            })
+            mediaDevice.toggle("Audio")
         }
     }
 
@@ -75,18 +66,25 @@ const StreamPublisher = ({ mediaStreamId }) => {
     }
 
     if (
-        mediaStream &&
+        mediaDevice &&
         localVideoRef.current &&
         !localVideoRef.current.srcObject
     ) {
         console.log("time to play kurwa")
-        localVideoRef.current.srcObject = mediaStream
+        localVideoRef.current.srcObject = mediaDevice
     }
 
     const commenceStream = () => {
         localVideoRef.current.play()
         setStreaming(true)
     }
+
+    useEffect(() => {
+        if (mediaDevice) {
+            mediaDevice.toggle("Video", video)
+            mediaDevice.toggle("Audio", audio)
+        }
+    })
 
     return (
         <div className="card border-dark stream-window">

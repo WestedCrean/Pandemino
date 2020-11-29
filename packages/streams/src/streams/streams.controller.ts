@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Res, Headers, Logger } from "@nestjs/common"
-import { StreamsService } from "./streams.service"
+import { StreamsService } from "../streams/streams.service"
 import { Response } from "express"
 
 @Controller("lectures")

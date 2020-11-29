@@ -1,51 +1,46 @@
-import { useState, useEffect } from "react"
-import { useToasts } from "react-toast-notifications"
+import _ from "lodash"
+import Emitter from "./Emitter"
 
-function useMediaDevice(constraints) {
-    const { addToast } = useToasts()
-    const [mediaStream, setMediaStream] = useState(null)
-
-    const createMediaDevice = async () => {
-        try {
-            // or MediaDevices.getUserMedia(constraints)
-            const md = await navigator.mediaDevices.getUserMedia(constraints)
-            setMediaStream(md)
-            addToast("Created stream!", { appearance: "success" })
-        } catch (e) {
-            let msg = ""
-
-            if (encodeURI.name === "ConstraintNotSatisfiedError") {
-                msg =
-                    "The resolution " +
-                    constraints.video.width.exact +
-                    "x" +
-                    constraints.video.height.exact +
-                    " px is not supported by your device."
-            } else if (e.name === "PermissionDeniedError") {
-                msg = "Permission to use your camera has not been granted."
-            } else if (e.name === "NotFoundError") {
-                msg = "Your browser does not have access to a camera."
-            } else {
-                msg = `MediaDevice ${e.name}. See console for more details.`
-                console.log(e)
-            }
-            addToast(msg, { appearance: "error" })
-        }
+/**
+ * Manage all media devices
+ */
+class MediaDevice extends Emitter {
+    /**
+     * Start media devices and send stream
+     */
+    create(constraints) {
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+            this.stream = stream
+            this.emit("stream", stream)
+        })
+        return this
     }
 
-    useEffect(() => {
-        if (!mediaStream) {
-            createMediaDevice()
-        } else {
-            return function cleanup() {
-                mediaStream.getTracks().forEach((track) => {
-                    track.stop()
-                })
-            }
+    /**
+     * Turn on/off a device
+     * @param {String} type - Type of the device
+     * @param {Boolean} [on] - State of the device
+     */
+    toggle(type, on) {
+        const len = arguments.length
+        if (this.stream) {
+            this.stream[`get${type}Tracks`]().forEach((track) => {
+                const state = len === 2 ? on : !track.enabled
+                _.set(track, "enabled", state)
+            })
         }
-    }, [mediaStream, constraints])
+        return this
+    }
 
-    return mediaStream
+    /**
+     * Stop all media track of devices
+     */
+    stop() {
+        if (this.stream) {
+            this.stream.getTracks().forEach((track) => track.stop())
+        }
+        return this
+    }
 }
 
-export { useMediaDevice }
+export default MediaDevice
