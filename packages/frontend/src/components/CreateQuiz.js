@@ -1,21 +1,27 @@
-import React, { Fragment, useEffect, useState, useRef} from "react"
-import AddClosedQuestionModal from "./AddClosedQuestionModal";
+import React, { Fragment, useEffect, useState, useRef } from "react"
+import AddClosedQuestionModal from "./AddClosedQuestionModal"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { Modal, Button, Card } from "react-bootstrap"
 import { Fab } from "@material-ui/core"
-import { faTrash, faArrowRight, faArrowUp,faArrowDown } from "@fortawesome/free-solid-svg-icons"
+import {
+    faTrash,
+    faArrowRight,
+    faArrowUp,
+    faArrowDown,
+} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
+import TextField from "@material-ui/core/TextField"
+import { spacing } from "@material-ui/system"
 const CreateQuiz = (props) => {
     const [currentLectureId, setCurrentLectureId] = useState(props.lectureId)
     const [childrens, setChildren] = useState([])
     const [quizes, setQuizes] = useState([])
 
-    let changeFlag = useRef(false);
+    let changeFlag = useRef(false)
 
     const [visibleIndex, setVisibleIndex] = useState(null)
-    const [visibleVariantIndex,setVisibleVariantIndex] = useState(null)
+    const [visibleVariantIndex, setVisibleVariantIndex] = useState(null)
 
     const [quizName, setQuizName] = useState()
     const [quizDescription, setQuizDescription] = useState()
@@ -28,13 +34,12 @@ const CreateQuiz = (props) => {
 
     const { accessToken } = useAuthContext()
 
-
-    const handleChangeInQuiz  = () => {
-        changeFlag.current = !changeFlag.current;
+    const handleChangeInQuiz = () => {
+        changeFlag.current = !changeFlag.current
     }
 
     const handleShowQuestion = (index) => {
-        if(index === null){
+        if (index === null) {
             setVisibleIndex(null)
             setVisibleVariantIndex(null)
         }
@@ -45,16 +50,32 @@ const CreateQuiz = (props) => {
         }
     }
 
-    const handleShowVariant = (index) =>{
- 
-        if(visibleVariantIndex === index){
+    const handleShowVariant = (index) => {
+        if (visibleVariantIndex === index) {
             setVisibleVariantIndex(null)
-        }
-        else{
+        } else {
             setVisibleVariantIndex(index)
         }
     }
+    const handleNameChange = (e) => {
+        setQuizName(e.target.value)
+    }
 
+    const handleDescriptionChange = (e) => {
+        setQuizDescription(e.target.value)
+    }
+
+    const handleDateChange = (e) => {
+        setQuizDateStart(e.target.value)
+    }
+    const handleDateChangeEnd = (e) => {
+        setQuizDateEnd(e.target.value)
+    }
+
+    const data = new Date(
+        new Date().toString().split("GMT")[0] + " UTC"
+    ).toISOString()
+    const today = data.slice(0, -1)
 
     const addComponent = () => {
         let list = childrens
@@ -63,7 +84,6 @@ const CreateQuiz = (props) => {
 
         console.log(childrens)
     }
-
 
     const getQuizes = async () => {
         const api = ApiService(accessToken)
@@ -82,6 +102,8 @@ const CreateQuiz = (props) => {
             startDate: quizDateStart,
             endDate: quizDateEnd,
         }
+
+        console.log(body)
 
         try {
             await api.addQuiz(body)
@@ -115,13 +137,13 @@ const CreateQuiz = (props) => {
     }
 
     useEffect(() => {
-
-        if(currentLectureId != props.lectureId){    ///otherwise it wont work. And state will be reloading over and over and corupting stack memory
-            setCurrentLectureId(props.lectureId)    ///
+        if (currentLectureId != props.lectureId) {
+            ///otherwise it wont work. And state will be reloading over and over and corupting stack memory
+            setCurrentLectureId(props.lectureId) ///
             getQuizes()
         }
-        if(changeFlag.current == true){
-            handleShowQuestion(null)  ///FIXME
+        if (changeFlag.current == true) {
+            handleShowQuestion(null) ///FIXME
             getQuizes()
             handleChangeInQuiz()
         }
@@ -129,47 +151,58 @@ const CreateQuiz = (props) => {
 
     return (
         <>
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <div>Dodawanie nowego quizu</div>
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Utwórz Kwizz</Modal.Body>
-                <form className="p-3">
+                <Modal.Body className="d-flex justify-content-center">
+                    Utwórz Kwizz
+                </Modal.Body>
+                <form className="p-3 d-flex justify-content-center">
                     <div>
-                        <input
+                        <TextField
+                            className="createQuiz-textfield"
                             type="text"
                             id={`question`}
                             name="question"
-                            onChange={(e) => setQuizName(e.target.value)}
+                            variant="outlined"
+                            label="Nazwa Quizu"
+                            onChange={handleNameChange}
                         />
-                        <label for="question">Nazwa Quizu</label>
+
                         <br></br>
-                        <input
-                            type="textarea"
+                        <TextField
+                            className="createQuiz-textfield"
+                            multiline="true"
                             id="question"
                             name="question"
-                            onChange={(e) => setQuizDescription(e.target.value)}
+                            variant="outlined"
+                            label="Opis Quizu"
+                            onChange={handleDescriptionChange}
                         />
-                        <label for="question">Opis Quizu</label>
+
                         <br></br>
-                        <input
-                            type="date"
-                            id="dateQuestionStart"
-                            name="dateQuestionStart"
-                            onChange={(e) => setQuizDateStart(e.target.value)}
+                        <TextField
+                            className="createQuiz-textfield"
+                            id="datetime-local"
+                            label="Kiedy Rozpoczęcie"
+                            type="datetime-local"
+                            defaultValue={today}
+                            onChange={handleDateChange}
                         />
-                        <label for="dateQuestionStart">Data rozpoczecia</label>
+
                         <br></br>
-                        <input
-                            type="date"
-                            id="dateQuestionEnd"
-                            name="dateQuestionEnd"
-                            onChange={(e) => setQuizDateEnd(e.target.value)}
+                        <TextField
+                            className="createQuiz-textfield"
+                            id="datetime-local"
+                            label="Kiedy Zakończenie"
+                            type="datetime-local"
+                            defaultValue={today}
+                            onChange={handleDateChangeEnd}
                         />
-                        <label for="dateQuestionEnd">Data zakończenia</label>
+
                         <br></br>
                     </div>
                 </form>
@@ -195,7 +228,8 @@ const CreateQuiz = (props) => {
                     <div>
                         {quiz.name}
                         <AddClosedQuestionModal
-                            quizId={quiz.id} handleChangeInQuiz={handleChangeInQuiz}
+                            quizId={quiz.id}
+                            handleChangeInQuiz={handleChangeInQuiz}
                         ></AddClosedQuestionModal>
                         <Fab
                             color="secondary"
@@ -268,14 +302,16 @@ const CreateQuiz = (props) => {
                                                     <Card>
                                                         <Card.Body className="d-flex">
                                                             <div className="quiz-left">
-                                                                {variant.content}
+                                                                {
+                                                                    variant.content
+                                                                }
                                                             </div>
                                                             <div className="quiz-end">
-                                                                <Fab
-                                                                    color="secondary"
-                                                                >
+                                                                <Fab color="secondary">
                                                                     <FontAwesomeIcon
-                                                                        icon={faTrash}
+                                                                        icon={
+                                                                            faTrash
+                                                                        }
                                                                         size="2x"
                                                                     />
                                                                 </Fab>
@@ -296,4 +332,4 @@ const CreateQuiz = (props) => {
     )
 }
 
-export default CreateQuiz;
+export default CreateQuiz
