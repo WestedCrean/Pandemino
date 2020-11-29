@@ -79,8 +79,7 @@ const ListUsersCourses = () => {
                                         directToLecture(
                                             course.course.id,
                                             course.course.name,
-                                            course.course.description,
-                                            course.course.lecturer.id
+                                            course.course.description
                                         )
                                     }
                                 >
