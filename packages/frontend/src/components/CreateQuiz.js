@@ -57,6 +57,20 @@ const CreateQuiz = (props) => {
             setVisibleVariantIndex(index)
         }
     }
+    const handleNameChange = (e) => {
+        setQuizName(e.target.value)
+    }
+
+    const handleDescriptionChange = (e) => {
+        setQuizDescription(e.target.value)
+    }
+
+    const handleDateChange = (e) => {
+        setQuizDateStart(e.target.value)
+    }
+    const handleDateChangeEnd = (e) => {
+        setQuizDateEnd(e.target.value)
+    }
 
     const data = new Date(
         new Date().toString().split("GMT")[0] + " UTC"
@@ -155,7 +169,7 @@ const CreateQuiz = (props) => {
                             name="question"
                             variant="outlined"
                             label="Nazwa Quizu"
-                            onChange={(e) => setQuizName(e.target.value)}
+                            onChange={handleNameChange}
                         />
 
                         <br></br>
@@ -166,7 +180,7 @@ const CreateQuiz = (props) => {
                             name="question"
                             variant="outlined"
                             label="Opis Quizu"
-                            onChange={(e) => setQuizDescription(e.target.value)}
+                            onChange={handleDescriptionChange}
                         />
 
                         <br></br>
@@ -176,7 +190,7 @@ const CreateQuiz = (props) => {
                             label="Kiedy Rozpoczęcie"
                             type="datetime-local"
                             defaultValue={today}
-                            onChange={(e) => setQuizDateStart(e.target.value)}
+                            onChange={handleDateChange}
                         />
 
                         <br></br>
@@ -186,7 +200,7 @@ const CreateQuiz = (props) => {
                             label="Kiedy Zakończenie"
                             type="datetime-local"
                             defaultValue={today}
-                            onChange={(e) => setQuizDateEnd(e.target.value)}
+                            onChange={handleDateChangeEnd}
                         />
 
                         <br></br>

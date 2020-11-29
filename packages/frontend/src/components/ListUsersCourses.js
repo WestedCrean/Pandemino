@@ -19,7 +19,7 @@ const ListUsersCourses = () => {
             state: {
                 courseId: id,
                 courseName: name,
-                courseDescription:  description,
+                courseDescription: description,
             },
         })
     }
@@ -66,7 +66,12 @@ const ListUsersCourses = () => {
                         <tr key={`${course.course.id}`}>
                             <td>{i + 1}</td>
                             <td>{course.course.name}</td>
-                            <td>{course.course.lecturer.email}</td>
+                            {course.course.lecturer.firstName ? (
+                                <td>{`${course.course.lecturer.firstName} ${course.course.lecturer.lastName}`}</td>
+                            ) : (
+                                <td>{course.course.lecturer.email}</td>
+                            )}
+
                             <td>
                                 <Button
                                     variant="dark"
@@ -74,7 +79,8 @@ const ListUsersCourses = () => {
                                         directToLecture(
                                             course.course.id,
                                             course.course.name,
-                                            course.course.description
+                                            course.course.description,
+                                            course.course.lecturer.id
                                         )
                                     }
                                 >

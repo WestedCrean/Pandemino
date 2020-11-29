@@ -27,9 +27,6 @@ const AddCourseModal = ({
     const { user } = useAuthContext()
     const userEmail = user.email
 
-    console.log(`NAZWA: ${courseNameAlready}`)
-    console.log(`OPIS : ${courseDescriptionAlready}`)
-
     const addNewCourse = async () => {
         const api = ApiService(accessToken)
 
@@ -73,8 +70,7 @@ const AddCourseModal = ({
             name: courseName,
             description: courseDescription,
         }
-        console.log(idCourse)
-        console.log(body)
+
         await api.editCourse(idCourse, body)
 
         window.alert("Edytowano nowy kurs")

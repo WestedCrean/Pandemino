@@ -27,7 +27,7 @@ const ListCourses = () => {
             state: {
                 courseId: id,
                 courseName: name,
-                courseDescription:  description,
+                courseDescription: description,
             },
         })
     }
@@ -40,7 +40,6 @@ const ListCourses = () => {
             getUserCourses()
         }
     }, [userId, query])
-
 
     const getUser = async () => {
         try {
@@ -55,8 +54,7 @@ const ListCourses = () => {
     // FIXME first response fails
     const getStreams = async () => {
         try {
-            const response = await api
-                .getAvailableCourses(query)
+            const response = await api.getAvailableCourses(query)
             setCourses(response.data)
         } catch (error) {
             console.error({ error })
@@ -94,9 +92,7 @@ const ListCourses = () => {
         }
     }
 
-    
     const deleteUserCourses = async (id) => {
-       
         try {
             await api.deleteUserCourse(userCoursesId[id])
         } catch (error) {
@@ -107,9 +103,7 @@ const ListCourses = () => {
         window.location = "/listCourses"
     }
 
-
     const joinCourse = async (courseId) => {
-        
         const body = {
             userId: userId,
             courseId: courseId,
@@ -122,7 +116,6 @@ const ListCourses = () => {
         window.alert("Dodano Cię do wykladu")
         window.location = "/listCourses"
     }
-
 
     if (isWaiting) {
         return <FadeLoader></FadeLoader>
@@ -152,7 +145,11 @@ const ListCourses = () => {
                                     <tr key={`${course.id}`}>
                                         <td>{i + 1}</td>
                                         <td>{course.name}</td>
-                                        <td>{course.lecturer.email}</td>
+                                        {course.lecturer.firstName ? (
+                                            <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
+                                        ) : (
+                                            <td>{course.lecturer.email}</td>
+                                        )}
                                         <td>
                                             <Button
                                                 variant="dark"
@@ -160,8 +157,7 @@ const ListCourses = () => {
                                                     directToLecture(
                                                         course.id,
                                                         course.name,
-                                                        course.course
-                                                            .description
+                                                        course.description
                                                     )
                                                 }
                                             >
