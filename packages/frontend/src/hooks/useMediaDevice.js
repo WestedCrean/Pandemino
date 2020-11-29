@@ -9,7 +9,7 @@ function useMediaDevice(constraints) {
     const createMediaDevice = async () => {
         try {
             // or MediaDevices.getUserMedia(constraints)
-            const md = MediaDevice.create(contraints)
+            const md = MediaDevice.create(constraints)
             setMediaDevice(md)
             addToast("Created stream!", { appearance: "success" })
         } catch (e) {

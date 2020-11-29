@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-    faVideo as VideoOn,
-    faVideoSlash as VideoOff,
-    faPauseCircle as PauseIcon,
-    faPlay as PlayIcon,
-    faMicrophone as MicOn,
-    faMicrophoneSlash as MicOff,
-} from "@fortawesome/free-solid-svg-icons"
 import { Player, ControlBar, VolumeMenuButton } from "video-react"
-import { useMediaDevice, usePublisherConnection, useTimer } from "hooks"
+import { useMediaDevice, useTimer } from "hooks"
 import { VideoControls } from "components"
 import { useToasts } from "react-toast-notifications"
 
@@ -33,7 +24,7 @@ const StreamPublisher = ({ mediaDeviceId }) => {
     const localVideoRef = useRef(null)
     const mediaDevice = useMediaDevice(cameraConfig)
 
-    const response = usePublisherConnection({ mediaDeviceId })
+    //const response = usePublisherConnection({ mediaDeviceId })
 
     const [streaming, setStreaming] = useState(false)
     const [video, setVideo] = useState(true)
@@ -89,17 +80,6 @@ const StreamPublisher = ({ mediaDeviceId }) => {
     return (
         <div className="card border-dark stream-window">
             <div className="card-body p-0">
-                {/*
-                <Player
-                    id="localVideoRef"
-                    ref={localVideoRef}
-                    onCanPlay={handlePlay}
-                    fluid
-                    autoPlay
-                    playsInline
-                    disableDefaultControls
-                ></Player>
-                */}
                 <div className="video-container">
                     <video
                         style={{ width: "100%" }}
