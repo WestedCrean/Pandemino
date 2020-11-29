@@ -9,10 +9,11 @@ import {
     faArrowRight,
     faArrowUp,
     faArrowDown,
+    faPlus,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import TextField from "@material-ui/core/TextField"
-import { spacing } from "@material-ui/system"
+
 const CreateQuiz = (props) => {
     const [currentLectureId, setCurrentLectureId] = useState(props.lectureId)
     const [childrens, setChildren] = useState([])
@@ -220,10 +221,12 @@ const CreateQuiz = (props) => {
                 </Modal.Footer>
             </Modal>
             <div>
-                <h1>Tutaj moze utworzyc quiz</h1>
-                <button onClick={handleShow}>
-                    Dodaj nowy quiz do tego kursu
-                </button>
+                <h3 className="d-flex justify-content-center">
+                    Utwórz nowy quiz
+                    <Button variant="light" onClick={handleShow}>
+                        <FontAwesomeIcon icon={faPlus} size="lg" />
+                    </Button>
+                </h3>
                 {quizes.map((quiz, i) => (
                     <div>
                         {quiz.name}

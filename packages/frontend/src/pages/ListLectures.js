@@ -22,7 +22,7 @@ import {
 
 import Files from "components/Files"
 import CreateQuiz from "../components/CreateQuiz"
-
+import GetQuiz from "../components/GetQuiz"
 const ListLectures = (props) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
@@ -107,6 +107,14 @@ const ListLectures = (props) => {
                     courseNameAlready={courseName}
                 ></AddCourseModal>
             )
+        }
+    }
+
+    const tabCreateQuiz = () => {
+        if (userEmail === courseOwnerEmail) {
+            return false
+        } else {
+            return true
         }
     }
 
@@ -228,11 +236,17 @@ const ListLectures = (props) => {
                         <Tab eventKey="materials" title="Materiały">
                             <Files lectureId={currentLecture}></Files>
                         </Tab>
-                        <Tab eventKey="quizes" title="Quiz"></Tab>
+                        <Tab eventKey="quizes" title="Quiz">
+                            <GetQuiz lectureId={currentLecture}></GetQuiz>
+                        </Tab>
                         <Tab eventKey="course-description" title="Opis Kursu">
                             {courseDescription}
                         </Tab>
-                        <Tab eventKey="create-quiz" title="Utwórz quiz">
+                        <Tab
+                            eventKey="create-quiz"
+                            title="Utwórz quiz"
+                            disabled={tabCreateQuiz()}
+                        >
                             <CreateQuiz lectureId={currentLecture}></CreateQuiz>
                         </Tab>
                     </Tabs>
