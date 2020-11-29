@@ -40,6 +40,7 @@ const routes = [
         needsAuth: true,
     },
     {
+
         path: "/quiz/:id",
         component: QuizPage,
         needsAuth: true,
