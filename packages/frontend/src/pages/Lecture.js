@@ -9,8 +9,6 @@ import { useToasts } from "react-toast-notifications"
 import { useUserInfo } from "hooks"
 import { StreamWindow, Chat, StreamInfo } from "components"
 
-
-
 const Lecture = ({ history, location }) => {
     const { accessToken } = useAuthContext()
     const { addToast, toastStack } = useToasts()
@@ -50,7 +48,7 @@ const Lecture = ({ history, location }) => {
                     <div className="row">
                         <div className="col-sm-12 pb-4">
                             <StreamWindow
-                                role={"publisher"}
+                                role={"lecturer"}
                                 streamId={lectureId}
                             />
                         </div>
