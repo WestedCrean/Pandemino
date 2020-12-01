@@ -43,7 +43,7 @@ export class QuizService {
 
 
     findOne(id: string): Promise<Quiz> {
-        return this.quizRepository.findOne(id)
+        return this.quizRepository.findOne(id, { relations: ["questions", "questions.variants"] })
     }
 
     async remove(id: string): Promise<void> {

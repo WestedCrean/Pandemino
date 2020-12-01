@@ -3,13 +3,20 @@ import { Modal, Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { Fab } from "@material-ui/core"
-import { faBaby, faFolderPlus } from "@fortawesome/free-solid-svg-icons"
+import { faBaby, faFolderPlus, faCog } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 
-const AddCourseModal = ({ courseIdProps, type }) => {
+const AddCourseModal = ({
+    courseIdProps,
+    type,
+    courseNameAlready,
+    courseDescriptionAlready,
+}) => {
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
+    const [defaultValueName, setDefaultValueName] = useState(null)
+    const [defaultValueDescription, setDefaultValueDescription] = useState()
 
     const [show, setShow] = useState(false)
 
@@ -55,9 +62,7 @@ const AddCourseModal = ({ courseIdProps, type }) => {
         const userReponse = await api.getUserByEmail(userEmail)
         const userId = userReponse.data.id
 
-        const courseResponse = await api.getCourseById(
-            courseIdProps
-        )
+        const courseResponse = await api.getCourseById(courseIdProps)
 
         const idCourse = courseResponse.data.id
 
@@ -65,8 +70,7 @@ const AddCourseModal = ({ courseIdProps, type }) => {
             name: courseName,
             description: courseDescription,
         }
-        console.log(idCourse)
-        console.log(body)
+
         await api.editCourse(idCourse, body)
 
         window.alert("Edytowano nowy kurs")
@@ -77,14 +81,19 @@ const AddCourseModal = ({ courseIdProps, type }) => {
     return (
         <>
             {type === "edit" ? (
-                <Button className="awsome-button" color="default" aria-label="add" onClick={handleShow}>
-                    <FontAwesomeIcon icon={faEdit} size="2x" />
+                <Button className="ml-2" variant="light" onClick={handleShow}>
+                    <FontAwesomeIcon size="lg" icon={faCog}></FontAwesomeIcon>
                 </Button>
             ) : (
-                    <Fab className="awsome-button" color="default" aria-label="add" onClick={handleShow}>
-                        <FontAwesomeIcon icon={faFolderPlus} size="2x" />
-                    </Fab>
-                )}
+                <Fab
+                    className="awsome-button"
+                    color="default"
+                    aria-label="add"
+                    onClick={handleShow}
+                >
+                    <FontAwesomeIcon icon={faFolderPlus} size="2x" />
+                </Fab>
+            )}
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -92,8 +101,8 @@ const AddCourseModal = ({ courseIdProps, type }) => {
                         {type === "edit" ? (
                             <div>Edytowanie nowego kursu</div>
                         ) : (
-                                <div>Dodawanie nowego kursu</div>
-                            )}
+                            <div>Dodawanie nowego kursu</div>
+                        )}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Podaj niezbedne dane</Modal.Body>
@@ -104,6 +113,7 @@ const AddCourseModal = ({ courseIdProps, type }) => {
                         id="name"
                         placeholder="Nazwa kursu"
                         value={courseName}
+                        defaultValue={courseNameAlready}
                         onChange={(e) => setCourseName(e.target.value)}
                     />
                     <textarea
@@ -111,6 +121,7 @@ const AddCourseModal = ({ courseIdProps, type }) => {
                         className="form-control form-input "
                         id="desctiption"
                         placeholder="Opis kursu"
+                        defaultValue={courseDescriptionAlready}
                         value={courseDescription}
                         onChange={(e) => setCourseDescription(e.target.value)}
                     />
@@ -128,14 +139,14 @@ const AddCourseModal = ({ courseIdProps, type }) => {
                             Edit
                         </Button>
                     ) : (
-                            <Button
-                                type="submit"
-                                variant="primary"
-                                onClick={addNewCourse}
-                            >
-                                Dodaj
-                            </Button>
-                        )}
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            onClick={addNewCourse}
+                        >
+                            Dodaj
+                        </Button>
+                    )}
                 </Modal.Footer>
             </Modal>
         </>

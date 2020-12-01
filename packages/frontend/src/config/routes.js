@@ -1,4 +1,5 @@
 import { HomePage, Login, SignUp, ListLectures, Lecture } from "pages"
+import QuizPage from "../pages/QuizPage"
 import ListCourses from "../pages/ListCourses";
 import UserPanel from "../pages/UserPanel"
 
@@ -38,6 +39,13 @@ const routes = [
         component: UserPanel,
         needsAuth: true,
     },
+    {
+
+        path: "/quiz/:id",
+        component: QuizPage,
+        needsAuth: true,
+    },
+
 ]
 
 export default routes

@@ -21,17 +21,15 @@ const ListCourses = () => {
     const userEmail = user.email
     const api = ApiService(accessToken)
 
-    const directToLecture = (id, name) => {
-        
+    const directToLecture = (id, name, description) => {
         history.push({
             pathname: `/course/${id}`,
             state: {
                 courseId: id,
                 courseName: name,
-                
+                courseDescription: description,
             },
         })
-        
     }
 
     useEffect(() => {
@@ -42,7 +40,6 @@ const ListCourses = () => {
             getUserCourses()
         }
     }, [userId, query])
-
 
     const getUser = async () => {
         try {
@@ -57,8 +54,7 @@ const ListCourses = () => {
     // FIXME first response fails
     const getStreams = async () => {
         try {
-            const response = await api
-                .getAvailableCourses(query)
+            const response = await api.getAvailableCourses(query)
             setCourses(response.data)
         } catch (error) {
             console.error({ error })
@@ -96,9 +92,7 @@ const ListCourses = () => {
         }
     }
 
-    
     const deleteUserCourses = async (id) => {
-       
         try {
             await api.deleteUserCourse(userCoursesId[id])
         } catch (error) {
@@ -109,9 +103,7 @@ const ListCourses = () => {
         window.location = "/listCourses"
     }
 
-
     const joinCourse = async (courseId) => {
-        
         const body = {
             userId: userId,
             courseId: courseId,
@@ -124,7 +116,6 @@ const ListCourses = () => {
         window.alert("Dodano Cię do wykladu")
         window.location = "/listCourses"
     }
-
 
     if (isWaiting) {
         return <FadeLoader></FadeLoader>
@@ -154,12 +145,20 @@ const ListCourses = () => {
                                     <tr key={`${course.id}`}>
                                         <td>{i + 1}</td>
                                         <td>{course.name}</td>
-                                        <td>{course.lecturer.email}</td>
+                                        {course.lecturer.firstName ? (
+                                            <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
+                                        ) : (
+                                            <td>{course.lecturer.email}</td>
+                                        )}
                                         <td>
                                             <Button
                                                 variant="dark"
                                                 onClick={() =>
-                                                    directToLecture(course.id, course.name)
+                                                    directToLecture(
+                                                        course.id,
+                                                        course.name,
+                                                        course.description
+                                                    )
                                                 }
                                             >
                                                 Stream
@@ -198,7 +197,14 @@ const ListCourses = () => {
                         </table>
                         <div className="d-flexs p-2">
                             <div className="md-form active-pink active-pink-2 mb-3 mt-0">
-                                <input className="form-control" type="text" placeholder="Search" aria-label="Search" value={query} onChange={e => setQuery(e.target.value)}></input>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                ></input>
                             </div>
                             <div className="box-addNewCourse">
                                 <AddCourseModal></AddCourseModal>

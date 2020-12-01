@@ -13,11 +13,13 @@ const ListUsersCourses = () => {
     const history = useHistory()
     const userEmail = user.email
 
-    const directToLecture = (id) => {
+    const directToLecture = (id, name, description) => {
         history.push({
             pathname: `/course/${id}`,
             state: {
                 courseId: id,
+                courseName: name,
+                courseDescription: description,
             },
         })
     }
@@ -64,12 +66,21 @@ const ListUsersCourses = () => {
                         <tr key={`${course.course.id}`}>
                             <td>{i + 1}</td>
                             <td>{course.course.name}</td>
-                            <td>{course.course.lecturer.email}</td>
+                            {course.course.lecturer.firstName ? (
+                                <td>{`${course.course.lecturer.firstName} ${course.course.lecturer.lastName}`}</td>
+                            ) : (
+                                <td>{course.course.lecturer.email}</td>
+                            )}
+
                             <td>
                                 <Button
                                     variant="dark"
                                     onClick={() =>
-                                        directToLecture(course.course.id)
+                                        directToLecture(
+                                            course.course.id,
+                                            course.course.name,
+                                            course.course.description
+                                        )
                                     }
                                 >
                                     <FontAwesomeIcon
