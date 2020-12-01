@@ -29,27 +29,95 @@
     flex-wrap: nowrap;
 }
 
-.video-controls button {
+.video-controls .main-controls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 30%;
+}
+
+.video-controls .main-controls button {
     background-color: #00000000;
     border: none;
     color: white;
-
     outline: none;
-    position: relative;
     text-align: center;
-    margin: 0;
+    margin: auto;
     height: 100%;
-    width: 2rem;
+}
+
+.video-controls {
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+}
+
+.video-controls:hover {
+    opacity: 1;
 }
 
 .video-controls button:hover {
     background-color: #4b5963bb;
 }
 
-.time-counter {
-    font-family: monospace;
+.dropdownMenu {
+    margin-left: auto;
     color: white;
     font-size: 1rem;
+}
+
+.dropdownMenu button {
+    background-color: #00000000 !important;
+    border: none !important;
+    color: white;
+    outline: none;
+    text-align: center;
+    margin: auto;
+    height: 100%;
+}
+.dropdownMenu button:focus {
+    box-shadow: 0 0 0 !important;
+}
+
+.play-btn-container {
     position: absolute;
-    right: 0.5rem;
+    z-index: 10;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(20, 20, 20, 0.5);
+    display: grid;
+}
+
+.play-btn {
+    display: block;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+}
+
+.play-btn:hover {
+    cursor: pointer;
+}
+
+.play-btn > * {
+    width: 100%;
+    font-size: 4rem;
+}
+.play-btn:hover > * {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+@media (min-width: 900px) {
+    .play-btn {
+        height: 6vw;
+        width: 6vw;
+    }
+}
+.hidden {
+    display: none;
+}
+
+video {
+    z-index: 1;
 }

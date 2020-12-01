@@ -9,6 +9,7 @@ import ListUsersCourses from "./ListUsersCourses"
 import StreamWindow from "./StreamWindow"
 import StreamPublisher from "./StreamPublisher"
 import VideoControls from "./VideoControls"
+import VideoControlsViewer from "./VideoControlsViewer"
 import StreamConsumer from "./StreamConsumer"
 import Chat from "./Chat"
 import Spinner from "./Spinner"
@@ -26,10 +27,10 @@ export {
     DeleteCourseModal,
     GridHome,
     ListUsersCourses,
-
     StreamWindow,
     StreamPublisher,
     VideoControls,
+    VideoControlsViewer,
     StreamConsumer,
     Chat,
     Spinner,

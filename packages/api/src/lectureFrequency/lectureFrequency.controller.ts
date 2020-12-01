@@ -6,7 +6,7 @@ import { LectureFrequencyService } from "./lectureFrequency.service"
 
 @ApiTags("lectureFrequency")
 @Controller("lectureFrequency")
-//@UseGuards(AuthGuard('firebase'))
+@UseGuards(AuthGuard("firebase"))
 export class LectureFrequencyController {
     constructor(private readonly lectureFrequencyService: LectureFrequencyService) {}
 

@@ -3,7 +3,7 @@ import { StreamPublisher, StreamConsumer, Chat } from "components"
 
 const StreamWindow = ({ role, width, height, streamId }) => {
     const StreamComponent =
-        role === "publisher" ? StreamPublisher : StreamConsumer
+        role === "lecturer" ? StreamPublisher : StreamConsumer
 
     return <StreamComponent streamId={streamId} />
 }

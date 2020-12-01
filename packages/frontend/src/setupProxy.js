@@ -9,11 +9,12 @@ module.exports = function (app) {
         })
     )
 
-    app.use(
-        "/streams",
-        createProxyMiddleware({
-            target: "http://localhost:5050",
-            changeOrigin: true,
-        })
-    )
+    const socketProxy = createProxyMiddleware("/foo/bar", {
+        target: "http://localhost:5050",
+        changeOrigin: true,
+        ws: true,
+        logLevel: "debug",
+    })
+
+    app.use(socketProxy)
 }

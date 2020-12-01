@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useRef } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-    faVideo as VideoOn,
-    faVideoSlash as VideoOff,
-    faPauseCircle as PauseIcon,
-    faPlay as PlayIcon,
-    faMicrophone as MicOn,
-    faMicrophoneSlash as MicOff,
-} from "@fortawesome/free-solid-svg-icons"
-import { Player, ControlBar, VolumeMenuButton } from "video-react"
-import { useMediaDevice, usePublisherConnection, useTimer } from "hooks"
+import React, { useState, useEffect, useRef, Fragment } from "react"
 import { VideoControls } from "components"
 import { useToasts } from "react-toast-notifications"
+import { createSocket, config } from "services/streams"
 
 const calculateStreamHeight = () => {
     let height = window.innerHeight * 0.5
     height = 360
     return { min: height, max: 1080, ideal: 720 }
 }
-const StreamPublisher = ({ mediaStreamId }) => {
+
+const StreamPublisher = ({ streamId }) => {
     const { addToast, toastStack } = useToasts()
+    /* demo start */
+    const videoRef = useRef(null)
+    const socket = createSocket()
+    const [audioSource, setAudioSource] = useState(null)
+    const [videoSource, setVideoSource] = useState(null)
+    const [availableDevices, setAvailableDevices] = useState([])
+    const peerConnections = useRef({})
+    /* demo end */
+
     const [heightDimensions, setHeightDimensions] = useState(
         calculateStreamHeight()
     )
@@ -30,37 +30,26 @@ const StreamPublisher = ({ mediaStreamId }) => {
         },
         audio: true,
     })
-    const localVideoRef = useRef(null)
-    const mediaStream = useMediaDevice(cameraConfig)
-
-    const response = usePublisherConnection({ mediaStreamId })
-
-    const [streaming, setStreaming] = useState(false)
+    //const mediaDevice = useMediaDevice(cameraConfig)
     const [video, setVideo] = useState(true)
     const [audio, setAudio] = useState(true)
-
-    // FIXME: stream time should be counted server side and sent using websocket
-    const time = useTimer(streaming)
 
     const toggleMediaDevice = (deviceType) => {
         if (deviceType === "video") {
             setVideo(!video)
-            // FIXME: videotrack could also be stream from desktop!
-            const videoTrack = mediaStream.getVideoTracks()[0]
-            videoTrack.enabled = !videoTrack.enabled
-            addToast(`Video ${videoTrack.enabled ? "enabled" : "disabled"}`, {
-                appearance: "info",
+            window.stream.getVideoTracks().forEach((track) => {
+                track["enabled"] = !video
             })
         }
         if (deviceType === "audio") {
             setAudio(!audio)
-            const audioTrack = mediaStream.getAudioTracks()[0]
-            audioTrack.enabled = !audioTrack.enabled
-            addToast(`Audio ${audioTrack.enabled ? "enabled" : "disabled"}`, {
-                appearance: "info",
+            window.stream.getAudioTracks().forEach((track) => {
+                track["enabled"] = !video
             })
         }
     }
+
+    useEffect(() => {}, [audio, video])
 
     const togglePlayPause = () => {
         addToast("Pausing stream is not implemented yet", {
@@ -74,56 +63,172 @@ const StreamPublisher = ({ mediaStreamId }) => {
         })
     }
 
-    if (
-        mediaStream &&
-        localVideoRef.current &&
-        !localVideoRef.current.srcObject
-    ) {
-        console.log("time to play kurwa")
-        localVideoRef.current.srcObject = mediaStream
+    /*
+    if (mediaDevice && videoRef.current && !videoRef.current.srcObject) {
+        videoRef.current.srcObject = mediaDevice
+    }
+    */
+
+    function getDevices() {
+        console.log("getting devices")
+        return navigator.mediaDevices.enumerateDevices()
     }
 
-    const commenceStream = () => {
-        localVideoRef.current.play()
-        setStreaming(true)
+    useEffect(() => {
+        console.log({ availableDevices })
+    }, [availableDevices])
+
+    function handleDevices(deviceInfos) {
+        console.log("handling devices")
+        window.deviceInfos = deviceInfos
+        const devices = deviceInfos.map((i, deviceInfo) => {
+            return {
+                label:
+                    deviceInfo.label || deviceInfo.kind === "audioinput"
+                        ? `Mikrofon ${i + 1}`
+                        : `Kamera ${i + 1}`,
+                kind: deviceInfo.kind,
+                id: deviceInfo.deviceId,
+            }
+        })
+        setAvailableDevices(devices)
+    }
+
+    function handleDeviceChange(type, deviceId) {
+        if (type === "audioinput") {
+            setAudioSource(deviceId)
+        }
+        if (type === "videoinput") {
+            setVideoSource(deviceId)
+        }
+    }
+
+    const getStream = () => {
+        console.log("getting stream")
+        if (window.stream) {
+            window.stream.getTracks().forEach((track) => {
+                track.stop()
+            })
+        }
+        const constraints = {
+            audio: {
+                deviceId: audioSource ? { exact: audioSource } : undefined,
+            },
+            video: {
+                deviceId: audioSource ? { exact: audioSource } : undefined,
+            },
+        }
+        return navigator.mediaDevices
+            .getUserMedia(constraints)
+            .then(handleStream)
+            .catch(handleError)
+    }
+
+    const handleStream = (stream) => {
+        console.log("handling stream")
+        window.stream = stream
+        videoRef.current.srcObject = stream
+        socket.emit("broadcaster")
+    }
+
+    const handleError = (error) => {
+        console.error("Error: ", error)
+    }
+
+    useEffect(() => {
+        socket.on("candidate", (id, candidate) => {
+            console.log("on candidate")
+            if (peerConnections.current[id]) {
+                peerConnections.current[id].addIceCandidate(
+                    new RTCIceCandidate(candidate)
+                )
+            }
+        })
+
+        socket.on("disconnectPeer", (id) => {
+            console.log("on disconnectPeer")
+            try {
+                peerConnections[id].close()
+            } catch (e) {
+                console.log(e)
+            }
+
+            delete peerConnections.current[id]
+        })
+
+        socket.on("answer", (id, description) => {
+            console.log("on answer")
+            if (peerConnections.current[id]) {
+                peerConnections.current[id].setRemoteDescription(description)
+            }
+        })
+
+        socket.on("watcher", (id) => {
+            console.log("on watcher")
+            const peerConnection = new RTCPeerConnection(config)
+
+            peerConnections.current[id] = peerConnection
+
+            const stream = videoRef.current.srcObject
+            stream
+                .getTracks()
+                .forEach((track) => peerConnection.addTrack(track, stream))
+
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate) {
+                    socket.emit("candidate", id, event.candidate)
+                }
+            }
+
+            peerConnection
+                .createOffer()
+                .then((sdp) => peerConnection.setLocalDescription(sdp))
+                .then(() => {
+                    socket.emit("offer", id, peerConnection.localDescription)
+                })
+        })
+
+        return () => {
+            socket.disconnect()
+        }
+    }, [])
+
+    useEffect(() => {
+        getStream().then(getDevices).then(handleDevices)
+    }, [audioSource, videoSource])
+
+    const commenceStream = async () => {
+        videoRef.current.play()
     }
 
     return (
-        <div className="card border-dark stream-window">
-            <div className="card-body p-0">
-                {/*
-                <Player
-                    id="localVideoRef"
-                    ref={localVideoRef}
-                    onCanPlay={handlePlay}
-                    fluid
-                    autoPlay
-                    playsInline
-                    disableDefaultControls
-                ></Player>
-                */}
-                <div className="video-container">
-                    <video
-                        style={{ width: "100%" }}
-                        id="localVideoRef"
-                        ref={localVideoRef}
-                        onCanPlay={commenceStream}
-                        autoPlay
-                        playsInline
-                        disableDefaultControls
-                    ></video>
-                    <VideoControls
-                        isPlaying={true}
-                        time={time}
-                        audio={audio}
-                        video={video}
-                        toggleMediaDevice={toggleMediaDevice}
-                        togglePlayPause={togglePlayPause}
-                        toggleScreenCapture={toggleScreenCapture}
-                    />
+        <Fragment>
+            <div className="card border-dark stream-window">
+                <div className="card-body p-0">
+                    <div className="video-container">
+                        <video
+                            style={{ width: "100%" }}
+                            id="videoRef"
+                            ref={videoRef}
+                            onCanPlay={commenceStream}
+                            autoPlay
+                            playsInline
+                        ></video>
+
+                        <VideoControls
+                            isPlaying={true}
+                            audio={audio}
+                            video={video}
+                            devices={availableDevices}
+                            handleDeviceChange={handleDeviceChange}
+                            toggleMediaDevice={toggleMediaDevice}
+                            togglePlayPause={togglePlayPause}
+                            toggleScreenCapture={toggleScreenCapture}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        </Fragment>
     )
 }
 

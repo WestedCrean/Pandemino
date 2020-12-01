@@ -1,3 +1,4 @@
 import { getStreamRole } from "./utils"
+import { createSocket, config } from "./socket"
 
-export { getStreamRole }
+export { getStreamRole, createSocket, config }

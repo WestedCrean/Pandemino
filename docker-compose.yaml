@@ -17,10 +17,10 @@ services:
     - DB_HOST=pandemino_postgres
     - LOG_PATH=/var/log/
   streams:
-    container_name: pandemino_api-websocket
+    container_name: pandemino_streams
     build:
-      context: .
-      dockerfile: api-websocket.dockerfile
+      context: ./packages/streams/.
+      dockerfile: dockerfile
     ports:
       - "5050:5050"
     volumes:

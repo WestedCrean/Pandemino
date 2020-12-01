@@ -1,11 +1,12 @@
 import { Controller, Body, Get, Delete, Post, UseGuards, Param } from "@nestjs/common"
 import { ApiTags } from "@nestjs/swagger"
+import { AuthGuard } from "@nestjs/passport"
 import { FileService } from "./file.service"
-import {File} from "./file.entity"
+import { File } from "./file.entity"
 
 @ApiTags("file")
 @Controller("file")
-//@UseGuards(AuthGuard('firebase'))
+@UseGuards(AuthGuard("firebase"))
 export class FileController {
     constructor(private readonly fileService: FileService) {}
 
