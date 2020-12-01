@@ -6,7 +6,7 @@ import { Lecture } from "./lectures.entity"
 
 @ApiTags("lectures")
 @Controller("lectures")
-//@UseGuards(AuthGuard("firebase"))
+@UseGuards(AuthGuard("firebase"))
 export class LecturesController {
     constructor(private readonly lecturesService: LecturesService) {}
 

@@ -13,7 +13,6 @@ const Lecture = ({ history, location }) => {
     const { accessToken } = useAuthContext()
     const { addToast, toastStack } = useToasts()
     const userInfo = useUserInfo()
-    const userRole = getStreamRole(userInfo)
     const lectureId = location.pathname.split("/").slice(-1)[0]
     const [streamInfo, setStreamInfo] = useState({
         id: 2,
@@ -48,7 +47,7 @@ const Lecture = ({ history, location }) => {
                     <div className="row">
                         <div className="col-sm-12 pb-4">
                             <StreamWindow
-                                role={"lecturer"}
+                                role={userInfo ? userInfo.role : "student"}
                                 streamId={lectureId}
                             />
                         </div>

@@ -9,72 +9,111 @@ import {
     faMicrophoneSlash as MicOff,
     faDesktop as ScreenCapture,
 } from "@fortawesome/free-solid-svg-icons"
-
-function getTimeString(time) {
-    let hours = parseInt(time / 3600)
-    time = time % 3600
-    let minutes = parseInt(time / 60)
-    time = time % 60
-    let seconds = time
-    return `${hours < 10 ? "0" + hours : hours}:${
-        minutes < 10 ? "0" + minutes : minutes
-    }:${seconds < 10 ? "0" + seconds : seconds}` // FIXME: dirty hack
-}
+import { Dropdown } from "react-bootstrap"
 
 const VideoControls = ({
     isPlaying,
     time,
     video,
     audio,
+    devices,
+    handleDeviceChange,
     toggleMediaDevice,
     togglePlayPause,
     toggleScreenCapture,
 }) => (
     <div className="video-controls">
-        <button
-            key="toggleStreamButton"
-            type="button"
-            onClick={() => togglePlayPause()}
-        >
-            {isPlaying ? (
-                <FontAwesomeIcon icon={PlayIcon} />
-            ) : (
-                <FontAwesomeIcon icon={PauseIcon} />
-            )}
-        </button>
+        <div className="main-controls">
+            <button
+                key="toggleVideoButton"
+                type="button"
+                onClick={() => toggleMediaDevice("video")}
+            >
+                {video ? (
+                    <FontAwesomeIcon icon={VideoOn} />
+                ) : (
+                    <FontAwesomeIcon icon={VideoOff} />
+                )}
+            </button>
 
-        <button
-            key="toggleVideoButton"
-            type="button"
-            onClick={() => toggleMediaDevice("video")}
-        >
-            {video ? (
-                <FontAwesomeIcon icon={VideoOn} />
-            ) : (
-                <FontAwesomeIcon icon={VideoOff} />
-            )}
-        </button>
+            <button
+                key="toggleAudioButton"
+                type="button"
+                onClick={() => toggleMediaDevice("audio")}
+            >
+                {audio ? (
+                    <FontAwesomeIcon icon={MicOn} />
+                ) : (
+                    <FontAwesomeIcon icon={MicOff} />
+                )}
+            </button>
 
-        <button
-            key="toggleAudioButton"
-            type="button"
-            onClick={() => toggleMediaDevice("audio")}
-        >
-            {audio ? (
-                <FontAwesomeIcon icon={MicOn} />
-            ) : (
-                <FontAwesomeIcon icon={MicOff} />
-            )}
-        </button>
+            <button
+                key="toggleScreenCapture"
+                type="button"
+                onClick={() => toggleScreenCapture()}
+            >
+                {<FontAwesomeIcon icon={ScreenCapture} />}
+            </button>
+        </div>
+        <div className="dropdownMenu">
+            <Dropdown className="bg-transparent text-dark">
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Wybierz źródła
+                </Dropdown.Toggle>
 
-        <button
-            key="toggleScreenCapture"
-            type="button"
-            onClick={() => toggleScreenCapture()}
-        >
-            {<FontAwesomeIcon icon={ScreenCapture} />}
-        </button>
-        <span className="time-counter">{getTimeString(time)}</span>
+                <Dropdown.Menu>
+                    <Dropdown.ItemText>
+                        <section className="select">
+                            <label htmlFor="audioSource">
+                                Źródło dźwięku:{" "}
+                            </label>
+                            <select id="audioSource">
+                                {devices.map((i, device) => {
+                                    return (
+                                        device.kind === "audioinput" && (
+                                            <option
+                                                onClick={() => {
+                                                    handleDeviceChange(
+                                                        device.kind,
+                                                        device.id
+                                                    )
+                                                }}
+                                            >
+                                                {device.label}
+                                            </option>
+                                        )
+                                    )
+                                })}
+                            </select>
+                        </section>
+                    </Dropdown.ItemText>
+                    <Dropdown.ItemText>
+                        <section className="select">
+                            <label htmlFor="videoSource">Źródło obrazu: </label>
+                            <select id="videoSource">
+                                {devices.map((i, device) => {
+                                    return (
+                                        device.kind === "videoinput" && (
+                                            <option
+                                                onClick={() => {
+                                                    handleDeviceChange(
+                                                        device.kind,
+                                                        device.id
+                                                    )
+                                                }}
+                                            >
+                                                {device.label}
+                                            </option>
+                                        )
+                                    )
+                                })}
+                            </select>
+                        </section>
+                    </Dropdown.ItemText>
+                </Dropdown.Menu>
+            </Dropdown>
+        </div>
     </div>
 )
 

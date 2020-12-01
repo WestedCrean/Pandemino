@@ -10,22 +10,22 @@ import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger"
 import { AppModule } from "./app.module"
 
 let configService: ConfigService
-const BASE_PATH = "api"
+const BASE_PATH = "/api"
 
 async function bootstrap() {
     console.log(`Environment: ${process.env.NODE_ENV}`)
-    //const app = await NestFactory.create<NestExpressApplication>(AppModule)
-    const app = await NestFactory.create(AppModule)
+    const app = await NestFactory.create<NestExpressApplication>(AppModule)
+    //const app = await NestFactory.create(AppModule)
     app.setGlobalPrefix(BASE_PATH)
     configService = app.get(ConfigService)
 
     // cross-origin requests, reverse proxy
-    //app.set("trust proxy", 1)
-    //app.enableCors({
-    //    origin: "",
-    //    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    //    credentials: true,
-    //})
+    app.set("trust proxy", true)
+    app.enableCors({
+        origin: "",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+        credentials: true,
+    })
 
     // swagger documentation
     const options = new DocumentBuilder()

@@ -14,8 +14,9 @@ const StreamPublisher = ({ streamId }) => {
     /* demo start */
     const videoRef = useRef(null)
     const socket = createSocket()
-    const audioSource = useRef(null)
-    const videoSource = useRef(null)
+    const [audioSource, setAudioSource] = useState(null)
+    const [videoSource, setVideoSource] = useState(null)
+    const [availableDevices, setAvailableDevices] = useState([])
     const peerConnections = useRef({})
     /* demo end */
 
@@ -30,20 +31,25 @@ const StreamPublisher = ({ streamId }) => {
         audio: true,
     })
     //const mediaDevice = useMediaDevice(cameraConfig)
-    const [streaming, setStreaming] = useState(false)
     const [video, setVideo] = useState(true)
     const [audio, setAudio] = useState(true)
 
     const toggleMediaDevice = (deviceType) => {
         if (deviceType === "video") {
             setVideo(!video)
-            //mediaDevice.toggle("Video")
+            window.stream.getVideoTracks().forEach((track) => {
+                track["enabled"] = !video
+            })
         }
         if (deviceType === "audio") {
             setAudio(!audio)
-            //mediaDevice.toggle("Audio")
+            window.stream.getAudioTracks().forEach((track) => {
+                track["enabled"] = !video
+            })
         }
     }
+
+    useEffect(() => {}, [audio, video])
 
     const togglePlayPause = () => {
         addToast("Pausing stream is not implemented yet", {
@@ -63,45 +69,54 @@ const StreamPublisher = ({ streamId }) => {
     }
     */
 
-    const commenceStream = () => {
-        videoRef.current.play()
-        setStreaming(true)
-    }
-
     function getDevices() {
+        console.log("getting devices")
         return navigator.mediaDevices.enumerateDevices()
     }
 
+    useEffect(() => {
+        console.log({ availableDevices })
+    }, [availableDevices])
+
     function handleDevices(deviceInfos) {
+        console.log("handling devices")
         window.deviceInfos = deviceInfos
-        for (const deviceInfo of deviceInfos) {
-            const option = document.createElement("option")
-            option.value = deviceInfo.deviceId
-            if (deviceInfo.kind === "audioinput") {
-                option.text =
-                    deviceInfo.label ||
-                    `Microphone ${audioSource.current.length + 1}`
-                audioSource.current.appendChild(option)
-            } else if (deviceInfo.kind === "videoinput") {
-                option.text =
-                    deviceInfo.label ||
-                    `Camera ${videoSource.current.length + 1}`
-                videoSource.current.appendChild(option)
+        const devices = deviceInfos.map((i, deviceInfo) => {
+            return {
+                label:
+                    deviceInfo.label || deviceInfo.kind === "audioinput"
+                        ? `Mikrofon ${i + 1}`
+                        : `Kamera ${i + 1}`,
+                kind: deviceInfo.kind,
+                id: deviceInfo.deviceId,
             }
+        })
+        setAvailableDevices(devices)
+    }
+
+    function handleDeviceChange(type, deviceId) {
+        if (type === "audioinput") {
+            setAudioSource(deviceId)
+        }
+        if (type === "videoinput") {
+            setVideoSource(deviceId)
         }
     }
 
     const getStream = () => {
+        console.log("getting stream")
         if (window.stream) {
             window.stream.getTracks().forEach((track) => {
                 track.stop()
             })
         }
-        const audio = audioSource.current.value
-        const video = videoSource.current.value
         const constraints = {
-            audio: { deviceId: audio ? { exact: audio } : undefined },
-            video: { deviceId: video ? { exact: video } : undefined },
+            audio: {
+                deviceId: audioSource ? { exact: audioSource } : undefined,
+            },
+            video: {
+                deviceId: audioSource ? { exact: audioSource } : undefined,
+            },
         }
         return navigator.mediaDevices
             .getUserMedia(constraints)
@@ -110,17 +125,8 @@ const StreamPublisher = ({ streamId }) => {
     }
 
     const handleStream = (stream) => {
+        console.log("handling stream")
         window.stream = stream
-        audioSource.current.selectedIndex = [
-            ...audioSource.current.options,
-        ].findIndex(
-            (option) => option.text === stream.getAudioTracks()[0].label
-        )
-        videoSource.current.selectedIndex = [
-            ...videoSource.current.options,
-        ].findIndex(
-            (option) => option.text === stream.getVideoTracks()[0].label
-        )
         videoRef.current.srcObject = stream
         socket.emit("broadcaster")
     }
@@ -131,6 +137,7 @@ const StreamPublisher = ({ streamId }) => {
 
     useEffect(() => {
         socket.on("candidate", (id, candidate) => {
+            console.log("on candidate")
             if (peerConnections.current[id]) {
                 peerConnections.current[id].addIceCandidate(
                     new RTCIceCandidate(candidate)
@@ -139,17 +146,25 @@ const StreamPublisher = ({ streamId }) => {
         })
 
         socket.on("disconnectPeer", (id) => {
-            peerConnections.current[id].close()
+            console.log("on disconnectPeer")
+            try {
+                peerConnections[id].close()
+            } catch (e) {
+                console.log(e)
+            }
+
             delete peerConnections.current[id]
         })
 
         socket.on("answer", (id, description) => {
+            console.log("on answer")
             if (peerConnections.current[id]) {
                 peerConnections.current[id].setRemoteDescription(description)
             }
         })
 
         socket.on("watcher", (id) => {
+            console.log("on watcher")
             const peerConnection = new RTCPeerConnection(config)
 
             peerConnections.current[id] = peerConnection
@@ -173,12 +188,18 @@ const StreamPublisher = ({ streamId }) => {
                 })
         })
 
-        getStream().then(getDevices).then(handleDevices)
-
         return () => {
             socket.disconnect()
         }
     }, [])
+
+    useEffect(() => {
+        getStream().then(getDevices).then(handleDevices)
+    }, [audioSource, videoSource])
+
+    const commenceStream = async () => {
+        videoRef.current.play()
+    }
 
     return (
         <Fragment>
@@ -192,13 +213,14 @@ const StreamPublisher = ({ streamId }) => {
                             onCanPlay={commenceStream}
                             autoPlay
                             playsInline
-                            disableDefaultControls
                         ></video>
 
                         <VideoControls
                             isPlaying={true}
                             audio={audio}
                             video={video}
+                            devices={availableDevices}
+                            handleDeviceChange={handleDeviceChange}
                             toggleMediaDevice={toggleMediaDevice}
                             togglePlayPause={togglePlayPause}
                             toggleScreenCapture={toggleScreenCapture}
@@ -206,23 +228,6 @@ const StreamPublisher = ({ streamId }) => {
                     </div>
                 </div>
             </div>
-            <section className="select">
-                <label for="audioSource">Audio source: </label>
-                <select
-                    id="audioSource"
-                    ref={audioSource}
-                    onChange={getStream}
-                ></select>
-            </section>
-
-            <section className="select">
-                <label for="videoSource">Video source: </label>
-                <select
-                    id="videoSource"
-                    ref={videoSource}
-                    onChange={getStream}
-                ></select>
-            </section>
         </Fragment>
     )
 }
