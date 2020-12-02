@@ -37,6 +37,7 @@ const AddClosedQuestionModal = (props) => {
     
 
     const addNewQuestion = async () => {
+        console.log(multiple) 
         const api = ApiService(accessToken)
         const body = {
             quizId:quizId,
@@ -161,7 +162,7 @@ const AddClosedQuestionModal = (props) => {
                     <div>
                         <input type="text" id={`question`} name="question" onChange={e => setQuestion(e.target.value)} />
                         <label for="question">Pytanie  </label>
-                        <input type="radio" name="multiple" onChange={e => setMultiple(e.target.value)}/>
+                        <input type="checkbox" name="multiple" onChange={e => setMultiple(e.target.checked) }/>
                         <label for="multiple">Wielokrotnego wyboru? </label><br></br>
                         <input type="number" id="question" name="question" onChange={e => setQuestionCount(e.target.value)}/>
                         <label for="question">Ilość odpowiedzi</label>
