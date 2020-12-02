@@ -23,8 +23,8 @@ const QuizPage = (props) => {
     const [answersList, setAnswersList] = useState([])
 
     const nextQuestionHandler = () =>{
-        const max = 3
-        if( (currentQuestion) + 1 < max ){
+
+        if( (currentQuestion) + 1 < questionCount ){
             setQurrentQuestion(currentQuestion + 1)
         }
     }
@@ -41,6 +41,29 @@ const QuizPage = (props) => {
         list[i] = mAnswer
         setAnswersList(list)
         console.log(list)
+    }
+
+    const setMultiAnswer = (i, mAnswer, checked) => {
+    
+        let list = answersList
+        if(checked){
+
+            let singleElement
+            if(list[i] == undefined){
+                singleElement = []
+            } else {
+                singleElement = list[i]
+            }
+
+            singleElement.push(mAnswer)
+            list[i] = singleElement
+
+        }else{
+
+            let singleElement = list[i]
+            list[i] = singleElement.filter((item) => item !== mAnswer)
+        }
+        setAnswersList(list)
     }
 
     const handleChecked = (currentQuestion, variant) => {
@@ -157,7 +180,7 @@ const QuizPage = (props) => {
                                         <input type="radio" name="isTrue" checked={handleChecked(currentQuestion, variant.content)} 
                                             onChange={(e) => setAnswer(currentQuestion, variant.content) }/>
                                         : 
-                                        <input type="checkbox" name="isTrue" onClick={() => setAnswer(currentQuestion, variant.content)}/>
+                                        <input type="checkbox" name="isTrue" onClick={(e) => setMultiAnswer(currentQuestion, variant.content, e.target.checked)}/>
                                         }
                                 </div>
                                 ))}
