@@ -67,11 +67,13 @@ const QuizPage = (props) => {
     }
 
     const handleChecked = (currentQuestion, variant) => {
+        const value = answersList[currentQuestion];
 
-        if(answersList[currentQuestion] == variant){
-            return true
-        } else {
-            return false
+        if(Array.isArray(value)){
+
+            return value.includes(variant)
+        }else {
+            return value === variant
         }
     }
 
@@ -180,7 +182,8 @@ const QuizPage = (props) => {
                                         <input type="radio" name="isTrue" checked={handleChecked(currentQuestion, variant.content)} 
                                             onChange={(e) => setAnswer(currentQuestion, variant.content) }/>
                                         : 
-                                        <input type="checkbox" name="isTrue" onClick={(e) => setMultiAnswer(currentQuestion, variant.content, e.target.checked)}/>
+                                        <input type="checkbox" name="isTrue" checked={handleChecked(currentQuestion, variant.content)}
+                                            onClick={(e) => setMultiAnswer(currentQuestion, variant.content, e.target.checked)}/>
                                         }
                                 </div>
                                 ))}
