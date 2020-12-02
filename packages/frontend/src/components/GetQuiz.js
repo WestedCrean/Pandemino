@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState, useRef } from "react"
 import { useHistory } from "react-router-dom"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
+import { useUserInfo } from "hooks"
 
 const GetQuiz = (props) => {
     
@@ -9,6 +10,10 @@ const GetQuiz = (props) => {
 
     const { accessToken } = useAuthContext()
     const history = useHistory()
+
+    const [finishedQuizes, setFinishedQuizes] = useState([])
+
+    const userInfo = useUserInfo()
 
     const moveToQuizPage = (id) => {
 
@@ -26,20 +31,52 @@ const GetQuiz = (props) => {
                 const api = ApiService(accessToken)
                 const response = await api.getStreamById(props.lectureId)
                 setQuizes(response.data.quiz)
-            }catch(error){console.log(error)}
+
+                }
+                //console.log(finishedQuizes)
+                //setFinishedQuizes(list)
+                catch(error){console.log(error)}
         }
     }
+
+    const getUserAnswers = async () => {
+
+        let list = []
+        for(let i = 0; i < quizes.length; i++){
+
+            const api = ApiService(accessToken)
+            const userAnswerResponse = await api.getUserUserAnswers(userInfo.id, quizes[i].id)
+            console.log(userAnswerResponse.data)
+            if(userAnswerResponse.data.length === 0){
+                list.push(false)
+            }else {
+                list.push(true)
+            }
+        }
+        setFinishedQuizes(list)
+        console.log(list)
+    }
+
+
 
     const formatDate = (string) => {
         return string.slice(0,10) + " " + string.slice(11,19)
     }   
-    
+
+
     useEffect(() => {
         
-        getQuizes()
+        if(quizes.length === 0){
+            getQuizes()
+        }
+
+        if(quizes.length !== 0){
+
+            getUserAnswers()
+        }
         console.log(props.lectureId)
 
-    }, [props.lectureId])
+    }, [props.lectureId ,quizes])
 
     return (
         <>
@@ -71,7 +108,8 @@ const GetQuiz = (props) => {
                                         <td>Status</td>
                                         <td>{formatDate(quiz.startDate)}</td>
                                         <td>{formatDate(quiz.endDate)}</td>
-                                        <td><button onClick={()=>moveToQuizPage(quiz.id)}>Quiz</button></td>
+                                        <td>{finishedQuizes[i] === true ? <button>Quiz ukończony</button>
+                                        : <button onClick={()=>moveToQuizPage(quiz.id)}>Quiz</button>}</td>
                                     </tr>
                                 ))}
                             </tbody>

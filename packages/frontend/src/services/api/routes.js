@@ -70,6 +70,8 @@ const ApiRoutes = (ApiService) => {
 
     const putUserAnswer = async (data) => ApiService.post("userAnswer", data)
 
+    const getUserUserAnswers = async (id, quizId) => ApiService.get(`users/${id}/${quizId}`)
+
     return {
         getAvailableStreams,
         getStreamById,
@@ -99,7 +101,8 @@ const ApiRoutes = (ApiService) => {
         getVariants,
         addVariant,
         removeQuestion,
-        putUserAnswer
+        putUserAnswer,
+        getUserUserAnswers
     }
 }
 
