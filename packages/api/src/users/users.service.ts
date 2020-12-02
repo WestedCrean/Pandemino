@@ -43,6 +43,10 @@ export class UsersService {
             user.lastName = updateUserSchema.lastName
         }
 
+        if (updateUserSchema.description !== null) {
+            user.role = updateUserSchema.role
+        }
+
         //FIXME: add more possible fields
 
         await this.usersRepository.save(user)

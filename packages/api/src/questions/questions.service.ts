@@ -28,8 +28,12 @@ export class QuestionsService {
                 closedQuestions.isOpen = true
             } else {
 
-                if(createQuestion.multiple != null){
+                closedQuestions.isOpen = false
+
+                if(createQuestion.multiple == true){
                     closedQuestions.multiple = createQuestion.multiple
+                } else {
+                    closedQuestions.multiple = false
                 }
             }
 
