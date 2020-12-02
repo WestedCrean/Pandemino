@@ -69,6 +69,16 @@ export class UsersService {
         // .getOne()
     }
 
+    findUserWithQuiz(userId: string, quiz: string): Promise<User[]>{
+        return this.usersRepository
+            .createQueryBuilder("users")
+            .leftJoinAndSelect("users.userAnswer", "userAnswer")
+            .leftJoinAndSelect("userAnswer.question", "closedQuestion")
+            .innerJoinAndSelect("closedQuestion.quiz", "quiz")
+            .where("quiz.id = :quiz and users.id = :userId", { quiz, userId })
+            .getMany()
+    }
+
     getUserWithoutRelation(id: string): Promise<User> {
         return this.usersRepository.findOne(id)
     }

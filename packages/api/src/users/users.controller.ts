@@ -1,8 +1,9 @@
-import { Controller, Get, Delete, Put, Body, UseGuards, Param, Query } from "@nestjs/common"
+import { Controller, Get, Delete, Put, Body, UseGuards, Param, Query, HostParam } from "@nestjs/common"
 import { ApiTags } from "@nestjs/swagger"
 import { AuthGuard } from "@nestjs/passport"
 import { UsersService } from "./users.service"
 import { User } from "./users.entity"
+import { QuizService } from "src/quiz/quiz.service"
 
 @ApiTags("users")
 @Controller("users")
@@ -28,6 +29,11 @@ export class UsersController {
     @Get("/single/:email")
     findOneByEmail(@Param("email") email: string): Promise<User> {
         return this.usersService.findOneByEmail(email)
+    }
+
+    @Get(':id/:quiz')
+    findUserWithQuiz(@Param("id")  userId: string, @Param("quiz") quiz: string):Promise<User[]>{
+        return this.usersService.findUserWithQuiz(userId,quiz)
     }
 
     @Delete(":id")
