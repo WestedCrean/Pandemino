@@ -94,8 +94,8 @@
     $pos: relative;
     @include box-name($hei, $pos);
 
-    $bot: 0;
-    $rig: 0;
+    $bot: 30px;
+    $rig: -100px;
     @include fab($bot, $rig);
 }
 
@@ -109,7 +109,7 @@
 .show-sidebar-button{
 
     position: absolute;
-    top: 20px;
+    top: 30px;
     left: 160px;
     transition: all 0.3s;
 }
@@ -260,4 +260,16 @@
     text-align: center;
     align-items: center;
     margin-left: 30px;
+}
+
+
+////////////////////////
+///SEARCHER///
+//////////////////
+
+.searcher{
+
+    position: absolute;
+    bottom: 1px;
+    width: 100%;
 }
