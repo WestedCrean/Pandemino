@@ -36,6 +36,8 @@ export class CoursesService {
             course.password = hashedPassword
             course.createdAt = new Date()
             await this.coursesRepository.save(course)
+
+            course.password = undefined
             return course
         } catch (e) {
             throw new Error(e)
@@ -63,6 +65,8 @@ export class CoursesService {
 
 
         await this.coursesRepository.save(course)
+
+        
     }
 
     // FIXME: add pagination
