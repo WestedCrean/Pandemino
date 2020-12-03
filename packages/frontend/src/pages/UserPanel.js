@@ -37,7 +37,6 @@ const UserPanel = () => {
         const body = {
             firstName: name,
             lastName: lastName,
-            title: title,
         }
         try {
             await api
@@ -54,8 +53,6 @@ const UserPanel = () => {
         setId(userData.id)
         setName(userData.firstName)
         setlastName(userData.lastName)
-        setTitle(userData.title)
-        setEmail(userData.email)
     }
 
     useEffect(() => {
@@ -119,26 +116,6 @@ const UserPanel = () => {
                                     </div>
                                     <div class="form-group">
                                         <label
-                                            for="inputtext3"
-                                            class="col-sm-4   col-md-4 col-lg-3 control-label"
-                                        >
-                                            Tytuł
-                                        </label>
-                                        <div class="col-sm-8 col-lg-9">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="inputtext3"
-                                                placeholder=""
-                                                value={title}
-                                                onChange={(e) =>
-                                                    setTitle(e.target.value)
-                                                }
-                                            ></input>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label
                                             for="inputtext2"
                                             class="col-sm-4  col-md-4 col-lg-3 control-label"
                                         >
@@ -150,26 +127,8 @@ const UserPanel = () => {
                                                 class="form-control"
                                                 id="inputtext2"
                                                 placeholder=""
-                                                value={email}
-                                                onChange={(e) =>
-                                                    setEmail(e.target.value)
-                                                }
-                                            ></input>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label
-                                            for="inputtext2"
-                                            class="col-sm-4   col-md-4 col-lg-3 control-label"
-                                        >
-                                            Rola
-                                        </label>
-                                        <div class="col-sm-8 col-lg-9">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="inputtext2"
-                                                placeholder=""
+                                                value={userEmail}
+                                                disabled={true}
                                             ></input>
                                         </div>
                                     </div>
