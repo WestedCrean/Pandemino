@@ -13,8 +13,11 @@ const AddCourseModal = ({
     courseNameAlready,
     courseDescriptionAlready,
 }) => {
+
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
+    const [password, setPassword] = useState(null)
+    const [confirm, setConfirm] = useState(null);
     const [defaultValueName, setDefaultValueName] = useState(null)
     const [defaultValueDescription, setDefaultValueDescription] = useState()
 
@@ -28,54 +31,89 @@ const AddCourseModal = ({
     const userEmail = user.email
 
     const addNewCourse = async () => {
-        const api = ApiService(accessToken)
 
-        const userReponse = await api.getUserByEmail(userEmail)
-        const userId = userReponse.data.id
+        if(validate()) {
+            const api = ApiService(accessToken)
 
-        const body = {
-            name: courseName,
-            description: courseDescription,
-            userId: userId,
+            const userReponse = await api.getUserByEmail(userEmail)
+            const userId = userReponse.data.id
+
+            const body = {
+                name: courseName,
+                description: courseDescription,
+                userId: userId,
+                password: password,
+            }
+            await api
+                .createCourse(body)
+                .then(async (response) => {
+                    const userCourseBody = {
+                        courseId: response.data.id,
+                        userId: userId,
+                        password: password
+                    }
+                    await api
+                        .addUserCourse(userCourseBody)
+                        .then(response)
+                        .catch((error) => console.log(error))
+                })
+                .catch((error) => console.log(error))
+
+            window.alert("Dodano nowy kurs")
+            window.location = "/"
+            handleClose()
         }
-        await api
-            .createCourse(body)
-            .then(async (response) => {
-                const userCourseBody = {
-                    courseId: response.data.id,
-                    userId: userId,
-                }
-                await api
-                    .addUserCourse(userCourseBody)
-                    .then(response)
-                    .catch((error) => console.log(error))
-            })
-            .catch((error) => console.log(error))
-
-        window.alert("Dodano nowy kurs")
-        window.location = "/"
-        handleClose()
     }
+
+
     const editCourse = async () => {
-        const api = ApiService(accessToken)
 
-        const userReponse = await api.getUserByEmail(userEmail)
-        const userId = userReponse.data.id
+        if(validatePassword()){
 
-        const courseResponse = await api.getCourseById(courseIdProps)
+            const api = ApiService(accessToken)
 
-        const idCourse = courseResponse.data.id
+            const userReponse = await api.getUserByEmail(userEmail)
+            const userId = userReponse.data.id
 
-        const body = {
-            name: courseName,
-            description: courseDescription,
+            const courseResponse = await api.getCourseById(courseIdProps)
+
+            const idCourse = courseResponse.data.id
+
+            const body = {
+                name: courseName,
+                description: courseDescription,
+                password: password
+            }
+
+            await api.editCourse(idCourse, body)
+
+            window.alert("Edytowano nowy kurs")
+            window.location = "/"
+            handleClose()
+        }
+    }
+
+    const validatePassword = () => {
+
+        if (password === null | password === "") {
+            window.alert("Podaj haslo")
+        } else if (password !== confirm){
+            window.alert("Hasla musza się zgadzać")
+        } else{return true}
+    }
+
+    const validate = () => {
+        console.log(courseName);
+
+        if(courseName === null | courseName === ""){
+            window.alert("Wpisz nazwe kursu")
+        } else if (courseDescription === null | courseDescription === "") {
+            window.alert("Podaj opis kursu")
+        } else if(validatePassword()){
+            return true
         }
 
-        await api.editCourse(idCourse, body)
-
-        window.alert("Edytowano nowy kurs")
-        window.location = "/"
-        handleClose()
+        return false;
     }
 
     return (
@@ -99,7 +137,7 @@ const AddCourseModal = ({
                 <Modal.Header closeButton>
                     <Modal.Title>
                         {type === "edit" ? (
-                            <div>Edytowanie nowego kursu</div>
+                            <div>Edytowanie kursu</div>
                         ) : (
                             <div>Dodawanie nowego kursu</div>
                         )}
@@ -124,6 +162,22 @@ const AddCourseModal = ({
                         defaultValue={courseDescriptionAlready}
                         value={courseDescription}
                         onChange={(e) => setCourseDescription(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        className="form-control form-input"
+                        id="password"
+                        placeholder="Haslo"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        className="form-control form-input"
+                        id="confirm"
+                        placeholder="Powtórz hasło"
+                        value={confirm}
+                        onChange={(e) => setConfirm(e.target.value)}
                     />
                 </form>
                 <Modal.Footer>
