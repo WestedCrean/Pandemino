@@ -196,7 +196,13 @@ const ListCourses = () => {
                             </tbody>
                         </table>
                         <div className="d-flexs p-2">
-                            <div className="md-form active-pink active-pink-2 mb-3 mt-0">
+                            
+                            <div className="box-addNewCourse">
+                                <AddCourseModal></AddCourseModal>
+                            </div>
+                        </div>
+
+                        <div className="searcher md-form active-pink active-pink-2 align-bottom">
                                 <input
                                     className="form-control"
                                     type="text"
@@ -206,10 +212,6 @@ const ListCourses = () => {
                                     onChange={(e) => setQuery(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="box-addNewCourse">
-                                <AddCourseModal></AddCourseModal>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </Fragment>

@@ -69,10 +69,14 @@ export class CoursesService {
     searchAll(querry: string): Promise<Course[]> {
         return this.coursesRepository
             .createQueryBuilder("course")
-            .leftJoinAndSelect("course.lecturer", "users.courses")
+            .leftJoinAndSelect("course.lecturer", "users")
             .where(
                 `UPPER(course.description) like UPPER('%${querry}%') 
-             or UPPER(course.name) like UPPER('%${querry}%')`,
+                or UPPER(course.name) like UPPER('%${querry}%')
+                or UPPER(users.firstName) like UPPER('%${querry}%')
+                or UPPER(users.lastName) like UPPER('%${querry}%')
+                or UPPER(users.email) like UPPER('%${querry}%')
+                `,
             )
             .getMany()
         //
