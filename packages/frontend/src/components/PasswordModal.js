@@ -26,10 +26,10 @@ const PasswordModal = (props) => {
                 <Modal.Header closeButton>
                     <Modal.Title>Podaj haslo</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Podaj haslo</Modal.Body>
+                <Modal.Body>Hasło</Modal.Body>
                 <form>
                     <input
-                        type="text"
+                        type="password"
                         className="form-control form-input"
                         id="name"
                         placeholder="Podaj haslo"
@@ -45,7 +45,7 @@ const PasswordModal = (props) => {
                     <Button
                         type="submit"
                         variant="primary"
-                        onClick={() => {props.joinCourse(props.courseId, password); console.log(password)}}
+                        onClick={() => {props.joinCourse(props.courseId, password)}}
                     >
                         Dodaj
                     </Button>
