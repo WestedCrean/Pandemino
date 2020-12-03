@@ -18,32 +18,20 @@
     }
 }
 
-@mixin fab($top, $rig) {
-    .box-addNewCourse {
-        position: absolute;
-        bottom: $top;
-        right: $rig;
-        padding: 30px;
 
-        margin: 0 177px 0 0;
-    }
+.box-addNewCourse {
+    position: absolute;
+    bottom: 20px;
+    padding: 30px;
+    right: 50px;
+    animation: in 0.7s;
+}
 
-    .box-deleteCourse {
-        position: absolute;
-        bottom: $top;
-        right: $rig;
-        padding: 30px;
 
-        margin: 0 3px 0 0;
-    }
-    .box-editCourse {
-        position: absolute;
-        bottom: $top;
-        right: $rig;
-        padding: 30px;
+@keyframes in {
+    from {right: -50px;}
+    to {right: 50px;}
 
-        margin: 0 90px 0 0;
-    }
 }
 
 //////////////////
@@ -94,9 +82,7 @@
     $pos: relative;
     @include box-name($hei, $pos);
 
-    $bot: 30px;
-    $rig: -100px;
-    @include fab($bot, $rig);
+
 }
 
 
