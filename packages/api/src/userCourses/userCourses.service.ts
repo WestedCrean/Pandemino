@@ -1,9 +1,11 @@
-import { Injectable } from "@nestjs/common"
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { Course } from "../courses/courses.entity"
 import { User } from "../users/users.entity"
 import { UserCourse } from "./userCourses.entity"
+import * as bcrypt from "bcryptjs"
+
 
 @Injectable()
 export class UserCoursesService {
@@ -25,9 +27,20 @@ export class UserCoursesService {
         try {
             course = await this.coursesRepository.findOne(createUserCourseSchema.courseId)
             user = await this.userRepository.findOne(createUserCourseSchema.userId)
+
+            //const hashedPassword = await bcrypt.hash(createUserCourseSchema.password, 10);
+            const isPasswordMatching = await bcrypt.compare(
+                createUserCourseSchema.password,
+                course.password
+            )
+
+            if (!isPasswordMatching) {
+                throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+            }
         } catch (e) {
             throw new Error(e)
         }
+
 
         userCourse.course = course
         userCourse.user = user

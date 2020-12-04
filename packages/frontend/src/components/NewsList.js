@@ -10,10 +10,10 @@ const NewsList = () => {
     const { accessToken } = useAuthContext()
 
 
-    const courseComponent = (news) => {
+    const courseComponent = (news, i) => {
 
         return (
-            <div className="news-wrapper">
+            <div className={`news-wrapper news-nr-${i}`}>
                 <div className="news-data">
                     {setDate(news.createdAt)}
                 </div>
@@ -25,9 +25,9 @@ const NewsList = () => {
         )
     }
 
-    const lectureComponent = (news) => {
+    const lectureComponent = (news,i) => {
         return (
-            <div className="news-wrapper">
+            <div className={`news-wrapper news-nr-${i}`}>
                 <div className="news-data">
                     {setDate(news.createdAt)}
                 </div>
@@ -84,11 +84,11 @@ const NewsList = () => {
                 <tbody>
 
 
-                    {news.map((singleNews) => (
+                    {news.map((singleNews, i ) => (
 
 
                         <tr>
-                            {singleNews.lecturer == null ? lectureComponent(singleNews) : courseComponent(singleNews)}
+                            {singleNews.lecturer == null ? lectureComponent(singleNews, i) : courseComponent(singleNews, i)}
                         </tr>
                     ))}
                 </tbody>

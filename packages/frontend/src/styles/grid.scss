@@ -20,32 +20,20 @@
     }
 }
 
-@mixin fab($top, $rig) {
-    .box-addNewCourse {
-        position: absolute;
-        bottom: $top;
-        right: $rig;
-        padding: 30px;
 
-        margin: 0 177px 0 0;
-    }
+.box-addNewCourse {
+    position: absolute;
+    bottom: 20px;
+    padding: 30px;
+    right: 50px;
+    animation: in 0.7s;
+}
 
-    .box-deleteCourse {
-        position: absolute;
-        bottom: $top;
-        right: $rig;
-        padding: 30px;
 
-        margin: 0 3px 0 0;
-    }
-    .box-editCourse {
-        position: absolute;
-        bottom: $top;
-        right: $rig;
-        padding: 30px;
+@keyframes in {
+    from {right: -50px;}
+    to {right: 50px;}
 
-        margin: 0 90px 0 0;
-    }
 }
 
 //////////////////
@@ -96,9 +84,7 @@
     $pos: relative;
     @include box-name($hei, $pos);
 
-    $bot: 0;
-    $rig: 0;
-    @include fab($bot, $rig);
+
 }
 
 ////////////////////
@@ -109,7 +95,7 @@
 
 .show-sidebar-button {
     position: absolute;
-    top: 20px;
+    top: 30px;
     left: 160px;
     transition: all 0.3s;
 }
@@ -237,12 +223,14 @@ div:hover {
     margin-left: 30px;
 }
 
-.imgAbout .center-container .btn {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
-}
-.imgAbout:hover > .center-container .btn {
-    visibility: visible;
-    opacity: 1;
+
+////////////////////////
+///SEARCHER///
+//////////////////
+
+.searcher{
+
+    position: absolute;
+    bottom: 1px;
+    width: 100%;
 }

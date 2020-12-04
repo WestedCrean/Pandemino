@@ -5,6 +5,7 @@ import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
 import { Navbar, AddCourseModal } from "components"
 import FadeLoader from "react-spinners/FadeLoader"
+import PasswordModal from "components/PasswordModal"
 
 const ListCourses = () => {
     const [userId, setUserId] = useState(null)
@@ -13,6 +14,8 @@ const ListCourses = () => {
     const [existedCourseLists, setExistedCourseList] = useState([])
     const [query, setQuery] = useState("")
     const [isWaiting, setIsWaiting] = useState(false)
+
+    const [password, setPassword] = useState(null)
 
     const history = useHistory()
     const { accessToken } = useAuthContext()
@@ -103,10 +106,13 @@ const ListCourses = () => {
         window.location = "/listCourses"
     }
 
-    const joinCourse = async (courseId) => {
+
+
+    const joinCourse = async (courseId, password) => {
         const body = {
             userId: userId,
             courseId: courseId,
+            password: password
         }
         await api
             .addUserCourse(body)
@@ -168,14 +174,7 @@ const ListCourses = () => {
                                             {existedCourseLists.includes(
                                                 course.id
                                             ) === false ? (
-                                                <Button
-                                                    variant="dark"
-                                                    onClick={() =>
-                                                        joinCourse(course.id)
-                                                    }
-                                                >
-                                                    Dolacz do kursu
-                                                </Button>
+                                                        <PasswordModal joinCourse={joinCourse} courseId={course.id}>Dolacz do kursu</PasswordModal>
                                             ) : (
                                                 <Button
                                                     onClick={() =>
@@ -196,7 +195,13 @@ const ListCourses = () => {
                             </tbody>
                         </table>
                         <div className="d-flexs p-2">
-                            <div className="md-form active-pink active-pink-2 mb-3 mt-0">
+                            
+                            <div className="box-addNewCourse">
+                                <AddCourseModal></AddCourseModal>
+                            </div>
+                        </div>
+
+                        <div className="searcher md-form active-pink active-pink-2 align-bottom">
                                 <input
                                     className="form-control"
                                     type="text"
@@ -206,10 +211,6 @@ const ListCourses = () => {
                                     onChange={(e) => setQuery(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="box-addNewCourse">
-                                <AddCourseModal></AddCourseModal>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </Fragment>

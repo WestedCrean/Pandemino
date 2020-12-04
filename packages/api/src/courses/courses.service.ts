@@ -3,6 +3,8 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { User } from "../users/users.entity"
 import { Repository } from "typeorm"
 import { Course } from "./courses.entity"
+import * as bcrypt from 'bcryptjs';
+
 
 @Injectable()
 export class CoursesService {
@@ -17,6 +19,7 @@ export class CoursesService {
         const course = new Course()
         let user: User
 
+        
         try {
             user = await this.userRepository.findOne(createCourseSchema.userId)
         } catch (e) {
@@ -24,11 +27,17 @@ export class CoursesService {
         }
 
         try {
+
+            const hashedPassword = await bcrypt.hash(createCourseSchema.password, 10);
+
             course.name = createCourseSchema.name
             course.description = createCourseSchema.description
             course.lecturer = user
+            course.password = hashedPassword
             course.createdAt = new Date()
             await this.coursesRepository.save(course)
+
+            course.password = undefined
             return course
         } catch (e) {
             throw new Error(e)
@@ -50,8 +59,14 @@ export class CoursesService {
         if (updateCourseSchema.description !== null) {
             course.description = updateCourseSchema.description
         }
+        if (updateCourseSchema.password !== null) {
+            course.password = await bcrypt.hash(updateCourseSchema.password, 10);
+        }
+
 
         await this.coursesRepository.save(course)
+
+        
     }
 
     // FIXME: add pagination
@@ -69,10 +84,14 @@ export class CoursesService {
     searchAll(querry: string): Promise<Course[]> {
         return this.coursesRepository
             .createQueryBuilder("course")
-            .leftJoinAndSelect("course.lecturer", "users.courses")
+            .leftJoinAndSelect("course.lecturer", "users")
             .where(
                 `UPPER(course.description) like UPPER('%${querry}%') 
-             or UPPER(course.name) like UPPER('%${querry}%')`,
+                or UPPER(course.name) like UPPER('%${querry}%')
+                or UPPER(users.firstName) like UPPER('%${querry}%')
+                or UPPER(users.lastName) like UPPER('%${querry}%')
+                or UPPER(users.email) like UPPER('%${querry}%')
+                `,
             )
             .getMany()
         //
