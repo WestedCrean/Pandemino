@@ -7,7 +7,9 @@
         position: $pos;
         top: 0;
         left: 0;
+
         .box-label-name {
+            cursor: pointer;
             color: white;
             position: absolute;
             top: 50%;
@@ -85,34 +87,27 @@
 
 }
 
-
 ////////////////////
 /* Widok Wykładów */
 ////////////////////
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-.show-sidebar-button{
-
+.show-sidebar-button {
     position: absolute;
     top: 30px;
     left: 160px;
     transition: all 0.3s;
 }
 
-.show-sidebar-button:hover{
-
+.show-sidebar-button:hover {
     color: white;
 }
 
-
-
-.main-lectures-wrapper{
-
+.main-lectures-wrapper {
     overflow: hidden;
 }
-.bookmarks-wrapper{
-
+.bookmarks-wrapper {
     overflow: hidden;
 }
 
@@ -120,35 +115,31 @@
     padding-right: 0px;
     height: 92.6vh;
     z-index: 999;
-    background: #7386D5;
+    background: #7386d5;
     color: #fff;
     transition: all 0.3s;
     overflow-y: hidden;
 }
 
-
-.bookmarks-wrapper{
-    width:100%;
+.bookmarks-wrapper {
+    width: 100%;
     padding: 30px;
 }
 
-
-.sidebar > div, div:hover {
+.sidebar > div,
+div:hover {
     color: inherit;
     text-decoration: none;
     transition: ease-in-out 0.4s;
 }
 
 .sidebar {
-
-    background: #7386D5;
+    background: #7386d5;
     color: #fff;
     transition: ease-in-out 0.3s;
 }
 
-
-.sidebar-header-main{
-
+.sidebar-header-main {
     padding: 28px;
     margin: 0;
     background: #5167ca;
@@ -156,14 +147,12 @@
     align-items: center;
 }
 
-.left-arrow-icon-wrapper{
-
+.left-arrow-icon-wrapper {
     align-items: right;
     margin-left: 30px;
 }
 
-.left-arrow-icon:hover{
-
+.left-arrow-icon:hover {
     color: black;
 }
 
@@ -174,40 +163,28 @@
     display: block;
 }
 
-
-
 .sidebar ul li div:hover {
     color: black;
     background: #fff;
-    
 }
-
-
-
-
-
 
 .main-lectures-wrapper {
     display: flex;
     width: 100%;
 }
 
-
-
 .sidebar {
     min-width: 300px;
     max-width: 300px;
 }
 
-
 .sidebar {
-        margin-left: -300px;
+    margin-left: -300px;
 }
 
 .sidebar-active {
-        margin-left: 0;
+    margin-left: 0;
 }
-
 
 .overlay {
     display: none;
@@ -219,7 +196,6 @@
     opacity: 1;
     transition: all 0.5s ease-in-out;
 }
-
 
 .overlay.active {
     display: block;
@@ -234,13 +210,12 @@
     right: 10px;
 }
 
-.awsome-button{
+.awsome-button {
     background-color: #6d7fcc;
     width: 100%;
 }
 
-
-.nav-buttons{
+.nav-buttons {
     display: flex;
     column-gap: 30px;
     text-align: center;

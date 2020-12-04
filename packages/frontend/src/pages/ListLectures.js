@@ -18,11 +18,13 @@ import {
     faArrowLeft,
     faArrowRight,
     faCog,
+    faMinus,
 } from "@fortawesome/free-solid-svg-icons"
 
 import Files from "components/Files"
 import CreateQuiz from "../components/CreateQuiz"
 import GetQuiz from "../components/GetQuiz"
+import DeleteLectureModal from "components/DeleteLectureModal"
 const ListLectures = (props) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
@@ -84,6 +86,16 @@ const ListLectures = (props) => {
                 <div className="box-deleteCourse">
                     <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
                 </div>
+            )
+        }
+        return null
+    }
+    const deleteLecture = () => {
+        if (userEmail === courseOwnerEmail) {
+            return (
+                <DeleteLectureModal
+                    lectureId={currentLecture}
+                ></DeleteLectureModal>
             )
         }
         return null
@@ -168,6 +180,7 @@ const ListLectures = (props) => {
                                     <div className="box-label">
                                         <div className="box-label-name">
                                             {lecture.name}
+                                            {deleteLecture()}
                                         </div>
                                     </div>
                                 </li>
@@ -216,21 +229,6 @@ const ListLectures = (props) => {
                     >
                         <Tab eventKey="live" title="Live">
                             Witaj w kursie nr {currentLecture}
-                        </Tab>
-                        <Tab eventKey="saved " title="Zapisane Wideo">
-                            It is a long established fact that a reader will be
-                            distracted by the readable content of a page when
-                            looking at its layout. The point of using Lorem
-                            Ipsum is that it has a more-or-less normal
-                            distribution of letters, as opposed to using
-                            'Content here, content here', making it look like
-                            readable English. Many desktop publishing packages
-                            and web page editors now use Lorem Ipsum as their
-                            default model text, and a search for 'lorem ipsum'
-                            will uncover many web sites still in their infancy.
-                            Various versions have evolved over the years,
-                            sometimes by accident, sometimes on purpose
-                            (injected humour and the like).
                         </Tab>
                         <Tab eventKey="materials" title="Materiały">
                             <Files lectureId={currentLecture}></Files>

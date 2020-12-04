@@ -5,7 +5,6 @@ import ApiService from "services/api"
 import { useUserInfo } from "hooks"
 
 const GetQuiz = (props) => {
-    
     const [quizes, setQuizes] = useState([])
 
     const { accessToken } = useAuthContext()
@@ -16,7 +15,6 @@ const GetQuiz = (props) => {
     const userInfo = useUserInfo()
 
     const moveToQuizPage = (id) => {
-
         history.push({
             pathname: `/quiz/${id}`,
             state: {
@@ -26,30 +24,31 @@ const GetQuiz = (props) => {
     }
 
     const getQuizes = async () => {
-        if(props.lectureId !== null){
+        if (props.lectureId !== null) {
             try {
                 const api = ApiService(accessToken)
                 const response = await api.getStreamById(props.lectureId)
                 setQuizes(response.data.quiz)
-
-                }
+            } catch (error) {
                 //console.log(finishedQuizes)
                 //setFinishedQuizes(list)
-                catch(error){console.log(error)}
+                console.log(error)
+            }
         }
     }
 
     const getUserAnswers = async () => {
-
         let list = []
-        for(let i = 0; i < quizes.length; i++){
-
+        for (let i = 0; i < quizes.length; i++) {
             const api = ApiService(accessToken)
-            const userAnswerResponse = await api.getUserUserAnswers(userInfo.id, quizes[i].id)
+            const userAnswerResponse = await api.getUserUserAnswers(
+                userInfo.id,
+                quizes[i].id
+            )
             console.log(userAnswerResponse.data)
-            if(userAnswerResponse.data.length === 0){
+            if (userAnswerResponse.data.length === 0) {
                 list.push(false)
-            }else {
+            } else {
                 list.push(true)
             }
         }
@@ -57,26 +56,19 @@ const GetQuiz = (props) => {
         console.log(list)
     }
 
-
-
     const formatDate = (string) => {
-        return string.slice(0,10) + " " + string.slice(11,19)
-    }   
-
+        return string.slice(0, 10) + " " + string.slice(11, 19)
+    }
 
     useEffect(() => {
-        
-        if(quizes.length === 0){
+        if (quizes.length === 0) {
             getQuizes()
         }
 
-        if(quizes.length !== 0){
-
+        if (quizes.length !== 0) {
             getUserAnswers()
         }
-        console.log(props.lectureId)
-
-    }, [props.lectureId ,quizes])
+    }, [props.lectureId, quizes])
 
     return (
         <>
@@ -86,7 +78,7 @@ const GetQuiz = (props) => {
 
             <div className="card border-dark">
                 <div className="card-body text-dark">
-                <h5 className="card-title">Pliki {props.lectureId}</h5>
+                    <h5 className="card-title">Pliki {props.lectureId}</h5>
                     <div>
                         <table class="table">
                             <thead>
@@ -108,8 +100,19 @@ const GetQuiz = (props) => {
                                         <td>Status</td>
                                         <td>{formatDate(quiz.startDate)}</td>
                                         <td>{formatDate(quiz.endDate)}</td>
-                                        <td>{finishedQuizes[i] === true ? <button>Quiz ukończony</button>
-                                        : <button onClick={()=>moveToQuizPage(quiz.id)}>Quiz</button>}</td>
+                                        <td>
+                                            {finishedQuizes[i] === true ? (
+                                                <button>Quiz ukończony</button>
+                                            ) : (
+                                                <button
+                                                    onClick={() =>
+                                                        moveToQuizPage(quiz.id)
+                                                    }
+                                                >
+                                                    Quiz
+                                                </button>
+                                            )}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
