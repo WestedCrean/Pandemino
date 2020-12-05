@@ -25,7 +25,11 @@ import Files from "components/Files"
 import CreateQuiz from "../components/CreateQuiz"
 import GetQuiz from "../components/GetQuiz"
 import DeleteLectureModal from "components/DeleteLectureModal"
+
 import TeacherPanel from "components/TeacherPanel"
+
+import MarkPresenceBtn from "components/MarkPresenceBtn"
+
 const ListLectures = (props) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
@@ -82,16 +86,7 @@ const ListLectures = (props) => {
         })
     }
 
-    const deleteComponent = () => {
-        if (userEmail === courseOwnerEmail) {
-            return (
-                <div className="box-deleteCourse">
-                    <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
-                </div>
-            )
-        }
-        return null
-    }
+
     const deleteLecture = () => {
         if (userEmail === courseOwnerEmail) {
             return (
@@ -162,6 +157,7 @@ const ListLectures = (props) => {
 
     return (
         <div className="">
+            <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
             <div className="main-lectures-wrapper">
                 <nav className={`sidebar ${sidebar}`}>
                     <div className="sidebar-header-main">
@@ -199,7 +195,6 @@ const ListLectures = (props) => {
                                             </Pagination> */}
                     <div className="nav-buttons">
                         {addComponent()}
-                        {deleteComponent()}
                     </div>
                 </nav>
 
