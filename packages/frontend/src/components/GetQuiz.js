@@ -24,6 +24,17 @@ const GetQuiz = (props) => {
         })
     }
 
+    const moveToQuizFinished = async (id) => {
+
+        history.push({
+            pathname: `/quizFinished/${id}`,
+            state: {
+                quizId: id,
+                userId: userInfo.id
+            },
+        })
+    }
+
     const getQuizes = async () => {
         if (props.lectureId !== null) {
             try {
@@ -118,7 +129,9 @@ const GetQuiz = (props) => {
                                         <td>{formatDate(quiz.endDate)}</td>
                                         <td>
                                             {finishedQuizes[i] === true ? (
-                                                <Button variant="danger">Quiz ukończony</Button>
+                                                <Button variant="danger" onClick={() =>
+                                                    moveToQuizFinished(quiz.id)
+                                                }>Quiz ukończony</Button>
                                             ) : (
                                                 <Button variant="danger"
                                                     disabled={!handleDisable(quiz.startDate, quiz.endDate)}
