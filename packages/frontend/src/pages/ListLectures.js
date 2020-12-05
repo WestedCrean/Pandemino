@@ -25,6 +25,7 @@ import Files from "components/Files"
 import CreateQuiz from "../components/CreateQuiz"
 import GetQuiz from "../components/GetQuiz"
 import DeleteLectureModal from "components/DeleteLectureModal"
+import MarkPresenceBtn from "components/MarkPresenceBtn"
 const ListLectures = (props) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
@@ -163,6 +164,7 @@ const ListLectures = (props) => {
 
     return (
         <div className="">
+            <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
             <div className="main-lectures-wrapper">
                 <nav className={`sidebar ${sidebar}`}>
                     <div className="sidebar-header-main">

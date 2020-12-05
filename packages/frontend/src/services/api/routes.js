@@ -38,6 +38,14 @@ const ApiRoutes = (ApiService) => {
     const getUserByEmail = async (email) =>
         ApiService.get(`/users/single/${email}`)
 
+    ///lectureFrequency USER <---> LECTURES
+
+    const getLectureFrequency = async () => ApiService.get("/lectureFrequency/")
+
+    const findLectureFrequencyByUserLecture = async (userId, lectureId) => ApiService.get(`/lectureFrequency/${userId}/${lectureId}`)
+
+    const postLectureFrequency = async (data) => ApiService.post("lectureFrequency", data)
+
     //PLIKI
     const addFile = async (data) => ApiService.post("/file", data)
 
@@ -106,6 +114,9 @@ const ApiRoutes = (ApiService) => {
         putUserAnswer,
         getUserUserAnswers,
         deleteLecture,
+        getLectureFrequency,
+        findLectureFrequencyByUserLecture,
+        postLectureFrequency
     }
 }
 
