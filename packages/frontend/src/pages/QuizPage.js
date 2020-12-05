@@ -109,7 +109,7 @@ const QuizPage = (props) => {
                     }
                 } else {
                     const correctAnswers = variants.filter(x => x.isTrue).length
-                    const pointsPerQuestion = correctAnswers/variants.length
+                    const pointsPerQuestion = 1/correctAnswers
 
                     for(var j = 0; j < variants.length; j++){
                         if(variants[j].isTrue){
