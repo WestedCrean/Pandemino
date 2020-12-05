@@ -28,10 +28,12 @@ const ApiRoutes = (ApiService) => {
     const deleteUserCourse = async (id) =>
         ApiService.delete(`/userCourses/${id}`)
 
+    const getUsersCourses = async (id) => ApiService.get(`/users/${id}`)
+
+    const getAllUsersCourses = async () => ApiService.get("/userCourses")
+
     //USERZY
     const putUserData = async (id, data) => ApiService.put(`/users/${id}`, data)
-
-    const getUsersCourses = async (id) => ApiService.get(`/users/${id}`)
 
     const getUsers = async () => ApiService.get(`/users`)
 
@@ -106,6 +108,7 @@ const ApiRoutes = (ApiService) => {
         putUserAnswer,
         getUserUserAnswers,
         deleteLecture,
+        getAllUsersCourses,
     }
 }
 
