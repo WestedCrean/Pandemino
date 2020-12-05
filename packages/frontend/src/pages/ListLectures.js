@@ -25,7 +25,11 @@ import Files from "components/Files"
 import CreateQuiz from "../components/CreateQuiz"
 import GetQuiz from "../components/GetQuiz"
 import DeleteLectureModal from "components/DeleteLectureModal"
+
+import TeacherPanel from "components/TeacherPanel"
+
 import MarkPresenceBtn from "components/MarkPresenceBtn"
+
 const ListLectures = (props) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
@@ -96,9 +100,7 @@ const ListLectures = (props) => {
     const addComponent = () => {
         if (userEmail === courseOwnerEmail) {
             return (
-
                 <div className="box-addNewLecture">
-
                     <AddLectureModal courseId={courseId}></AddLectureModal>
                 </div>
             )
@@ -254,7 +256,12 @@ const ListLectures = (props) => {
                             eventKey="teacher-panel"
                             title="Panel nauczyciela"
                             disabled={tabCreateQuiz()}
-                        ></Tab>
+                        >
+                            <TeacherPanel
+                                currentLecture={currentLecture}
+                                courseOwnerEmail={courseOwnerEmail}
+                            ></TeacherPanel>
+                        </Tab>
                     </Tabs>
                 </div>
                 <div class="overlay"></div>
