@@ -25,6 +25,11 @@ export class LectureFrequencyController {
         return this.lectureFrequencyService.findOne(id)
     }
 
+    @Get(":id/:lecture")
+    findUserLecture(@Param("id") userId: string, @Param("lecture") lectureId: string): Promise<LectureFrequency> {
+        return this.lectureFrequencyService.findUserLecture(userId, lectureId)
+    }
+
     @Delete(":id")
     remove(@Param("id") id: string): Promise<void> {
         return this.lectureFrequencyService.remove(id)

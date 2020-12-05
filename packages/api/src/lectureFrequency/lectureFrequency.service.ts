@@ -44,6 +44,15 @@ export class LectureFrequencyService {
         return this.lectureFrequencyRepository.find()
     }
 
+    findUserLecture(userId: string, lectureId: string): Promise<LectureFrequency> {
+        return this.lectureFrequencyRepository
+            .createQueryBuilder("lectureFrequency")
+            .leftJoinAndSelect("lectureFrequency.user", "users")
+            .leftJoinAndSelect("lectureFrequency.lecture", "lectures")
+            .where("lectures.id = :lectureId and users.id = :userId", { lectureId, userId })
+            .getOne();
+    }
+
     ///FIXME join columns if needed
     findOne(id: string): Promise<LectureFrequency> {
         return this.lectureFrequencyRepository.findOne(id)
