@@ -11,6 +11,10 @@ class UserAnswer {
     @Column()
     answer: string
 
+    @Column()
+    points: string
+
+
     @ManyToOne(() => Question, (question: Question) => question.userAnswer, { onDelete: "CASCADE" })
     @JoinColumn()
     question: Question

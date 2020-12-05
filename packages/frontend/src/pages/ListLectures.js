@@ -104,7 +104,9 @@ const ListLectures = (props) => {
     const addComponent = () => {
         if (userEmail === courseOwnerEmail) {
             return (
-                <div className="box-addNewLectures">
+
+                <div className="box-addNewLecture">
+
                     <AddLectureModal courseId={courseId}></AddLectureModal>
                 </div>
             )
