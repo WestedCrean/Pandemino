@@ -31,8 +31,8 @@ const DeleteCourseModal = (props) => {
 
     return (
         <>
-            <Button className="awsome-button"color="default" aria-label="add" onClick={handleShow}>
-                <FontAwesomeIcon icon={faMinus} size="2x" />
+            <Button className="btn btn-danger" onClick={handleShow}>
+                Usun kurs
             </Button>
 
             <Modal show={show} onHide={handleClose}>

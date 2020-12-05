@@ -86,7 +86,7 @@ const ListLectures = (props) => {
         if (userEmail === courseOwnerEmail) {
             return (
                 <div className="box-deleteCourse">
-                    <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
+                    
                 </div>
             )
         }

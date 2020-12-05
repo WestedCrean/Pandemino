@@ -6,6 +6,7 @@ import { Fab } from "@material-ui/core"
 import { faBaby, faFolderPlus, faCog } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
+import DeleteCourseModal from "../components/DeleteCourseModal"
 
 const AddCourseModal = ({
     courseIdProps,
@@ -192,6 +193,7 @@ const AddCourseModal = ({
                         >
                             Edit
                         </Button>
+                        
                     ) : (
                         <Button
                             type="submit"
@@ -201,6 +203,9 @@ const AddCourseModal = ({
                             Dodaj
                         </Button>
                     )}
+                    {type ==="edit" ? (
+                        <DeleteCourseModal courseId={courseIdProps}></DeleteCourseModal>
+                    ) : null }
                 </Modal.Footer>
             </Modal>
         </>
