@@ -20,7 +20,6 @@
     }
 }
 
-
 .box-addNewCourse {
     position: absolute;
     bottom: 20px;
@@ -29,11 +28,13 @@
     animation: in 0.7s;
 }
 
-
 @keyframes in {
-    from {right: -50px;}
-    to {right: 50px;}
-
+    from {
+        right: -50px;
+    }
+    to {
+        right: 50px;
+    }
 }
 
 //////////////////
@@ -83,8 +84,6 @@
     $hei: 40px;
     $pos: relative;
     @include box-name($hei, $pos);
-
-
 }
 
 ////////////////////
@@ -223,14 +222,18 @@ div:hover {
     margin-left: 30px;
 }
 
-
 ////////////////////////
 ///SEARCHER///
 //////////////////
 
-.searcher{
-
+.searcher {
     position: absolute;
     bottom: 1px;
     width: 100%;
+}
+
+.course-desc {
+    width: 75%;
+    height: 200px;
+    border: 1px #dce4e4 solid;
 }

@@ -16,29 +16,50 @@ const AddLectureModal = (props) => {
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-
     const { accessToken } = useAuthContext()
 
     const addNewCourse = async () => {
-        const api = ApiService(accessToken)
-        const body = {
-            name: lecturerName,
-            description: lectureDescription,
-            course: courseId,
-        }
-        await api
-            .createStream(body)
-            .then((response) => console.log(response.data))
-            .catch((error) => console.log(error))
+        if (validate()) {
+            const api = ApiService(accessToken)
+            const body = {
+                name: lecturerName,
+                description: lectureDescription,
+                course: courseId,
+            }
+            await api
+                .createStream(body)
+                .then((response) => console.log(response.data))
+                .catch((error) => console.log(error))
 
-        window.alert("Dodano nowy wyklad")
-        window.location = `/course/${courseId}`
-        handleClose()
+            window.alert("Dodano nowy wyklad")
+            window.location = `/course/${courseId}`
+            handleClose()
+        }
+    }
+
+    const validate = () => {
+        if ((lecturerName === null) | (lecturerName === "")) {
+            window.alert("Wpisz nazwe wykładu")
+        } else if (
+            (lectureDescription === null) |
+            (lectureDescription === "")
+        ) {
+            window.alert("Podaj opis wykładu")
+        } else {
+            return true
+        }
+
+        return false
     }
 
     return (
         <>
-            <Button className="awsome-button" color="default" aria-label="add" onClick={handleShow}>
+            <Button
+                className="awsome-button"
+                color="default"
+                aria-label="add"
+                onClick={handleShow}
+            >
                 <FontAwesomeIcon icon={faPlus} size="2x" />
             </Button>
 
