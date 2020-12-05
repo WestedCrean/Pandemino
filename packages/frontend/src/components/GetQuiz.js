@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { useUserInfo } from "hooks"
+import { Modal, Button, Card } from "react-bootstrap"
 
 const GetQuiz = (props) => {
     const [quizes, setQuizes] = useState([])
@@ -56,6 +57,21 @@ const GetQuiz = (props) => {
         console.log(list)
     }
 
+    const handleDisable = (mStartDate, mEndDate) => {
+
+        const startDate = new Date(mStartDate).getTime()
+        const endDate = new Date(mEndDate).getTime()
+        const currentDate = Date.now() + 3600000
+
+        console.log(`Start = ${startDate}`)
+        console.log(`mojax = ${currentDate}`)
+        console.log(`konie = ${endDate}`)
+
+
+        return (startDate < currentDate) & (currentDate < endDate) 
+
+    }
+
     const formatDate = (string) => {
         return string.slice(0, 10) + " " + string.slice(11, 19)
     }
@@ -102,15 +118,16 @@ const GetQuiz = (props) => {
                                         <td>{formatDate(quiz.endDate)}</td>
                                         <td>
                                             {finishedQuizes[i] === true ? (
-                                                <button>Quiz ukończony</button>
+                                                <Button variant="danger">Quiz ukończony</Button>
                                             ) : (
-                                                <button
+                                                <Button variant="danger"
+                                                    disabled={!handleDisable(quiz.startDate, quiz.endDate)}
                                                     onClick={() =>
                                                         moveToQuizPage(quiz.id)
                                                     }
                                                 >
                                                     Quiz
-                                                </button>
+                                                </Button>
                                             )}
                                         </td>
                                     </tr>
