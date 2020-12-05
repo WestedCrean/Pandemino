@@ -256,6 +256,11 @@ const ListLectures = (props) => {
                         >
                             <CreateQuiz lectureId={currentLecture}></CreateQuiz>
                         </Tab>
+                        <Tab
+                            eventKey="teacher-panel"
+                            title="Panel nauczyciela"
+                            disabled={tabCreateQuiz()}
+                        ></Tab>
                     </Tabs>
                 </div>
                 <div class="overlay"></div>
