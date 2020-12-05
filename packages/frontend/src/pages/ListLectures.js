@@ -82,16 +82,7 @@ const ListLectures = (props) => {
         })
     }
 
-    const deleteComponent = () => {
-        if (userEmail === courseOwnerEmail) {
-            return (
-                <div className="box-deleteCourse">
-                    <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
-                </div>
-            )
-        }
-        return null
-    }
+
     const deleteLecture = () => {
         if (userEmail === courseOwnerEmail) {
             return (
@@ -202,7 +193,6 @@ const ListLectures = (props) => {
                                             </Pagination> */}
                     <div className="nav-buttons">
                         {addComponent()}
-                        {deleteComponent()}
                     </div>
                 </nav>
 
