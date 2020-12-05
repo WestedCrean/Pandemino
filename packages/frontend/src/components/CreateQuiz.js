@@ -26,8 +26,14 @@ const CreateQuiz = (props) => {
 
     const [quizName, setQuizName] = useState()
     const [quizDescription, setQuizDescription] = useState()
-    const [quizDateStart, setQuizDateStart] = useState()
-    const [quizDateEnd, setQuizDateEnd] = useState()
+
+    const data = new Date(
+        new Date().toString().split("GMT")[0] + " UTC"
+    ).toISOString()
+    const today = data.slice(0, -1)
+
+    const [quizDateStart, setQuizDateStart] = useState(today)
+    const [quizDateEnd, setQuizDateEnd] = useState(today)
 
     const [show, setShow] = useState()
     const handleClose = () => setShow(false)
@@ -72,11 +78,6 @@ const CreateQuiz = (props) => {
     const handleDateChangeEnd = (e) => {
         setQuizDateEnd(e.target.value)
     }
-
-    const data = new Date(
-        new Date().toString().split("GMT")[0] + " UTC"
-    ).toISOString()
-    const today = data.slice(0, -1)
 
     const addComponent = () => {
         let list = childrens

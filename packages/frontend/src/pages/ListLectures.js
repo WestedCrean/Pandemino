@@ -45,6 +45,7 @@ const ListLectures = (props) => {
 
     const [currentLecture, setCurrentLecture] = useState(null)
     const [currentLectureName, setCurrentLectureName] = useState("")
+    const [currentLectureDescription, setCurrentLectureDescription] = useState()
 
     const { accessToken } = useAuthContext()
     const history = useHistory()
@@ -103,7 +104,9 @@ const ListLectures = (props) => {
     const addComponent = () => {
         if (userEmail === courseOwnerEmail) {
             return (
+
                 <div className="box-addNewLecture">
+
                     <AddLectureModal courseId={courseId}></AddLectureModal>
                 </div>
             )
@@ -139,6 +142,9 @@ const ListLectures = (props) => {
                 setLectures(response.data.lectures)
                 setCurrentLecture(response.data.lectures[0].id)
                 setCurrentLectureName(response.data.lectures[0].name)
+                setCurrentLectureDescription(
+                    response.data.lectures[0].description
+                )
             } else {
                 setLectures([])
                 setCurrentLecture(null)
@@ -227,17 +233,23 @@ const ListLectures = (props) => {
                         className="tabsCourses"
                         onSelect={(k) => setTabKey(k)}
                     >
-                        <Tab eventKey="live" title="Live">
-                            Witaj w kursie nr {currentLecture}
+                        <Tab eventKey="course-description" title="Opis Kursu">
+                            <div className="container-md course-desc mt-2">
+                                <h5 className="mt-2">Opis Kursu</h5>
+                                <div className="mt-2">{courseDescription}</div>
+                            </div>
+                            <div className="container-md course-desc mt-2">
+                                <h5 className="mt-2">Opis Wykładu</h5>
+                                <div className="mt-2">
+                                    {currentLectureDescription}
+                                </div>
+                            </div>
                         </Tab>
                         <Tab eventKey="materials" title="Materiały">
                             <Files lectureId={currentLecture}></Files>
                         </Tab>
                         <Tab eventKey="quizes" title="Quiz">
                             <GetQuiz lectureId={currentLecture}></GetQuiz>
-                        </Tab>
-                        <Tab eventKey="course-description" title="Opis Kursu">
-                            {courseDescription}
                         </Tab>
                         <Tab
                             eventKey="create-quiz"
@@ -246,6 +258,11 @@ const ListLectures = (props) => {
                         >
                             <CreateQuiz lectureId={currentLecture}></CreateQuiz>
                         </Tab>
+                        <Tab
+                            eventKey="teacher-panel"
+                            title="Panel nauczyciela"
+                            disabled={tabCreateQuiz()}
+                        ></Tab>
                     </Tabs>
                 </div>
                 <div class="overlay"></div>
