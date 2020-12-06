@@ -44,6 +44,8 @@ const ApiRoutes = (ApiService) => {
 
     const getLectureFrequency = async () => ApiService.get("/lectureFrequency/")
 
+    const getLectureFrequencyByCourseId = async (id) => ApiService.get(`/lectureFrequency/${id}`)
+
     const findLectureFrequencyByUserLecture = async (userId, lectureId) => ApiService.get(`/lectureFrequency/${userId}/${lectureId}`)
 
     const postLectureFrequency = async (data) => ApiService.post("lectureFrequency", data)
@@ -121,7 +123,8 @@ const ApiRoutes = (ApiService) => {
 
         getLectureFrequency,
         findLectureFrequencyByUserLecture,
-        postLectureFrequency
+        postLectureFrequency,
+        getLectureFrequencyByCourseId
 
     }
 }

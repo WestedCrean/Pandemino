@@ -26,10 +26,9 @@ import Files from "components/Files"
 import CreateQuiz from "../components/CreateQuiz"
 import GetQuiz from "../components/GetQuiz"
 import DeleteLectureModal from "components/DeleteLectureModal"
-
 import TeacherPanel from "components/TeacherPanel"
-
 import MarkPresenceBtn from "components/MarkPresenceBtn"
+import Frequency from "components/Frequency"
 
 const ListLectures = (props) => {
     //styles
@@ -293,6 +292,15 @@ const ListLectures = (props) => {
                                     currentLecture={currentLecture}
                                     courseOwnerEmail={courseOwnerEmail}
                                 ></TeacherPanel>
+                            </Tab>
+                            <Tab
+                                eventKey="frequency-panel"
+                                title="Lista obecności"
+                                disabled={tabCreateQuiz()}
+                            >
+                                <Frequency courseId={courseId}
+
+                                ></Frequency>
                             </Tab>
                         </Tabs>
                     )}

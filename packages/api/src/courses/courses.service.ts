@@ -71,11 +71,11 @@ export class CoursesService {
 
     // FIXME: add pagination
     findAll(): Promise<Course[]> {
-        return this.coursesRepository.find({ relations: ["lectures", "lecturer"] })
+        return this.coursesRepository.find({ relations: ["lectures", "lecturer", "userCourses", "userCourses.user"] })
     }
 
     findOne(id: string): Promise<Course> {
-        return this.coursesRepository.findOne(id, { relations: ["lectures", "lecturer"] })
+        return this.coursesRepository.findOne(id, { relations: ["lectures", "lecturer", "userCourses", "userCourses.user"] })
 
         //return this.coursesRepository.findOne(id);
     }
