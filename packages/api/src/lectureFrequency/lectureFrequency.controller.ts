@@ -20,10 +20,15 @@ export class LectureFrequencyController {
         return this.lectureFrequencyService.findAll()
     }
 
-    @Get(":id")
-    findOne(@Param("id") id: string): Promise<LectureFrequency> {
-        return this.lectureFrequencyService.findOne(id)
+    @Get(":courseId")
+    findAllByCourseId(@Param("courseId") courseId: string): Promise<LectureFrequency[]> {
+        return this.lectureFrequencyService.findAllByCourseId(courseId)
     }
+
+    // @Get(":id")
+    // findOne(@Param("id") id: string): Promise<LectureFrequency> {
+    //     return this.lectureFrequencyService.findOne(id)
+    // }
 
     @Get(":id/:lecture")
     findUserLecture(@Param("id") userId: string, @Param("lecture") lectureId: string): Promise<LectureFrequency> {

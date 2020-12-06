@@ -44,6 +44,17 @@ export class LectureFrequencyService {
         return this.lectureFrequencyRepository.find()
     }
 
+    findAllByCourseId(courseId: string): Promise<LectureFrequency[]> {
+        return this.lectureFrequencyRepository
+            .createQueryBuilder("lectureFrequency")
+            .leftJoinAndSelect("lectureFrequency.user", "users")
+            .leftJoinAndSelect("lectureFrequency.lecture", "lectures")
+            .leftJoinAndSelect("lectures.course", "coruses")
+            .where("coruses.id = :courseId", { courseId })
+            .getMany();
+    }
+
+
     findUserLecture(userId: string, lectureId: string): Promise<LectureFrequency> {
         return this.lectureFrequencyRepository
             .createQueryBuilder("lectureFrequency")
