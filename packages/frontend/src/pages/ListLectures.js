@@ -19,6 +19,7 @@ import {
     faArrowRight,
     faCog,
     faMinus,
+    faBomb,
 } from "@fortawesome/free-solid-svg-icons"
 
 import Files from "components/Files"
@@ -86,7 +87,6 @@ const ListLectures = (props) => {
         })
     }
 
-
     const deleteLecture = () => {
         if (userEmail === courseOwnerEmail) {
             return (
@@ -127,6 +127,14 @@ const ListLectures = (props) => {
         }
     }
 
+    const isLecturesEmpty = () => {
+        if (lectures.length == 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     const getStreams = async () => {
         const api = ApiService(accessToken)
 
@@ -153,6 +161,7 @@ const ListLectures = (props) => {
             getStreams()
         }
         console.log(currentLecture)
+        console.log(isLecturesEmpty())
     }, [currentLecture])
 
     return (
@@ -193,9 +202,7 @@ const ListLectures = (props) => {
                                             paginate={paginate}>
 
                                             </Pagination> */}
-                    <div className="nav-buttons">
-                        {addComponent()}
-                    </div>
+                    <div className="nav-buttons">{addComponent()}</div>
                 </nav>
 
                 <div className="bookmarks-wrapper">
@@ -221,48 +228,74 @@ const ListLectures = (props) => {
                     <h2 className="d-flex justify-content-center">
                         {currentLectureName}
                     </h2>
-                    <Tabs
-                        id="controlled-tab-example"
-                        activeKey={tabKey}
-                        className="tabsCourses"
-                        onSelect={(k) => setTabKey(k)}
-                    >
-                        <Tab eventKey="course-description" title="Opis Kursu">
-                            <div className="container-md course-desc mt-2">
-                                <h5 className="mt-2">Opis Kursu</h5>
-                                <div className="mt-2">{courseDescription}</div>
+                    {isLecturesEmpty() ? (
+                        <div>
+                            <div className="mt-3 d-flex justify-content-center">
+                                <FontAwesomeIcon
+                                    size="7x"
+                                    icon={faBomb}
+                                ></FontAwesomeIcon>
                             </div>
-                            <div className="container-md course-desc mt-2">
-                                <h5 className="mt-2">Opis Wykładu</h5>
-                                <div className="mt-2">
-                                    {currentLectureDescription}
+                            <h3 className=" d-flex justify-content-center">
+                                Brak wykładów na stronie!
+                            </h3>
+                            <h5 className=" mt-5 d-flex justify-content-center">
+                                Aby skorzystać z funkcjonalności strony,
+                                naciśnij strzałkę w lewym górnym rogu ekranu,
+                                kolejnie dodaj pierwszy wykład!
+                            </h5>
+                        </div>
+                    ) : (
+                        <Tabs
+                            id="controlled-tab-example"
+                            activeKey={tabKey}
+                            className="tabsCourses"
+                            onSelect={(k) => setTabKey(k)}
+                        >
+                            <Tab
+                                eventKey="course-description"
+                                title="Opis Kursu"
+                            >
+                                <div className="container-md course-desc mt-2">
+                                    <h5 className="mt-2">Opis Kursu</h5>
+                                    <div className="mt-2">
+                                        {courseDescription}
+                                    </div>
                                 </div>
-                            </div>
-                        </Tab>
-                        <Tab eventKey="materials" title="Materiały">
-                            <Files lectureId={currentLecture}></Files>
-                        </Tab>
-                        <Tab eventKey="quizes" title="Quiz">
-                            <GetQuiz lectureId={currentLecture}></GetQuiz>
-                        </Tab>
-                        <Tab
-                            eventKey="create-quiz"
-                            title="Utwórz quiz"
-                            disabled={tabCreateQuiz()}
-                        >
-                            <CreateQuiz lectureId={currentLecture}></CreateQuiz>
-                        </Tab>
-                        <Tab
-                            eventKey="teacher-panel"
-                            title="Panel nauczyciela"
-                            disabled={tabCreateQuiz()}
-                        >
-                            <TeacherPanel
-                                currentLecture={currentLecture}
-                                courseOwnerEmail={courseOwnerEmail}
-                            ></TeacherPanel>
-                        </Tab>
-                    </Tabs>
+                                <div className="container-md course-desc mt-2">
+                                    <h5 className="mt-2">Opis Wykładu</h5>
+                                    <div className="mt-2">
+                                        {currentLectureDescription}
+                                    </div>
+                                </div>
+                            </Tab>
+                            <Tab eventKey="materials" title="Materiały">
+                                <Files lectureId={currentLecture}></Files>
+                            </Tab>
+                            <Tab eventKey="quizes" title="Quiz">
+                                <GetQuiz lectureId={currentLecture}></GetQuiz>
+                            </Tab>
+                            <Tab
+                                eventKey="create-quiz"
+                                title="Utwórz quiz"
+                                disabled={tabCreateQuiz()}
+                            >
+                                <CreateQuiz
+                                    lectureId={currentLecture}
+                                ></CreateQuiz>
+                            </Tab>
+                            <Tab
+                                eventKey="teacher-panel"
+                                title="Panel nauczyciela"
+                                disabled={tabCreateQuiz()}
+                            >
+                                <TeacherPanel
+                                    currentLecture={currentLecture}
+                                    courseOwnerEmail={courseOwnerEmail}
+                                ></TeacherPanel>
+                            </Tab>
+                        </Tabs>
+                    )}
                 </div>
                 <div class="overlay"></div>
             </div>
