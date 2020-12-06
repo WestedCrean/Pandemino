@@ -33,7 +33,6 @@ const TeacherPanel = (props) => {
         } catch (error) {}
     }
     const isOwner = (mail, id) => {
-        console.log(id)
         if (props.courseOwnerEmail === mail) {
             return (
                 <Button className="ml-3" variant="dark" size="sm" disabled>

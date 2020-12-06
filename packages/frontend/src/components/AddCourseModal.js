@@ -14,11 +14,10 @@ const AddCourseModal = ({
     courseNameAlready,
     courseDescriptionAlready,
 }) => {
-
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
     const [password, setPassword] = useState(null)
-    const [confirm, setConfirm] = useState(null);
+    const [confirm, setConfirm] = useState(null)
     const [defaultValueName, setDefaultValueName] = useState(null)
     const [defaultValueDescription, setDefaultValueDescription] = useState()
 
@@ -32,8 +31,7 @@ const AddCourseModal = ({
     const userEmail = user.email
 
     const addNewCourse = async () => {
-
-        if(validate()) {
+        if (validate()) {
             const api = ApiService(accessToken)
 
             const userReponse = await api.getUserByEmail(userEmail)
@@ -51,7 +49,7 @@ const AddCourseModal = ({
                     const userCourseBody = {
                         courseId: response.data.id,
                         userId: userId,
-                        password: password
+                        password: password,
                     }
                     await api
                         .addUserCourse(userCourseBody)
@@ -66,11 +64,8 @@ const AddCourseModal = ({
         }
     }
 
-
     const editCourse = async () => {
-
-        if(validatePassword()){
-
+        if (validatePassword()) {
             const api = ApiService(accessToken)
 
             const userReponse = await api.getUserByEmail(userEmail)
@@ -83,7 +78,7 @@ const AddCourseModal = ({
             const body = {
                 name: courseName,
                 description: courseDescription,
-                password: password
+                password: password,
             }
 
             await api.editCourse(idCourse, body)
@@ -95,26 +90,27 @@ const AddCourseModal = ({
     }
 
     const validatePassword = () => {
-
-        if (password === null | password === "") {
+        if ((password === null) | (password === "")) {
             window.alert("Podaj haslo")
-        } else if (password !== confirm){
+        } else if (password !== confirm) {
             window.alert("Hasla musza się zgadzać")
-        } else{return true}
+        } else {
+            return true
+        }
     }
 
     const validate = () => {
-        console.log(courseName);
+        console.log(courseName)
 
-        if(courseName === null | courseName === ""){
+        if ((courseName === null) | (courseName === "")) {
             window.alert("Wpisz nazwe kursu")
-        } else if (courseDescription === null | courseDescription === "") {
+        } else if ((courseDescription === null) | (courseDescription === "")) {
             window.alert("Podaj opis kursu")
-        } else if(validatePassword()){
+        } else if (validatePassword()) {
             return true
         }
 
-        return false;
+        return false
     }
 
     return (
@@ -193,7 +189,6 @@ const AddCourseModal = ({
                         >
                             Edit
                         </Button>
-                        
                     ) : (
                         <Button
                             type="submit"
@@ -203,9 +198,11 @@ const AddCourseModal = ({
                             Dodaj
                         </Button>
                     )}
-                    {type ==="edit" ? (
-                        <DeleteCourseModal courseId={courseIdProps}></DeleteCourseModal>
-                    ) : null }
+                    {type === "edit" ? (
+                        <DeleteCourseModal
+                            courseId={courseIdProps}
+                        ></DeleteCourseModal>
+                    ) : null}
                 </Modal.Footer>
             </Modal>
         </>
