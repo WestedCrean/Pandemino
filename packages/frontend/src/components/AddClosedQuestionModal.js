@@ -40,7 +40,7 @@ const AddClosedQuestionModal = (props) => {
 
         if(validateStepTwo()){
 
-            console.log(multiple)
+
             const api = ApiService(accessToken)
             const body = {
                 quizId: quizId,
@@ -48,7 +48,7 @@ const AddClosedQuestionModal = (props) => {
                 content: question,
                 isOpen: false,
             }
-            console.log(body)
+
 
             try {
                 let response = await api.addQuestion(body)
@@ -66,7 +66,7 @@ const AddClosedQuestionModal = (props) => {
 
 
             const api = ApiService(accessToken)
-            console.log(id)
+
             for (let index = 0; index < anwserList.length; index++) {
                 const body = {
                     closedQuestionId: id,
@@ -74,11 +74,9 @@ const AddClosedQuestionModal = (props) => {
                     content: anwserList[index],
                 }
     
-                console.log(body)
-    
+ 
                 try {
                     let response = await api.addVariant(body)
-                    console.log(response)
                 } catch (error) {
                     console.error({ error })
                 }
@@ -90,7 +88,7 @@ const AddClosedQuestionModal = (props) => {
     const validateStepTwo = () => {
 
         for(let i = 0; i < anwserList.length; i++){
-            console.log(anwserList[i])
+
             if(anwserList[i] === "" | anwserList[i] === "0"){
                 window.alert(`Podaj treść odpowiedzi ${i}`)
                 return false;
@@ -136,7 +134,6 @@ const AddClosedQuestionModal = (props) => {
         list[i] = e
         setAnswerList(list)
 
-        //console.log(anwserList)
     }
 
     const handleMultipleFormChecks = (e, i) => {
@@ -144,7 +141,6 @@ const AddClosedQuestionModal = (props) => {
         list[i] = e
         setCheckInputs(checkInputs)
 
-        //console.log(checkInputs)
     }
 
     const handleMultipleFormRadio = (e, i) => {
@@ -155,7 +151,7 @@ const AddClosedQuestionModal = (props) => {
         list[i] = e
         setCheckInputs(checkInputs)
 
-        //console.log(checkInputs)
+
     }
 
     useEffect(() => {}, [showSecondStep])
