@@ -42,8 +42,7 @@ const GetQuiz = (props) => {
                 const response = await api.getStreamById(props.lectureId)
                 setQuizes(response.data.quiz)
             } catch (error) {
-                //console.log(finishedQuizes)
-                //setFinishedQuizes(list)
+
                 console.log(error)
             }
         }
@@ -57,7 +56,7 @@ const GetQuiz = (props) => {
                 userInfo.id,
                 quizes[i].id
             )
-            console.log(userAnswerResponse.data)
+
             if (userAnswerResponse.data.length === 0) {
                 list.push(false)
             } else {
@@ -65,7 +64,7 @@ const GetQuiz = (props) => {
             }
         }
         setFinishedQuizes(list)
-        console.log(list)
+
     }
 
     const handleDisable = (mStartDate, mEndDate) => {
@@ -73,10 +72,6 @@ const GetQuiz = (props) => {
         const startDate = new Date(mStartDate).getTime()
         const endDate = new Date(mEndDate).getTime()
         const currentDate = Date.now() + 3600000
-
-        console.log(`Start = ${startDate}`)
-        console.log(`mojax = ${currentDate}`)
-        console.log(`konie = ${endDate}`)
 
 
         return (startDate < currentDate) & (currentDate < endDate) 

@@ -24,8 +24,8 @@ const CreateQuiz = (props) => {
     const [visibleIndex, setVisibleIndex] = useState(null)
     const [visibleVariantIndex, setVisibleVariantIndex] = useState(null)
 
-    const [quizName, setQuizName] = useState()
-    const [quizDescription, setQuizDescription] = useState()
+    const [quizName, setQuizName] = useState(null)
+    const [quizDescription, setQuizDescription] = useState(null)
 
     const data = new Date(
         new Date().toString().split("GMT")[0] + " UTC"
@@ -94,27 +94,41 @@ const CreateQuiz = (props) => {
     }
 
     const addNewQuiz = async () => {
-        console.log(quizDateStart)
-        console.log(quizDateEnd)
-        const api = ApiService(accessToken)
-        const body = {
-            //At this moment it gets courseId need to be changed
-            lectureId: props.lectureId,
-            description: quizDescription,
-            name: quizName,
-            startDate: quizDateStart,
-            endDate: quizDateEnd,
-        }
 
-        console.log(body)
+        if(validate()){
 
-        try {
-            await api.addQuiz(body)
-            handleChangeInQuiz()
-            handleClose()
-        } catch (error) {
-            console.error({ error })
+            const api = ApiService(accessToken)
+            const body = {
+                //At this moment it gets courseId need to be changed
+                lectureId: props.lectureId,
+                description: quizDescription,
+                name: quizName,
+                startDate: quizDateStart,
+                endDate: quizDateEnd,
+            }
+
+            console.log(body)
+
+            try {
+                await api.addQuiz(body)
+                handleChangeInQuiz()
+                handleClose()
+            } catch (error) {
+                console.error({ error })
+            }
         }
+    }
+
+    const validate = () => {
+        if(quizName === null | quizName === ""){
+            window.alert("Podaj nazwe")
+        }else if (quizDescription === null | quizDescription === ""){
+            window.alert("Podaj opis")
+        } else if(quizDateStart === null){
+            window.alert("Podaj date rozpoczęcia")
+        } else if(quizDateEnd === null){
+            window.alert("Podaj date zakonczenia")
+        }else {return true}
     }
 
     const deleteQuiz = async (id) => {

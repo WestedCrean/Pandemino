@@ -159,8 +159,6 @@ const ListLectures = (props) => {
         if (lectures.length == 0) {
             getStreams()
         }
-        console.log(currentLecture)
-        console.log(isLecturesEmpty())
     }, [currentLecture])
 
     return (
@@ -175,7 +173,7 @@ const ListLectures = (props) => {
                     </div>
                     <ul className="list-unstyled components">
                         {currentReqs.map((lecture, i) => (
-                            <div className="wrapper-lectures">
+                            <div key={`${lecture.name}-${lecture.views}-${i}`} className="wrapper-lectures">
                                 <li
                                     key={`${lecture.name}-${lecture.views}-${i}`}
                                     className="box-lectures "

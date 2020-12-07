@@ -65,7 +65,13 @@ const AddCourseModal = ({
     }
 
     const editCourse = async () => {
-        if (validatePassword()) {
+
+        if(password !== null | password !== "" ){
+            if(!validateConfirm()){
+                return 0;
+            }
+        }
+        {
             const api = ApiService(accessToken)
 
             const userReponse = await api.getUserByEmail(userEmail)
@@ -83,9 +89,19 @@ const AddCourseModal = ({
 
             await api.editCourse(idCourse, body)
 
-            window.alert("Edytowano nowy kurs")
+            window.alert("Edytowano kurs")
             window.location = "/"
             handleClose()
+        }
+    }
+
+    const validateConfirm = () => {
+
+        if (password !== confirm) {
+            window.alert("Hasla musza się zgadzać")
+            return false
+        } else {
+            return true
         }
     }
 

@@ -53,13 +53,13 @@ export class CoursesService {
             throw new Error(e)
         }
 
-        if (updateCourseSchema.name !== null) {
+        if (updateCourseSchema.name !== null || updateCourseSchema.name !== "") {
             course.name = updateCourseSchema.name
         }
-        if (updateCourseSchema.description !== null) {
+        if (updateCourseSchema.description !== null || updateCourseSchema.description !== "") {
             course.description = updateCourseSchema.description
         }
-        if (updateCourseSchema.password !== null) {
+        if (updateCourseSchema.password !== null || updateCourseSchema.password !== "") {
             course.password = await bcrypt.hash(updateCourseSchema.password, 10);
         }
 
