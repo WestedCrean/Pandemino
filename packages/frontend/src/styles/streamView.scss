@@ -5,9 +5,27 @@
 }
 
 .chat-window {
-    height: 100%;
+    height: 50vh;
     margin: auto;
     width: 100%;
+}
+.chat-window > .card-body {
+    overflow-y: scroll;
+}
+
+.chat-message {
+    background-color: #ffffff;
+}
+
+.current-user-message {
+    background-color: #0176ff !important;
+}
+.current-user-message span,
+.current-user-message p {
+    color: white;
+}
+.current-user-message span small {
+    color: #cccccc !important;
 }
 
 .video-container {

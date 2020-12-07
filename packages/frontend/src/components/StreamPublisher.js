@@ -9,13 +9,14 @@ const calculateStreamHeight = () => {
     return { min: height, max: 1080, ideal: 720 }
 }
 
-const StreamPublisher = ({ streamId }) => {
+const StreamPublisher = ({ socket, streamId, ready }) => {
     const { addToast, toastStack } = useToasts()
     /* demo start */
     const videoRef = useRef(null)
-    const socket = createSocket()
     const [audioSource, setAudioSource] = useState(null)
     const [videoSource, setVideoSource] = useState(null)
+    const [screenCapture, setScreenCapture] = useState(false)
+    const [streamConstraints, setConstraints] = useState(null)
     const [availableDevices, setAvailableDevices] = useState([])
     const peerConnections = useRef({})
     /* demo end */
@@ -57,36 +58,20 @@ const StreamPublisher = ({ streamId }) => {
         })
     }
 
-    const toggleScreenCapture = () => {
-        addToast("Screen capture is not implemented yet", {
-            appearance: "warning",
-        })
-    }
-
-    /*
-    if (mediaDevice && videoRef.current && !videoRef.current.srcObject) {
-        videoRef.current.srcObject = mediaDevice
-    }
-    */
-
-    function getDevices() {
-        console.log("getting devices")
+    async function getDevices() {
         return navigator.mediaDevices.enumerateDevices()
     }
-
-    useEffect(() => {
-        console.log({ availableDevices })
-    }, [availableDevices])
 
     function handleDevices(deviceInfos) {
         console.log("handling devices")
         window.deviceInfos = deviceInfos
-        const devices = deviceInfos.map((i, deviceInfo) => {
+        const devices = deviceInfos.map((deviceInfo, i) => {
             return {
                 label:
-                    deviceInfo.label || deviceInfo.kind === "audioinput"
+                    deviceInfo.label ||
+                    (deviceInfo.kind === "audioinput"
                         ? `Mikrofon ${i + 1}`
-                        : `Kamera ${i + 1}`,
+                        : `Kamera ${i + 1}`),
                 kind: deviceInfo.kind,
                 id: deviceInfo.deviceId,
             }
@@ -103,7 +88,7 @@ const StreamPublisher = ({ streamId }) => {
         }
     }
 
-    const getStream = () => {
+    const getStream = async () => {
         console.log("getting stream")
         if (window.stream) {
             window.stream.getTracks().forEach((track) => {
@@ -118,17 +103,41 @@ const StreamPublisher = ({ streamId }) => {
                 deviceId: audioSource ? { exact: audioSource } : undefined,
             },
         }
-        return navigator.mediaDevices
-            .getUserMedia(constraints)
-            .then(handleStream)
-            .catch(handleError)
+
+        setConstraints(constraints)
+
+        let captureStream = null
+        try {
+            // screen capture - captureStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
+            captureStream = await navigator.mediaDevices.getUserMedia(
+                constraints
+            )
+        } catch (err) {
+            console.log({ getstreamErr: err })
+        }
+        console.log({ captureStream })
+        return captureStream
     }
 
     const handleStream = (stream) => {
         console.log("handling stream")
-        window.stream = stream
-        videoRef.current.srcObject = stream
-        socket.emit("broadcaster")
+        try {
+            window.stream = stream
+            videoRef.current.srcObject = stream
+            stream.getTracks().forEach((track) => {
+                Object.keys(peerConnections.current).forEach((connectionId) => {
+                    peerConnections.current[connectionId].addTrack(
+                        track,
+                        stream
+                    )
+                })
+            })
+
+            socket.emit("broadcaster")
+            console.log("emitted broadcaster")
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const handleError = (error) => {
@@ -168,7 +177,6 @@ const StreamPublisher = ({ streamId }) => {
             const peerConnection = new RTCPeerConnection(config)
 
             peerConnections.current[id] = peerConnection
-
             const stream = videoRef.current.srcObject
             stream
                 .getTracks()
@@ -188,13 +196,40 @@ const StreamPublisher = ({ streamId }) => {
                 })
         })
 
+        /*
         return () => {
             socket.disconnect()
         }
+        */
     }, [])
 
+    const streamHandler = async () => {
+        handleStream(await getStream())
+        handleDevices(await getDevices())
+    }
+
+    const toggleScreenCapture = async () => {
+        if (screenCapture) {
+            setScreenCapture(false)
+            streamHandler()
+        } else {
+            try {
+                let stream = await navigator.mediaDevices.getDisplayMedia(
+                    streamConstraints
+                )
+                videoRef.current.srcObject = stream
+                handleStream(stream)
+                setScreenCapture(true)
+            } catch (err) {
+                addToast("Udostępnienie ekranu nie powiodło się", {
+                    appearance: "warning",
+                })
+            }
+        }
+    }
+
     useEffect(() => {
-        getStream().then(getDevices).then(handleDevices)
+        streamHandler()
     }, [audioSource, videoSource])
 
     const commenceStream = async () => {
