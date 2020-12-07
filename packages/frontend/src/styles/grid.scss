@@ -55,17 +55,18 @@
     grid-row: 3/4;
     grid-column: 1/2;
 }
+.main-wrapper{
+    overflow-y: hidden;
+}
 
 .wrapper {
     display: grid;
     grid-gap: 3px;
     min-height: 93vh;
     color: #444;
-    padding: 75px;
+    padding: 70px 90px 120px 90px;
     margin-bottom: 0px;
-    background-image: url(./logo/wave.svg);
-    background-repeat: repeat-y;
-    background-size: cover;
+    
 }
 .tabElement {
     padding: 50px;
