@@ -11,9 +11,9 @@ const config = {
 const socketUrl = window.location.origin
 const socketPath = "/foo/bar"
 
-function createSocket(namespace) {
+function createSocket(room) {
     const socket = io.connect(socketUrl, { path: socketPath })
-
+    if (socket && room) socket.emit("join", room)
     return socket
 }
 

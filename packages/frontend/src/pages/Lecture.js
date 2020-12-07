@@ -3,28 +3,17 @@ import { withRouter } from "react-router"
 
 import ApiService from "services/api"
 import { useAuthContext } from "services/auth"
-import { getStreamRole } from "services/streams"
 import { useToasts } from "react-toast-notifications"
+import { createSocket } from "services/streams"
 
-import { useUserInfo } from "hooks"
 import { StreamWindow, Chat, StreamInfo } from "components"
 
 const Lecture = ({ history, location }) => {
     const { accessToken } = useAuthContext()
-    const { addToast, toastStack } = useToasts()
-    const userInfo = useUserInfo()
+    const { addToast } = useToasts()
     const lectureId = location.pathname.split("/").slice(-1)[0]
-    const [streamInfo, setStreamInfo] = useState({
-        id: 2,
-        name: "Metoda najmniejszych kwadratów",
-        description: "Lorem ipsum dolor sit amet",
-        url: "/asdf",
-        views: 14,
-        createdAt: "2020-11-14T14:07:05.898Z",
-        lecturer: "dr Edyta Lukasik",
-        isLive: true,
-    })
-
+    const [streamInfo, setStreamInfo] = useState(null)
+    const [socket, setSocket] = useState(createSocket(lectureId))
     const api = ApiService(accessToken)
 
     const getStreamInfo = async () => {
@@ -41,25 +30,31 @@ const Lecture = ({ history, location }) => {
     }, [])
 
     return (
-        <div className="container-md py-5">
+        <div className="container py-5">
             <div className="row py-5">
                 <div className="col-sm-12 col-md-8">
                     <div className="row">
                         <div className="col-sm-12 pb-4">
                             <StreamWindow
-                                role={userInfo ? userInfo.role : "student"}
+                                socket={socket}
+                                streamInfo={streamInfo}
                                 streamId={lectureId}
+                                ready={socket !== undefined}
                             />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-sm-12">
-                            {streamInfo && <StreamInfo {...streamInfo} />}
+                            <StreamInfo {...streamInfo} />
                         </div>
                     </div>
                 </div>
-                <div className="col-sm-12 col-md-2">
-                    <Chat />
+                <div className="col-sm-12 col-md-4">
+                    <Chat
+                        socket={socket}
+                        roomId={lectureId}
+                        ready={socket !== undefined}
+                    />
                 </div>
             </div>
         </div>

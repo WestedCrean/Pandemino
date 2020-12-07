@@ -65,13 +65,11 @@ const VideoControls = ({
                 <Dropdown.Menu>
                     <Dropdown.ItemText>
                         <section className="select">
-                            <label htmlFor="audioSource">
-                                Źródło dźwięku:{" "}
-                            </label>
-                            <select id="audioSource">
-                                {devices.map((i, device) => {
+                            <label htmlFor="videoSource">Źródło obrazu: </label>
+                            <select id="videoSource">
+                                {devices.map((device, i) => {
                                     return (
-                                        device.kind === "audioinput" && (
+                                        device.kind === "videoinput" && (
                                             <option
                                                 onClick={() => {
                                                     handleDeviceChange(
@@ -90,11 +88,13 @@ const VideoControls = ({
                     </Dropdown.ItemText>
                     <Dropdown.ItemText>
                         <section className="select">
-                            <label htmlFor="videoSource">Źródło obrazu: </label>
-                            <select id="videoSource">
-                                {devices.map((i, device) => {
+                            <label htmlFor="audioSource">
+                                Źródło dźwięku:{" "}
+                            </label>
+                            <select id="audioSource">
+                                {devices.map((device, i) => {
                                     return (
-                                        device.kind === "videoinput" && (
+                                        device.kind === "audioinput" && (
                                             <option
                                                 onClick={() => {
                                                     handleDeviceChange(

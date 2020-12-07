@@ -1,12 +1,15 @@
-const getStreamRole = (user) => {
-    const userRole = user.role
-    switch (userRole) {
-        case 'lecturer':
-            return 'publisher'
-            break
-        default:
-            return 'consumer'
+const getStreamRole = (user, lecture) => {
+    if (user && lecture) {
+        const {
+            course: { lecturer },
+        } = lecture
+        console.log("Is lecturer? ", user.email === lecturer.email)
+        if (user.email === lecturer.email) {
+            return "publisher"
+        }
     }
+
+    return "consumer"
 }
 
 export { getStreamRole }

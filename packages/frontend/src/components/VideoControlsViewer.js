@@ -34,7 +34,7 @@ const VideoControlsViewer = ({ audioVolume, onAudioChange, onFullScreen }) => (
                 max="1"
                 step="0.05"
                 value={audioVolume}
-                autocomplete="off"
+                autoComplete="off"
                 role="slider"
                 aria-label="Volume"
                 aria-valuemin="0"

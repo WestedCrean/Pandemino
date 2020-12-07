@@ -2,18 +2,17 @@ import React, { useState, useRef, useEffect } from "react"
 import { createSocket, config } from "services/streams"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlay as PlayIcon } from "@fortawesome/free-solid-svg-icons"
+import { useToasts } from "react-toast-notifications"
 import { VideoControlsViewer } from "components"
 
-const StreamConsumer = ({ streamId }) => {
-    console.log("Using stream consumer (component)")
-
+const StreamConsumer = ({ socket, streamId }) => {
+    const { addToast } = useToasts()
     const peerConnection = useRef()
     const videoRef = useRef(null)
-    const socket = createSocket()
-
     const [audioVolume, setAudioVolume] = useState(100)
 
     useEffect(() => {
+        console.log({ StreamConsumersocket: socket })
         socket.on("offer", (id, description) => {
             console.log("on offer")
             peerConnection.current = new RTCPeerConnection(config)
@@ -40,9 +39,11 @@ const StreamConsumer = ({ streamId }) => {
 
         socket.on("candidate", (id, candidate) => {
             console.log("on candidate")
-            peerConnection.current
-                .addIceCandidate(new RTCIceCandidate(candidate))
-                .catch((e) => console.error(e))
+            if (peerConnection.current) {
+                peerConnection.current
+                    .addIceCandidate(new RTCIceCandidate(candidate))
+                    .catch((e) => console.error(e))
+            }
         })
 
         socket.on("connect", () => {
@@ -59,14 +60,9 @@ const StreamConsumer = ({ streamId }) => {
             console.log("on disconnectPeer")
             peerConnection.current.close()
         })
-
-        return () => {
-            socket.disconnect()
-        }
     }, [])
 
     const handleAudioChange = (volume) => {
-        console.log(volume)
         setAudioVolume(volume)
     }
 
@@ -75,15 +71,34 @@ const StreamConsumer = ({ streamId }) => {
     }, [audioVolume])
 
     const handleFullScreen = (e) => {
-        alert("not implemented")
+        if (document.fullscreenEnabled) {
+            try {
+                videoRef.current.requestFullscreen()
+            } catch (err) {
+                addToast("Nie udało się włączyć pełnego ekranu.", {
+                    appearance: "warning",
+                })
+                console.log(err)
+            }
+            return
+        }
+
+        addToast("Pełen ekran nie jest dostępny na tym urządzeniu", {
+            appearance: "warning",
+        })
+    }
+
+    const onCommenceStream = async (e) => {
+        const playBtn = document.getElementsByClassName("play-btn-container")[0]
+        if (playBtn) {
+            playBtn.classList.add("hidden")
+        }
     }
 
     const commenceStream = async (e) => {
         console.log("click!")
         e.preventDefault()
-        document
-            .getElementsByClassName("play-btn-container")[0]
-            .classList.add("hidden")
+        onCommenceStream()
         videoRef.current.play().catch((er) => {
             console.log("chrome error: ", er.message)
         })
@@ -102,6 +117,8 @@ const StreamConsumer = ({ streamId }) => {
                         style={{ width: "100%" }}
                         id="videoRef"
                         ref={videoRef}
+                        onCanPlay={onCommenceStream}
+                        autoPlay
                         playsInline
                     />
                     <VideoControlsViewer
