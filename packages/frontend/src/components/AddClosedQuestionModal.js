@@ -13,13 +13,17 @@ const AddClosedQuestionModal = (props) => {
     const quizId = props.quizId
     ///form data
     const [question, setQuestion] = useState(null)
+    const [questionCount, setQuestionCount] = useState(1)
+    const [multiple, setMultiple] = useState(false)
+
+
     const [anwserList, setAnswerList] = useState([])
     const [checkInputs, setCheckInputs] = useState([])
 
     const [elementList, setElementList] = useState([])
 
-    const [questionCount, setQuestionCount] = useState(1)
-    const [multiple, setMultiple] = useState(false)
+    
+
 
     const [closedQuestion, setClosedQuestion] = useState()
 
@@ -76,22 +80,29 @@ const AddClosedQuestionModal = (props) => {
     }
 
     const moveToStepTwo = () => {
-        handleClose()
-        let elementListTemp = []
-        let anwserListTemp = []
-        let checkInputsTemp = []
-
-        for (var i = 0; i < questionCount; i++) {
-            elementListTemp.push(i)
-            anwserListTemp.push("0")
-            checkInputsTemp.push(false)
+        ///VALIDATE STEP ONE
+        if(question === null | question === ""){
+            window.alert("Podaj tresc pytania")
+        }else if(questionCount <= 1){
+            window.alert("Pytanie musi mieć przynajmniej dwa warianty odpowiedzi")
+        }else{
+            handleClose()
+            let elementListTemp = []
+            let anwserListTemp = []
+            let checkInputsTemp = []
+    
+            for (var i = 0; i < questionCount; i++) {
+                elementListTemp.push(i)
+                anwserListTemp.push("0")
+                checkInputsTemp.push(false)
+            }
+    
+            setElementList(elementListTemp)
+            setAnswerList(anwserListTemp)
+            setCheckInputs(checkInputsTemp)
+    
+            handleShowSecondStep()
         }
-
-        setElementList(elementListTemp)
-        setAnswerList(anwserListTemp)
-        setCheckInputs(checkInputsTemp)
-
-        handleShowSecondStep()
     }
 
     const handleMultipleFormInput = (e, i) => {
