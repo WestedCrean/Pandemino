@@ -5,3 +5,89 @@
 .quiz-content{
     text-align: left;
 }
+
+.question-main-container{
+
+    min-height: 300px;
+    text-align: center;
+    margin: 30px;
+    box-shadow: 0 4px 8px 4px rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.quiz-main-container{
+
+    text-align: center;
+    box-shadow: 0 4px 8px 4px rgba(0,0,0,0.2);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+    padding: 30px;
+}
+
+.quiz-name{
+    font-size: 1.8rem;
+}
+
+.question-main-container:hover {
+    box-shadow: 0 8px 16px 8px rgba(0,0,0,0.2);
+}
+
+.quiz-nav{
+
+    position: relative;
+    left: 80px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-icon{
+    size: 10px;
+}
+
+.variant{
+    width: 100%;
+}
+
+.delete-question{
+    position: relative;
+    float: right;
+    bottom: 40px;
+}
+
+.question-content{
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.variant-content{
+    text-align: left;
+    width: 30px;
+}
+
+.variant-delete{
+    float: right;
+}
+
+.variant-delete:hover{
+
+}
+
+.variant-container{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-div{
+    margin-top: 3px;
+    z-index: 100;
+    background-color: gray;
+    opacity: 0.9;
+    padding: 4px;
+    color: white;
+}
+

@@ -158,8 +158,8 @@ const AddClosedQuestionModal = (props) => {
 
     return (
         <>
-            <Fab color="default" aria-label="add" onClick={handleShow}>
-                <FontAwesomeIcon icon={faFolderPlus} size="2x" />
+            <Fab size="small" color="default" aria-label="add" onClick={handleShow}>
+                <FontAwesomeIcon icon={faFolderPlus} size="1.5x" />
             </Fab>
 
             <Modal show={show} onHide={handleClose}>

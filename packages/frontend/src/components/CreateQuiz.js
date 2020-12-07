@@ -11,8 +11,10 @@ import {
     faArrowDown,
     faPlus,
 } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import TextField from "@material-ui/core/TextField"
+import { faTimes } from "@fortawesome/free-solid-svg-icons"
+
 
 const CreateQuiz = (props) => {
     const [currentLectureId, setCurrentLectureId] = useState(props.lectureId)
@@ -26,6 +28,8 @@ const CreateQuiz = (props) => {
 
     const [quizName, setQuizName] = useState(null)
     const [quizDescription, setQuizDescription] = useState(null)
+
+    const [visibleElement, setVisibleElement] = useState(null)
 
     const data = new Date(
         new Date().toString().split("GMT")[0] + " UTC"
@@ -153,6 +157,8 @@ const CreateQuiz = (props) => {
         } catch (error) {}
     }
 
+
+
     useEffect(() => {
         if (currentLectureId != props.lectureId) {
             ///otherwise it wont work. And state will be reloading over and over and corupting stack memory
@@ -243,44 +249,46 @@ const CreateQuiz = (props) => {
                         <FontAwesomeIcon icon={faPlus} size="lg" />
                     </Button>
                 </h3>
+
                 {quizes.map((quiz, i) => (
-                    <div>
-                        {quiz.name}
-                        <AddClosedQuestionModal
-                            quizId={quiz.id}
-                            handleChangeInQuiz={handleChangeInQuiz}
-                        ></AddClosedQuestionModal>
-                        <Fab
-                            color="secondary"
-                            aria-label="add"
-                            onClick={() => deleteQuiz(quiz.id)}
-                        >
-                            <FontAwesomeIcon icon={faTrash} size="2x" />
-                        </Fab>
-                        <Fab onClick={() => handleShowQuestion(i)}>
-                            {visibleIndex === i ? (
-                                <FontAwesomeIcon
-                                    icon={faArrowRight}
-                                    size="2x"
-                                />
-                            ) : (
-                                <FontAwesomeIcon
-                                    icon={faArrowDown}
-                                    size="2x"
-                                ></FontAwesomeIcon>
-                            )}
-                        </Fab>
+                    <div className="quiz-main-container">
+                        <div className="quiz-name">{quiz.name}</div>
+                        <div className="quiz-nav float-right">
+                            <AddClosedQuestionModal className="quiz-icon"
+                                quizId={quiz.id}
+                                handleChangeInQuiz={handleChangeInQuiz}
+                            ></AddClosedQuestionModal>
+                            <Fab size="small"
+                                color="secondary"
+                                aria-label="add"
+                                onClick={() => deleteQuiz(quiz.id)}
+                            >
+                                <FontAwesomeIcon icon={faTrash} size="1x" />
+                            </Fab>
+                            <Fab size="small" onClick={() => handleShowQuestion(i)}>
+                                {visibleIndex === i ? (
+                                    <FontAwesomeIcon
+                                        icon={faArrowDown}
+                                        size="1x"
+                                    />
+                                ) : (
+                                    <FontAwesomeIcon
+                                        icon={faArrowRight}
+                                        size="1x"
+                                    ></FontAwesomeIcon>
+                                )}
+                            </Fab>
+                        </div>
                         {quiz.questions.map((question, j) =>
                             visibleIndex === i ? (
-                                <div>
-                                    <Card>
-                                        <Card.Body className="d-flex">
-                                            <div className="quiz-left">
+                                <div className="question-main-container">
+                                    <div >
+                                        <div className="">
+                                            <div className="question-content">
                                                 {question.content}
                                             </div>
-                                            <div className="quiz-end">
-                                                <Fab
-                                                    color="secondary"
+                                            <div className="delete-question">
+                                                <Fab size="small" color="secondary"
                                                     onClick={() =>
                                                         deleteQuestion(
                                                             question.id
@@ -289,10 +297,10 @@ const CreateQuiz = (props) => {
                                                 >
                                                     <FontAwesomeIcon
                                                         icon={faTrash}
-                                                        size="2x"
+                                                        
                                                     />
                                                 </Fab>
-                                                <Fab
+                                                {/* <Fab
                                                     className="ml-3"
                                                     onClick={() =>
                                                         handleShowVariant(j)
@@ -302,43 +310,42 @@ const CreateQuiz = (props) => {
                                                     j ? (
                                                         <FontAwesomeIcon
                                                             icon={faArrowRight}
-                                                            size="2x"
+                                                            
                                                         />
                                                     ) : (
                                                         <FontAwesomeIcon
                                                             icon={faArrowDown}
-                                                            size="2x"
+                                                            
                                                         ></FontAwesomeIcon>
                                                     )}
-                                                </Fab>
+                                                </Fab> */}
                                             </div>
-                                        </Card.Body>
-                                    </Card>
-                                    <div>
+                                        </div>
+                                    </div>
+                                    <div className="variants-list">
                                         {question.variants.map((variant, g) =>
-                                            visibleVariantIndex === j ? (
-                                                <div>
-                                                    <Card>
-                                                        <Card.Body className="d-flex">
-                                                            <div className="quiz-left">
-                                                                {
-                                                                    variant.content
-                                                                }
-                                                            </div>
-                                                            <div className="quiz-end">
-                                                                <Fab color="secondary">
-                                                                    <FontAwesomeIcon
+                                            (
+                                                <div className="variant">
+                                                    <div>
+                                                        <div className="variant-container">
+                                                            <div>
+                                                                {variant.content}
+                                                                </div>
+                                                            <div className="variant-delete" onMouseEnter={()=>setVisibleElement(j*100+g)} onMouseLeave={()=>setVisibleElement(null)} >
+                                                                    <FontAwesomeIcon 
                                                                         icon={
-                                                                            faTrash
+                                                                            faTimes
                                                                         }
-                                                                        size="2x"
-                                                                    />
-                                                                </Fab>
+                                                                    ></FontAwesomeIcon>
+                                                                    <div className={`delete-div`} style={{visibility : visibleElement === j*100+g ? "visible" : "hidden", position :"absolute"}}>
+                                                                        Usuń
+                                                                    </div>
+                                                                
                                                             </div>
-                                                        </Card.Body>
-                                                    </Card>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            ) : null
+                                            )
                                         )}
                                     </div>
                                 </div>
