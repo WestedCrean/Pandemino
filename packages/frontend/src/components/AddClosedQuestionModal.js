@@ -74,7 +74,7 @@ const AddClosedQuestionModal = (props) => {
                     content: anwserList[index],
                 }
     
- 
+
                 try {
                     let response = await api.addVariant(body)
                 } catch (error) {
