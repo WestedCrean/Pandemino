@@ -27,15 +27,15 @@
     background-image: linear-gradient(to top, #d64fc4 20%, #8787c5 80%);
 }
 .bgTop {
-    z-index: -3;
+    z-index: -300;
     opacity: 0.5;
 }
 .bgMiddle {
-    z-index: -4;
+    z-index: -400;
     opacity: 0.75;
 }
 .bgBottom {
-    z-index: -5;
+    z-index: -500;
 }
 .wave {
     position: absolute;
