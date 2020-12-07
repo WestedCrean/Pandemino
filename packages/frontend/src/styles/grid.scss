@@ -87,6 +87,59 @@
     @include box-name($hei, $pos);
 }
 
+
+@media (max-width: 1200px){
+
+    .wrapper{
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    .grid-courses{
+        width: 80vw;
+        justify-content: center;
+
+    }
+
+    .grid-news{
+        width: 80vw;
+    }
+}
+
+@media (max-width: 767px){
+
+    .wrapper{
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    .grid-courses{
+        width: 70vw;
+    }
+
+    .grid-news{
+        width: 70vw;
+    }
+}
+
+@media (max-width: 600px){
+
+    .wrapper{
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    .grid-courses{
+        width: 60vw;
+    }
+
+
+
+    .grid-news{
+        width: 60vw;
+    }
+}
+
 ////////////////////
 /* Widok Wykładów */
 ////////////////////
