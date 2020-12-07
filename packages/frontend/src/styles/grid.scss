@@ -68,6 +68,16 @@
     margin-bottom: 0px;
     
 }
+
+.wrapper-all-courses{
+    display: grid;
+    grid-gap: 3px;
+    min-height: 93vh;
+    color: #444;
+    padding: 70px 90px 120px 90px;
+    margin-bottom: 0px;
+    
+}
 .tabElement {
     padding: 50px;
 }
@@ -95,13 +105,13 @@
         flex-direction: column;
     }
 
-    .grid-courses{
+    .wrapper > .grid-courses{
         width: 80vw;
         justify-content: center;
 
     }
 
-    .grid-news{
+    .wrapper > .grid-news{
         width: 80vw;
     }
 }
