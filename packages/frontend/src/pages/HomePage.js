@@ -6,7 +6,7 @@ import FancyWave from "../components/FancyWave"
 const HomePage = () => {
     return (
         
-        <div className="main-wrapper">
+        <div>
             <FancyWave></FancyWave>
             <GridHome></GridHome>
             
