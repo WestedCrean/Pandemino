@@ -101,7 +101,7 @@ const Files = (props) => {
             <div className="card border-dark">
                 <div className="card-body text-dark">
                     <h5 className="card-title">Pliki</h5>
-                    <div>
+                    <div className="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
