@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState, useCallback } from "react"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
-
+import FancyWave from "components/FancyWave"
 const UserPanel = () => {
     const [userData, setUserData] = useState(null)
 
@@ -65,6 +65,7 @@ const UserPanel = () => {
 
     return (
         <div class="wrapper">
+            <FancyWave></FancyWave>
             <div class="box grid-courses">
                 <div className="box-label">
                     <div className="box-label-name">PANEL UŻYTKOWNIKA</div>

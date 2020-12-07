@@ -39,7 +39,7 @@ const MarkPresenceBtn = (props) => {
 
     return (
 
-        <div>
+        <div className="presence-btn">
             <Button onClick={()=>MarkPresence()}>
                 Zaznacz obecność
             </Button>

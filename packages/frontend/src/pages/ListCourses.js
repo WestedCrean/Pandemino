@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom"
 import { Navbar, AddCourseModal } from "components"
 import FadeLoader from "react-spinners/FadeLoader"
 import PasswordModal from "components/PasswordModal"
+import FancyWave from "components/FancyWave"
+
 
 const ListCourses = () => {
     const [userId, setUserId] = useState(null)
@@ -127,6 +129,7 @@ const ListCourses = () => {
 
     return (
         <div>
+            <FancyWave></FancyWave>
             <Fragment>
                 <div class="wrapper-all-courses">
                     <div class="box grid-courses">
