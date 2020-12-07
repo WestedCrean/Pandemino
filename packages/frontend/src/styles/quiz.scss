@@ -38,10 +38,19 @@
 .quiz-nav{
 
     position: relative;
-    left: 80px;
-    bottom: 80px;
+    left: 30px;
+    bottom: 70px;
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 800){
+
+    .quiz-nav{
+
+        left: 10px;
+        bottom: 10px;
+    }
 }
 
 .quiz-icon{
