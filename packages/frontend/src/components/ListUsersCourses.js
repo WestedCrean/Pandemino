@@ -51,7 +51,7 @@ const ListUsersCourses = () => {
     }, [])
 
     return (
-        <div>
+        <div className="table-responsive">
             <table className="table">
                 <thead>
                     <tr>

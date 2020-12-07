@@ -128,7 +128,7 @@ const ListCourses = () => {
     return (
         <div>
             <Fragment>
-                <div class="wrapper">
+                <div class="wrapper-all-courses">
                     <div class="box grid-courses">
                         <div className="box-label">
                             <div className="box-label-name">
@@ -155,20 +155,7 @@ const ListCourses = () => {
                                             ) : (
                                                 <td>{course.lecturer.email}</td>
                                             )}
-                                            <td>
-                                                <Button
-                                                    variant="dark"
-                                                    onClick={() =>
-                                                        directToLecture(
-                                                            course.id,
-                                                            course.name,
-                                                            course.description
-                                                        )
-                                                    }
-                                                >
-                                                    Stream
-                                                </Button>
-                                            </td>
+                                            
                                             <td>
                                                 {existedCourseLists.includes(
                                                     course.id
