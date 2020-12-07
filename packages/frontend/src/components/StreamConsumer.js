@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from "react"
 import { createSocket, config } from "services/streams"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlay as PlayIcon } from "@fortawesome/free-solid-svg-icons"
+import { useToasts } from "react-toast-notifications"
 import { VideoControlsViewer } from "components"
 
 const StreamConsumer = ({ socket, streamId }) => {
+    const { addToast } = useToasts()
     const peerConnection = useRef()
     const videoRef = useRef(null)
     const [audioVolume, setAudioVolume] = useState(100)
@@ -69,7 +71,21 @@ const StreamConsumer = ({ socket, streamId }) => {
     }, [audioVolume])
 
     const handleFullScreen = (e) => {
-        alert("not implemented")
+        if (document.fullscreenEnabled) {
+            try {
+                videoRef.current.requestFullscreen()
+            } catch (err) {
+                addToast("Nie udało się włączyć pełnego ekranu.", {
+                    appearance: "warning",
+                })
+                console.log(err)
+            }
+            return
+        }
+
+        addToast("Pełen ekran nie jest dostępny na tym urządzeniu", {
+            appearance: "warning",
+        })
     }
 
     const onCommenceStream = async (e) => {

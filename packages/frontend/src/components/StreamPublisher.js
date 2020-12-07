@@ -53,7 +53,7 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
     useEffect(() => {}, [audio, video])
 
     const togglePlayPause = () => {
-        addToast("Pausing stream is not implemented yet", {
+        addToast("Pauza ", {
             appearance: "warning",
         })
     }
