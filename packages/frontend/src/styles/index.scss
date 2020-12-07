@@ -6,6 +6,7 @@
 @import "./news.scss";
 @import "./files.scss";
 @import "./quiz.scss";
+@import "./wave.scss";
 
 body {
     margin: 0;
@@ -16,6 +17,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.navbar{
+
+    z-index: 100;
+}
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;

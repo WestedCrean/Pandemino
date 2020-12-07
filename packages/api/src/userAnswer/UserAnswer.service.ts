@@ -17,6 +17,7 @@ export class UserAnswerService {
         @InjectRepository(Question)
         private questionRepository: Repository<Question>,
 
+
     ) {}
 
     async create(createUserAnswerSchema: any): Promise<UserAnswer> {
@@ -28,12 +29,18 @@ export class UserAnswerService {
         try {
             question = await this.questionRepository.findOne(createUserAnswerSchema.questionId)
             user = await this.userRepository.findOne(createUserAnswerSchema.userId)
+
+            
+
         } catch (e) {
             throw new Error(e)
         }
+        userAnswer.points = createUserAnswerSchema.points
         userAnswer.answer = createUserAnswerSchema.answer
         userAnswer.question = question
         userAnswer.user = user
+
+
 
         await this.userAnswerRepository.save(userAnswer)
         return userAnswer

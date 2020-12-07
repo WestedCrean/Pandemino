@@ -5,6 +5,7 @@ import ApiService from "services/api"
 import { useHistory } from "react-router-dom"
 import { Navbar, AddCourseModal } from "components"
 import FadeLoader from "react-spinners/FadeLoader"
+import PasswordModal from "components/PasswordModal"
 
 const ListCourses = () => {
     const [userId, setUserId] = useState(null)
@@ -13,6 +14,8 @@ const ListCourses = () => {
     const [existedCourseLists, setExistedCourseList] = useState([])
     const [query, setQuery] = useState("")
     const [isWaiting, setIsWaiting] = useState(false)
+
+    const [password, setPassword] = useState(null)
 
     const history = useHistory()
     const { accessToken } = useAuthContext()
@@ -103,10 +106,11 @@ const ListCourses = () => {
         window.location = "/listCourses"
     }
 
-    const joinCourse = async (courseId) => {
+    const joinCourse = async (courseId, password) => {
         const body = {
             userId: userId,
             courseId: courseId,
+            password: password,
         }
         await api
             .addUserCourse(body)
@@ -124,91 +128,79 @@ const ListCourses = () => {
     return (
         <div>
             <Fragment>
-                <div class="wrapper">
+                <div class="wrapper-all-courses">
                     <div class="box grid-courses">
                         <div className="box-label">
                             <div className="box-label-name">
                                 WSZYSTKIE KURSY
                             </div>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th>Nazwa </th>
-                                    <th>Wykładowca</th>
-                                    <th>Stream</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {courses.map((course, i = 0) => (
-                                    <tr key={`${course.id}`}>
-                                        <td>{i + 1}</td>
-                                        <td>{course.name}</td>
-                                        {course.lecturer.firstName ? (
-                                            <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
-                                        ) : (
-                                            <td>{course.lecturer.email}</td>
-                                        )}
-                                        <td>
-                                            <Button
-                                                variant="dark"
-                                                onClick={() =>
-                                                    directToLecture(
-                                                        course.id,
-                                                        course.name,
-                                                        course.description
-                                                    )
-                                                }
-                                            >
-                                                Stream
-                                            </Button>
-                                        </td>
-                                        <td>
-                                            {existedCourseLists.includes(
-                                                course.id
-                                            ) === false ? (
-                                                <Button
-                                                    variant="dark"
-                                                    onClick={() =>
-                                                        joinCourse(course.id)
-                                                    }
-                                                >
-                                                    Dolacz do kursu
-                                                </Button>
-                                            ) : (
-                                                <Button
-                                                    onClick={() =>
-                                                        deleteUserCourses(
-                                                            existedCourseLists.indexOf(
-                                                                course.id
-                                                            )
-                                                        )
-                                                    }
-                                                    variant="danger"
-                                                >
-                                                    Odejdź z kursu
-                                                </Button>
-                                            )}
-                                        </td>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th>Nazwa </th>
+                                        <th>Wykładowca</th>
+                                        <th>Stream</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {courses.map((course, i = 0) => (
+                                        <tr key={`${course.id}`}>
+                                            <td>{i + 1}</td>
+                                            <td>{course.name}</td>
+                                            {course.lecturer.firstName ? (
+                                                <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
+                                            ) : (
+                                                <td>{course.lecturer.email}</td>
+                                            )}
+                                            
+                                            <td>
+                                                {existedCourseLists.includes(
+                                                    course.id
+                                                ) === false ? (
+                                                    <PasswordModal
+                                                        joinCourse={joinCourse}
+                                                        courseId={course.id}
+                                                    >
+                                                        Dolacz do kursu
+                                                    </PasswordModal>
+                                                ) : (
+                                                    <Button
+                                                        onClick={() =>
+                                                            deleteUserCourses(
+                                                                existedCourseLists.indexOf(
+                                                                    course.id
+                                                                )
+                                                            )
+                                                        }
+                                                        variant="danger"
+                                                    >
+                                                        Odejdź z kursu
+                                                    </Button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                         <div className="d-flexs p-2">
-                            <div className="md-form active-pink active-pink-2 mb-3 mt-0">
-                                <input
-                                    className="form-control"
-                                    type="text"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    value={query}
-                                    onChange={(e) => setQuery(e.target.value)}
-                                ></input>
-                            </div>
                             <div className="box-addNewCourse">
                                 <AddCourseModal></AddCourseModal>
                             </div>
+                        </div>
+
+                        <div className="searcher md-form active-pink active-pink-2 align-bottom">
+                            <input
+                                className="form-control"
+                                type="text"
+                                placeholder="Search"
+                                aria-label="Search"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                            ></input>
                         </div>
                     </div>
                 </div>

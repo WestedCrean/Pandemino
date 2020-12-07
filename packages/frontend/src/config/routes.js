@@ -2,6 +2,7 @@ import { HomePage, Login, SignUp, ListLectures, Lecture } from "pages"
 import QuizPage from "../pages/QuizPage"
 import ListCourses from "../pages/ListCourses";
 import UserPanel from "../pages/UserPanel"
+import QuizFinished from "../pages/QuizFinished"
 
 const routes = [
     {
@@ -45,6 +46,11 @@ const routes = [
         component: QuizPage,
         needsAuth: true,
     },
+    {
+        path: "/quizFinished/:id",
+        component: QuizFinished,
+        needAuth: true
+    }
 
 ]
 

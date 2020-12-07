@@ -11,6 +11,9 @@ class Course {
     @Column("text")
     name: string
 
+    @Column()
+    password: string;
+
     @Column({
         type: "text",
         default: "",

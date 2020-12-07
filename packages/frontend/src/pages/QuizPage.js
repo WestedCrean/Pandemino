@@ -40,7 +40,6 @@ const QuizPage = (props) => {
         let list = answersList
         list[i] = mAnswer
         setAnswersList(list)
-        console.log(list)
     }
 
     const setMultiAnswer = (i, mAnswer, checked) => {
@@ -95,20 +94,54 @@ const QuizPage = (props) => {
             const api = ApiService(accessToken)
             for(let i = 0; i < quiz.questions.length; i++){
 
+
+                const variants = quiz.questions[i].variants
+                //console.log(variants)
+                let points = 0
+
+                if(quiz.questions[i].multiple == false){
+                    for(var j = 0; j < variants.length; j++){
+                        if(variants[j].isTrue){
+                            if(variants[j].content === answersList[i]){
+                                points = 1
+                            }
+                        }
+                    }
+                } else {
+                    const correctAnswers = variants.filter(x => x.isTrue).length
+                    const pointsPerQuestion = 1/correctAnswers
+
+                    for(var j = 0; j < variants.length; j++){
+                        if(variants[j].isTrue){
+                            if(answersList[i].includes(variants[j].content)){
+                                points = points + pointsPerQuestion
+                            }
+                        }else{
+                            if(answersList[i].includes(variants[j].content)){
+                                points = points - pointsPerQuestion
+                            }
+                        }
+                        if(points > 0.98 & points < 1.01){
+                            points = 1
+                        }
+                        if(points < 0){
+                            points = 0
+                        }
+                    }
+                }
+    
+
                 const body = {
                     userId : userInfo.id,
-                    questionId : quiz.questions[i].id,
-                    answer : answersList[i]
+                    questionId: quiz.questions[i].id,
+                    answer: answersList[i],
+                    points: points
                 }
-                //console.log(body)
 
                 const response = await api.putUserAnswer(body)
-                console.log(response.data)
-
             }
         }catch(error){console.log(error)}
 
-        //console.log(userInfo)
     }
 
     const getQuiz = async () =>{

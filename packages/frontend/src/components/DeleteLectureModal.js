@@ -6,9 +6,8 @@ import { Fab } from "@material-ui/core"
 import { faMinus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const DeleteCourseModal = (props) => {
-
-    const courseId = props.courseId
+const DeleteLectureModal = (props) => {
+    const lectureId = props.lectureId
 
     const [show, setShow] = useState(false)
 
@@ -19,28 +18,32 @@ const DeleteCourseModal = (props) => {
     const { user } = useAuthContext()
     const userEmail = user.email
 
-    const deleteCourse = async () => {
+    const deleteLectureFunc = async () => {
         const api = ApiService(accessToken)
-        await api
-            .deleteCourse(courseId)
+        await api.deleteLecture(lectureId)
 
-        window.alert("Usunieto kurs")
+        window.alert("Usunieto wykład")
         window.location = "/"
         handleClose()
     }
 
     return (
         <>
-            <Button className="btn btn-danger" onClick={handleShow}>
-                Usun kurs
+            <Button
+                className="deleteCourse ml-3"
+                variant="danger"
+                size="sm"
+                onClick={handleShow}
+            >
+                <FontAwesomeIcon size="sm" icon={faMinus}></FontAwesomeIcon>
             </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Usuwanie kursu</Modal.Title>
+                    <Modal.Title>Usuwanie wykładu</Modal.Title>
                 </Modal.Header>
                 <form className="p-3">
-                    <label>Jestes pewien ze chcsz usunac kurs?</label>
+                    <label>Jestes pewien ze chcsz usunac wykład?</label>
                 </form>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -49,7 +52,7 @@ const DeleteCourseModal = (props) => {
                     <Button
                         type="submit"
                         variant="primary"
-                        onClick={deleteCourse}
+                        onClick={deleteLectureFunc}
                     >
                         Tak
                     </Button>
@@ -59,4 +62,4 @@ const DeleteCourseModal = (props) => {
     )
 }
 
-export default DeleteCourseModal
+export default DeleteLectureModal

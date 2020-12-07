@@ -18,11 +18,18 @@ import {
     faArrowLeft,
     faArrowRight,
     faCog,
+    faMinus,
+    faBomb,
 } from "@fortawesome/free-solid-svg-icons"
 
 import Files from "components/Files"
 import CreateQuiz from "../components/CreateQuiz"
 import GetQuiz from "../components/GetQuiz"
+import DeleteLectureModal from "components/DeleteLectureModal"
+import TeacherPanel from "components/TeacherPanel"
+import MarkPresenceBtn from "components/MarkPresenceBtn"
+import Frequency from "components/Frequency"
+
 const ListLectures = (props) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
@@ -43,6 +50,7 @@ const ListLectures = (props) => {
 
     const [currentLecture, setCurrentLecture] = useState(null)
     const [currentLectureName, setCurrentLectureName] = useState("")
+    const [currentLectureDescription, setCurrentLectureDescription] = useState()
 
     const { accessToken } = useAuthContext()
     const history = useHistory()
@@ -78,12 +86,12 @@ const ListLectures = (props) => {
         })
     }
 
-    const deleteComponent = () => {
+    const deleteLecture = () => {
         if (userEmail === courseOwnerEmail) {
             return (
-                <div className="box-deleteCourse">
-                    <DeleteCourseModal courseId={courseId}></DeleteCourseModal>
-                </div>
+                <DeleteLectureModal
+                    lectureId={currentLecture}
+                ></DeleteLectureModal>
             )
         }
         return null
@@ -91,7 +99,7 @@ const ListLectures = (props) => {
     const addComponent = () => {
         if (userEmail === courseOwnerEmail) {
             return (
-                <div className="box-addNewCourse">
+                <div className="box-addNewLecture">
                     <AddLectureModal courseId={courseId}></AddLectureModal>
                 </div>
             )
@@ -118,6 +126,14 @@ const ListLectures = (props) => {
         }
     }
 
+    const isLecturesEmpty = () => {
+        if (lectures.length == 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     const getStreams = async () => {
         const api = ApiService(accessToken)
 
@@ -127,6 +143,9 @@ const ListLectures = (props) => {
                 setLectures(response.data.lectures)
                 setCurrentLecture(response.data.lectures[0].id)
                 setCurrentLectureName(response.data.lectures[0].name)
+                setCurrentLectureDescription(
+                    response.data.lectures[0].description
+                )
             } else {
                 setLectures([])
                 setCurrentLecture(null)
@@ -140,11 +159,11 @@ const ListLectures = (props) => {
         if (lectures.length == 0) {
             getStreams()
         }
-        console.log(currentLecture)
     }, [currentLecture])
 
     return (
         <div className="">
+            <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
             <div className="main-lectures-wrapper">
                 <nav className={`sidebar ${sidebar}`}>
                     <div className="sidebar-header-main">
@@ -154,7 +173,7 @@ const ListLectures = (props) => {
                     </div>
                     <ul className="list-unstyled components">
                         {currentReqs.map((lecture, i) => (
-                            <div className="wrapper-lectures">
+                            <div key={`${lecture.name}-${lecture.views}-${i}`} className="wrapper-lectures">
                                 <li
                                     key={`${lecture.name}-${lecture.views}-${i}`}
                                     className="box-lectures "
@@ -168,6 +187,7 @@ const ListLectures = (props) => {
                                     <div className="box-label">
                                         <div className="box-label-name">
                                             {lecture.name}
+                                            {deleteLecture()}
                                         </div>
                                     </div>
                                 </li>
@@ -179,10 +199,7 @@ const ListLectures = (props) => {
                                             paginate={paginate}>
 
                                             </Pagination> */}
-                    <div className="nav-buttons">
-                        {addComponent()}
-                        {deleteComponent()}
-                    </div>
+                    <div className="nav-buttons">{addComponent()}</div>
                 </nav>
 
                 <div className="bookmarks-wrapper">
@@ -208,47 +225,83 @@ const ListLectures = (props) => {
                     <h2 className="d-flex justify-content-center">
                         {currentLectureName}
                     </h2>
-                    <Tabs
-                        id="controlled-tab-example"
-                        activeKey={tabKey}
-                        className="tabsCourses"
-                        onSelect={(k) => setTabKey(k)}
-                    >
-                        <Tab eventKey="live" title="Live">
-                            Witaj w kursie nr {currentLecture}
-                        </Tab>
-                        <Tab eventKey="saved " title="Zapisane Wideo">
-                            It is a long established fact that a reader will be
-                            distracted by the readable content of a page when
-                            looking at its layout. The point of using Lorem
-                            Ipsum is that it has a more-or-less normal
-                            distribution of letters, as opposed to using
-                            'Content here, content here', making it look like
-                            readable English. Many desktop publishing packages
-                            and web page editors now use Lorem Ipsum as their
-                            default model text, and a search for 'lorem ipsum'
-                            will uncover many web sites still in their infancy.
-                            Various versions have evolved over the years,
-                            sometimes by accident, sometimes on purpose
-                            (injected humour and the like).
-                        </Tab>
-                        <Tab eventKey="materials" title="Materiały">
-                            <Files lectureId={currentLecture}></Files>
-                        </Tab>
-                        <Tab eventKey="quizes" title="Quiz">
-                            <GetQuiz lectureId={currentLecture}></GetQuiz>
-                        </Tab>
-                        <Tab eventKey="course-description" title="Opis Kursu">
-                            {courseDescription}
-                        </Tab>
-                        <Tab
-                            eventKey="create-quiz"
-                            title="Utwórz quiz"
-                            disabled={tabCreateQuiz()}
+                    {isLecturesEmpty() ? (
+                        <div>
+                            <div className="mt-3 d-flex justify-content-center">
+                                <FontAwesomeIcon
+                                    size="7x"
+                                    icon={faBomb}
+                                ></FontAwesomeIcon>
+                            </div>
+                            <h3 className=" d-flex justify-content-center">
+                                Brak wykładów na stronie!
+                            </h3>
+                            <h5 className=" mt-5 d-flex justify-content-center">
+                                Aby skorzystać z funkcjonalności strony,
+                                naciśnij strzałkę w lewym górnym rogu ekranu,
+                                kolejnie dodaj pierwszy wykład!
+                            </h5>
+                        </div>
+                    ) : (
+                        <Tabs
+                            id="controlled-tab-example"
+                            activeKey={tabKey}
+                            className="tabsCourses"
+                            onSelect={(k) => setTabKey(k)}
                         >
-                            <CreateQuiz lectureId={currentLecture}></CreateQuiz>
-                        </Tab>
-                    </Tabs>
+                            <Tab
+                                eventKey="course-description"
+                                title="Opis Kursu"
+                            >
+                                <div className="container-md course-desc mt-2">
+                                    <h5 className="mt-2">Opis Kursu</h5>
+                                    <div className="mt-2">
+                                        {courseDescription}
+                                    </div>
+                                </div>
+                                <div className="container-md course-desc mt-2">
+                                    <h5 className="mt-2">Opis Wykładu</h5>
+                                    <div className="mt-2">
+                                        {currentLectureDescription}
+                                    </div>
+                                </div>
+                            </Tab>
+                            <Tab eventKey="materials" title="Materiały">
+                                <Files lectureId={currentLecture}></Files>
+                            </Tab>
+                            <Tab eventKey="quizes" title="Quiz">
+                                <GetQuiz lectureId={currentLecture}></GetQuiz>
+                            </Tab>
+                            <Tab
+                                eventKey="create-quiz"
+                                title="Utwórz quiz"
+                                disabled={tabCreateQuiz()}
+                            >
+                                <CreateQuiz
+                                    lectureId={currentLecture}
+                                ></CreateQuiz>
+                            </Tab>
+                            <Tab
+                                eventKey="teacher-panel"
+                                title="Panel nauczyciela"
+                                disabled={tabCreateQuiz()}
+                            >
+                                <TeacherPanel
+                                    currentLecture={currentLecture}
+                                    courseOwnerEmail={courseOwnerEmail}
+                                ></TeacherPanel>
+                            </Tab>
+                            <Tab
+                                eventKey="frequency-panel"
+                                title="Lista obecności"
+                                disabled={tabCreateQuiz()}
+                            >
+                                <Frequency courseId={courseId}
+
+                                ></Frequency>
+                            </Tab>
+                        </Tabs>
+                    )}
                 </div>
                 <div class="overlay"></div>
             </div>

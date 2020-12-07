@@ -6,7 +6,9 @@ const ApiRoutes = (ApiService) => {
 
     const createStream = async (data) => ApiService.post("/lectures", data)
 
-    const getLectures = async () => ApiService.get('/lectures/')
+    const getLectures = async () => ApiService.get("/lectures/")
+
+    const deleteLecture = async (id) => ApiService.delete(`/lectures/${id}`)
 
     //KURSY
     const getAvailableCourses = async (data = "") =>
@@ -26,16 +28,27 @@ const ApiRoutes = (ApiService) => {
     const deleteUserCourse = async (id) =>
         ApiService.delete(`/userCourses/${id}`)
 
+    const getUsersCourses = async (id) => ApiService.get(`/users/${id}`)
+
+    const getAllUsersCourses = async () => ApiService.get("/userCourses")
+
     //USERZY
     const putUserData = async (id, data) => ApiService.put(`/users/${id}`, data)
-
-    const getUsersCourses = async (id) => ApiService.get(`/users/${id}`)
 
     const getUsers = async () => ApiService.get(`/users`)
 
     const getUserByEmail = async (email) =>
         ApiService.get(`/users/single/${email}`)
 
+    ///lectureFrequency USER <---> LECTURES
+
+    const getLectureFrequency = async () => ApiService.get("/lectureFrequency/")
+
+    const getLectureFrequencyByCourseId = async (id) => ApiService.get(`/lectureFrequency/${id}`)
+
+    const findLectureFrequencyByUserLecture = async (userId, lectureId) => ApiService.get(`/lectureFrequency/${userId}/${lectureId}`)
+
+    const postLectureFrequency = async (data) => ApiService.post("lectureFrequency", data)
 
     //PLIKI
     const addFile = async (data) => ApiService.post("/file", data)
@@ -58,19 +71,20 @@ const ApiRoutes = (ApiService) => {
 
     const getQuestionById = async (id) => ApiService.get(`questions/${id}`)
 
-    const addQuestion = async (data) => ApiService.post("questions",data)
-    
+    const addQuestion = async (data) => ApiService.post("questions", data)
+
     const removeQuestion = async (id) => ApiService.delete(`questions/${id}`)
 
     const getVariants = async () => ApiService.get("variants")
-    
-    const addVariant = async (data) => ApiService.post("variants",data)
+
+    const addVariant = async (data) => ApiService.post("variants", data)
 
     //USERANSWER - connecton between user <--> answer <--> quiz
 
     const putUserAnswer = async (data) => ApiService.post("userAnswer", data)
 
-    const getUserUserAnswers = async (id, quizId) => ApiService.get(`users/${id}/${quizId}`)
+    const getUserUserAnswers = async (id, quizId) =>
+        ApiService.get(`users/${id}/${quizId}`)
 
     return {
         getAvailableStreams,
@@ -102,7 +116,16 @@ const ApiRoutes = (ApiService) => {
         addVariant,
         removeQuestion,
         putUserAnswer,
-        getUserUserAnswers
+        getUserUserAnswers,
+        deleteLecture,
+
+        getAllUsersCourses,
+
+        getLectureFrequency,
+        findLectureFrequencyByUserLecture,
+        postLectureFrequency,
+        getLectureFrequencyByCourseId
+
     }
 }
 

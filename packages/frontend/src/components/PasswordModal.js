@@ -3,55 +3,51 @@ import { Modal, Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { Fab } from "@material-ui/core"
-import { faMinus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const DeleteCourseModal = (props) => {
-
-    const courseId = props.courseId
+const PasswordModal = (props) => {
+    const [password, setPassword] = useState(null)
 
     const [show, setShow] = useState(false)
 
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-    const { accessToken } = useAuthContext()
-    const { user } = useAuthContext()
-    const userEmail = user.email
 
-    const deleteCourse = async () => {
-        const api = ApiService(accessToken)
-        await api
-            .deleteCourse(courseId)
-
-        window.alert("Usunieto kurs")
-        window.location = "/"
-        handleClose()
-    }
 
     return (
         <>
-            <Button className="btn btn-danger" onClick={handleShow}>
-                Usun kurs
+            <Button variant="dark" onClick={handleShow}>
+                Dolacz do kursu
             </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Usuwanie kursu</Modal.Title>
+                    <Modal.Title>Podaj haslo</Modal.Title>
                 </Modal.Header>
-                <form className="p-3">
-                    <label>Jestes pewien ze chcsz usunac kurs?</label>
+                <Modal.Body>Hasło</Modal.Body>
+                <form>
+                    <input
+                        type="password"
+                        className="form-control form-input"
+                        id="name"
+                        placeholder="Podaj haslo"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    
                 </form>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Nie
+                        Anuluj
                     </Button>
                     <Button
                         type="submit"
                         variant="primary"
-                        onClick={deleteCourse}
+                        onClick={() => {props.joinCourse(props.courseId, password)}}
                     >
-                        Tak
+                        Dodaj
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -59,4 +55,4 @@ const DeleteCourseModal = (props) => {
     )
 }
 
-export default DeleteCourseModal
+export default PasswordModal
