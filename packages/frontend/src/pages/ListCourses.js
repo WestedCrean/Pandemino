@@ -106,13 +106,11 @@ const ListCourses = () => {
         window.location = "/listCourses"
     }
 
-
-
     const joinCourse = async (courseId, password) => {
         const body = {
             userId: userId,
             courseId: courseId,
-            password: password
+            password: password,
         }
         await api
             .addUserCourse(body)
@@ -137,80 +135,86 @@ const ListCourses = () => {
                                 WSZYSTKIE KURSY
                             </div>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th>Nazwa </th>
-                                    <th>Wykładowca</th>
-                                    <th>Stream</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {courses.map((course, i = 0) => (
-                                    <tr key={`${course.id}`}>
-                                        <td>{i + 1}</td>
-                                        <td>{course.name}</td>
-                                        {course.lecturer.firstName ? (
-                                            <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
-                                        ) : (
-                                            <td>{course.lecturer.email}</td>
-                                        )}
-                                        <td>
-                                            <Button
-                                                variant="dark"
-                                                onClick={() =>
-                                                    directToLecture(
-                                                        course.id,
-                                                        course.name,
-                                                        course.description
-                                                    )
-                                                }
-                                            >
-                                                Stream
-                                            </Button>
-                                        </td>
-                                        <td>
-                                            {existedCourseLists.includes(
-                                                course.id
-                                            ) === false ? (
-                                                        <PasswordModal joinCourse={joinCourse} courseId={course.id}>Dolacz do kursu</PasswordModal>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th>Nazwa </th>
+                                        <th>Wykładowca</th>
+                                        <th>Stream</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {courses.map((course, i = 0) => (
+                                        <tr key={`${course.id}`}>
+                                            <td>{i + 1}</td>
+                                            <td>{course.name}</td>
+                                            {course.lecturer.firstName ? (
+                                                <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
                                             ) : (
+                                                <td>{course.lecturer.email}</td>
+                                            )}
+                                            <td>
                                                 <Button
+                                                    variant="dark"
                                                     onClick={() =>
-                                                        deleteUserCourses(
-                                                            existedCourseLists.indexOf(
-                                                                course.id
-                                                            )
+                                                        directToLecture(
+                                                            course.id,
+                                                            course.name,
+                                                            course.description
                                                         )
                                                     }
-                                                    variant="danger"
                                                 >
-                                                    Odejdź z kursu
+                                                    Stream
                                                 </Button>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                            </td>
+                                            <td>
+                                                {existedCourseLists.includes(
+                                                    course.id
+                                                ) === false ? (
+                                                    <PasswordModal
+                                                        joinCourse={joinCourse}
+                                                        courseId={course.id}
+                                                    >
+                                                        Dolacz do kursu
+                                                    </PasswordModal>
+                                                ) : (
+                                                    <Button
+                                                        onClick={() =>
+                                                            deleteUserCourses(
+                                                                existedCourseLists.indexOf(
+                                                                    course.id
+                                                                )
+                                                            )
+                                                        }
+                                                        variant="danger"
+                                                    >
+                                                        Odejdź z kursu
+                                                    </Button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                         <div className="d-flexs p-2">
-                            
                             <div className="box-addNewCourse">
                                 <AddCourseModal></AddCourseModal>
                             </div>
                         </div>
 
                         <div className="searcher md-form active-pink active-pink-2 align-bottom">
-                                <input
-                                    className="form-control"
-                                    type="text"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    value={query}
-                                    onChange={(e) => setQuery(e.target.value)}
-                                ></input>
-                            </div>
+                            <input
+                                className="form-control"
+                                type="text"
+                                placeholder="Search"
+                                aria-label="Search"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                            ></input>
+                        </div>
                     </div>
                 </div>
             </Fragment>
