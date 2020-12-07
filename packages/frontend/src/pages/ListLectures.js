@@ -29,6 +29,7 @@ import DeleteLectureModal from "components/DeleteLectureModal"
 import TeacherPanel from "components/TeacherPanel"
 import MarkPresenceBtn from "components/MarkPresenceBtn"
 import Frequency from "components/Frequency"
+import FancyWave from "components/FancyWave"
 
 const ListLectures = (props) => {
     //styles
@@ -162,149 +163,155 @@ const ListLectures = (props) => {
     }, [currentLecture])
 
     return (
-        <div className="">
-            <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
-            <div className="main-lectures-wrapper">
-                <nav className={`sidebar ${sidebar}`}>
-                    <div className="sidebar-header-main">
-                        <div className="sidebar-header">
-                            <h3>Lista wykładów</h3>
-                        </div>
-                    </div>
-                    <ul className="list-unstyled components">
-                        {currentReqs.map((lecture, i) => (
-                            <div key={`${lecture.name}-${lecture.views}-${i}`} className="wrapper-lectures">
-                                <li
-                                    key={`${lecture.name}-${lecture.views}-${i}`}
-                                    className="box-lectures "
-                                    // onClick={() => moveToLecturePage(lecture.id)}
-                                    onClick={() => {
-                                        setCurrentLecture(lecture.id)
-                                        setCurrentLectureName(lecture.name)
-                                        showSideBar()
-                                    }}
-                                >
-                                    <div className="box-label">
-                                        <div className="box-label-name">
-                                            {lecture.name}
-                                            {deleteLecture()}
-                                        </div>
-                                    </div>
-                                </li>
+        <div>
+            <div className="list-lecture-container-2">
+                <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
+                <div className="main-lectures-wrapper">
+                    <nav className={`sidebar ${sidebar}`}>
+                        <div className="sidebar-header-main">
+                            <div className="sidebar-header">
+                                <h3>Lista wykładów</h3>
                             </div>
-                        ))}
-                    </ul>
-                    {/* <Pagination postsPerPage={postsPerPage} 
+                        </div>
+                        <ul className="list-unstyled components">
+                            {currentReqs.map((lecture, i) => (
+                                <div
+                                    key={`${lecture.name}-${lecture.views}-${i}`}
+                                    className="wrapper-lectures"
+                                >
+                                    <li
+                                        key={`${lecture.name}-${lecture.views}-${i}`}
+                                        className="box-lectures "
+                                        // onClick={() => moveToLecturePage(lecture.id)}
+                                        onClick={() => {
+                                            setCurrentLecture(lecture.id)
+                                            setCurrentLectureName(lecture.name)
+                                            showSideBar()
+                                        }}
+                                    >
+                                        <div className="box-label">
+                                            <div className="box-label-name">
+                                                {lecture.name}
+                                                {deleteLecture()}
+                                            </div>
+                                        </div>
+                                    </li>
+                                </div>
+                            ))}
+                        </ul>
+                        {/* <Pagination postsPerPage={postsPerPage} 
                                             totalPosts={lectures.length} 
                                             paginate={paginate}>
 
                                             </Pagination> */}
-                    <div className="nav-buttons">{addComponent()}</div>
-                </nav>
+                        <div className="nav-buttons">{addComponent()}</div>
+                    </nav>
 
-                <div className="bookmarks-wrapper">
-                    {sidebar == "sidebar" ? (
-                        <FontAwesomeIcon
-                            className="show-sidebar-button"
-                            onClick={() => showSideBar()}
-                            size="2x"
-                            icon={faArrowRight}
-                        ></FontAwesomeIcon>
-                    ) : (
-                        <FontAwesomeIcon
-                            className="show-sidebar-button"
-                            onClick={() => showSideBar()}
-                            size="2x"
-                            icon={faArrowLeft}
-                        ></FontAwesomeIcon>
-                    )}
-                    <h1 className="d-flex justify-content-center">
-                        {courseName}
-                        {editComponent()}
-                    </h1>
-                    <h2 className="d-flex justify-content-center">
-                        {currentLectureName}
-                    </h2>
-                    {isLecturesEmpty() ? (
-                        <div>
-                            <div className="mt-3 d-flex justify-content-center">
-                                <FontAwesomeIcon
-                                    size="7x"
-                                    icon={faBomb}
-                                ></FontAwesomeIcon>
+                    <div className="bookmarks-wrapper">
+                        {sidebar == "sidebar" ? (
+                            <FontAwesomeIcon
+                                className="show-sidebar-button"
+                                onClick={() => showSideBar()}
+                                size="2x"
+                                icon={faArrowRight}
+                            ></FontAwesomeIcon>
+                        ) : (
+                            <FontAwesomeIcon
+                                className="show-sidebar-button"
+                                onClick={() => showSideBar()}
+                                size="2x"
+                                icon={faArrowLeft}
+                            ></FontAwesomeIcon>
+                        )}
+                        <h1 className="d-flex justify-content-center">
+                            {courseName}
+                            {editComponent()}
+                        </h1>
+                        <h2 className="d-flex justify-content-center">
+                            {currentLectureName}
+                        </h2>
+                        {isLecturesEmpty() ? (
+                            <div>
+                                <div className="mt-3 d-flex justify-content-center">
+                                    <FontAwesomeIcon
+                                        size="7x"
+                                        icon={faBomb}
+                                    ></FontAwesomeIcon>
+                                </div>
+                                <h3 className=" d-flex justify-content-center">
+                                    Brak wykładów na stronie!
+                                </h3>
+                                <h5 className=" mt-5 d-flex justify-content-center">
+                                    Aby skorzystać z funkcjonalności strony,
+                                    naciśnij strzałkę w lewym górnym rogu
+                                    ekranu, kolejnie dodaj pierwszy wykład!
+                                </h5>
                             </div>
-                            <h3 className=" d-flex justify-content-center">
-                                Brak wykładów na stronie!
-                            </h3>
-                            <h5 className=" mt-5 d-flex justify-content-center">
-                                Aby skorzystać z funkcjonalności strony,
-                                naciśnij strzałkę w lewym górnym rogu ekranu,
-                                kolejnie dodaj pierwszy wykład!
-                            </h5>
-                        </div>
-                    ) : (
-                        <Tabs
-                            id="controlled-tab-example"
-                            activeKey={tabKey}
-                            className="tabsCourses"
-                            onSelect={(k) => setTabKey(k)}
-                        >
-                            <Tab
-                                eventKey="course-description"
-                                title="Opis Kursu"
+                        ) : (
+                            <Tabs
+                                id="controlled-tab-example"
+                                activeKey={tabKey}
+                                className="tabsCourses"
+                                onSelect={(k) => setTabKey(k)}
                             >
-                                <div className="container-md course-desc mt-2">
-                                    <h5 className="mt-2">Opis Kursu</h5>
-                                    <div className="mt-2">
-                                        {courseDescription}
+                                <Tab
+                                    eventKey="course-description"
+                                    title="Opis Kursu"
+                                >
+                                    <div className="container-md course-desc mt-2">
+                                        <h5 className="mt-2">Opis Kursu</h5>
+                                        <div className="mt-2">
+                                            {courseDescription}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="container-md course-desc mt-2">
-                                    <h5 className="mt-2">Opis Wykładu</h5>
-                                    <div className="mt-2">
-                                        {currentLectureDescription}
+                                    <div className="container-md course-desc mt-2">
+                                        <h5 className="mt-2">Opis Wykładu</h5>
+                                        <div className="mt-2">
+                                            {currentLectureDescription}
+                                        </div>
                                     </div>
-                                </div>
-                            </Tab>
-                            <Tab eventKey="materials" title="Materiały">
-                                <Files lectureId={currentLecture}></Files>
-                            </Tab>
-                            <Tab eventKey="quizes" title="Quiz">
-                                <GetQuiz lectureId={currentLecture}></GetQuiz>
-                            </Tab>
-                            <Tab
-                                eventKey="create-quiz"
-                                title="Utwórz quiz"
-                                disabled={tabCreateQuiz()}
-                            >
-                                <CreateQuiz
-                                    lectureId={currentLecture}
-                                ></CreateQuiz>
-                            </Tab>
-                            <Tab
-                                eventKey="teacher-panel"
-                                title="Panel nauczyciela"
-                                disabled={tabCreateQuiz()}
-                            >
-                                <TeacherPanel
-                                    currentLecture={currentLecture}
-                                    courseOwnerEmail={courseOwnerEmail}
-                                ></TeacherPanel>
-                            </Tab>
-                            <Tab
-                                eventKey="frequency-panel"
-                                title="Lista obecności"
-                                disabled={tabCreateQuiz()}
-                            >
-                                <Frequency courseId={courseId}
-
-                                ></Frequency>
-                            </Tab>
-                        </Tabs>
-                    )}
+                                </Tab>
+                                <Tab eventKey="materials" title="Materiały">
+                                    <Files lectureId={currentLecture}></Files>
+                                </Tab>
+                                <Tab eventKey="quizes" title="Quiz">
+                                    <GetQuiz
+                                        lectureId={currentLecture}
+                                    ></GetQuiz>
+                                </Tab>
+                                <Tab
+                                    eventKey="create-quiz"
+                                    title="Utwórz quiz"
+                                    disabled={tabCreateQuiz()}
+                                >
+                                    <CreateQuiz
+                                        lectureId={currentLecture}
+                                    ></CreateQuiz>
+                                </Tab>
+                                <Tab
+                                    eventKey="teacher-panel"
+                                    title="Panel nauczyciela"
+                                    disabled={tabCreateQuiz()}
+                                >
+                                    <TeacherPanel
+                                        currentLecture={currentLecture}
+                                        courseOwnerEmail={courseOwnerEmail}
+                                    ></TeacherPanel>
+                                </Tab>
+                                <Tab
+                                    eventKey="frequency-panel"
+                                    title="Lista obecności"
+                                    disabled={tabCreateQuiz()}
+                                >
+                                    <Frequency courseId={courseId}></Frequency>
+                                </Tab>
+                            </Tabs>
+                        )}
+                    </div>
+                    <div class="overlay"></div>
                 </div>
-                <div class="overlay"></div>
             </div>
+            <FancyWave />
         </div>
     )
 }
