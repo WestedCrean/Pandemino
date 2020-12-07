@@ -37,46 +37,72 @@ const AddClosedQuestionModal = (props) => {
     const handleCloseSecondStep = () => setShowSecondStep(false)
 
     const addNewQuestion = async () => {
-        console.log(multiple)
-        const api = ApiService(accessToken)
-        const body = {
-            quizId: quizId,
-            multiple: multiple,
-            content: question,
-            isOpen: false,
-        }
-        console.log(body)
 
-        try {
-            let response = await api.addQuestion(body)
-            addVariants(response.data.id)
-            props.handleChangeInQuiz()
-            handleCloseSecondStep()
-            setMultiple(false)
-        } catch (error) {
-            console.error({ error })
-        }
-    }
+        if(validateStepTwo()){
 
-    const addVariants = async (id) => {
-        const api = ApiService(accessToken)
-        console.log(id)
-        for (let index = 0; index < anwserList.length; index++) {
+            console.log(multiple)
+            const api = ApiService(accessToken)
             const body = {
-                closedQuestionId: id,
-                isTrue: checkInputs[index],
-                content: anwserList[index],
+                quizId: quizId,
+                multiple: multiple,
+                content: question,
+                isOpen: false,
             }
-
             console.log(body)
 
             try {
-                let response = await api.addVariant(body)
-                console.log(response)
+                let response = await api.addQuestion(body)
+                addVariants(response.data.id)
+                props.handleChangeInQuiz()
+                handleCloseSecondStep()
+                setMultiple(false)
             } catch (error) {
                 console.error({ error })
             }
         }
+    }
+
+    const addVariants = async (id) => {
+
+
+            const api = ApiService(accessToken)
+            console.log(id)
+            for (let index = 0; index < anwserList.length; index++) {
+                const body = {
+                    closedQuestionId: id,
+                    isTrue: checkInputs[index],
+                    content: anwserList[index],
+                }
+    
+                console.log(body)
+    
+                try {
+                    let response = await api.addVariant(body)
+                    console.log(response)
+                } catch (error) {
+                    console.error({ error })
+                }
+            }
+        //handleCloseSecondStep()
+    }
+
+    
+    const validateStepTwo = () => {
+
+        for(let i = 0; i < anwserList.length; i++){
+            console.log(anwserList[i])
+            if(anwserList[i] === "" | anwserList[i] === "0"){
+                window.alert(`Podaj treść odpowiedzi ${i}`)
+                return false;
+
+            }
+        }
+        if(!checkInputs.includes(true)){
+            window.alert("Przynajmniej jedna odpowiedź musi być prawidłowa")
+            return false;
+        }
+
+        return true
     }
 
     const moveToStepTwo = () => {
@@ -110,7 +136,7 @@ const AddClosedQuestionModal = (props) => {
         list[i] = e
         setAnswerList(list)
 
-        console.log(anwserList)
+        //console.log(anwserList)
     }
 
     const handleMultipleFormChecks = (e, i) => {
@@ -118,7 +144,7 @@ const AddClosedQuestionModal = (props) => {
         list[i] = e
         setCheckInputs(checkInputs)
 
-        console.log(checkInputs)
+        //console.log(checkInputs)
     }
 
     const handleMultipleFormRadio = (e, i) => {
@@ -129,7 +155,7 @@ const AddClosedQuestionModal = (props) => {
         list[i] = e
         setCheckInputs(checkInputs)
 
-        console.log(checkInputs)
+        //console.log(checkInputs)
     }
 
     useEffect(() => {}, [showSecondStep])

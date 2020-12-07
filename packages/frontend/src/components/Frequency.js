@@ -48,7 +48,6 @@ const Frequency = (props) => {
 
         let flag = false
         frequency.map(element => {
-            console.log(element)
             if(element.lectureId === lectureId & element.userId === userId){
                 
                 flag = true
