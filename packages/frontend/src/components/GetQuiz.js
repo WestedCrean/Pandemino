@@ -25,12 +25,11 @@ const GetQuiz = (props) => {
     }
 
     const moveToQuizFinished = async (id) => {
-
         history.push({
             pathname: `/quizFinished/${id}`,
             state: {
                 quizId: id,
-                userId: userInfo.id
+                userId: userInfo.id,
             },
         })
     }
@@ -42,7 +41,6 @@ const GetQuiz = (props) => {
                 const response = await api.getStreamById(props.lectureId)
                 setQuizes(response.data.quiz)
             } catch (error) {
-
                 console.log(error)
             }
         }
@@ -64,18 +62,14 @@ const GetQuiz = (props) => {
             }
         }
         setFinishedQuizes(list)
-
     }
 
     const handleDisable = (mStartDate, mEndDate) => {
-
         const startDate = new Date(mStartDate).getTime()
         const endDate = new Date(mEndDate).getTime()
         const currentDate = Date.now() + 3600000
 
-
-        return (startDate < currentDate) & (currentDate < endDate) 
-
+        return (startDate < currentDate) & (currentDate < endDate)
     }
 
     const formatDate = (string) => {
@@ -101,7 +95,7 @@ const GetQuiz = (props) => {
             <div className="card border-dark">
                 <div className="card-body text-dark">
                     <h5 className="card-title">Pliki {props.lectureId}</h5>
-                    <div>
+                    <div className="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -124,12 +118,25 @@ const GetQuiz = (props) => {
                                         <td>{formatDate(quiz.endDate)}</td>
                                         <td>
                                             {finishedQuizes[i] === true ? (
-                                                <Button variant="danger" onClick={() =>
-                                                    moveToQuizFinished(quiz.id)
-                                                }>Quiz ukończony</Button>
+                                                <Button
+                                                    variant="danger"
+                                                    onClick={() =>
+                                                        moveToQuizFinished(
+                                                            quiz.id
+                                                        )
+                                                    }
+                                                >
+                                                    Quiz ukończony
+                                                </Button>
                                             ) : (
-                                                <Button variant="danger"
-                                                    disabled={!handleDisable(quiz.startDate, quiz.endDate)}
+                                                <Button
+                                                    variant="danger"
+                                                    disabled={
+                                                        !handleDisable(
+                                                            quiz.startDate,
+                                                            quiz.endDate
+                                                        )
+                                                    }
                                                     onClick={() =>
                                                         moveToQuizPage(quiz.id)
                                                     }
