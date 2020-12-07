@@ -4,7 +4,7 @@ import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { Modal, Button, Card } from "react-bootstrap"
 import { useUserInfo } from "hooks"
-
+import FancyWave from "components/FancyWave"
 
 const QuizPage = (props) => {
     
@@ -189,13 +189,14 @@ const QuizPage = (props) => {
 
     return (
         <div>
-            <div class="row justify-content-center mt-5 mb-2">
-                <h2>Pozostały czas</h2>
+            <FancyWave></FancyWave>
+            <div class="row justify-content-center mt-5 mb-2 ">
+                <h2 >Pozostały czas</h2>
             </div>
-            <div class="row justify-content-center border rounded-pill" id="countdown">{formatedCounter}</div>
+            <div class="row justify-content-center border rounded-pill time-remains" id="countdown">{formatedCounter}</div>
 
             
-            <div className="card border  m-4">
+            <div className="card border m-4 quiz-form-container">
                 <div className="card-body text-dark">
                     <h5 className="card-title">Quiz</h5>
                     <div className="quiz-content">

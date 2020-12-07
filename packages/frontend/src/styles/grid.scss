@@ -147,16 +147,19 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-.show-sidebar-button {
+
+
+.hamburger-arrow{
+    color: white;
     position: absolute;
-    top: 30px;
-    left: 160px;
     transition: all 0.3s;
     z-index: 1000;
+    left: 15px;
+    top: 9px;
 }
 
 .show-sidebar-button:hover {
-    color: white;
+    color: pink;
 }
 
 .main-lectures-wrapper {
@@ -170,8 +173,6 @@
     padding-right: 0px;
     height: 92.6vh;
     z-index: 999;
-    background: #8282be;
-    color: #fff;
     transition: all 0.3s;
     overflow-y: hidden;
 }
@@ -207,9 +208,7 @@ div:hover {
     margin-left: 30px;
 }
 
-.left-arrow-icon:hover {
-    color: black;
-}
+
 
 .sidebar ul li div {
     padding: 4px;
@@ -304,4 +303,24 @@ div:hover {
 
 .list-lecture-container-2 {
     z-index: 1001;
+}
+
+.presence-btn{
+
+    position: absolute;
+    right: 50px;
+    top: 100px;
+}
+
+
+.lectures-main-wrapper{
+    // background-color: white;
+    margin: 80px;
+    width: 90vw;
+    min-height: 500px;
+}
+
+.booksmarks-wrapper{
+    min-height: 500px;
+    padding: 30px;
 }
