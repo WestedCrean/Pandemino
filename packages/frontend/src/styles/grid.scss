@@ -55,7 +55,7 @@
     grid-row: 3/4;
     grid-column: 1/2;
 }
-.main-wrapper{
+.main-wrapper {
     overflow-y: hidden;
 }
 
@@ -66,17 +66,15 @@
     color: #444;
     padding: 70px 90px 120px 90px;
     margin-bottom: 0px;
-    
 }
 
-.wrapper-all-courses{
+.wrapper-all-courses {
     display: grid;
     grid-gap: 3px;
     min-height: 93vh;
     color: #444;
     padding: 70px 90px 120px 90px;
     margin-bottom: 0px;
-    
 }
 .tabElement {
     padding: 50px;
@@ -97,55 +95,48 @@
     @include box-name($hei, $pos);
 }
 
-
-@media (max-width: 1200px){
-
-    .wrapper{
+@media (max-width: 1200px) {
+    .wrapper {
         display: inline-flex;
         flex-direction: column;
     }
 
-    .wrapper > .grid-courses{
+    .wrapper > .grid-courses {
         width: 80vw;
         justify-content: center;
-
     }
 
-    .wrapper > .grid-news{
+    .wrapper > .grid-news {
         width: 80vw;
     }
 }
 
-@media (max-width: 767px){
-
-    .wrapper{
+@media (max-width: 767px) {
+    .wrapper {
         display: inline-flex;
         flex-direction: column;
     }
 
-    .grid-courses{
+    .grid-courses {
         width: 70vw;
     }
 
-    .grid-news{
+    .grid-news {
         width: 70vw;
     }
 }
 
-@media (max-width: 600px){
-
-    .wrapper{
+@media (max-width: 600px) {
+    .wrapper {
         display: inline-flex;
         flex-direction: column;
     }
 
-    .grid-courses{
+    .grid-courses {
         width: 60vw;
     }
 
-
-
-    .grid-news{
+    .grid-news {
         width: 60vw;
     }
 }
@@ -161,6 +152,7 @@
     top: 30px;
     left: 160px;
     transition: all 0.3s;
+    z-index: 1000;
 }
 
 .show-sidebar-button:hover {
@@ -178,7 +170,7 @@
     padding-right: 0px;
     height: 92.6vh;
     z-index: 999;
-    background: #7386d5;
+    background: #8282be;
     color: #fff;
     transition: all 0.3s;
     overflow-y: hidden;
@@ -308,4 +300,8 @@ div:hover {
 
 .nothing-to-display {
     width: 100%;
+}
+
+.list-lecture-container-2 {
+    z-index: 1001;
 }
