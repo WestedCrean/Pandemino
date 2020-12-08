@@ -1,13 +1,17 @@
 import React, { useCallback } from "react"
 import { withRouter, Redirect } from "react-router"
 import { authMethods } from "services/auth"
-import { useAuthContext } from 'services/auth'
+import { useAuthContext } from "services/auth"
 
-const Login = ({ history, location, }) => {
+const Login = ({ history, location }) => {
     const { accessToken } = useAuthContext()
     let referrer
     try {
-        const { state: { referrer: { pathname } } } = location
+        const {
+            state: {
+                referrer: { pathname },
+            },
+        } = location
         referrer = pathname || "/"
     } catch (e) {
         referrer = "/"
@@ -74,7 +78,7 @@ const Login = ({ history, location, }) => {
                                     <input
                                         type="submit"
                                         name="submit"
-                                        className="btn btn-info btn-md"
+                                        className="btn btn-info btn-md cy-submit"
                                         value="submit"
                                     />
                                 </div>
