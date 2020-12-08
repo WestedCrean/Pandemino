@@ -46,6 +46,11 @@
     background-position: 0 bottom;
     transform-origin: center bottom;
 }
+
+.wave-main-wrapper{
+
+    z-index: -1000;
+}
 .waveTop {
     background-size: 50% 100px;
     background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png');

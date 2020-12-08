@@ -242,13 +242,12 @@ const CreateQuiz = (props) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <div>
-                <h3 className="d-flex justify-content-center">
-                    Utwórz nowy quiz
+            <div className="create-quiz-wrapper">
+                <div className="float-right mr-3">
                     <Button variant="light" onClick={handleShow}>
                         <FontAwesomeIcon icon={faPlus} size="lg" />
                     </Button>
-                </h3>
+                </div>
 
                 {quizes.map((quiz, i) => (
                     <div className="quiz-main-container">

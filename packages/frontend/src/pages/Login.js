@@ -1,7 +1,10 @@
 import React, { useCallback } from "react"
 import { withRouter, Redirect } from "react-router"
 import { authMethods } from "services/auth"
-import { useAuthContext } from "services/auth"
+
+import { useAuthContext } from 'services/auth'
+import FancyWave from "components/FancyWave"
+
 
 const Login = ({ history, location }) => {
     const { accessToken } = useAuthContext()
@@ -28,10 +31,12 @@ const Login = ({ history, location }) => {
         history.push(referrer)
     }
 
+    ///FIXME
     return (
-        <div id="login">
+        <div id="login" className="login-container">
+            <FancyWave></FancyWave> 
             <h3 className="text-center text-black pt-5">Pandemino</h3>
-            <div className="container">
+            <div className="">
                 <div
                     id="login-row"
                     className="row justify-content-center align-items-center"
