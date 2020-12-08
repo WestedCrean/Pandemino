@@ -25,6 +25,11 @@ export class QuizContoller {
         return this.quizService.findOne(id)
     }
 
+    @Get(":id/answers")
+    findOneQuizAnswers(@Param("id") id: string): Promise<Quiz> {
+        return this.quizService.findOneQuizAnswers(id)
+    }
+
     @Delete(":id")
     remove(@Param("id") id: string): Promise<void> {
         return this.quizService.remove(id)

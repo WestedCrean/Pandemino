@@ -139,6 +139,7 @@ const QuizPage = (props) => {
                 }
 
                 const response = await api.putUserAnswer(body)
+                window.location = `/${props.location.state.courseId}`
             }
         }catch(error){console.log(error)}
 

@@ -281,7 +281,7 @@ const ListLectures = (props) => {
                                         </Tab>
                                         <Tab eventKey="quizes" title="Quiz">
                                             <GetQuiz
-                                                lectureId={currentLecture}
+                                                lectureId={currentLecture} courseId={courseId} lecturer={courseOwnerEmail}
                                             ></GetQuiz>
                                         </Tab>
                                         <Tab

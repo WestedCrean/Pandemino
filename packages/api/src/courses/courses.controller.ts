@@ -20,6 +20,8 @@ export class CoursesController {
         return this.coursesService.update(id, updateCourse)
     }
 
+
+
     @Get()
     searchAll(@Query("query") query: string): Promise<Course[]> {
         return this.coursesService.searchAll(query)
