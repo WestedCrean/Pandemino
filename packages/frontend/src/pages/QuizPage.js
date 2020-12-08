@@ -80,9 +80,9 @@ const QuizPage = (props) => {
     const formatSeconds = (time) => {
         let hours = Math.floor(time / 3600);
         if (hours < 10) hours= "0" + hours
-        let minutes = Math.floor(time / 60) 
+        let minutes = Math.floor( (time - (3600 * hours)) /60 ) //(time / 60) 
         if (minutes < 10) minutes = "0" + minutes;
-        let seconds = time - (60 * minutes)
+        let seconds = time - (60 * minutes) - (3600 * hours)
         if (seconds < 10) seconds="0" + seconds;
 
         return hours + "h " + minutes + "m " + seconds + "s";
@@ -139,6 +139,7 @@ const QuizPage = (props) => {
                 }
 
                 const response = await api.putUserAnswer(body)
+                window.location = `/${props.location.state.courseId}`
             }
         }catch(error){console.log(error)}
 

@@ -41,6 +41,11 @@ export class QuizService {
         return this.quizRepository.find({ relations: ["questions", "questions.variants"] })
     }
 
+    findOneQuizAnswers(id: string): Promise<Quiz> {
+        return this.quizRepository.findOne(id, { relations: ["questions", "questions.userAnswer", "questions.userAnswer.user"] })
+    }
+
+
 
     findOne(id: string): Promise<Quiz> {
         return this.quizRepository.findOne(id, { relations: ["questions", "questions.variants"] })
