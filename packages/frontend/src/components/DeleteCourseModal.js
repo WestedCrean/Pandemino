@@ -7,7 +7,6 @@ import { faMinus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const DeleteCourseModal = (props) => {
-
     const courseId = props.courseId
 
     const [show, setShow] = useState(false)
@@ -21,8 +20,7 @@ const DeleteCourseModal = (props) => {
 
     const deleteCourse = async () => {
         const api = ApiService(accessToken)
-        await api
-            .deleteCourse(courseId)
+        await api.deleteCourse(courseId)
 
         window.alert("Usunieto kurs")
         window.location = "/"
@@ -31,7 +29,10 @@ const DeleteCourseModal = (props) => {
 
     return (
         <>
-            <Button className="btn btn-danger" onClick={handleShow}>
+            <Button
+                className="btn btn-danger cy-deleteCourse"
+                onClick={handleShow}
+            >
                 Usun kurs
             </Button>
 
@@ -47,6 +48,7 @@ const DeleteCourseModal = (props) => {
                         Nie
                     </Button>
                     <Button
+                        className="cy-deleteCourse-confirm"
                         type="submit"
                         variant="primary"
                         onClick={deleteCourse}
