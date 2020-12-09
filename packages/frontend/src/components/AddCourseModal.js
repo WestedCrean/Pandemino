@@ -65,9 +65,10 @@ const AddCourseModal = ({
     }
 
     const editCourse = async () => {
-        if ((password !== null) | (password !== "")) {
-            if (!validateConfirm()) {
-                return 0
+
+        if(password !== null | password !== "" ){
+            if(!validateConfirm()){
+                return 0;
             }
         }
         {
@@ -95,6 +96,7 @@ const AddCourseModal = ({
     }
 
     const validateConfirm = () => {
+
         if (password !== confirm) {
             window.alert("Hasla musza się zgadzać")
             return false
@@ -130,18 +132,12 @@ const AddCourseModal = ({
     return (
         <>
             {type === "edit" ? (
-                <Button
-                    className=" ml-2"
-                    id="cy-edytujKurs"
-                    variant="light"
-                    onClick={handleShow}
-                >
+                <Button className="ml-2" variant="light" onClick={handleShow}>
                     <FontAwesomeIcon size="lg" icon={faCog}></FontAwesomeIcon>
-                    Edytuj
                 </Button>
             ) : (
                 <Fab
-                    className="awsome-button cy-dodajkurs"
+                    className="awsome-button"
                     color="default"
                     aria-label="add"
                     onClick={handleShow}
@@ -164,7 +160,7 @@ const AddCourseModal = ({
                 <form className="p-3">
                     <input
                         type="text"
-                        className="form-control form-input cy-nazwa"
+                        className="form-control form-input"
                         id="name"
                         placeholder="Nazwa kursu"
                         value={courseName}
@@ -173,7 +169,7 @@ const AddCourseModal = ({
                     />
                     <textarea
                         type="text"
-                        className="form-control form-input cy-opis"
+                        className="form-control form-input "
                         id="desctiption"
                         placeholder="Opis kursu"
                         defaultValue={courseDescriptionAlready}
@@ -182,7 +178,7 @@ const AddCourseModal = ({
                     />
                     <input
                         type="password"
-                        className="form-control form-input cy-haslo"
+                        className="form-control form-input"
                         id="password"
                         placeholder="Haslo"
                         value={password}
@@ -190,7 +186,7 @@ const AddCourseModal = ({
                     />
                     <input
                         type="password"
-                        className="form-control form-input cy-haslo-potwierdz"
+                        className="form-control form-input"
                         id="confirm"
                         placeholder="Powtórz hasło"
                         value={confirm}
@@ -211,7 +207,6 @@ const AddCourseModal = ({
                         </Button>
                     ) : (
                         <Button
-                            className="cy-form-dodajkurs"
                             type="submit"
                             variant="primary"
                             onClick={addNewCourse}

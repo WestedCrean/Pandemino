@@ -20,6 +20,7 @@ const TeacherPanel = (props) => {
                 console.log(userCourse)
                 if (userCourse.course.id === props.currentLecture) {
                     tab.push(userCourse)
+                    console.log(userCourse)
                 }
             })
         } catch (error) {
@@ -56,7 +57,8 @@ const TeacherPanel = (props) => {
 
     useEffect(() => {
         getAllUserCourses()
-    }, [])
+        console.log("DZieje sie")
+    }, [userCourses])
     return (
         <div>
             {userCourses.map((userCourse, i) => (
