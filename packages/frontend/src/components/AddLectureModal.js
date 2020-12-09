@@ -55,7 +55,7 @@ const AddLectureModal = (props) => {
     return (
         <>
             <Button
-                className="awsome-button"
+                className="awsome-button cy-dodaj-wyklad"
                 color="default"
                 aria-label="add"
                 onClick={handleShow}
@@ -71,7 +71,7 @@ const AddLectureModal = (props) => {
                 <form>
                     <input
                         type="text"
-                        className="form-control form-input"
+                        className="form-control form-input cy-nazwa"
                         id="name"
                         placeholder="Nazwa wykladu"
                         value={lecturerName}
@@ -79,7 +79,7 @@ const AddLectureModal = (props) => {
                     />
                     <textarea
                         type="text"
-                        className="form-control form-input"
+                        className="form-control form-input cy-opis"
                         id="desctiption"
                         placeholder="Opis wykladu"
                         value={lectureDescription}
@@ -91,6 +91,7 @@ const AddLectureModal = (props) => {
                         Anuluj
                     </Button>
                     <Button
+                        className="cy-form-dodajwyklad"
                         type="submit"
                         variant="primary"
                         onClick={addNewCourse}
