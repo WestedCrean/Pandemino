@@ -11,10 +11,9 @@ import {
     faArrowDown,
     faPlus,
 } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import TextField from "@material-ui/core/TextField"
 import { faTimes } from "@fortawesome/free-solid-svg-icons"
-
 
 const CreateQuiz = (props) => {
     const [currentLectureId, setCurrentLectureId] = useState(props.lectureId)
@@ -98,9 +97,7 @@ const CreateQuiz = (props) => {
     }
 
     const addNewQuiz = async () => {
-
-        if(validate()){
-
+        if (validate()) {
             const api = ApiService(accessToken)
             const body = {
                 //At this moment it gets courseId need to be changed
@@ -124,15 +121,17 @@ const CreateQuiz = (props) => {
     }
 
     const validate = () => {
-        if(quizName === null | quizName === ""){
+        if ((quizName === null) | (quizName === "")) {
             window.alert("Podaj nazwe")
-        }else if (quizDescription === null | quizDescription === ""){
+        } else if ((quizDescription === null) | (quizDescription === "")) {
             window.alert("Podaj opis")
-        } else if(quizDateStart === null){
+        } else if (quizDateStart === null) {
             window.alert("Podaj date rozpoczęcia")
-        } else if(quizDateEnd === null){
+        } else if (quizDateEnd === null) {
             window.alert("Podaj date zakonczenia")
-        }else {return true}
+        } else {
+            return true
+        }
     }
 
     const deleteQuiz = async (id) => {
@@ -156,8 +155,6 @@ const CreateQuiz = (props) => {
             window.alert("Usnieto pytanie")
         } catch (error) {}
     }
-
-
 
     useEffect(() => {
         if (currentLectureId != props.lectureId) {
@@ -253,18 +250,23 @@ const CreateQuiz = (props) => {
                     <div className="quiz-main-container">
                         <div className="quiz-name">{quiz.name}</div>
                         <div className="quiz-nav float-right">
-                            <AddClosedQuestionModal className="quiz-icon"
+                            <AddClosedQuestionModal
+                                className="quiz-icon"
                                 quizId={quiz.id}
                                 handleChangeInQuiz={handleChangeInQuiz}
                             ></AddClosedQuestionModal>
-                            <Fab size="small"
+                            <Fab
+                                size="small"
                                 color="secondary"
                                 aria-label="add"
                                 onClick={() => deleteQuiz(quiz.id)}
                             >
                                 <FontAwesomeIcon icon={faTrash} size="1x" />
                             </Fab>
-                            <Fab size="small" onClick={() => handleShowQuestion(i)}>
+                            <Fab
+                                size="small"
+                                onClick={() => handleShowQuestion(i)}
+                            >
                                 {visibleIndex === i ? (
                                     <FontAwesomeIcon
                                         icon={faArrowDown}
@@ -281,13 +283,15 @@ const CreateQuiz = (props) => {
                         {quiz.questions.map((question, j) =>
                             visibleIndex === i ? (
                                 <div className="question-main-container">
-                                    <div >
+                                    <div>
                                         <div className="">
                                             <div className="question-content">
                                                 {question.content}
                                             </div>
                                             <div className="delete-question">
-                                                <Fab size="small" color="secondary"
+                                                <Fab
+                                                    size="small"
+                                                    color="secondary"
                                                     onClick={() =>
                                                         deleteQuestion(
                                                             question.id
@@ -296,7 +300,6 @@ const CreateQuiz = (props) => {
                                                 >
                                                     <FontAwesomeIcon
                                                         icon={faTrash}
-                                                        
                                                     />
                                                 </Fab>
                                                 {/* <Fab
@@ -322,30 +325,50 @@ const CreateQuiz = (props) => {
                                         </div>
                                     </div>
                                     <div className="variants-list">
-                                        {question.variants.map((variant, g) =>
-                                            (
-                                                <div className="variant">
-                                                    <div>
-                                                        <div className="variant-container">
-                                                            <div>
-                                                                {variant.content}
-                                                                </div>
-                                                            <div className="variant-delete" onMouseEnter={()=>setVisibleElement(j*100+g)} onMouseLeave={()=>setVisibleElement(null)} >
-                                                                    <FontAwesomeIcon 
-                                                                        icon={
-                                                                            faTimes
-                                                                        }
-                                                                    ></FontAwesomeIcon>
-                                                                    <div className={`delete-div`} style={{visibility : visibleElement === j*100+g ? "visible" : "hidden", position :"absolute"}}>
-                                                                        Usuń
-                                                                    </div>
-                                                                
+                                        {question.variants.map((variant, g) => (
+                                            <div className="variant">
+                                                <div>
+                                                    <div className="variant-container">
+                                                        <div>
+                                                            {variant.content}
+                                                        </div>
+                                                        <div
+                                                            className="variant-delete"
+                                                            onMouseEnter={() =>
+                                                                setVisibleElement(
+                                                                    j * 100 + g
+                                                                )
+                                                            }
+                                                            onMouseLeave={() =>
+                                                                setVisibleElement(
+                                                                    null
+                                                                )
+                                                            }
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faTimes}
+                                                            ></FontAwesomeIcon>
+                                                            <div
+                                                                className={`delete-div`}
+                                                                style={{
+                                                                    visibility:
+                                                                        visibleElement ===
+                                                                        j *
+                                                                            100 +
+                                                                            g
+                                                                            ? "visible"
+                                                                            : "hidden",
+                                                                    position:
+                                                                        "absolute",
+                                                                }}
+                                                            >
+                                                                Usuń
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            )
-                                        )}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             ) : null

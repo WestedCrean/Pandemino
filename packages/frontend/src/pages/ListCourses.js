@@ -8,7 +8,6 @@ import FadeLoader from "react-spinners/FadeLoader"
 import PasswordModal from "components/PasswordModal"
 import FancyWave from "components/FancyWave"
 
-
 const ListCourses = () => {
     const [userId, setUserId] = useState(null)
     const [courses, setCourses] = useState([])
@@ -158,7 +157,7 @@ const ListCourses = () => {
                                             ) : (
                                                 <td>{course.lecturer.email}</td>
                                             )}
-                                            
+
                                             <td>
                                                 {existedCourseLists.includes(
                                                     course.id
@@ -190,7 +189,7 @@ const ListCourses = () => {
                             </table>
                         </div>
                         <div className="d-flexs p-2">
-                            <div className="box-addNewCourse">
+                            <div className="box-addNewCourse ">
                                 <AddCourseModal></AddCourseModal>
                             </div>
                         </div>
