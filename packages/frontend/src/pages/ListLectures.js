@@ -30,6 +30,7 @@ import TeacherPanel from "components/TeacherPanel"
 import MarkPresenceBtn from "components/MarkPresenceBtn"
 import Frequency from "components/Frequency"
 import FancyWave from "components/FancyWave"
+import StartLiveBtn from "components/StartLiveBtn"
 
 const ListLectures = (props) => {
     //styles
@@ -164,11 +165,10 @@ const ListLectures = (props) => {
 
     return (
         <div>
-            <MarkPresenceBtn  lectureId={currentLecture}></MarkPresenceBtn>
+            <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
+            <StartLiveBtn lectureId={currentLecture}></StartLiveBtn>
             <div className="list-lecture-container-2">
-                
                 <div className="main-lectures-wrapper">
-
                     <nav className={`sidebar ${sidebar}`}>
                         <div className="sidebar-header-main">
                             <div className="sidebar-header">
@@ -210,28 +210,29 @@ const ListLectures = (props) => {
                     </nav>
 
                     <div class="lectures-main-wrapper">
-                    <div className="box grid-courses">
-                        <div className="hamburger-arrow">
-                        {sidebar == "sidebar" ? (
-                            <FontAwesomeIcon
-                                className="show-sidebar-button"
-                                onClick={() => showSideBar()}
-                                size="2x"
-                                icon={faArrowRight}
-                            ></FontAwesomeIcon>
-                        ) : (
-                            <FontAwesomeIcon
-                                className="show-sidebar-button"
-                                onClick={() => showSideBar()}
-                                size="2x"
-                                icon={faArrowLeft}
-                            ></FontAwesomeIcon>
-                        )}
-                        </div>
+                        <div className="box grid-courses">
+                            <div className="hamburger-arrow">
+                                {sidebar == "sidebar" ? (
+                                    <FontAwesomeIcon
+                                        className="show-sidebar-button"
+                                        onClick={() => showSideBar()}
+                                        size="2x"
+                                        icon={faArrowRight}
+                                    ></FontAwesomeIcon>
+                                ) : (
+                                    <FontAwesomeIcon
+                                        className="show-sidebar-button"
+                                        onClick={() => showSideBar()}
+                                        size="2x"
+                                        icon={faArrowLeft}
+                                    ></FontAwesomeIcon>
+                                )}
+                            </div>
 
                             <div className="box-label">
-                                <div className="box-label-name">{courseName} - {currentLectureName}
-                                {editComponent()}
+                                <div className="box-label-name">
+                                    {courseName} - {currentLectureName}
+                                    {editComponent()}
                                 </div>
                             </div>
                             <div className="booksmarks-wrapper">
@@ -247,9 +248,10 @@ const ListLectures = (props) => {
                                             Brak wykładów na stronie!
                                         </h3>
                                         <h5 className=" mt-5 d-flex justify-content-center">
-                                            Aby skorzystać z funkcjonalności strony,
-                                            naciśnij strzałkę w lewym górnym rogu
-                                            ekranu, kolejnie dodaj pierwszy wykład!
+                                            Aby skorzystać z funkcjonalności
+                                            strony, naciśnij strzałkę w lewym
+                                            górnym rogu ekranu, kolejnie dodaj
+                                            pierwszy wykład!
                                         </h5>
                                     </div>
                                 ) : (
@@ -264,20 +266,29 @@ const ListLectures = (props) => {
                                             title="Opis Kursu"
                                         >
                                             <div className="container-md course-desc mt-2">
-                                                <h5 className="mt-2">Opis Kursu</h5>
+                                                <h5 className="mt-2">
+                                                    Opis Kursu
+                                                </h5>
                                                 <div className="mt-2">
                                                     {courseDescription}
                                                 </div>
                                             </div>
                                             <div className="container-md course-desc mt-2">
-                                                <h5 className="mt-2">Opis Wykładu</h5>
+                                                <h5 className="mt-2">
+                                                    Opis Wykładu
+                                                </h5>
                                                 <div className="mt-2">
                                                     {currentLectureDescription}
                                                 </div>
                                             </div>
                                         </Tab>
-                                        <Tab eventKey="materials" title="Materiały">
-                                            <Files lectureId={currentLecture}></Files>
+                                        <Tab
+                                            eventKey="materials"
+                                            title="Materiały"
+                                        >
+                                            <Files
+                                                lectureId={currentLecture}
+                                            ></Files>
                                         </Tab>
                                         <Tab eventKey="quizes" title="Quiz">
                                             <GetQuiz
@@ -299,8 +310,10 @@ const ListLectures = (props) => {
                                             disabled={tabCreateQuiz()}
                                         >
                                             <TeacherPanel
-                                                currentLecture={currentLecture}
-                                                courseOwnerEmail={courseOwnerEmail}
+                                                currentLecture={courseId}
+                                                courseOwnerEmail={
+                                                    courseOwnerEmail
+                                                }
                                             ></TeacherPanel>
                                         </Tab>
                                         <Tab
@@ -308,7 +321,9 @@ const ListLectures = (props) => {
                                             title="Lista obecności"
                                             disabled={tabCreateQuiz()}
                                         >
-                                            <Frequency courseId={courseId}></Frequency>
+                                            <Frequency
+                                                courseId={courseId}
+                                            ></Frequency>
                                         </Tab>
                                     </Tabs>
                                 )}
@@ -319,7 +334,7 @@ const ListLectures = (props) => {
                     <div class="overlay"></div>
                 </div>
             </div>
-            </div>
+        </div>
     )
 }
 

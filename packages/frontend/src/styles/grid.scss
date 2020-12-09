@@ -147,9 +147,7 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-
-
-.hamburger-arrow{
+.hamburger-arrow {
     color: white;
     position: absolute;
     transition: all 0.3s;
@@ -207,8 +205,6 @@ div:hover {
     align-items: right;
     margin-left: 30px;
 }
-
-
 
 .sidebar ul li div {
     padding: 4px;
@@ -305,22 +301,28 @@ div:hover {
     z-index: 1001;
 }
 
-.presence-btn{
-
+.presence-btn {
     position: absolute;
     right: 50px;
     top: 100px;
 }
+.start-live-btn {
+    position: absolute;
+    right: 250px;
+    top: 100px;
+}
 
-
-.lectures-main-wrapper{
+.lectures-main-wrapper {
     // background-color: white;
     margin: 80px;
     width: 90vw;
     min-height: 500px;
 }
 
-.booksmarks-wrapper{
+.booksmarks-wrapper {
     min-height: 500px;
     padding: 30px;
+}
+.recording {
+    color: red;
 }
