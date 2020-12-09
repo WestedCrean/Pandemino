@@ -161,7 +161,7 @@ const ListLectures = (props) => {
         if (lectures.length == 0) {
             getStreams()
         }
-    }, [])
+    }, [currentLecture])
 
     return (
         <div>
@@ -214,14 +214,14 @@ const ListLectures = (props) => {
                             <div className="hamburger-arrow">
                                 {sidebar == "sidebar" ? (
                                     <FontAwesomeIcon
-                                        className="show-sidebar-button cy-pokaz-wyklady"
+                                        className="show-sidebar-button"
                                         onClick={() => showSideBar()}
                                         size="2x"
                                         icon={faArrowRight}
                                     ></FontAwesomeIcon>
                                 ) : (
                                     <FontAwesomeIcon
-                                        className="show-sidebar-button cy-pokaz-wyklady"
+                                        className="show-sidebar-button"
                                         onClick={() => showSideBar()}
                                         size="2x"
                                         icon={faArrowLeft}
@@ -262,7 +262,6 @@ const ListLectures = (props) => {
                                         onSelect={(k) => setTabKey(k)}
                                     >
                                         <Tab
-                                            className="cy-tab-opisKursu"
                                             eventKey="course-description"
                                             title="Opis Kursu"
                                         >
@@ -278,7 +277,7 @@ const ListLectures = (props) => {
                                                 <h5 className="mt-2">
                                                     Opis Wykładu
                                                 </h5>
-                                                <div className="cy-text-opisWykladu mt-2">
+                                                <div className="mt-2">
                                                     {currentLectureDescription}
                                                 </div>
                                             </div>
@@ -293,9 +292,7 @@ const ListLectures = (props) => {
                                         </Tab>
                                         <Tab eventKey="quizes" title="Quiz">
                                             <GetQuiz
-                                                lectureId={currentLecture}
-                                                courseId={courseId}
-                                                lecturer={courseOwnerEmail}
+                                                lectureId={currentLecture} courseId={courseId} lecturer={courseOwnerEmail}
                                             ></GetQuiz>
                                         </Tab>
                                         <Tab

@@ -74,7 +74,6 @@ const ListUsersCourses = () => {
 
                             <td>
                                 <Button
-                                    className="cy-idz-widokKursu"
                                     variant="dark"
                                     onClick={() =>
                                         directToLecture(

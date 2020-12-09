@@ -15,7 +15,7 @@ dist
 # misc
 .DS_Store
 
-packages/test/cypress/reports
+
 .env
 .env.local
 .env.development.local
