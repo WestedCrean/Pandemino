@@ -1,18 +1,17 @@
 .file-upload {
     border: 1px solid #ccc;
     display: inline-block;
-    padding: 6px 12px;
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
+    width: 80%;
 }
 
 .file-container{
+    margin: 0 auto;
     color: #333131;
-    margin-top: 5px;
-    padding: 10px;
     border: 1px solid rgb(203, 235, 233);
 }
 

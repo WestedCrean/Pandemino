@@ -2,6 +2,11 @@ import React, { Fragment, useEffect, useState, useCallback } from "react"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import FancyWave from "components/FancyWave"
+import {Button} from "react-bootstrap"
+import { v4 as uuidv4 } from 'uuid';
+import 'firebase/firestore';
+import { firebaseAuth } from "services/firebase"
+
 const UserPanel = () => {
     const [userData, setUserData] = useState(null)
 
@@ -9,16 +14,67 @@ const UserPanel = () => {
     const [id, setId] = useState()
     const [name, setName] = useState()
     const [lastName, setlastName] = useState()
-    const [title, setTitle] = useState()
-    const [email, setEmail] = useState()
+    const [image, setImage] = useState(null)
+    const [imageRef, setImageRef] = useState(null)
 
     const [pending, setPending] = useState(true)
 
     const { accessToken } = useAuthContext()
     const { user } = useAuthContext()
 
+    ///image
+    const [fileUpload, setFileUpload] = React.useState(null);
+    const [fileReference, setFileRef] = React.useState(null);
+
     const api = ApiService(accessToken)
     const userEmail = user.email
+
+    const addFile = async () => {
+        const api = ApiService(accessToken)
+
+        const file = fileUpload;
+
+        const storageRef = firebaseAuth.storage().ref();
+        const fileRef = storageRef.child(uuidv4());
+
+        const body = {
+            imageUuid : fileRef.fullPath
+        }
+
+        if(fileUpload != null){
+            if(user){
+
+            try{
+              ///Adding to firebase storage
+                await fileRef.put(file);
+
+                try {
+                    await api
+                        .putUserData(id, body)
+                        .then((response) => console.log(response.data))
+                        .catch((error) => console.log(error))
+
+                        try {
+                            if(imageRef !== null){
+                                const deleteItem = firebaseAuth.storage().ref();
+                                const fileRef = deleteItem.child(imageRef)
+                                await fileRef.delete();
+                            }
+                        }catch(error){}
+
+                
+                        window.alert("Edytowano zdjęcie użytkownika")
+                        window.location.reload();
+                
+                }catch(error){console.error(error)}
+            }catch(error){console.error(error)}
+
+            //window.alert("Dodano plik");
+            }
+        }else {
+            window.alert("Dodaj plik");
+        }
+    };
 
     const getUserData = async () => {
         try {
@@ -49,10 +105,22 @@ const UserPanel = () => {
         } catch { }
     }
 
-    const setStates = () => {
+    const setStates = async () => {
         setId(userData.id)
         setName(userData.firstName)
         setlastName(userData.lastName)
+        setImageRef(userData.imageUuid);
+
+        try {
+            const storageRef = firebaseAuth.storage().ref();
+            const fileRef = storageRef.child(userData.imageUuid)
+            setImage(await fileRef.getDownloadURL())
+        }catch(error){}
+
+    }
+
+    const handleChange = async (e) => {
+        setFileUpload(e.target.files[0]);
     }
 
     useEffect(() => {
@@ -70,19 +138,19 @@ const UserPanel = () => {
                 <div className="box-label">
                     <div className="box-label-name">PANEL UŻYTKOWNIKA</div>
                 </div>
-                <div className="user-panel-container">
-                    <div class="panel-body">
+                <div className="row user-panel-container">
+                    <div class="panel-body col-lg-8">
                         <form class="form-horizontal">
-                            <div class="row">
-                                <div class="col-sm-9 col-lg-10">
+                            <div class="">
+                                <div class="">
                                     <div class="form-group">
                                         <label
                                             for="inputtext1"
-                                            class="col-sm-4  col-md-4 col-lg-3 control-label"
+                                            class="control-label"
                                         >
                                             Imie
                                         </label>
-                                        <div class="col-sm-8 col-lg-9">
+                                        <div class="">
                                             <input
                                                 type="text"
                                                 class="form-control"
@@ -98,11 +166,11 @@ const UserPanel = () => {
                                     <div class="form-group">
                                         <label
                                             for="inputtext2"
-                                            class="col-sm-4  col-md-4 col-lg-3 control-label"
+                                            class="control-label"
                                         >
                                             Nazwisko
                                         </label>
-                                        <div class="col-sm-8 col-lg-9">
+                                        <div class="">
                                             <input
                                                 type="text"
                                                 class="form-control"
@@ -118,11 +186,11 @@ const UserPanel = () => {
                                     <div class="form-group">
                                         <label
                                             for="inputtext2"
-                                            class="col-sm-4  col-md-4 col-lg-3 control-label"
+                                            class="control-label"
                                         >
                                             Email
                                         </label>
-                                        <div class="col-sm-8 col-md-8  col-lg-9">
+                                        <div class="">
                                             <input
                                                 type="email"
                                                 class="form-control"
@@ -145,6 +213,16 @@ const UserPanel = () => {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className="avatar">Awatar</div>
+                        <div className="image-container">
+                            <img src={image}></img>
+                        </div>
+                        <div>
+                            <input className="file-upload" type="file" onChange={handleChange} size="30" />
+                            <Button valiant="secondary" onClick={addFile}>Dodaj</Button>
+                        </div>
                     </div>
                 </div>
             </div>

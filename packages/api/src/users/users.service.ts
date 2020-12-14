@@ -33,18 +33,22 @@ export class UsersService {
             throw new Error(`Could not find user id ${updateUserSchema.id}`)
         }
 
-        if (updateUserSchema.name !== null) {
-            user.title = updateUserSchema.title
-        }
         if (updateUserSchema.description !== null) {
+            user.description = updateUserSchema.description
+        }
+        if (updateUserSchema.firstName !== null) {
             user.firstName = updateUserSchema.firstName
         }
-        if (updateUserSchema.description !== null) {
+        if (updateUserSchema.lastName !== null) {
             user.lastName = updateUserSchema.lastName
         }
 
         if (updateUserSchema.description !== null) {
             user.role = updateUserSchema.role
+        }
+
+        if (updateUserSchema.imageUuid !== null) {
+            user.imageUuid = updateUserSchema.imageUuid
         }
 
         //FIXME: add more possible fields
