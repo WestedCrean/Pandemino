@@ -16,7 +16,15 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
     const [audioSource, setAudioSource] = useState(null)
     const [videoSource, setVideoSource] = useState(null)
     const [screenCapture, setScreenCapture] = useState(false)
-    const [streamConstraints, setConstraints] = useState(null)
+    const [streamConstraints, setConstraints] = useState({
+        audio: {
+            deviceId: audioSource ? { exact: audioSource } : undefined,
+        },
+        video: {
+            deviceId: audioSource ? { exact: audioSource } : undefined,
+        },
+    })
+
     const [availableDevices, setAvailableDevices] = useState([])
     const peerConnections = useRef({})
     /* demo end */
@@ -95,22 +103,11 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
                 track.stop()
             })
         }
-        const constraints = {
-            audio: {
-                deviceId: audioSource ? { exact: audioSource } : undefined,
-            },
-            video: {
-                deviceId: audioSource ? { exact: audioSource } : undefined,
-            },
-        }
-
-        setConstraints(constraints)
 
         let captureStream = null
         try {
-            // screen capture - captureStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
             captureStream = await navigator.mediaDevices.getUserMedia(
-                constraints
+                streamConstraints
             )
         } catch (err) {
             console.log({ getstreamErr: err })
@@ -133,11 +130,14 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
                 })
             })
 
-            socket.emit("broadcaster")
-            console.log("emitted broadcaster")
+            socket.emit("broadcaster", streamId)
         } catch (e) {
             console.log(e)
         }
+    }
+
+    const handleConstraintsChange = () => {
+        //setConstraints()
     }
 
     const handleError = (error) => {
@@ -195,12 +195,6 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
                     socket.emit("offer", id, peerConnection.localDescription)
                 })
         })
-
-        /*
-        return () => {
-            socket.disconnect()
-        }
-        */
     }, [])
 
     const streamHandler = async () => {

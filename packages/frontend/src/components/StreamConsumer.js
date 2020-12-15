@@ -48,17 +48,19 @@ const StreamConsumer = ({ socket, streamId }) => {
 
         socket.on("connect", () => {
             console.log("on connect")
-            socket.emit("watcher")
+            socket.emit("watcher", streamId)
         })
 
         socket.on("broadcaster", () => {
             console.log("on broadcaster")
-            socket.emit("watcher")
+            socket.emit("watcher", streamId)
         })
 
         socket.on("disconnectPeer", () => {
             console.log("on disconnectPeer")
-            peerConnection.current.close()
+            if (peerConnection.current) {
+                peerConnection.current.close()
+            }
         })
     }, [])
 
