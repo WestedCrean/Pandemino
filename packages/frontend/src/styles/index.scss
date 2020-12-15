@@ -7,6 +7,7 @@
 @import "./files.scss";
 @import "./quiz.scss";
 @import "./wave.scss";
+@import "./user.scss";
 
 body {
     margin: 0;
@@ -58,3 +59,17 @@ code {
 -webkit-box-shadow: 0px 10px 13px -7px #000000, 39px 32px 26px 31px rgba(0,0,0,0); 
 box-shadow: 0px 10px 13px -7px #000000, 39px 32px 26px 31px rgba(0,0,0,0);
 }
+
+
+.login-container{
+    background-color: white;
+    margin: 50px 30vw 90px 30vw;
+    padding: 50px 50px 90px 50px;
+    box-shadow: 0 4px 8px 4px rgba(0,0,0,0.2);
+}
+
+.login-container:hover{
+    box-shadow: 0 8px 16px 8px rgba(0,0,0,0.2);
+}
+
+

@@ -14,16 +14,27 @@ const GetQuiz = (props) => {
     const [finishedQuizes, setFinishedQuizes] = useState([])
 
     const userInfo = useUserInfo()
+    const lecturer = props.lecturer
 
     const moveToQuizPage = (id) => {
         history.push({
             pathname: `/quiz/${id}`,
             state: {
                 quizId: id,
+                courseId: props.courseId,
             },
         })
     }
 
+    const moveToAdminQuizPanel = (id) => {
+        history.push({
+            pathname: `/quizAdminPanel/${id}`,
+            state: {
+                courseId: props.courseId,
+                quizId: id,
+            },
+        })
+    }
     const moveToQuizFinished = async (id) => {
         history.push({
             pathname: `/quizFinished/${id}`,
@@ -84,7 +95,8 @@ const GetQuiz = (props) => {
         if (quizes.length !== 0) {
             getUserAnswers()
         }
-    }, [props.lectureId, quizes])
+    }, [props.lectureId])
+    //quizes deleted from useEffect
 
     return (
         <>
@@ -144,6 +156,19 @@ const GetQuiz = (props) => {
                                                     Quiz
                                                 </Button>
                                             )}
+                                            {lecturer === userInfo.email ? (
+                                                <Button
+                                                    className="ml-3"
+                                                    variant="danger"
+                                                    onClick={() =>
+                                                        moveToAdminQuizPanel(
+                                                            quiz.id
+                                                        )
+                                                    }
+                                                >
+                                                    Admin Panel
+                                                </Button>
+                                            ) : null}
                                         </td>
                                     </tr>
                                 ))}

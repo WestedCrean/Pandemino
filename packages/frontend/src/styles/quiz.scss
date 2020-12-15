@@ -100,3 +100,39 @@
     color: white;
 }
 
+
+.create-quiz-wrapper{
+    margin-top: 30px;
+}
+
+
+.time-remains{
+
+    background-color: white;
+    box-shadow: 0 4px 8px 4px rgba(0,0,0,0.2);
+}
+
+.quiz-form-container{
+    box-shadow: 0 4px 8px 4px rgba(0,0,0,0.2);
+    padding-bottom: 10px;
+}
+
+.quiz-tr-0{
+    background-color: white;
+}
+
+.quiz-tr-1{
+    background-color: whitesmoke;
+}
+
+.quiz-finished-cointainer{
+    overflow: hidden;
+    z-index: 300;
+}
+
+.quiz-table{
+    margin-left: 30px;
+    margin-right: 30px;
+    z-index: 300;
+    overflow: hidden;
+}

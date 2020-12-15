@@ -1,0 +1,56 @@
+
+.user-panel-container{
+    padding: 60px;
+    
+}
+
+.image-container{
+    text-align: center;
+}
+
+
+
+.image-container > img {
+    max-width: 24vw;
+    max-height: 24vw;
+    align-items: center;
+    text-align: center;
+}
+
+.file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    width: 80%;
+}
+
+.file-container{
+    text-align: center;
+    margin: 0 auto;
+    color: #333131;
+    border: 1px solid rgb(203, 235, 233);
+}
+
+
+.avatar{
+    font-size: 1.4rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 5px;
+    letter-spacing: 4px;
+}
+
+@media(min-width: 700){
+
+    .image-container > img {
+        max-width: 70vw;
+        max-height: 70vw;
+        align-items: center;
+        text-align: center;
+    }
+}
+

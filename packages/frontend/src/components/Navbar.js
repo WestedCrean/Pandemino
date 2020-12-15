@@ -37,7 +37,7 @@ const Navbar = () => {
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <a
-                                className="nav-link my-2 my-lg-0"
+                                className="nav-link my-2 my-lg-0 cy-wszystkie"
                                 href="/listCourses"
                             >
                                 Wszystkie kursy

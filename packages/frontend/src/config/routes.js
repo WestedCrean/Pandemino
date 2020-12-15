@@ -3,6 +3,7 @@ import QuizPage from "../pages/QuizPage"
 import ListCourses from "../pages/ListCourses";
 import UserPanel from "../pages/UserPanel"
 import QuizFinished from "../pages/QuizFinished"
+import QuizAdminPanel from "../pages/QuizAdminPanel"
 
 const routes = [
     {
@@ -49,6 +50,12 @@ const routes = [
     {
         path: "/quizFinished/:id",
         component: QuizFinished,
+        needAuth: true
+    },
+
+    {
+        path: "/quizAdminPanel/:id",
+        component: QuizAdminPanel,
         needAuth: true
     }
 

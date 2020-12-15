@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { withRouter } from "react-router"
-
+import FancyWave from "components/FancyWave"
 import { authMethods } from 'services/auth'
 
 const SignUp = ({ history }) => {
@@ -19,7 +19,8 @@ const SignUp = ({ history }) => {
     )
 
     return (
-        <div id="login">
+        <div id="login" className="login-container">
+            <FancyWave></FancyWave>
             <h3 className="text-center text-black pt-5">Pandemino</h3>
             <div className="container">
                 <div

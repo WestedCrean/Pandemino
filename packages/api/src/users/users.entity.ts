@@ -16,13 +16,16 @@ export class User {
     id: number
 
     @Column({ nullable: true })
-    title: string
+    description: string
 
     @Column({ nullable: true })
     firstName: string
 
     @Column({ nullable: true })
     lastName: string
+
+    @Column({ nullable: true })
+    imageUuid: string
 
     @Column()
     email: string

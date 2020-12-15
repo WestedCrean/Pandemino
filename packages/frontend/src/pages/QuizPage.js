@@ -4,7 +4,7 @@ import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import { Modal, Button, Card } from "react-bootstrap"
 import { useUserInfo } from "hooks"
-
+import FancyWave from "components/FancyWave"
 
 const QuizPage = (props) => {
     
@@ -80,9 +80,9 @@ const QuizPage = (props) => {
     const formatSeconds = (time) => {
         let hours = Math.floor(time / 3600);
         if (hours < 10) hours= "0" + hours
-        let minutes = Math.floor(time / 60) 
+        let minutes = Math.floor( (time - (3600 * hours)) /60 ) //(time / 60) 
         if (minutes < 10) minutes = "0" + minutes;
-        let seconds = time - (60 * minutes)
+        let seconds = time - (60 * minutes) - (3600 * hours)
         if (seconds < 10) seconds="0" + seconds;
 
         return hours + "h " + minutes + "m " + seconds + "s";
@@ -139,6 +139,7 @@ const QuizPage = (props) => {
                 }
 
                 const response = await api.putUserAnswer(body)
+                window.location = `/${props.location.state.courseId}`
             }
         }catch(error){console.log(error)}
 
@@ -189,13 +190,14 @@ const QuizPage = (props) => {
 
     return (
         <div>
-            <div class="row justify-content-center mt-5 mb-2">
-                <h2>Pozostały czas</h2>
+            <FancyWave></FancyWave>
+            <div class="row justify-content-center mt-5 mb-2 ">
+                <h2 >Pozostały czas</h2>
             </div>
-            <div class="row justify-content-center border rounded-pill" id="countdown">{formatedCounter}</div>
+            <div class="row justify-content-center border rounded-pill time-remains" id="countdown">{formatedCounter}</div>
 
             
-            <div className="card border  m-4">
+            <div className="card border m-4 quiz-form-container">
                 <div className="card-body text-dark">
                     <h5 className="card-title">Quiz</h5>
                     <div className="quiz-content">

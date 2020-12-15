@@ -57,6 +57,7 @@ io.sockets.on("connection", socket => {
 
   /* WebRTC + chat */
 
+<<<<<<< HEAD
   socket.on('join', (roomId) => {
     console.log(`Socket ${socket.id} joining stream ${roomId}`);
     if( rooms[roomId]) {
@@ -66,6 +67,11 @@ io.sockets.on("connection", socket => {
     }
     
     socket.join(roomId);
+=======
+  socket.on('join', (room) => {
+    console.log(`Socket ${socket.id} joining stream ${room}`);
+    socket.join(room);
+>>>>>>> master
  });
 
   socket.on("disconnect", () => {

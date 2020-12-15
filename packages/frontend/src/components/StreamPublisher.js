@@ -222,6 +222,31 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
         }
     }
 
+    const streamHandler = async () => {
+        handleStream(await getStream())
+        handleDevices(await getDevices())
+    }
+
+    const toggleScreenCapture = async () => {
+        if (screenCapture) {
+            setScreenCapture(false)
+            streamHandler()
+        } else {
+            try {
+                let stream = await navigator.mediaDevices.getDisplayMedia(
+                    streamConstraints
+                )
+                videoRef.current.srcObject = stream
+                handleStream(stream)
+                setScreenCapture(true)
+            } catch (err) {
+                addToast("Udostępnienie ekranu nie powiodło się", {
+                    appearance: "warning",
+                })
+            }
+        }
+    }
+
     useEffect(() => {
         streamHandler()
     }, [audioSource, videoSource])

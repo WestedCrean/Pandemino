@@ -1,13 +1,20 @@
 import React, { useCallback } from "react"
 import { withRouter, Redirect } from "react-router"
 import { authMethods } from "services/auth"
-import { useAuthContext } from 'services/auth'
 
-const Login = ({ history, location, }) => {
+import { useAuthContext } from 'services/auth'
+import FancyWave from "components/FancyWave"
+
+
+const Login = ({ history, location }) => {
     const { accessToken } = useAuthContext()
     let referrer
     try {
-        const { state: { referrer: { pathname } } } = location
+        const {
+            state: {
+                referrer: { pathname },
+            },
+        } = location
         referrer = pathname || "/"
     } catch (e) {
         referrer = "/"
@@ -24,10 +31,12 @@ const Login = ({ history, location, }) => {
         history.push(referrer)
     }
 
+    ///FIXME
     return (
-        <div id="login">
+        <div id="login" className="login-container">
+            <FancyWave></FancyWave> 
             <h3 className="text-center text-black pt-5">Pandemino</h3>
-            <div className="container">
+            <div className="">
                 <div
                     id="login-row"
                     className="row justify-content-center align-items-center"
@@ -74,7 +83,7 @@ const Login = ({ history, location, }) => {
                                     <input
                                         type="submit"
                                         name="submit"
-                                        className="btn btn-info btn-md"
+                                        className="btn btn-info btn-md cy-submit"
                                         value="submit"
                                     />
                                 </div>
