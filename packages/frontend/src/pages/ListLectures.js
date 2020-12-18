@@ -59,6 +59,8 @@ const ListLectures = (props) => {
     const { user } = useAuthContext()
     const userEmail = user.email
 
+    const api = ApiService(accessToken)
+
     //pagination variables
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(15)
@@ -86,6 +88,17 @@ const ListLectures = (props) => {
                 lectureId: id,
             },
         })
+    }
+
+    const handleStartLive = async () => {
+        console.log(lectures.slice(-1))
+        // const courseData = await api.getCourseById()
+    }
+
+    const handleEndLive = () => {
+        // GET lectureId
+        // PUT to api -> isLive=false on lecture
+        //go to latest lecture
     }
 
     const deleteLecture = () => {
@@ -137,7 +150,6 @@ const ListLectures = (props) => {
     }
 
     const getStreams = async () => {
-        const api = ApiService(accessToken)
 
         try {
             const response = await api.getCourseById(courseId)
@@ -166,7 +178,7 @@ const ListLectures = (props) => {
     return (
         <div>
             <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
-            <StartLiveBtn lectureId={currentLecture}></StartLiveBtn>
+            <StartLiveBtn handleStartLive={handleStartLive} lectureId={currentLecture}></StartLiveBtn>
             <div className="list-lecture-container-2">
                 <div className="main-lectures-wrapper">
                     <nav className={`sidebar ${sidebar}`}>

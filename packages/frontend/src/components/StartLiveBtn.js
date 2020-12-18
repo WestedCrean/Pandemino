@@ -6,16 +6,10 @@ import { useUserInfo } from "../hooks/user"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faVideo } from "@fortawesome/free-solid-svg-icons"
 
-const StartLiveBtn = (props) => {
-    const { accessToken } = useAuthContext()
-
-    const userInfo = useUserInfo()
-
-    const lectureId = props.lectureId
-
+const StartLiveBtn = ({ lectureId, handleStartLive}) => {
     return (
         <div className="start-live-btn">
-            <Button variant="light">
+            <Button variant="light" onClick={handleStartLive}>
                 <FontAwesomeIcon
                     className="recording mr-1"
                     size="sm"

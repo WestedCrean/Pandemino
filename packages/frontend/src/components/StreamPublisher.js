@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, Fragment } from "react"
 import { VideoControls } from "components"
 import { useToasts } from "react-toast-notifications"
+import { useAuthContext } from "services/auth"
 import { createSocket, config } from "services/streams"
 
 const calculateStreamHeight = () => {
@@ -13,6 +14,7 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
     const { addToast, toastStack } = useToasts()
     /* demo start */
     const videoRef = useRef(null)
+    const { accessToken } = useAuthContext()
     const [audioSource, setAudioSource] = useState(null)
     const [videoSource, setVideoSource] = useState(null)
     const [screenCapture, setScreenCapture] = useState(false)
@@ -129,8 +131,38 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
                     )
                 })
             })
-
-            socket.emit("broadcaster", streamId)
+            if (accessToken) {
+                addToast("Emituje stream", {
+                    appearance: "warning",
+                })
+                socket.emit(
+                    "broadcaster",
+                    streamId,
+                    accessToken,
+                    (response) => {
+                        addToast("Odpowiedz serwera", {
+                            appearance: "warning",
+                        })
+                        console.log({ response })
+                        if (response.status === 201) {
+                            addToast(
+                                "Połączono z serwerem streamów pomyślnie",
+                                {
+                                    appearance: "success",
+                                }
+                            )
+                        } else if (response.status === 401) {
+                            addToast("Nieupoważniony dostęp", {
+                                appearance: "danger",
+                            })
+                        } else if (response.status === 404) {
+                            addToast("Błąd po stronie serwera", {
+                                appearance: "danger",
+                            })
+                        }
+                    }
+                )
+            }
         } catch (e) {
             console.log(e)
         }
@@ -196,31 +228,6 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
                 })
         })
     }, [])
-
-    const streamHandler = async () => {
-        handleStream(await getStream())
-        handleDevices(await getDevices())
-    }
-
-    const toggleScreenCapture = async () => {
-        if (screenCapture) {
-            setScreenCapture(false)
-            streamHandler()
-        } else {
-            try {
-                let stream = await navigator.mediaDevices.getDisplayMedia(
-                    streamConstraints
-                )
-                videoRef.current.srcObject = stream
-                handleStream(stream)
-                setScreenCapture(true)
-            } catch (err) {
-                addToast("Udostępnienie ekranu nie powiodło się", {
-                    appearance: "warning",
-                })
-            }
-        }
-    }
 
     const streamHandler = async () => {
         handleStream(await getStream())

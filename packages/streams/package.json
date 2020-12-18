@@ -13,8 +13,13 @@
   "author": "Tanner Gabriel",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "socket.io": "^3.0.3"
+    "firebase": "^8.2.0",
+    "firebase-admin": "^9.4.2",
+    "pg": "^8.5.1",
+    "socket.io": "^3.0.3",
+    "typeorm": "^0.2.29"
   },
   "devDependencies": {
     "eslint": "7.0.0"

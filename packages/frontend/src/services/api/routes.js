@@ -4,6 +4,8 @@ const ApiRoutes = (ApiService) => {
 
     const getStreamById = async (id) => ApiService.get(`/lectures/${id}`)
 
+    const putStreamData = async (id, data) => ApiService.put(`/lectures/${id}`, data)
+
     const createStream = async (data) => ApiService.post("/lectures", data)
 
     const getLectures = async () => ApiService.get("/lectures/")
@@ -89,6 +91,7 @@ const ApiRoutes = (ApiService) => {
     return {
         getAvailableStreams,
         getStreamById,
+        putStreamData,
         createStream,
         getAvailableCourses,
         getCourseById,
