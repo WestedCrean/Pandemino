@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
-import { User } from "../users/users.entity"
 import { Repository } from "typeorm"
 import {CourseCategory} from "./courseCategory.entity"
 
@@ -13,7 +12,19 @@ export class CourseCategoryService {
     ) {}
 
     async create(createCourseSchema: any): Promise<CourseCategory> {
-        return null
+        const courseCategory = new CourseCategory()
+
+
+        try{
+
+            courseCategory.name = createCourseSchema.courseCategoryName
+            await this.courseCategoryRepository.save(courseCategory)
+
+            return courseCategory
+        } catch (e) {
+            throw new Error(e)
+        }
+
     }
 
     async update(id: string, updateCourseSchema: any): Promise<void> {
@@ -21,11 +32,11 @@ export class CourseCategoryService {
     }
 
     findAll(): Promise<CourseCategory[]> {
-        return this.courseCategoryRepository.find()
+        return this.courseCategoryRepository.find({ relations: ["courses"] })
     }
 
     findOne(id: string): Promise<CourseCategory> {
-        return this.courseCategoryRepository.findOne(id)
+        return this.courseCategoryRepository.findOne(id, { relations: ["courses"] })
     }
 
 

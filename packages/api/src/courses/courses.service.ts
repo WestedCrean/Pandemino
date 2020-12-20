@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { User } from "../users/users.entity"
 import { Repository } from "typeorm"
 import { Course } from "./courses.entity"
+import {CourseCategory} from "../courseCategory/courseCategory.entity"
 import * as bcrypt from 'bcryptjs';
 
 
@@ -13,15 +14,23 @@ export class CoursesService {
         private coursesRepository: Repository<Course>,
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        @InjectRepository(CourseCategory)
+        private courseCategoryRepository: Repository<CourseCategory>,
     ) {}
 
     async create(createCourseSchema: any): Promise<Course> {
         const course = new Course()
         let user: User
-
+        let courseCategory: CourseCategory
         
         try {
             user = await this.userRepository.findOne(createCourseSchema.userId)
+        } catch (e) {
+            throw new Error(e)
+        }
+
+        try {
+            courseCategory = await this.courseCategoryRepository.findOne(createCourseSchema.courseCategoryId)
         } catch (e) {
             throw new Error(e)
         }
@@ -33,6 +42,7 @@ export class CoursesService {
             course.name = createCourseSchema.name
             course.description = createCourseSchema.description
             course.lecturer = user
+            course.courseCategory = courseCategory
             course.password = hashedPassword
             course.createdAt = new Date()
             await this.coursesRepository.save(course)
@@ -71,11 +81,11 @@ export class CoursesService {
 
     // FIXME: add pagination
     findAll(): Promise<Course[]> {
-        return this.coursesRepository.find({ relations: ["lectures", "lecturer", "userCourses", "userCourses.user"] })
+        return this.coursesRepository.find({ relations: ["lectures", "lecturer", "userCourses", "userCourses.user", "courseCategory"] })
     }
 
     findOne(id: string): Promise<Course> {
-        return this.coursesRepository.findOne(id, { relations: ["lectures", "lecturer", "userCourses", "userCourses.user"] })
+        return this.coursesRepository.findOne(id, { relations: ["lectures", "lecturer", "userCourses", "userCourses.user", "courseCategory"] })
 
         //return this.coursesRepository.findOne(id);
     }

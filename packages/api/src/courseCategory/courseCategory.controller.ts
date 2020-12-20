@@ -26,6 +26,11 @@ export class CourseCategoryController {
         return this.courseCategoryService.findOne(id)
     }
 
+    @Get("")
+    find(@Param("id") id: string): Promise<CourseCategory[]> {
+        return this.courseCategoryService.findAll()
+    }
+
     @Delete(":id")
     remove(@Param("id") id: string): Promise<void> {
         return this.courseCategoryService.remove(id)
