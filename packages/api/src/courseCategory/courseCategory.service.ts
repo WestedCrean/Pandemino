@@ -32,7 +32,7 @@ export class CourseCategoryService {
     }
 
     findAll(): Promise<CourseCategory[]> {
-        return this.courseCategoryRepository.find({ relations: ["courses"] })
+        return this.courseCategoryRepository.find()
     }
 
     findOne(id: string): Promise<CourseCategory> {

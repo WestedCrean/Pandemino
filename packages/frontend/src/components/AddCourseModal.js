@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Modal, Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
@@ -14,6 +14,9 @@ const AddCourseModal = ({
     courseNameAlready,
     courseDescriptionAlready,
 }) => {
+    const [courseCategories, setCourseCategories] = useState([])
+
+    const [category, setCategory] = useState(null)
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
     const [password, setPassword] = useState(null)
@@ -30,6 +33,20 @@ const AddCourseModal = ({
     const { user } = useAuthContext()
     const userEmail = user.email
 
+    const getCategories = async () => {
+
+        try{
+
+            const api = ApiService(accessToken)
+
+            const response = await api.getCourseCategories()
+            //console.log(response.data)
+            setCourseCategories(response.data);
+        }catch(error){console.log(error)}
+    }
+
+    //console.log(category)
+
     const addNewCourse = async () => {
         if (validate()) {
             const api = ApiService(accessToken)
@@ -42,6 +59,7 @@ const AddCourseModal = ({
                 description: courseDescription,
                 userId: userId,
                 password: password,
+                courseCategoryId: category
             }
             await api
                 .createCourse(body)
@@ -84,6 +102,7 @@ const AddCourseModal = ({
                 name: courseName,
                 description: courseDescription,
                 password: password,
+                courseCategoryId: category
             }
 
             await api.editCourse(idCourse, body)
@@ -118,6 +137,8 @@ const AddCourseModal = ({
 
         if ((courseName === null) | (courseName === "")) {
             window.alert("Wpisz nazwe kursu")
+        }else if ((category === null) | (courseDescription === "")) {
+            window.alert("Wybierz kategorie kursu")
         } else if ((courseDescription === null) | (courseDescription === "")) {
             window.alert("Podaj opis kursu")
         } else if (validatePassword()) {
@@ -126,6 +147,12 @@ const AddCourseModal = ({
 
         return false
     }
+
+    useEffect(()=>{
+
+        getCategories()
+
+    },[])
 
     return (
         <>
@@ -196,6 +223,13 @@ const AddCourseModal = ({
                         value={confirm}
                         onChange={(e) => setConfirm(e.target.value)}
                     />
+                    <select className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
+                        {
+                            courseCategories.map(category => (
+                                <option value={category.id}>{category.name}</option> 
+                            ))
+                        }
+                    </select>
                 </form>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

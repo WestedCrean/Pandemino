@@ -73,10 +73,20 @@ export class CoursesService {
             course.password = await bcrypt.hash(updateCourseSchema.password, 10);
         }
 
+        if (updateCourseSchema.courseCategoryId !== null || updateCourseSchema.courseCategoryId !== "") {
 
-        await this.coursesRepository.save(course)
+            let courseCategory: CourseCategory
+            try {
+                courseCategory = await this.courseCategoryRepository.findOne(updateCourseSchema.courseCategoryId)
+            } catch (e) {
+                throw new Error(e)
+            }
+            course.courseCategory = courseCategory
+        }
 
-        
+
+
+        await this.coursesRepository.save(course)        
     }
 
     // FIXME: add pagination
