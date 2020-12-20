@@ -18,6 +18,7 @@ import { QuizModule } from "./quiz/quiz.module"
 import { QuestionsModule } from "./questions/questions.module"
 import { VariantsModule } from "./variants/variants.module"
 import { userAnswerModule } from "./userAnswer/UserAnswer.module"
+import { CourseCategoryModule } from "./courseCategory/courseCategory.module"
 
 @Module({
     imports: [
@@ -66,7 +67,7 @@ import { userAnswerModule } from "./userAnswer/UserAnswer.module"
         QuestionsModule,
         VariantsModule,
         userAnswerModule,
-        
+        CourseCategoryModule,
     ],
 })
 export class AppModule {}

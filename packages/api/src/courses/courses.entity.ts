@@ -1,3 +1,4 @@
+import { CourseCategory } from "src/courseCategory/courseCategory.entity"
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from "typeorm"
 import { Lecture } from "../lectures/lectures.entity"
 import { UserCourse } from "../userCourses/userCourses.entity"
@@ -26,6 +27,10 @@ class Course {
     @ManyToOne(() => User, (user: User) => user.courses, { onDelete: "NO ACTION" })
     @JoinColumn()
     lecturer: User
+
+    @ManyToOne(() => CourseCategory, (courseCategory: CourseCategory) => courseCategory.courses, { onDelete: "NO ACTION" })
+    @JoinColumn()
+    courseCategory: CourseCategory
 
     @OneToMany(() => Lecture, (lecture: Lecture) => lecture.course)
     lectures: Lecture[]
