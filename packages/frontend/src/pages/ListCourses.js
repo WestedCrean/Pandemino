@@ -142,7 +142,8 @@ const ListCourses = () => {
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th>Nazwa </th>
+                                        <th>Nazwa</th>
+                                        <th>Kategoria</th>
                                         <th>Wykładowca</th>
                                         <th>Stream</th>
                                     </tr>
@@ -152,6 +153,7 @@ const ListCourses = () => {
                                         <tr key={`${course.id}`}>
                                             <td>{i + 1}</td>
                                             <td>{course.name}</td>
+                                            <td>{course.courseCategory.name}</td>
                                             {course.lecturer.firstName ? (
                                                 <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
                                             ) : (
