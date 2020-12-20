@@ -15,7 +15,7 @@ const AddCourseModal = ({
 }) => {
     const [courseCategories, setCourseCategories] = useState([])
 
-    const [category, setCategory] = useState(null)
+    const [category, setCategory] = useState(course !== null ? course.courseCategory : 1)
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
     const [password, setPassword] = useState(null)
