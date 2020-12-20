@@ -105,12 +105,14 @@ export class CoursesService {
         return this.coursesRepository
             .createQueryBuilder("course")
             .leftJoinAndSelect("course.lecturer", "users")
+            .leftJoinAndSelect("course.courseCategory", "courseCategory")
             .where(
                 `UPPER(course.description) like UPPER('%${querry}%') 
                 or UPPER(course.name) like UPPER('%${querry}%')
                 or UPPER(users.firstName) like UPPER('%${querry}%')
                 or UPPER(users.lastName) like UPPER('%${querry}%')
                 or UPPER(users.email) like UPPER('%${querry}%')
+                or UPPER(courseCategory.name) like UPPER('%${querry}%')
                 `,
             )
             .getMany()
