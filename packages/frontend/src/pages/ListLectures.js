@@ -152,7 +152,8 @@ const ListLectures = ({location}) => {
                 setCurrentLecture(null)
             }
 
-            const responseCourse = { name : response.data.name
+            const responseCourse = { id : response.data.id
+                , name : response.data.name
                 , description : response.data.description
                 , courseCategory : response.data.courseCategory.id }
 

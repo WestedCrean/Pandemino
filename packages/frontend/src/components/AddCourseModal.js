@@ -89,13 +89,14 @@ const AddCourseModal = ({
         {
             const api = ApiService(accessToken)
 
-            const userReponse = await api.getUserByEmail(userEmail)
-            const userId = userReponse.data.id
+            // const userReponse = await api.getUserByEmail(userEmail)
+            // const userId = userReponse.data.id
 
-            const courseResponse = await api.getCourseById(courseIdProps)
+            // const courseResponse = await api.getCourseById(courseIdProps)
+            // const idCourse = courseResponse.data.id
 
-            const idCourse = courseResponse.data.id
-
+            console.log(courseIdProps)
+            //console.log(category)
             const body = {
                 name: courseName,
                 description: courseDescription,
@@ -103,7 +104,9 @@ const AddCourseModal = ({
                 courseCategoryId: category
             }
 
-            await api.editCourse(idCourse, body)
+            console.log(body)
+
+            await api.editCourse(courseIdProps, body)
 
             window.alert("Edytowano kurs")
             window.location = "/"

@@ -36,7 +36,7 @@ export class CourseCategoryService {
     }
 
     findOne(id: string): Promise<CourseCategory> {
-        return this.courseCategoryRepository.findOne(id, { relations: ["courses"] })
+        return this.courseCategoryRepository.findOne(id)
     }
 
 
