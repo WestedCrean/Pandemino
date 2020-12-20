@@ -11,8 +11,7 @@ import DeleteCourseModal from "../components/DeleteCourseModal"
 const AddCourseModal = ({
     courseIdProps,
     type,
-    courseNameAlready,
-    courseDescriptionAlready,
+    course = null,
 }) => {
     const [courseCategories, setCourseCategories] = useState([])
 
@@ -21,8 +20,7 @@ const AddCourseModal = ({
     const [courseDescription, setCourseDescription] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirm, setConfirm] = useState(null)
-    const [defaultValueName, setDefaultValueName] = useState(null)
-    const [defaultValueDescription, setDefaultValueDescription] = useState()
+
 
     const [show, setShow] = useState(false)
 
@@ -195,7 +193,7 @@ const AddCourseModal = ({
                         id="name"
                         placeholder="Nazwa kursu"
                         value={courseName}
-                        defaultValue={courseNameAlready}
+                        defaultValue={course !== null ? course.name : null}
                         onChange={(e) => setCourseName(e.target.value)}
                     />
                     <textarea
@@ -203,7 +201,7 @@ const AddCourseModal = ({
                         className="form-control form-input cy-opis"
                         id="desctiption"
                         placeholder="Opis kursu"
-                        defaultValue={courseDescriptionAlready}
+                        defaultValue={course !== null ? course.description : null}
                         value={courseDescription}
                         onChange={(e) => setCourseDescription(e.target.value)}
                     />
@@ -223,7 +221,8 @@ const AddCourseModal = ({
                         value={confirm}
                         onChange={(e) => setConfirm(e.target.value)}
                     />
-                    <select className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <select defaultValue={course !== null ? course.courseCategory : null } 
+                        className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
                         {
                             courseCategories.map(category => (
                                 <option value={category.id}>{category.name}</option> 

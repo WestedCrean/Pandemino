@@ -72,7 +72,7 @@ const ListLectures = ({location}) => {
 
     const courseId = location.pathname.split("/").slice(-1)[0]
 
-    
+
     const moveToLecturePage = (id) => {
         history.push({
             pathname: `/lecture/${id}`,
@@ -154,7 +154,7 @@ const ListLectures = ({location}) => {
 
             const responseCourse = { name : response.data.name
                 , description : response.data.description
-                , courseCategory : response.data.courseCategory.name }
+                , courseCategory : response.data.courseCategory.id }
 
             setCourseInfo(responseCourse)
             setCourseOwnerEmail(response.data.lecturer.email)
