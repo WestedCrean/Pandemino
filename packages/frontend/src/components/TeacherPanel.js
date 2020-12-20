@@ -17,7 +17,7 @@ const TeacherPanel = (props) => {
             const data = response.data
 
             data.map((userCourse) => {
-                console.log(userCourse)
+                //console.log(userCourse)
                 if (userCourse.course.id === props.currentLecture) {
                     tab.push(userCourse)
                 }

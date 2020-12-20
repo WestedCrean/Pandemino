@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Modal, Button } from "react-bootstrap"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
@@ -11,15 +11,16 @@ import DeleteCourseModal from "../components/DeleteCourseModal"
 const AddCourseModal = ({
     courseIdProps,
     type,
-    courseNameAlready,
-    courseDescriptionAlready,
+    course = null,
 }) => {
+    const [courseCategories, setCourseCategories] = useState([])
+
+    const [category, setCategory] = useState(null)
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirm, setConfirm] = useState(null)
-    const [defaultValueName, setDefaultValueName] = useState(null)
-    const [defaultValueDescription, setDefaultValueDescription] = useState()
+
 
     const [show, setShow] = useState(false)
 
@@ -29,6 +30,20 @@ const AddCourseModal = ({
     const { accessToken } = useAuthContext()
     const { user } = useAuthContext()
     const userEmail = user.email
+
+    const getCategories = async () => {
+
+        try{
+
+            const api = ApiService(accessToken)
+
+            const response = await api.getCourseCategories()
+            //console.log(response.data)
+            setCourseCategories(response.data);
+        }catch(error){console.log(error)}
+    }
+
+    //console.log(category)
 
     const addNewCourse = async () => {
         if (validate()) {
@@ -42,6 +57,7 @@ const AddCourseModal = ({
                 description: courseDescription,
                 userId: userId,
                 password: password,
+                courseCategoryId: category
             }
             await api
                 .createCourse(body)
@@ -73,20 +89,24 @@ const AddCourseModal = ({
         {
             const api = ApiService(accessToken)
 
-            const userReponse = await api.getUserByEmail(userEmail)
-            const userId = userReponse.data.id
+            // const userReponse = await api.getUserByEmail(userEmail)
+            // const userId = userReponse.data.id
 
-            const courseResponse = await api.getCourseById(courseIdProps)
+            // const courseResponse = await api.getCourseById(courseIdProps)
+            // const idCourse = courseResponse.data.id
 
-            const idCourse = courseResponse.data.id
-
+            console.log(courseIdProps)
+            //console.log(category)
             const body = {
                 name: courseName,
                 description: courseDescription,
                 password: password,
+                courseCategoryId: category
             }
 
-            await api.editCourse(idCourse, body)
+            console.log(body)
+
+            await api.editCourse(courseIdProps, body)
 
             window.alert("Edytowano kurs")
             window.location = "/"
@@ -118,6 +138,8 @@ const AddCourseModal = ({
 
         if ((courseName === null) | (courseName === "")) {
             window.alert("Wpisz nazwe kursu")
+        }else if ((category === null) | (courseDescription === "")) {
+            window.alert("Wybierz kategorie kursu")
         } else if ((courseDescription === null) | (courseDescription === "")) {
             window.alert("Podaj opis kursu")
         } else if (validatePassword()) {
@@ -126,6 +148,12 @@ const AddCourseModal = ({
 
         return false
     }
+
+    useEffect(()=>{
+
+        getCategories()
+
+    },[])
 
     return (
         <>
@@ -168,7 +196,7 @@ const AddCourseModal = ({
                         id="name"
                         placeholder="Nazwa kursu"
                         value={courseName}
-                        defaultValue={courseNameAlready}
+                        defaultValue={course !== null ? course.name : null}
                         onChange={(e) => setCourseName(e.target.value)}
                     />
                     <textarea
@@ -176,7 +204,7 @@ const AddCourseModal = ({
                         className="form-control form-input cy-opis"
                         id="desctiption"
                         placeholder="Opis kursu"
-                        defaultValue={courseDescriptionAlready}
+                        defaultValue={course !== null ? course.description : null}
                         value={courseDescription}
                         onChange={(e) => setCourseDescription(e.target.value)}
                     />
@@ -196,6 +224,14 @@ const AddCourseModal = ({
                         value={confirm}
                         onChange={(e) => setConfirm(e.target.value)}
                     />
+                    <select defaultValue={course !== null ? course.courseCategory : null } 
+                        className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
+                        {
+                            courseCategories.map(category => (
+                                <option value={category.id}>{category.name}</option> 
+                            ))
+                        }
+                    </select>
                 </form>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

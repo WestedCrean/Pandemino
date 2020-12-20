@@ -63,20 +63,30 @@ export class CoursesService {
             throw new Error(e)
         }
 
-        if (updateCourseSchema.name !== null || updateCourseSchema.name !== "") {
+        if (updateCourseSchema.name !== null && updateCourseSchema.name !== "") {
             course.name = updateCourseSchema.name
         }
-        if (updateCourseSchema.description !== null || updateCourseSchema.description !== "") {
+        if (updateCourseSchema.description !== null && updateCourseSchema.description !== "") {
             course.description = updateCourseSchema.description
         }
-        if (updateCourseSchema.password !== null || updateCourseSchema.password !== "") {
+        if (updateCourseSchema.password !== null && updateCourseSchema.password !== "") {
             course.password = await bcrypt.hash(updateCourseSchema.password, 10);
         }
 
-
-        await this.coursesRepository.save(course)
-
         
+        if (updateCourseSchema.courseCategoryId !== null && updateCourseSchema.courseCategoryId !== "") {
+
+            let courseCategory: CourseCategory
+            try {
+                courseCategory = await this.courseCategoryRepository.findOne(parseInt(updateCourseSchema.courseCategoryId))
+            } catch (e) {
+                throw new Error(e)
+            }
+            course.courseCategory = courseCategory
+        }
+
+
+        await this.coursesRepository.save(course)        
     }
 
     // FIXME: add pagination
