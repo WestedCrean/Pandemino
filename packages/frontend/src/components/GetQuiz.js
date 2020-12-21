@@ -66,7 +66,13 @@ const GetQuiz = (props) => {
                 quizes[i].id
             )
 
-            if (userAnswerResponse.data.length === 0) {
+            console.log(userAnswerResponse)
+
+            if(userAnswerResponse.data.length === 0 ){
+                list.push(false)
+                break
+            }
+            if (userAnswerResponse.data[0].length === 0) {
                 list.push(false)
             } else {
                 list.push(true)
@@ -92,10 +98,15 @@ const GetQuiz = (props) => {
             getQuizes()
         }
 
+    }, [props.lectureId])
+
+    useEffect(() => {
+
+
         if (quizes.length !== 0) {
             getUserAnswers()
         }
-    }, [props.lectureId])
+    },[quizes])
     //quizes deleted from useEffect
 
     return (
@@ -120,7 +131,7 @@ const GetQuiz = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* Fixme: why quizes are undefined?! */}
+                                
                                 {quizes.map((quiz, i) => (
                                     <tr>
                                         <th scope="row">{i + 1}</th>

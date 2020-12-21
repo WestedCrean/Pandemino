@@ -25,13 +25,11 @@ class Quiz {
 
 
     @OneToMany(() => Question, (questions: Question) => questions.quiz)
-    questions: Quiz[]
+    questions: Question[]
 
     @ManyToOne(() => Lecture, (lecture: Lecture) => lecture.quiz, { onDelete: "CASCADE" })
     @JoinColumn()
     lecture: Lecture
-
-
 
 }
 
