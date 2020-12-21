@@ -14,6 +14,7 @@ const UserPanel = () => {
     const [id, setId] = useState()
     const [name, setName] = useState()
     const [lastName, setlastName] = useState()
+    const [description, setDescription] = useState()
     const [image, setImage] = useState(null)
     const [imageRef, setImageRef] = useState(null)
 
@@ -93,6 +94,7 @@ const UserPanel = () => {
         const body = {
             firstName: name,
             lastName: lastName,
+            description: description
         }
         try {
             await api
@@ -101,7 +103,7 @@ const UserPanel = () => {
                 .catch((error) => console.log(error))
 
             window.alert("Edytowano dane użytkownika")
-            window.location = "/lecture"
+            window.location.reload()
         } catch { }
     }
 
@@ -109,6 +111,7 @@ const UserPanel = () => {
         setId(userData.id)
         setName(userData.firstName)
         setlastName(userData.lastName)
+        setDescription(userData.description)
         setImageRef(userData.imageUuid);
 
         try {
@@ -134,6 +137,7 @@ const UserPanel = () => {
     return (
         <div class="wrapper">
             <FancyWave></FancyWave>
+            <div className="outer-wapper">
             <div class="box grid-courses">
                 <div className="box-label">
                     <div className="box-label-name">PANEL UŻYTKOWNIKA</div>
@@ -182,6 +186,28 @@ const UserPanel = () => {
                                                 }
                                             ></input>
                                         </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            for="inputtext2"
+                                            class="control-label"
+                                        >
+                                            Opis
+                                        </label>
+                                        <div class="">
+                                            <textarea
+                                                type="text"
+                                                class="form-control"
+                                                id="inputtext2"
+                                                placeholder=""
+                                                value={description}
+                                                onChange={(e) =>
+                                                    setDescription(e.target.value)
+                                                }
+                                            ></textarea>
+                                        </div>
+                                        
                                     </div>
                                     <div class="form-group">
                                         <label
@@ -225,6 +251,7 @@ const UserPanel = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     )

@@ -156,9 +156,10 @@ const ListCourses = () => {
                                             <td>{course.name}</td>
                                             <td>{course.courseCategory.name}</td>
                                             {course.lecturer.firstName ? (
-                                                <td>{`${course.lecturer.firstName} ${course.lecturer.lastName}`}</td>
+                                                <td><a href={`/userInfo/${course.lecturer.email}`} target="_blank">
+                                                    {`${course.lecturer.firstName} ${course.lecturer.lastName}`} </a></td>
                                             ) : (
-                                                <td>{course.lecturer.email}</td>
+                                                <td><a href={`/userInfo/${course.lecturer.email}`} target="_blank">{course.lecturer.email}</a></td>
                                             )}
 
                                             <td>

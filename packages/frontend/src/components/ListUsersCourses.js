@@ -62,9 +62,10 @@ const ListUsersCourses = () => {
                             <td>{i + 1}</td>
                             <td>{course.course.name}</td>
                             {course.course.lecturer.firstName ? (
-                                <td>{`${course.course.lecturer.firstName} ${course.course.lecturer.lastName}`}</td>
+                                <td><a href={`/userInfo/${course.course.lecturer.email}`} target="_blank">
+                                    {`${course.course.lecturer.firstName} ${course.course.lecturer.lastName}`}</a></td>
                             ) : (
-                                <td>{course.course.lecturer.email}</td>
+                                <td><a href={`/userInfo/${course.course.lecturer.email}`} target="_blank">{course.course.lecturer.email}</a></td>
                             )}
 
                             <td>

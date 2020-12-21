@@ -98,19 +98,6 @@
 }
 
 @media (max-width: 1200px) {
-    .wrapper {
-        display: inline-flex;
-        flex-direction: column;
-    }
-
-    .wrapper > .grid-courses {
-        width: 80vw;
-        justify-content: center;
-    }
-
-    .wrapper > .grid-news {
-        width: 80vw;
-    }
 
     .outer-wrapper{
         width: 100vw;
