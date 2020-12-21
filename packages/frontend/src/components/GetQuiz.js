@@ -68,6 +68,10 @@ const GetQuiz = (props) => {
 
             console.log(userAnswerResponse)
 
+            if(userAnswerResponse.data.length === 0 ){
+                list.push(false)
+                break
+            }
             if (userAnswerResponse.data[0].length === 0) {
                 list.push(false)
             } else {
@@ -127,7 +131,7 @@ const GetQuiz = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* Fixme: why quizes are undefined?! */}
+                                
                                 {quizes.map((quiz, i) => (
                                     <tr>
                                         <th scope="row">{i + 1}</th>
