@@ -66,7 +66,9 @@ const GetQuiz = (props) => {
                 quizes[i].id
             )
 
-            if (userAnswerResponse.data.length === 0) {
+            console.log(userAnswerResponse)
+
+            if (userAnswerResponse.data[0].length === 0) {
                 list.push(false)
             } else {
                 list.push(true)
@@ -92,10 +94,15 @@ const GetQuiz = (props) => {
             getQuizes()
         }
 
+    }, [props.lectureId])
+
+    useEffect(() => {
+
+
         if (quizes.length !== 0) {
             getUserAnswers()
         }
-    }, [props.lectureId])
+    },[quizes])
     //quizes deleted from useEffect
 
     return (
