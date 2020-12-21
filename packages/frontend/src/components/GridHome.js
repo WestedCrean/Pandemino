@@ -4,6 +4,7 @@ import NewsList from "./NewsList"
 
 const GridHome = () => {
     return (
+        <div className="outer-wrapper"> 
         <div class="wrapper">
             <div class="box grid-courses">
                 <div className="box-label">
@@ -18,6 +19,7 @@ const GridHome = () => {
                 </div>
                 <NewsList></NewsList>
             </div>
+        </div>
         </div>
     )
 }
