@@ -59,14 +59,7 @@
     overflow-y: hidden;
 }
 
-.wrapper {
-    display: grid;
-    grid-gap: 3px;
-    min-height: 93vh;
-    color: #444;
-    padding: 70px 90px 120px 90px;
-    margin-bottom: 0px;
-}
+
 
 .wrapper-all-courses {
     display: grid;
@@ -95,6 +88,15 @@
     @include box-name($hei, $pos);
 }
 
+.wrapper {
+    display: grid;
+    grid-gap: 3px;
+    min-height: 93vh;
+    color: #444;
+    padding: 70px 90px 120px 90px;
+    margin-bottom: 0px;
+}
+
 @media (max-width: 1200px) {
     .wrapper {
         display: inline-flex;
@@ -109,37 +111,60 @@
     .wrapper > .grid-news {
         width: 80vw;
     }
+
+    .outer-wrapper{
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+    }
+
+
 }
 
 @media (max-width: 767px) {
+    .outer-wrapper{
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+    }
     .wrapper {
-        display: inline-flex;
-        flex-direction: column;
+    
+        margin: auto;
+        padding: 5px;
     }
 
-    .grid-courses {
-        width: 70vw;
+    .grid-courses{
+        grid-row: 1;
+        grid-column: 1;
     }
 
-    .grid-news {
-        width: 70vw;
+    .grid-news{
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .wrapper-all-courses{
+
+        
+        width: 100vw;
+        padding: 5px;
     }
 }
 
-@media (max-width: 600px) {
-    .wrapper {
-        display: inline-flex;
-        flex-direction: column;
-    }
+// @media (max-width: 600px) {
+//     .wrapper {
+//         display: inline-flex;
+//         flex-direction: column;
+//     }
 
-    .grid-courses {
-        width: 60vw;
-    }
+//     .grid-courses {
+//         width: 60vw;
+//     }
 
-    .grid-news {
-        width: 60vw;
-    }
-}
+//     .grid-news {
+//         width: 60vw;
+//     }
+// }
 
 ////////////////////
 /* Widok Wykładów */
@@ -236,16 +261,6 @@ div:hover {
     margin-left: 0;
 }
 
-.overlay {
-    display: none;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 998;
-    opacity: 1;
-    transition: all 0.5s ease-in-out;
-}
 
 .overlay.active {
     display: block;

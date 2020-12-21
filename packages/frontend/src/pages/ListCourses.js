@@ -130,6 +130,7 @@ const ListCourses = () => {
         <div>
             <FancyWave></FancyWave>
             <Fragment>
+                <div className="outer-wrapper">
                 <div class="wrapper-all-courses">
                     <div class="box grid-courses">
                         <div className="box-label">
@@ -189,14 +190,8 @@ const ListCourses = () => {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
-                        <div className="d-flexs p-2">
-                            <div className="box-addNewCourse ">
-                                <AddCourseModal></AddCourseModal>
-                            </div>
-                        </div>
 
-                        <div className="searcher md-form active-pink active-pink-2 align-bottom">
+                            <div className="searcher md-form active-pink active-pink-2 align-bottom">
                             <input
                                 className="form-control"
                                 type="text"
@@ -206,7 +201,16 @@ const ListCourses = () => {
                                 onChange={(e) => setQuery(e.target.value)}
                             ></input>
                         </div>
+                        </div>
+                        <div className="d-flexs p-2">
+                            <div className="box-addNewCourse ">
+                                <AddCourseModal></AddCourseModal>
+                            </div>
+                        </div>
+
+                        
                     </div>
+                </div>
                 </div>
             </Fragment>
         </div>
