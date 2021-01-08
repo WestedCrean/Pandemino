@@ -4,7 +4,8 @@ const ApiRoutes = (ApiService) => {
 
     const getStreamById = async (id) => ApiService.get(`/lectures/${id}`)
 
-    const putStreamData = async (id, data) => ApiService.put(`/lectures/${id}`, data)
+    const putStreamData = async (id, data) =>
+        ApiService.put(`/lectures/${id}`, data)
 
     const createStream = async (data) => ApiService.post("/lectures", data)
 
@@ -23,6 +24,9 @@ const ApiRoutes = (ApiService) => {
     const deleteCourse = async (id) => ApiService.delete(`/courses/${id}`)
 
     const editCourse = async (id, data) => ApiService.put(`courses/${id}`, data)
+
+    const setLiveLecture = async (id, data) =>
+        ApiService.put(`courses/${id}/live`, data)
 
     //POLACZENIA USER <-> KURS
     const addUserCourse = async (data) => ApiService.post("/userCourses", data)
@@ -46,11 +50,14 @@ const ApiRoutes = (ApiService) => {
 
     const getLectureFrequency = async () => ApiService.get("/lectureFrequency/")
 
-    const getLectureFrequencyByCourseId = async (id) => ApiService.get(`/lectureFrequency/${id}`)
+    const getLectureFrequencyByCourseId = async (id) =>
+        ApiService.get(`/lectureFrequency/${id}`)
 
-    const findLectureFrequencyByUserLecture = async (userId, lectureId) => ApiService.get(`/lectureFrequency/${userId}/${lectureId}`)
+    const findLectureFrequencyByUserLecture = async (userId, lectureId) =>
+        ApiService.get(`/lectureFrequency/${userId}/${lectureId}`)
 
-    const postLectureFrequency = async (data) => ApiService.post("lectureFrequency", data)
+    const postLectureFrequency = async (data) =>
+        ApiService.post("lectureFrequency", data)
 
     //PLIKI
     const addFile = async (data) => ApiService.post("/file", data)
@@ -121,14 +128,13 @@ const ApiRoutes = (ApiService) => {
         putUserAnswer,
         getUserUserAnswers,
         deleteLecture,
-
+        setLiveLecture,
         getAllUsersCourses,
 
         getLectureFrequency,
         findLectureFrequencyByUserLecture,
         postLectureFrequency,
-        getLectureFrequencyByCourseId
-
+        getLectureFrequencyByCourseId,
     }
 }
 

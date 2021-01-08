@@ -15,6 +15,12 @@ export class CoursesController {
         return this.coursesService.create(createUser)
     }
 
+    @Put(":id/live")
+    toggleLiveStream(@Param("id") id: string, @Body() toggleLive: any): Promise<void> {
+        const { isLive, lectureId } = toggleLive
+        return this.coursesService.toggleLiveStream(parseInt(id), isLive, lectureId)
+    }
+
     @Put(":id")
     update(@Param("id") id: string, @Body() updateCourse: any): Promise<void> {
         return this.coursesService.update(id, updateCourse)

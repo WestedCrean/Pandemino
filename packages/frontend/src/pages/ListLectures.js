@@ -30,7 +30,7 @@ import TeacherPanel from "components/TeacherPanel"
 import MarkPresenceBtn from "components/MarkPresenceBtn"
 import Frequency from "components/Frequency"
 import FancyWave from "components/FancyWave"
-import StartLiveBtn from "components/StartLiveBtn"
+import ToggleLiveBtn from "components/ToggleLiveBtn"
 
 const ListLectures = (props) => {
     //styles
@@ -53,6 +53,7 @@ const ListLectures = (props) => {
     const [currentLecture, setCurrentLecture] = useState(null)
     const [currentLectureName, setCurrentLectureName] = useState("")
     const [currentLectureDescription, setCurrentLectureDescription] = useState()
+    const [liveStream, setLiveStream] = useState(null)
 
     const { accessToken } = useAuthContext()
     const history = useHistory()
@@ -90,15 +91,44 @@ const ListLectures = (props) => {
         })
     }
 
-    const handleStartLive = async () => {
-        console.log(lectures.slice(-1))
-        // const courseData = await api.getCourseById()
+    const handleStartLive = async (lectureId) => {
+        try {
+            // choose lecture to stream
+            // const courseData = await api.getCourseById()
+            // GET lectureId
+            const payload = {
+                isLive: true,
+                lectureId: lectureId,
+            }
+            // PUT to api -> isLive=false on lecture
+            await api.setLiveLecture(courseId, payload)
+            getStreams()
+        } catch (e) {
+            console.log({ e })
+        }
     }
 
-    const handleEndLive = () => {
-        // GET lectureId
-        // PUT to api -> isLive=false on lecture
-        //go to latest lecture
+    const handleEndLive = async () => {
+        try {
+            // GET lectureId
+            // PUT to api -> isLive=false on lecture
+            const payload = {
+                isLive: false,
+            }
+            // PUT to api -> isLive=false on lecture
+            await api.setLiveLecture(courseId, payload)
+            setLiveStream(null)
+        } catch (e) {
+            console.log({ e })
+        }
+    }
+
+    const handleToggleLive = async (lectureId) => {
+        if (lectureId !== null) {
+            handleStartLive(lectureId)
+        } else {
+            handleEndLive()
+        }
     }
 
     const deleteLecture = () => {
@@ -150,7 +180,6 @@ const ListLectures = (props) => {
     }
 
     const getStreams = async () => {
-
         try {
             const response = await api.getCourseById(courseId)
             if (response.data.lectures.length !== 0) {
@@ -160,6 +189,7 @@ const ListLectures = (props) => {
                 setCurrentLectureDescription(
                     response.data.lectures[0].description
                 )
+                setLiveStream(response.data.liveLecture)
             } else {
                 setLectures([])
                 setCurrentLecture(null)
@@ -178,7 +208,11 @@ const ListLectures = (props) => {
     return (
         <div>
             <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
-            <StartLiveBtn handleStartLive={handleStartLive} lectureId={currentLecture}></StartLiveBtn>
+            <ToggleLiveBtn
+                handleToggleLive={handleToggleLive}
+                availableLectures={lectures}
+                currentState={liveStream !== null}
+            ></ToggleLiveBtn>
             <div className="list-lecture-container-2">
                 <div className="main-lectures-wrapper">
                     <nav className={`sidebar ${sidebar}`}>

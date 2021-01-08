@@ -31,11 +31,6 @@ class Lecture {
     })
     isPublished: boolean
 
-    @Column({
-        default: false,
-    })
-    isLive: boolean
-
     @Column("timestamp")
     createdAt: Date
 

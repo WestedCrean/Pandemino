@@ -17,6 +17,17 @@ import SpinnerFullPage from "./SpinnerFullPage"
 import StreamInfo from "./StreamInfo"
 import Toast from "./Toast"
 
+import GetQuiz from "./GetQuiz"
+import CreateQuiz from "./CreateQuiz"
+import DeleteLectureModal from "./DeleteLectureModal"
+import TeacherPanel from "./TeacherPanel"
+
+import FancyWave from "./FancyWave"
+import Files from "./Files"
+import Frequency from "./Frequency"
+import MarkPresenceBtn from "./MarkPresenceBtn"
+import ToggleLiveBtn from "./ToggleLiveBtn"
+import GoToLiveStreamBtn from "./GoToLiveStreamBtn"
 import { LiveBadge } from "./Badges"
 
 export {
@@ -38,4 +49,14 @@ export {
     StreamInfo,
     LiveBadge,
     Toast,
+    GetQuiz,
+    CreateQuiz,
+    DeleteLectureModal,
+    FancyWave,
+    Files,
+    Frequency,
+    MarkPresenceBtn,
+    TeacherPanel,
+    ToggleLiveBtn,
+    GoToLiveStreamBtn,
 }
