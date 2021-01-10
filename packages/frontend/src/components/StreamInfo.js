@@ -18,7 +18,9 @@ const StreamInfo = ({
         </div>
         <div className="row">
             <div className="col">
-                <h2 className="h5">{lecturer}</h2>
+                {lecturer && lecturer.firstName && lecturer.lastName && (
+                    <h2 className="h5">{`${lecturer.firstName} ${lecturer.lastName}`}</h2>
+                )}
             </div>
         </div>
         <div className="row">

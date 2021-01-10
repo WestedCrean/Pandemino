@@ -7,19 +7,35 @@ import { useToasts } from "react-toast-notifications"
 import { createSocket } from "services/streams"
 
 import { StreamWindow, Chat, StreamInfo } from "components"
+import { hi } from "date-fns/locale"
 
 const Lecture = ({ history, location }) => {
     const { accessToken } = useAuthContext()
     const { addToast } = useToasts()
-    const lectureId = location.pathname.split("/").slice(-1)[0]
+    const courseId = location.pathname.split("/")[2]
     const [streamInfo, setStreamInfo] = useState(null)
-    const [socket, setSocket] = useState(createSocket(lectureId))
+    const [socket, setSocket] = useState(createSocket(courseId))
     const api = ApiService(accessToken)
 
     const getStreamInfo = async () => {
         try {
-            const response = await api.getStreamById(lectureId)
-            setStreamInfo(response.data)
+            const { data } = await api.getCourseById(courseId)
+            let { liveLecture, lecturer } = data
+            liveLecture.lecturer = lecturer
+            console.log({ liveLecture })
+            if (liveLecture) {
+                //const response = await api.getStreamById(liveLecture.id)
+                setStreamInfo(liveLecture)
+            } else {
+                addToast(
+                    "Wykład na żywo jeszcze się nie rozpoczął. Zostaniesz przeniesiony do widoku kursu.",
+                    { appearance: "error" }
+                )
+                setTimeout(() => {
+                    //history.push(`/course/${courseId}`)
+                    history.push("/")
+                }, 3000)
+            }
         } catch (error) {
             addToast("Błąd połączenia z serwerem", { appearance: "error" })
         }
@@ -38,7 +54,7 @@ const Lecture = ({ history, location }) => {
                             <StreamWindow
                                 socket={socket}
                                 streamInfo={streamInfo}
-                                streamId={lectureId}
+                                streamId={courseId}
                                 ready={socket !== undefined}
                             />
                         </div>
@@ -52,7 +68,7 @@ const Lecture = ({ history, location }) => {
                 <div className="col-sm-12 col-md-4">
                     <Chat
                         socket={socket}
-                        roomId={lectureId}
+                        roomId={courseId}
                         ready={socket !== undefined}
                     />
                 </div>

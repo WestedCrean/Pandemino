@@ -31,6 +31,8 @@ import MarkPresenceBtn from "components/MarkPresenceBtn"
 import Frequency from "components/Frequency"
 import FancyWave from "components/FancyWave"
 import ToggleLiveBtn from "components/ToggleLiveBtn"
+import GoToLiveStreamBtn from "components/GoToLiveStreamBtn"
+import ContextButtonContainer from "components/ContextButtonContainer"
 
 const ListLectures = (props) => {
     //styles
@@ -207,12 +209,19 @@ const ListLectures = (props) => {
 
     return (
         <div>
-            <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
-            <ToggleLiveBtn
-                handleToggleLive={handleToggleLive}
-                availableLectures={lectures}
-                currentState={liveStream !== null}
-            ></ToggleLiveBtn>
+            <ContextButtonContainer>
+                <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
+                <ToggleLiveBtn
+                    handleToggleLive={handleToggleLive}
+                    availableLectures={lectures}
+                    currentState={liveStream !== null}
+                ></ToggleLiveBtn>
+                <GoToLiveStreamBtn
+                    link={`/course/${courseId}/live`}
+                    currentState={liveStream !== null}
+                />
+            </ContextButtonContainer>
+
             <div className="list-lecture-container-2">
                 <div className="main-lectures-wrapper">
                     <nav className={`sidebar ${sidebar}`}>

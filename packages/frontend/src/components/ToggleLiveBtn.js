@@ -15,13 +15,22 @@ const ToggleLiveBtn = ({
     const [showModal, setShowModal] = React.useState(false)
 
     const toggleLive = () => {
-        toggleModal()
         if (!currentState) {
-            const chosenLectureId = 1
-            handleToggleLive(chosenLectureId)
+            toggleModal()
         } else {
             handleToggleLive(null)
         }
+    }
+
+    const handleSelectChange = (e) => {
+        const { value } = e.target
+        console.log({ value })
+        setChosenLecture(value)
+    }
+
+    const handleSubmit = () => {
+        handleToggleLive(chosenLectureId)
+        toggleModal()
     }
 
     const toggleModal = () => {
@@ -30,7 +39,7 @@ const ToggleLiveBtn = ({
     return (
         <>
             <div className="start-live-btn">
-                <Button variant="light" onClick={toggleModal}>
+                <Button variant="light" onClick={toggleLive}>
                     <FontAwesomeIcon
                         className="recording mr-1"
                         size="sm"
@@ -48,15 +57,19 @@ const ToggleLiveBtn = ({
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form onChange={handleSelectChange}>
                         <Form.Group controlId="exampleForm.SelectCustom">
-                            <Form.Label>Custom select</Form.Label>
+                            <Form.Label>Wybrany wykład</Form.Label>
                             <Form.Control as="select" custom>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="">Wybierz wykład...</option>
+                                {availableLectures.map((lecture) => (
+                                    <option
+                                        key={lecture.name}
+                                        value={lecture.id}
+                                    >
+                                        {lecture.name}
+                                    </option>
+                                ))}
                             </Form.Control>
                         </Form.Group>
                     </Form>
@@ -68,7 +81,10 @@ const ToggleLiveBtn = ({
                     <Button
                         type="submit"
                         variant="primary"
-                        onClick={toggleLive}
+                        onClick={handleSubmit}
+                        disabled={
+                            chosenLectureId === null || chosenLectureId === ""
+                        }
                     >
                         Rozpocznij wykład na żywo
                     </Button>

@@ -28,6 +28,7 @@ import Frequency from "./Frequency"
 import MarkPresenceBtn from "./MarkPresenceBtn"
 import ToggleLiveBtn from "./ToggleLiveBtn"
 import GoToLiveStreamBtn from "./GoToLiveStreamBtn"
+import ContextButtonContainer from "./ContextButtonContainer"
 import { LiveBadge } from "./Badges"
 
 export {
@@ -59,4 +60,5 @@ export {
     TeacherPanel,
     ToggleLiveBtn,
     GoToLiveStreamBtn,
+    ContextButtonContainer,
 }
