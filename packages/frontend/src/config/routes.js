@@ -4,7 +4,7 @@ import ListCourses from "../pages/ListCourses"
 import UserPanel from "../pages/UserPanel"
 import QuizFinished from "../pages/QuizFinished"
 import QuizAdminPanel from "../pages/QuizAdminPanel"
-
+import UserInfo from "../pages/UserInfo"
 const routes = [
     {
         path: "/course/:id/live",
@@ -55,8 +55,15 @@ const routes = [
     {
         path: "/quizAdminPanel/:id",
         component: QuizAdminPanel,
-        needAuth: true,
+        needAuth: true
     },
+
+    {
+        path: "/userInfo/:email",
+        component: UserInfo,
+        needAuth: true
+    }
+
 ]
 
 export default routes

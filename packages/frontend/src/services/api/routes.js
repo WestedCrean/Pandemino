@@ -13,6 +13,13 @@ const ApiRoutes = (ApiService) => {
 
     const deleteLecture = async (id) => ApiService.delete(`/lectures/${id}`)
 
+    //KATEGORIE KURSÓW
+
+    const getCourseCategories = async () => ApiService.get("courseCategory")
+
+    const getCourseCategoryById = async (id) => ApiService.get(`courseCategory/${id}`)
+
+    const createCourseCategory = async (data) => ApiService.get("courseCategory", data)
     //KURSY
     const getAvailableCourses = async (data = "") =>
         ApiService.get(`/courses?query=${data}`)
@@ -130,11 +137,14 @@ const ApiRoutes = (ApiService) => {
         deleteLecture,
         setLiveLecture,
         getAllUsersCourses,
-
         getLectureFrequency,
         findLectureFrequencyByUserLecture,
         postLectureFrequency,
         getLectureFrequencyByCourseId,
+        getCourseCategories,
+        getCourseCategoryById,
+        createCourseCategory
+
     }
 }
 

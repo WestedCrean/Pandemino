@@ -3,8 +3,9 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { User } from "../users/users.entity"
 import { getRepository, Repository } from "typeorm"
 import { Course } from "./courses.entity"
-import * as bcrypt from "bcryptjs"
+import { CourseCategory } from "../courseCategory/courseCategory.entity"
 import { Lecture } from "src/lectures/lectures.entity"
+import * as bcrypt from "bcryptjs"
 
 @Injectable()
 export class CoursesService {
@@ -13,14 +14,23 @@ export class CoursesService {
         private coursesRepository: Repository<Course>,
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        @InjectRepository(CourseCategory)
+        private courseCategoryRepository: Repository<CourseCategory>,
     ) {}
 
     async create(createCourseSchema: any): Promise<Course> {
         const course = new Course()
         let user: User
+        let courseCategory: CourseCategory
 
         try {
             user = await this.userRepository.findOne(createCourseSchema.userId)
+        } catch (e) {
+            throw new Error(e)
+        }
+
+        try {
+            courseCategory = await this.courseCategoryRepository.findOne(createCourseSchema.courseCategoryId)
         } catch (e) {
             throw new Error(e)
         }
@@ -31,6 +41,7 @@ export class CoursesService {
             course.name = createCourseSchema.name
             course.description = createCourseSchema.description
             course.lecturer = user
+            course.courseCategory = courseCategory
             course.password = hashedPassword
             course.createdAt = new Date()
             await this.coursesRepository.save(course)
@@ -51,14 +62,26 @@ export class CoursesService {
             throw new Error(e)
         }
 
-        if (updateCourseSchema.name !== null || updateCourseSchema.name !== "") {
+        if (updateCourseSchema.name !== null && updateCourseSchema.name !== "") {
             course.name = updateCourseSchema.name
         }
-        if (updateCourseSchema.description !== null || updateCourseSchema.description !== "") {
+        if (updateCourseSchema.description !== null && updateCourseSchema.description !== "") {
             course.description = updateCourseSchema.description
         }
-        if (updateCourseSchema.password !== null || updateCourseSchema.password !== "") {
+        if (updateCourseSchema.password !== null && updateCourseSchema.password !== "") {
             course.password = await bcrypt.hash(updateCourseSchema.password, 10)
+        }
+
+        if (updateCourseSchema.courseCategoryId !== null && updateCourseSchema.courseCategoryId !== "") {
+            let courseCategory: CourseCategory
+            try {
+                courseCategory = await this.courseCategoryRepository.findOne(
+                    parseInt(updateCourseSchema.courseCategoryId),
+                )
+            } catch (e) {
+                throw new Error(e)
+            }
+            course.courseCategory = courseCategory
         }
 
         await this.coursesRepository.save(course)
@@ -116,12 +139,14 @@ export class CoursesService {
 
     // FIXME: add pagination
     findAll(): Promise<Course[]> {
-        return this.coursesRepository.find({ relations: ["lectures", "lecturer", "userCourses", "userCourses.user"] })
+        return this.coursesRepository.find({
+            relations: ["lectures", "lecturer", "userCourses", "userCourses.user", "courseCategory"],
+        })
     }
 
     findOne(id: string): Promise<Course> {
         return this.coursesRepository.findOne(id, {
-            relations: ["lectures", "lecturer", "liveLecture", "userCourses", "userCourses.user"],
+            relations: ["lectures", "lecturer", "liveLecture", "userCourses", "userCourses.user", "courseCategory"],
         })
     }
 
@@ -130,12 +155,14 @@ export class CoursesService {
         return this.coursesRepository
             .createQueryBuilder("course")
             .leftJoinAndSelect("course.lecturer", "users")
+            .leftJoinAndSelect("course.courseCategory", "courseCategory")
             .where(
                 `UPPER(course.description) like UPPER('%${querry}%') 
                 or UPPER(course.name) like UPPER('%${querry}%')
                 or UPPER(users.firstName) like UPPER('%${querry}%')
                 or UPPER(users.lastName) like UPPER('%${querry}%')
                 or UPPER(users.email) like UPPER('%${querry}%')
+                or UPPER(courseCategory.name) like UPPER('%${querry}%')
                 `,
             )
             .getMany()

@@ -34,7 +34,7 @@ import ToggleLiveBtn from "components/ToggleLiveBtn"
 import GoToLiveStreamBtn from "components/GoToLiveStreamBtn"
 import ContextButtonContainer from "components/ContextButtonContainer"
 
-const ListLectures = (props) => {
+const ListLectures = ({location}) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
 
@@ -56,6 +56,7 @@ const ListLectures = (props) => {
     const [currentLectureName, setCurrentLectureName] = useState("")
     const [currentLectureDescription, setCurrentLectureDescription] = useState()
     const [liveStream, setLiveStream] = useState(null)
+    const [courseInfo, setCourseInfo] = useState({})
 
     const { accessToken } = useAuthContext()
     const history = useHistory()
@@ -74,15 +75,8 @@ const ListLectures = (props) => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
-    let courseId
-    try {
-        courseId = props.location.state.courseId
-    } catch (e) {
-        courseId = null
-    }
+    const courseId = location.pathname.split("/").slice(-1)[0]
 
-    let courseName = props.location.state.courseName
-    let courseDescription = props.location.state.courseDescription
 
     const moveToLecturePage = (id) => {
         history.push({
@@ -158,8 +152,10 @@ const ListLectures = (props) => {
                 <AddCourseModal
                     courseIdProps={courseId}
                     type="edit"
-                    courseDescriptionAlready={courseDescription}
-                    courseNameAlready={courseName}
+                    course={courseInfo}
+
+                    //courseDescriptionAlready={courseDescription}
+                    //courseNameAlready={courseName}
                 ></AddCourseModal>
             )
         }
@@ -184,7 +180,10 @@ const ListLectures = (props) => {
     const getStreams = async () => {
         try {
             const response = await api.getCourseById(courseId)
+
             if (response.data.lectures.length !== 0) {
+
+                //console.log(...response.data)
                 setLectures(response.data.lectures)
                 setCurrentLecture(response.data.lectures[0].id)
                 setCurrentLectureName(response.data.lectures[0].name)
@@ -196,16 +195,27 @@ const ListLectures = (props) => {
                 setLectures([])
                 setCurrentLecture(null)
             }
+
+            const responseCourse = { id : response.data.id
+                , name : response.data.name
+                , description : response.data.description
+                , courseCategory : response.data.courseCategory.id }
+
+            setCourseInfo(responseCourse)
             setCourseOwnerEmail(response.data.lecturer.email)
+
         } catch (error) {
             console.error({ error })
         }
     }
+
+
     useEffect(() => {
         if (lectures.length == 0) {
             getStreams()
         }
     }, [])
+
 
     return (
         <div>
@@ -286,7 +296,7 @@ const ListLectures = (props) => {
 
                             <div className="box-label">
                                 <div className="box-label-name">
-                                    {courseName} - {currentLectureName}
+                                    {courseInfo.name} - {currentLectureName}
                                     {editComponent()}
                                 </div>
                             </div>
@@ -326,7 +336,7 @@ const ListLectures = (props) => {
                                                     Opis Kursu
                                                 </h5>
                                                 <div className="mt-2">
-                                                    {courseDescription}
+                                                    {courseInfo.description}
                                                 </div>
                                             </div>
                                             <div className="container-md course-desc mt-2">

@@ -43,10 +43,6 @@ export class UsersService {
             user.lastName = updateUserSchema.lastName
         }
 
-        if (updateUserSchema.description !== null) {
-            user.role = updateUserSchema.role
-        }
-
         if (updateUserSchema.imageUuid !== null) {
             user.imageUuid = updateUserSchema.imageUuid
         }
