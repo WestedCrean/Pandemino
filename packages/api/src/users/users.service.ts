@@ -43,7 +43,6 @@ export class UsersService {
             user.lastName = updateUserSchema.lastName
         }
 
-
         if (updateUserSchema.imageUuid !== null) {
             user.imageUuid = updateUserSchema.imageUuid
         }
@@ -70,7 +69,7 @@ export class UsersService {
         // .getOne()
     }
 
-    findUserWithQuiz(userId: string, quiz: string): Promise<User[]>{
+    findUserWithQuiz(userId: string, quiz: string): Promise<User[]> {
         return this.usersRepository
             .createQueryBuilder("users")
             .leftJoinAndSelect("users.userAnswer", "userAnswer")

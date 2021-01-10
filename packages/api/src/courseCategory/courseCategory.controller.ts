@@ -1,8 +1,7 @@
 import { Controller, Body, Get, Delete, Post, UseGuards, Param, Query, Put } from "@nestjs/common"
 import { ApiTags } from "@nestjs/swagger"
-import {CourseCategory} from "./courseCategory.entity"
+import { CourseCategory } from "./courseCategory.entity"
 import { CourseCategoryService } from "./courseCategory.service"
-
 
 @ApiTags("courseCategory")
 @Controller("courseCategory")
@@ -19,7 +18,6 @@ export class CourseCategoryController {
     update(@Param("id") id: string, @Body() updateCourse: any): Promise<void> {
         return this.courseCategoryService.update(id, updateCourse)
     }
-
 
     @Get(":id")
     findOne(@Param("id") id: string): Promise<CourseCategory> {

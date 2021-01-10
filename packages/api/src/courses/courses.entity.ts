@@ -1,5 +1,5 @@
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn, ManyToOne } from "typeorm"
 import { CourseCategory } from "src/courseCategory/courseCategory.entity"
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from "typeorm"
 import { Lecture } from "../lectures/lectures.entity"
 import { UserCourse } from "../userCourses/userCourses.entity"
 import { User } from "../users/users.entity"
@@ -13,7 +13,7 @@ class Course {
     name: string
 
     @Column()
-    password: string;
+    password: string
 
     @Column({
         type: "text",
@@ -28,7 +28,13 @@ class Course {
     @JoinColumn()
     lecturer: User
 
-    @ManyToOne(() => CourseCategory, (courseCategory: CourseCategory) => courseCategory.courses, { onDelete: "NO ACTION" })
+    @OneToOne((type) => Lecture)
+    @JoinColumn({ name: "liveLectureId" })
+    liveLecture: Lecture
+
+    @ManyToOne(() => CourseCategory, (courseCategory: CourseCategory) => courseCategory.courses, {
+        onDelete: "NO ACTION",
+    })
     @JoinColumn()
     courseCategory: CourseCategory
 

@@ -1,11 +1,11 @@
-import { Injectable } from "@nestjs/common"
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { User } from "../users/users.entity"
-import { Repository } from "typeorm"
+import { getRepository, Repository } from "typeorm"
 import { Course } from "./courses.entity"
-import {CourseCategory} from "../courseCategory/courseCategory.entity"
-import * as bcrypt from 'bcryptjs';
-
+import { CourseCategory } from "../courseCategory/courseCategory.entity"
+import { Lecture } from "src/lectures/lectures.entity"
+import * as bcrypt from "bcryptjs"
 
 @Injectable()
 export class CoursesService {
@@ -22,7 +22,7 @@ export class CoursesService {
         const course = new Course()
         let user: User
         let courseCategory: CourseCategory
-        
+
         try {
             user = await this.userRepository.findOne(createCourseSchema.userId)
         } catch (e) {
@@ -36,8 +36,7 @@ export class CoursesService {
         }
 
         try {
-
-            const hashedPassword = await bcrypt.hash(createCourseSchema.password, 10);
+            const hashedPassword = await bcrypt.hash(createCourseSchema.password, 10)
 
             course.name = createCourseSchema.name
             course.description = createCourseSchema.description
@@ -70,34 +69,85 @@ export class CoursesService {
             course.description = updateCourseSchema.description
         }
         if (updateCourseSchema.password !== null && updateCourseSchema.password !== "") {
-            course.password = await bcrypt.hash(updateCourseSchema.password, 10);
+            course.password = await bcrypt.hash(updateCourseSchema.password, 10)
         }
 
-        
         if (updateCourseSchema.courseCategoryId !== null && updateCourseSchema.courseCategoryId !== "") {
-
             let courseCategory: CourseCategory
             try {
-                courseCategory = await this.courseCategoryRepository.findOne(parseInt(updateCourseSchema.courseCategoryId))
+                courseCategory = await this.courseCategoryRepository.findOne(
+                    parseInt(updateCourseSchema.courseCategoryId),
+                )
             } catch (e) {
                 throw new Error(e)
             }
             course.courseCategory = courseCategory
         }
 
+        await this.coursesRepository.save(course)
+    }
 
-        await this.coursesRepository.save(course)        
+    async toggleLiveStream(id: number, desiredIsLive: boolean, lectureId: number): Promise<void> {
+        console.log({ id, desiredIsLive, lectureId })
+
+        if (desiredIsLive && !lectureId) {
+            throw new HttpException("No lectureId supplied", HttpStatus.BAD_REQUEST)
+        }
+
+        console.log("before all")
+
+        if (desiredIsLive) {
+            try {
+                console.log("before lecture")
+
+                let lecture = await getRepository(Lecture)
+                    .createQueryBuilder("lecture")
+                    .where("lecture.id = :id", { id: lectureId })
+                    .getOne()
+
+                console.log("after lecture")
+                console.log({ lecture })
+
+                if (!lecture) {
+                    throw new HttpException("No such lecture was found", HttpStatus.BAD_REQUEST)
+                }
+                let course = await this.coursesRepository
+                    .createQueryBuilder("course")
+                    .where("course.id = :id", { id })
+                    .getOne()
+                course.liveLecture = lecture
+                await this.coursesRepository.save(course)
+            } catch (e) {
+                throw new HttpException(e, HttpStatus.BAD_REQUEST)
+            }
+        } else {
+            // turn off all course livestreams
+            console.log("before settting")
+
+            try {
+                let course = await this.coursesRepository
+                    .createQueryBuilder("course")
+                    .where("course.id = :id", { id })
+                    .getOne()
+                course.liveLecture = null
+                await this.coursesRepository.save(course)
+            } catch (e) {
+                throw new HttpException(e, HttpStatus.BAD_REQUEST)
+            }
+        }
     }
 
     // FIXME: add pagination
     findAll(): Promise<Course[]> {
-        return this.coursesRepository.find({ relations: ["lectures", "lecturer", "userCourses", "userCourses.user", "courseCategory"] })
+        return this.coursesRepository.find({
+            relations: ["lectures", "lecturer", "userCourses", "userCourses.user", "courseCategory"],
+        })
     }
 
     findOne(id: string): Promise<Course> {
-        return this.coursesRepository.findOne(id, { relations: ["lectures", "lecturer", "userCourses", "userCourses.user", "courseCategory"] })
-
-        //return this.coursesRepository.findOne(id);
+        return this.coursesRepository.findOne(id, {
+            relations: ["lectures", "lecturer", "liveLecture", "userCourses", "userCourses.user", "courseCategory"],
+        })
     }
 
     //FIXME: added lecturer filtering

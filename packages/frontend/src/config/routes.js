@@ -1,13 +1,13 @@
 import { HomePage, Login, SignUp, ListLectures, Lecture } from "pages"
 import QuizPage from "../pages/QuizPage"
-import ListCourses from "../pages/ListCourses";
+import ListCourses from "../pages/ListCourses"
 import UserPanel from "../pages/UserPanel"
 import QuizFinished from "../pages/QuizFinished"
 import QuizAdminPanel from "../pages/QuizAdminPanel"
 import UserInfo from "../pages/UserInfo"
 const routes = [
     {
-        path: "/lecture/:id",
+        path: "/course/:id/live",
         component: Lecture,
         needsAuth: true,
     },
@@ -42,7 +42,6 @@ const routes = [
         needsAuth: true,
     },
     {
-
         path: "/quiz/:id",
         component: QuizPage,
         needsAuth: true,
@@ -50,7 +49,7 @@ const routes = [
     {
         path: "/quizFinished/:id",
         component: QuizFinished,
-        needAuth: true
+        needAuth: true,
     },
 
     {

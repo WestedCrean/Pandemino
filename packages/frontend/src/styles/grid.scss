@@ -303,15 +303,16 @@ div:hover {
     z-index: 1001;
 }
 
-.presence-btn {
+.context-button-container {
     position: absolute;
-    right: 50px;
+    right: 100px !important;
     top: 100px;
+    display: flex;
+    flex-direction: row-reverse;
 }
-.start-live-btn {
-    position: absolute;
-    right: 250px;
-    top: 100px;
+
+.context-button-container > * {
+    margin-left: 10px;
 }
 
 .lectures-main-wrapper {

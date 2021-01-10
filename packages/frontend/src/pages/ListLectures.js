@@ -30,7 +30,9 @@ import TeacherPanel from "components/TeacherPanel"
 import MarkPresenceBtn from "components/MarkPresenceBtn"
 import Frequency from "components/Frequency"
 import FancyWave from "components/FancyWave"
-import StartLiveBtn from "components/StartLiveBtn"
+import ToggleLiveBtn from "components/ToggleLiveBtn"
+import GoToLiveStreamBtn from "components/GoToLiveStreamBtn"
+import ContextButtonContainer from "components/ContextButtonContainer"
 
 const ListLectures = ({location}) => {
     //styles
@@ -53,12 +55,15 @@ const ListLectures = ({location}) => {
     const [currentLecture, setCurrentLecture] = useState(null)
     const [currentLectureName, setCurrentLectureName] = useState("")
     const [currentLectureDescription, setCurrentLectureDescription] = useState()
+    const [liveStream, setLiveStream] = useState(null)
     const [courseInfo, setCourseInfo] = useState({})
 
     const { accessToken } = useAuthContext()
     const history = useHistory()
     const { user } = useAuthContext()
     const userEmail = user.email
+
+    const api = ApiService(accessToken)
 
     //pagination variables
     const [currentPage, setCurrentPage] = useState(1)
@@ -80,6 +85,46 @@ const ListLectures = ({location}) => {
                 lectureId: id,
             },
         })
+    }
+
+    const handleStartLive = async (lectureId) => {
+        try {
+            // choose lecture to stream
+            // const courseData = await api.getCourseById()
+            // GET lectureId
+            const payload = {
+                isLive: true,
+                lectureId: lectureId,
+            }
+            // PUT to api -> isLive=false on lecture
+            await api.setLiveLecture(courseId, payload)
+            getStreams()
+        } catch (e) {
+            console.log({ e })
+        }
+    }
+
+    const handleEndLive = async () => {
+        try {
+            // GET lectureId
+            // PUT to api -> isLive=false on lecture
+            const payload = {
+                isLive: false,
+            }
+            // PUT to api -> isLive=false on lecture
+            await api.setLiveLecture(courseId, payload)
+            setLiveStream(null)
+        } catch (e) {
+            console.log({ e })
+        }
+    }
+
+    const handleToggleLive = async (lectureId) => {
+        if (lectureId !== null) {
+            handleStartLive(lectureId)
+        } else {
+            handleEndLive()
+        }
     }
 
     const deleteLecture = () => {
@@ -133,8 +178,6 @@ const ListLectures = ({location}) => {
     }
 
     const getStreams = async () => {
-        const api = ApiService(accessToken)
-
         try {
             const response = await api.getCourseById(courseId)
 
@@ -147,6 +190,7 @@ const ListLectures = ({location}) => {
                 setCurrentLectureDescription(
                     response.data.lectures[0].description
                 )
+                setLiveStream(response.data.liveLecture)
             } else {
                 setLectures([])
                 setCurrentLecture(null)
@@ -175,8 +219,19 @@ const ListLectures = ({location}) => {
 
     return (
         <div>
-            <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
-            <StartLiveBtn lectureId={currentLecture}></StartLiveBtn>
+            <ContextButtonContainer>
+                <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
+                <ToggleLiveBtn
+                    handleToggleLive={handleToggleLive}
+                    availableLectures={lectures}
+                    currentState={liveStream !== null}
+                ></ToggleLiveBtn>
+                <GoToLiveStreamBtn
+                    link={`/course/${courseId}/live`}
+                    currentState={liveStream !== null}
+                />
+            </ContextButtonContainer>
+
             <div className="list-lecture-container-2">
                 <div className="main-lectures-wrapper">
                     <nav className={`sidebar ${sidebar}`}>

@@ -4,8 +4,6 @@ import { Lecture } from "src/lectures/lectures.entity"
 import { Repository } from "typeorm"
 import { Quiz } from "./quiz.entity"
 
-
-
 @Injectable()
 export class QuizService {
     constructor(
@@ -15,9 +13,7 @@ export class QuizService {
         private lectureRepository: Repository<Lecture>,
     ) {}
 
-
     async create(createQuiz: any): Promise<File> {
-
         try {
             const quiz = new Quiz()
 
@@ -26,7 +22,6 @@ export class QuizService {
             quiz.startDate = createQuiz.startDate
             quiz.endDate = createQuiz.endDate
 
-
             const lecture = await this.lectureRepository.findOne(createQuiz.lectureId)
             quiz.lecture = lecture
 
@@ -34,7 +29,6 @@ export class QuizService {
         } catch (e) {
             return null
         }
-
     }
 
     findAll(): Promise<Quiz[]> {
@@ -42,10 +36,10 @@ export class QuizService {
     }
 
     findOneQuizAnswers(id: string): Promise<Quiz> {
-        return this.quizRepository.findOne(id, { relations: ["questions", "questions.userAnswer", "questions.userAnswer.user"] })
+        return this.quizRepository.findOne(id, {
+            relations: ["questions", "questions.userAnswer", "questions.userAnswer.user"],
+        })
     }
-
-
 
     findOne(id: string): Promise<Quiz> {
         return this.quizRepository.findOne(id, { relations: ["questions", "questions.variants"] })
