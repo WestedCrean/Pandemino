@@ -138,11 +138,16 @@ const QuizPage = (props) => {
                     points: points
                 }
 
-                const response = await api.putUserAnswer(body)
-                window.location = `/${props.location.state.courseId}`
+                console.log(body)
+                try{
+
+                    const response = await api.putUserAnswer(body)
+
+                }catch(error){console.log(error)}
+
             }
         }catch(error){console.log(error)}
-
+        window.location = `/${props.location.state.courseId}`
     }
 
     const getQuiz = async () =>{
