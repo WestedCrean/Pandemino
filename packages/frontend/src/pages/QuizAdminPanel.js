@@ -35,13 +35,16 @@ const QuizAdminPanel = (props) => {
                 
             })
 
+
+
             for(let i = 0; i < userListTemp.length; i++){
 
+                console.log(userListTemp[i].userId)
                 const response = await api.getUserUserAnswers(userListTemp[i].userId, quizId)
                 console.log(response.data)
                 if(response.data.length === 0){
                     userPointsTemp[i] = "NaN"
-                    break
+                    continue
                 }
                 const data = response.data[0].userAnswer
 
