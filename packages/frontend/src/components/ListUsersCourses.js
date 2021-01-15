@@ -53,7 +53,7 @@ const ListUsersCourses = () => {
                         <th scope="col">#</th>
                         <th>Nazwa </th>
                         <th>Wykładowca</th>
-                        <th>Stream</th>
+                        <th>Strona kursu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,10 +62,23 @@ const ListUsersCourses = () => {
                             <td>{i + 1}</td>
                             <td>{course.course.name}</td>
                             {course.course.lecturer.firstName ? (
-                                <td><a href={`/userInfo/${course.course.lecturer.email}`} target="_blank">
-                                    {`${course.course.lecturer.firstName} ${course.course.lecturer.lastName}`}</a></td>
+                                <td>
+                                    <a
+                                        href={`/userInfo/${course.course.lecturer.email}`}
+                                        target="_blank"
+                                    >
+                                        {`${course.course.lecturer.firstName} ${course.course.lecturer.lastName}`}
+                                    </a>
+                                </td>
                             ) : (
-                                <td><a href={`/userInfo/${course.course.lecturer.email}`} target="_blank">{course.course.lecturer.email}</a></td>
+                                <td>
+                                    <a
+                                        href={`/userInfo/${course.course.lecturer.email}`}
+                                        target="_blank"
+                                    >
+                                        {course.course.lecturer.email}
+                                    </a>
+                                </td>
                             )}
 
                             <td>
@@ -80,7 +93,7 @@ const ListUsersCourses = () => {
                                         icon={faHandPointRight}
                                         size="1x"
                                     />{" "}
-                                    Stream
+                                    Przejdź do kursu
                                 </Button>
                             </td>
                         </tr>

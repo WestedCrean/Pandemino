@@ -1,27 +1,27 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { AuthContext, authMethods } from 'services/auth'
-import { firebaseAuth } from 'services/firebase'
-import { SpinnerFullPage } from 'components'
+import { AuthContext, authMethods } from "services/auth"
+import { firebaseAuth } from "services/firebase"
+import { SpinnerFullPage } from "components"
 
 const getDefaultState = () => {
-    return ({
+    return {
         user: {},
-        accessToken: null
-    })
+        accessToken: null,
+    }
 }
-
-
 
 const AuthProvider = ({ children }) => {
     const [contextState, setContextState] = useState(getDefaultState())
     const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(contextState.accessToken === null ? true : false)
+    const [loading, setLoading] = useState(
+        contextState.accessToken === null ? true : false
+    )
 
     const setContext = useCallback(
-        updates => {
+        (updates) => {
             setContextState({ ...contextState, ...updates })
         },
-        [contextState, setContextState],
+        [contextState, setContextState]
     )
 
     const getContextValue = useCallback(
@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
             toggleLoggedOut: () => toggleLoggedOut(),
             setContext,
         }),
-        [contextState, setContext],
+        [contextState, setContext]
     )
 
     const toggleLoggedOut = async () => {
@@ -38,10 +38,10 @@ const AuthProvider = ({ children }) => {
         setContext(getDefaultState())
     }
 
-
     useEffect(() => {
-        const unlisten = firebaseAuth.auth().onAuthStateChanged(
-            async user => {
+        const unlisten = firebaseAuth
+            .auth()
+            .onAuthStateChanged(async (user) => {
                 if (user) {
                     let accessToken = await user.getIdToken()
                     setContext({ user, accessToken })
@@ -50,34 +50,30 @@ const AuthProvider = ({ children }) => {
                     setContext(getDefaultState())
                     setLoading(false)
                 }
-            },
-        );
+            })
         return () => {
-            unlisten();
+            unlisten()
         }
-    }, []);
-
+    }, [])
 
     if (loading) {
-        return (<SpinnerFullPage />)
+        return <SpinnerFullPage />
     }
-
 
     if (error) {
         return (
             <div className="container-fluid px-lg-5 mt-4">
-                <div class="py-3 alert alert-danger" role="alert">{error.message}</div>
+                <div className="py-3 alert alert-danger" role="alert">
+                    {error.message}
+                </div>
             </div>
         )
     }
 
     return (
-        <AuthContext.Provider
-            value={getContextValue()}
-        >
+        <AuthContext.Provider value={getContextValue()}>
             {children}
         </AuthContext.Provider>
-
     )
 }
 

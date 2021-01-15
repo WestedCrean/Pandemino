@@ -3,6 +3,7 @@ import { ApiTags } from "@nestjs/swagger"
 import { AuthGuard } from "@nestjs/passport"
 import { FileService } from "./file.service"
 import { File } from "./file.entity"
+import { LectureFile } from "./lectureFile.entity"
 
 @ApiTags("file")
 @Controller("file")
@@ -15,6 +16,11 @@ export class FileController {
         return this.fileService.create(createFile)
     }
 
+    @Post("lecture")
+    createLectureFile(@Body() createFile: any): Promise<LectureFile> {
+        return this.fileService.createLectureFile(createFile)
+    }
+
     @Get()
     findAll(): Promise<File[]> {
         return this.fileService.findAll()
@@ -23,6 +29,11 @@ export class FileController {
     @Get(":id")
     findOne(@Param("id") id: string): Promise<File> {
         return this.fileService.findOne(id)
+    }
+
+    @Get("lecture/:id")
+    findOneLectureFile(@Param("id") id: string): Promise<LectureFile> {
+        return this.fileService.findOneLectureFile(id)
     }
 
     @Delete(":id")

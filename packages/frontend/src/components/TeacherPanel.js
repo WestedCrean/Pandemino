@@ -11,21 +11,20 @@ const TeacherPanel = (props) => {
 
     const getAllUserCourses = async () => {
         const api = ApiService(accessToken)
-        const tab = []
-        try {
-            const response = await api.getAllUsersCourses()
-            const data = response.data
+        let tab = []
 
-            data.map((userCourse) => {
-                //console.log(userCourse)
-                if (userCourse.course.id === props.currentLecture) {
-                    tab.push(userCourse)
-                }
-            })
+        try {
+            const currentLecture = parseInt(props.currentLecture)
+            const { data } = await api.getAllUsersCourses()
+
+            tab = data.filter(
+                (userCourse) => userCourse.course.id === currentLecture
+            )
+
+            setUserCourses(tab)
         } catch (error) {
             console.error(error)
         }
-        setUserCourses(tab)
     }
     const deleteUserFromCourse = async (userId) => {
         const api = ApiService(accessToken)
@@ -34,6 +33,7 @@ const TeacherPanel = (props) => {
         } catch (error) {}
     }
     const isOwner = (mail, id) => {
+        console.log("isOwner")
         if (props.courseOwnerEmail === mail) {
             return (
                 <Button className="ml-3" variant="dark" size="sm" disabled>
@@ -59,14 +59,17 @@ const TeacherPanel = (props) => {
     }, [])
     return (
         <div>
-            {userCourses.map((userCourse, i) => (
-                <ul className="userCourseTable mt-3">
+            <ul className="userCourseTable mt-3">
+                {userCourses.length === 0 && (
+                    <li>Brak zapisanych użytkowników</li>
+                )}
+                {userCourses.map((userCourse, i) => (
                     <li key={`${userCourse.course.id}-${userCourse.user.id}`}>
                         {userCourse.user.email}
                         {isOwner(userCourse.user.email, userCourse.id)}
                     </li>
-                </ul>
-            ))}
+                ))}
+            </ul>
         </div>
     )
 }

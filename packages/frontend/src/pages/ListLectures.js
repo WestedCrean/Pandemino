@@ -33,8 +33,9 @@ import FancyWave from "components/FancyWave"
 import ToggleLiveBtn from "components/ToggleLiveBtn"
 import GoToLiveStreamBtn from "components/GoToLiveStreamBtn"
 import ContextButtonContainer from "components/ContextButtonContainer"
+import AddVideoToLecture from "components/AddVideoToLecture"
 
-const ListLectures = ({location}) => {
+const ListLectures = ({ location }) => {
     //styles
     const [sidebar, setSidebar] = useState("sidebar")
 
@@ -76,7 +77,6 @@ const ListLectures = ({location}) => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     const courseId = location.pathname.split("/").slice(-1)[0]
-
 
     const moveToLecturePage = (id) => {
         history.push({
@@ -182,7 +182,6 @@ const ListLectures = ({location}) => {
             const response = await api.getCourseById(courseId)
 
             if (response.data.lectures.length !== 0) {
-
                 //console.log(...response.data)
                 setLectures(response.data.lectures)
                 setCurrentLecture(response.data.lectures[0].id)
@@ -196,19 +195,19 @@ const ListLectures = ({location}) => {
                 setCurrentLecture(null)
             }
 
-            const responseCourse = { id : response.data.id
-                , name : response.data.name
-                , description : response.data.description
-                , courseCategory : response.data.courseCategory.id }
+            const responseCourse = {
+                id: response.data.id,
+                name: response.data.name,
+                description: response.data.description,
+                courseCategory: response.data.courseCategory.id,
+            }
 
             setCourseInfo(responseCourse)
             setCourseOwnerEmail(response.data.lecturer.email)
-
         } catch (error) {
             console.error({ error })
         }
     }
-
 
     useEffect(() => {
         if (lectures.length == 0) {
@@ -216,20 +215,24 @@ const ListLectures = ({location}) => {
         }
     }, [])
 
-
     return (
         <div>
             <ContextButtonContainer>
                 <MarkPresenceBtn lectureId={currentLecture}></MarkPresenceBtn>
-                <ToggleLiveBtn
-                    handleToggleLive={handleToggleLive}
-                    availableLectures={lectures}
-                    currentState={liveStream !== null}
-                ></ToggleLiveBtn>
+                {userEmail === courseOwnerEmail && (
+                    <ToggleLiveBtn
+                        handleToggleLive={handleToggleLive}
+                        availableLectures={lectures}
+                        currentState={liveStream !== null}
+                    ></ToggleLiveBtn>
+                )}
                 <GoToLiveStreamBtn
                     link={`/course/${courseId}/live`}
                     currentState={liveStream !== null}
                 />
+                {userEmail === courseOwnerEmail && (
+                    <AddVideoToLecture availableLectures={lectures} />
+                )}
             </ContextButtonContainer>
 
             <div className="list-lecture-container-2">
@@ -274,7 +277,7 @@ const ListLectures = ({location}) => {
                         <div className="nav-buttons">{addComponent()}</div>
                     </nav>
 
-                    <div class="lectures-main-wrapper">
+                    <div className="lectures-main-wrapper">
                         <div className="box grid-courses">
                             <div className="hamburger-arrow">
                                 {sidebar == "sidebar" ? (
@@ -374,7 +377,7 @@ const ListLectures = ({location}) => {
                                         </Tab>
                                         <Tab
                                             eventKey="teacher-panel"
-                                            title="Panel nauczyciela"
+                                            title="Zapisani kursanci"
                                             disabled={tabCreateQuiz()}
                                         >
                                             <TeacherPanel
@@ -399,7 +402,7 @@ const ListLectures = ({location}) => {
                         </div>
                     </div>
                     <FancyWave />
-                    <div class="overlay"></div>
+                    <div className="overlay"></div>
                 </div>
             </div>
         </div>

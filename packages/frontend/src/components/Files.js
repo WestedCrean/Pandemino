@@ -102,7 +102,7 @@ const Files = (props) => {
                 <div className="card-body text-dark">
                     <h5 className="card-title">Pliki</h5>
                     <div className="table-responsive">
-                        <table class="table">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

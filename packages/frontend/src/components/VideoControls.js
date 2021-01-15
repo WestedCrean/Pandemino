@@ -71,6 +71,7 @@ const VideoControls = ({
                                     return (
                                         device.kind === "videoinput" && (
                                             <option
+                                                key={device.label}
                                                 onClick={() => {
                                                     handleDeviceChange(
                                                         device.kind,
@@ -96,6 +97,7 @@ const VideoControls = ({
                                     return (
                                         device.kind === "audioinput" && (
                                             <option
+                                                key={device.label}
                                                 onClick={() => {
                                                     handleDeviceChange(
                                                         device.kind,
