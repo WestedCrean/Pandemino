@@ -137,7 +137,7 @@ const QuizPage = (props) => {
         } catch (error) {
             console.log(error)
         }
-        history.push(`/${props.location.state.courseId}`)
+        history.push(`/course/${props.location.state.courseId}`)
     }
 
     const getQuiz = async () => {
