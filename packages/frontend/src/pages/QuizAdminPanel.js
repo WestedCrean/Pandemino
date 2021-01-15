@@ -41,7 +41,7 @@ const QuizAdminPanel = (props) => {
                 console.log(response.data)
                 if (response.data.length === 0) {
                     userPointsTemp[i] = "NaN"
-                    break
+                    continue
                 }
                 const data = response.data[0].userAnswer
 

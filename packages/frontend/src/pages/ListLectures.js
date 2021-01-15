@@ -377,7 +377,7 @@ const ListLectures = ({ location }) => {
                                         </Tab>
                                         <Tab
                                             eventKey="teacher-panel"
-                                            title="Panel nauczyciela"
+                                            title="Zapisani kursanci"
                                             disabled={tabCreateQuiz()}
                                         >
                                             <TeacherPanel

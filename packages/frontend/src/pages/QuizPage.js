@@ -5,12 +5,13 @@ import ApiService from "services/api"
 import { Modal, Button, Card } from "react-bootstrap"
 import { useUserInfo } from "hooks"
 import FancyWave from "components/FancyWave"
+import { useHistory } from "react-router-dom"
 
 const QuizPage = (props) => {
     const quizId = props.location.state.quizId
     const [quiz, setQuiz] = useState({})
     const { accessToken } = useAuthContext()
-
+    const history = useHistory()
     const userInfo = useUserInfo()
 
     const [counter, setCounter] = useState(5)
@@ -126,12 +127,17 @@ const QuizPage = (props) => {
                     points: points,
                 }
 
-                const response = await api.putUserAnswer(body)
-                window.location = `/${props.location.state.courseId}`
+                console.log(body)
+                try {
+                    const response = await api.putUserAnswer(body)
+                } catch (error) {
+                    console.log(error)
+                }
             }
         } catch (error) {
             console.log(error)
         }
+        history.push(`/${props.location.state.courseId}`)
     }
 
     const getQuiz = async () => {
