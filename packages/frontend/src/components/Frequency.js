@@ -67,7 +67,7 @@ const Frequency = (props) => {
     return (
         <div>
             <div className="table-responsive">
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

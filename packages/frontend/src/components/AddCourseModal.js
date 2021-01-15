@@ -8,19 +8,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faHandPointRight } from "@fortawesome/free-solid-svg-icons"
 import DeleteCourseModal from "../components/DeleteCourseModal"
 
-const AddCourseModal = ({
-    courseIdProps,
-    type,
-    course = null,
-}) => {
+const AddCourseModal = ({ courseIdProps, type, course = null }) => {
     const [courseCategories, setCourseCategories] = useState([])
 
-    const [category, setCategory] = useState(course !== null ? course.courseCategory : 1)
+    const [category, setCategory] = useState(
+        course !== null ? course.courseCategory : 1
+    )
     const [courseName, setCourseName] = useState(null)
     const [courseDescription, setCourseDescription] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirm, setConfirm] = useState(null)
-
 
     const [show, setShow] = useState(false)
 
@@ -32,15 +29,15 @@ const AddCourseModal = ({
     const userEmail = user.email
 
     const getCategories = async () => {
-
-        try{
-
+        try {
             const api = ApiService(accessToken)
 
             const response = await api.getCourseCategories()
             //console.log(response.data)
-            setCourseCategories(response.data);
-        }catch(error){console.log(error)}
+            setCourseCategories(response.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //console.log(category)
@@ -57,7 +54,7 @@ const AddCourseModal = ({
                 description: courseDescription,
                 userId: userId,
                 password: password,
-                courseCategoryId: category
+                courseCategoryId: category,
             }
             await api
                 .createCourse(body)
@@ -101,7 +98,7 @@ const AddCourseModal = ({
                 name: courseName,
                 description: courseDescription,
                 password: password,
-                courseCategoryId: category
+                courseCategoryId: category,
             }
 
             console.log(body)
@@ -138,7 +135,7 @@ const AddCourseModal = ({
 
         if ((courseName === null) | (courseName === "")) {
             window.alert("Wpisz nazwe kursu")
-        }else if ((category === null) | (courseDescription === "")) {
+        } else if ((category === null) | (courseDescription === "")) {
             window.alert("Wybierz kategorie kursu")
         } else if ((courseDescription === null) | (courseDescription === "")) {
             window.alert("Podaj opis kursu")
@@ -149,11 +146,9 @@ const AddCourseModal = ({
         return false
     }
 
-    useEffect(()=>{
-
+    useEffect(() => {
         getCategories()
-
-    },[])
+    }, [])
 
     return (
         <>
@@ -204,7 +199,9 @@ const AddCourseModal = ({
                         className="form-control form-input cy-opis"
                         id="desctiption"
                         placeholder="Opis kursu"
-                        defaultValue={course !== null ? course.description : null}
+                        defaultValue={
+                            course !== null ? course.description : null
+                        }
                         value={courseDescription}
                         onChange={(e) => setCourseDescription(e.target.value)}
                     />
@@ -224,13 +221,19 @@ const AddCourseModal = ({
                         value={confirm}
                         onChange={(e) => setConfirm(e.target.value)}
                     />
-                    <select defaultValue={course !== null ? course.courseCategory : null } 
-                        className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
-                        {
-                            courseCategories.map(category => (
-                                <option value={category.id}>{category.name}</option> 
-                            ))
+                    <select
+                        defaultValue={
+                            course !== null ? course.courseCategory : null
                         }
+                        className="form-control"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        {courseCategories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
                     </select>
                 </form>
                 <Modal.Footer>

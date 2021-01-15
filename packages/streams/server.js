@@ -37,13 +37,10 @@ io.sockets.on("connection", socket => {
       queryLectureData = `select c.id as "courseId", c."name" as "courseName", u.email as "lecturerEmail" from pandemino.public.courses c join users u on c."lecturerId" = u.id`
       const res = await client.query(queryLectureData)
       if ( res.rows[0] && res.rows[0].lecturerEmail === lecturerEmail) {
-        // ...
-        // query database for streamId
-        // if email matches the one from database/stream/lecturer, allow
-        // else return 401
         console.log(`${socket.id} will be broadcaster for room ${roomId}`)
         
         if ( rooms[roomId] ) {
+          console.log("room exists")
           rooms[roomId] = { broadcaster: socket.id, ...rooms[roomId]}
         } else {
           console.log("no such room")
@@ -60,21 +57,21 @@ io.sockets.on("connection", socket => {
     }
   });
   socket.on("watcher", (roomId) => {
-    if ( rooms[roomId] ) {
+    if ( rooms[roomId] !== undefined) {
       const { broadcaster } = rooms[roomId]
       socket.to(broadcaster).emit("watcher", socket.id);
+    } else {
+      console.log("room does not exist")
     }
-  });
+  })
+
   socket.on("offer", (id, message) => {
-    console.log("offer")
     socket.to(id).emit("offer", socket.id, message);
   });
   socket.on("answer", (id, message) => {
-    console.log("offer")
     socket.to(id).emit("answer", socket.id, message);
   });
   socket.on("candidate", (id, message) => {
-    console.log("candidate")
     socket.to(id).emit("candidate", socket.id, message);
   });
 
@@ -84,11 +81,8 @@ io.sockets.on("connection", socket => {
     console.log(`Socket ${socket.id} joining stream ${roomId}`);
     if( rooms[roomId]) {
       rooms[roomId].viewers.push(socket.id)
-    } else {
-      rooms[roomId] = { broadcaster: null, viewers: [socket.id]}
+      socket.join(roomId);
     }
-    
-    socket.join(roomId);
  });
 
   socket.on("disconnect", () => {
@@ -103,4 +97,5 @@ io.sockets.on("connection", socket => {
   });
   
 });
+
 server.listen(port, () => console.log(`Server is running on port ${port}`));

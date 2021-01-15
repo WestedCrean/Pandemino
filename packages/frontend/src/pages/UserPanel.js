@@ -2,9 +2,9 @@ import React, { Fragment, useEffect, useState, useCallback } from "react"
 import { useAuthContext } from "services/auth"
 import ApiService from "services/api"
 import FancyWave from "components/FancyWave"
-import {Button} from "react-bootstrap"
-import { v4 as uuidv4 } from 'uuid';
-import 'firebase/firestore';
+import { Button } from "react-bootstrap"
+import { v4 as uuidv4 } from "uuid"
+import "firebase/firestore"
 import { firebaseAuth } from "services/firebase"
 
 const UserPanel = () => {
@@ -24,8 +24,8 @@ const UserPanel = () => {
     const { user } = useAuthContext()
 
     ///image
-    const [fileUpload, setFileUpload] = React.useState(null);
-    const [fileReference, setFileRef] = React.useState(null);
+    const [fileUpload, setFileUpload] = React.useState(null)
+    const [fileReference, setFileRef] = React.useState(null)
 
     const api = ApiService(accessToken)
     const userEmail = user.email
@@ -33,58 +33,57 @@ const UserPanel = () => {
     const addFile = async () => {
         const api = ApiService(accessToken)
 
-        const file = fileUpload;
+        const file = fileUpload
 
-        const storageRef = firebaseAuth.storage().ref();
-        const fileRef = storageRef.child(uuidv4());
+        const storageRef = firebaseAuth.storage().ref()
+        const fileRef = storageRef.child(uuidv4())
 
         const body = {
-            imageUuid : fileRef.fullPath
+            imageUuid: fileRef.fullPath,
         }
 
-        if(fileUpload != null){
-            if(user){
-
-            try{
-              ///Adding to firebase storage
-                await fileRef.put(file);
-
+        if (fileUpload != null) {
+            if (user) {
                 try {
-                    await api
-                        .putUserData(id, body)
-                        .then((response) => console.log(response.data))
-                        .catch((error) => console.log(error))
+                    ///Adding to firebase storage
+                    await fileRef.put(file)
+
+                    try {
+                        await api
+                            .putUserData(id, body)
+                            .then((response) => console.log(response.data))
+                            .catch((error) => console.log(error))
 
                         try {
-                            if(imageRef !== null){
-                                const deleteItem = firebaseAuth.storage().ref();
+                            if (imageRef !== null) {
+                                const deleteItem = firebaseAuth.storage().ref()
                                 const fileRef = deleteItem.child(imageRef)
-                                await fileRef.delete();
+                                await fileRef.delete()
                             }
-                        }catch(error){}
+                        } catch (error) {}
 
-                
                         window.alert("Edytowano zdjęcie użytkownika")
-                        window.location.reload();
-                
-                }catch(error){console.error(error)}
-            }catch(error){console.error(error)}
+                        window.location.reload()
+                    } catch (error) {
+                        console.error(error)
+                    }
+                } catch (error) {
+                    console.error(error)
+                }
 
-            //window.alert("Dodano plik");
+                //window.alert("Dodano plik");
             }
-        }else {
-            window.alert("Dodaj plik");
+        } else {
+            window.alert("Dodaj plik")
         }
-    };
+    }
 
     const getUserData = async () => {
         try {
-            await api
-                .getUserByEmail(userEmail)
-                .then((response) => {
-                    setUserData(response.data)
-                    setPending(false)
-                })
+            await api.getUserByEmail(userEmail).then((response) => {
+                setUserData(response.data)
+                setPending(false)
+            })
         } catch (error) {
             console.error({ error })
         }
@@ -94,7 +93,7 @@ const UserPanel = () => {
         const body = {
             firstName: name,
             lastName: lastName,
-            description: description
+            description: description,
         }
         try {
             await api
@@ -104,7 +103,7 @@ const UserPanel = () => {
 
             window.alert("Edytowano dane użytkownika")
             window.location.reload()
-        } catch { }
+        } catch {}
     }
 
     const setStates = async () => {
@@ -112,18 +111,17 @@ const UserPanel = () => {
         setName(userData.firstName)
         setlastName(userData.lastName)
         setDescription(userData.description)
-        setImageRef(userData.imageUuid);
+        setImageRef(userData.imageUuid)
 
         try {
-            const storageRef = firebaseAuth.storage().ref();
+            const storageRef = firebaseAuth.storage().ref()
             const fileRef = storageRef.child(userData.imageUuid)
             setImage(await fileRef.getDownloadURL())
-        }catch(error){}
-
+        } catch (error) {}
     }
 
     const handleChange = async (e) => {
-        setFileUpload(e.target.files[0]);
+        setFileUpload(e.target.files[0])
     }
 
     useEffect(() => {
@@ -135,123 +133,132 @@ const UserPanel = () => {
     }, [pending])
 
     return (
-        <div class="wrapper">
+        <div className="wrapper">
             <FancyWave></FancyWave>
             <div className="outer-wapper">
-            <div class="box grid-courses">
-                <div className="box-label">
-                    <div className="box-label-name">PANEL UŻYTKOWNIKA</div>
-                </div>
-                <div className="row user-panel-container">
-                    <div class="panel-body col-lg-8">
-                        <form class="form-horizontal">
-                            <div class="">
-                                <div class="">
-                                    <div class="form-group">
-                                        <label
-                                            for="inputtext1"
-                                            class="control-label"
-                                        >
-                                            Imie
-                                        </label>
-                                        <div class="">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="inputtext1"
-                                                placeholder=""
-                                                value={name}
-                                                onChange={(e) =>
-                                                    setName(e.target.value)
-                                                }
-                                            ></input>
+                <div className="box grid-courses">
+                    <div className="box-label">
+                        <div className="box-label-name">PANEL UŻYTKOWNIKA</div>
+                    </div>
+                    <div className="row user-panel-container">
+                        <div className="panel-body col-lg-8">
+                            <form className="form-horizontal">
+                                <div className="">
+                                    <div className="">
+                                        <div className="form-group">
+                                            <label
+                                                for="inputtext1"
+                                                className="control-label"
+                                            >
+                                                Imie
+                                            </label>
+                                            <div className="">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="inputtext1"
+                                                    placeholder=""
+                                                    value={name}
+                                                    onChange={(e) =>
+                                                        setName(e.target.value)
+                                                    }
+                                                ></input>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label
-                                            for="inputtext2"
-                                            class="control-label"
-                                        >
-                                            Nazwisko
-                                        </label>
-                                        <div class="">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="inputtext2"
-                                                placeholder=""
-                                                value={lastName}
-                                                onChange={(e) =>
-                                                    setlastName(e.target.value)
-                                                }
-                                            ></input>
+                                        <div className="form-group">
+                                            <label
+                                                for="inputtext2"
+                                                className="control-label"
+                                            >
+                                                Nazwisko
+                                            </label>
+                                            <div className="">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="inputtext2"
+                                                    placeholder=""
+                                                    value={lastName}
+                                                    onChange={(e) =>
+                                                        setlastName(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                ></input>
+                                            </div>
                                         </div>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label
-                                            for="inputtext2"
-                                            class="control-label"
-                                        >
-                                            Opis
-                                        </label>
-                                        <div class="">
-                                            <textarea
-                                                type="text"
-                                                class="form-control"
-                                                id="inputtext2"
-                                                placeholder=""
-                                                value={description}
-                                                onChange={(e) =>
-                                                    setDescription(e.target.value)
-                                                }
-                                            ></textarea>
+                                        <div className="form-group">
+                                            <label
+                                                for="inputtext2"
+                                                className="control-label"
+                                            >
+                                                Opis
+                                            </label>
+                                            <div className="">
+                                                <textarea
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="inputtext2"
+                                                    placeholder=""
+                                                    value={description}
+                                                    onChange={(e) =>
+                                                        setDescription(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                ></textarea>
+                                            </div>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="form-group">
-                                        <label
-                                            for="inputtext2"
-                                            class="control-label"
-                                        >
-                                            Email
-                                        </label>
-                                        <div class="">
-                                            <input
-                                                type="email"
-                                                class="form-control"
-                                                id="inputtext2"
-                                                placeholder=""
-                                                value={userEmail}
-                                                disabled={true}
-                                            ></input>
+                                        <div className="form-group">
+                                            <label
+                                                for="inputtext2"
+                                                className="control-label"
+                                            >
+                                                Email
+                                            </label>
+                                            <div className="">
+                                                <input
+                                                    type="email"
+                                                    className="form-control"
+                                                    id="inputtext2"
+                                                    placeholder=""
+                                                    value={userEmail}
+                                                    disabled={true}
+                                                ></input>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row text-center">
-                                <button
-                                    type="button"
-                                    class="btn btn-danger"
-                                    onClick={saveUserInfo}
-                                >
-                                    Zapisz
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="col-lg-4">
-                        <div className="avatar">Awatar</div>
-                        <div className="image-container">
-                            <img src={image}></img>
+                                <div className="row text-center">
+                                    <button
+                                        type="button"
+                                        className="btn btn-danger"
+                                        onClick={saveUserInfo}
+                                    >
+                                        Zapisz
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div>
-                            <input className="file-upload" type="file" onChange={handleChange} size="30" />
-                            <Button valiant="secondary" onClick={addFile}>Dodaj</Button>
+                        <div className="col-lg-4">
+                            <div className="avatar">Awatar</div>
+                            <div className="image-container">
+                                <img src={image}></img>
+                            </div>
+                            <div>
+                                <input
+                                    className="file-upload"
+                                    type="file"
+                                    onChange={handleChange}
+                                    size="30"
+                                />
+                                <Button valiant="secondary" onClick={addFile}>
+                                    Dodaj
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     )

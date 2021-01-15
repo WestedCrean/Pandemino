@@ -30,6 +30,7 @@ import ToggleLiveBtn from "./ToggleLiveBtn"
 import GoToLiveStreamBtn from "./GoToLiveStreamBtn"
 import ContextButtonContainer from "./ContextButtonContainer"
 import { LiveBadge } from "./Badges"
+import AddVideoToLecture from "./AddVideoToLecture"
 
 export {
     Navbar,
@@ -61,4 +62,5 @@ export {
     ToggleLiveBtn,
     GoToLiveStreamBtn,
     ContextButtonContainer,
+    AddVideoToLecture,
 }

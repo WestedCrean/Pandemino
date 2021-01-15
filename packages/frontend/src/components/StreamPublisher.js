@@ -120,11 +120,13 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
 
     const handleStream = (stream) => {
         console.log("handling stream")
+        console.log({ pc: peerConnections.current })
         try {
             window.stream = stream
             videoRef.current.srcObject = stream
             stream.getTracks().forEach((track) => {
                 Object.keys(peerConnections.current).forEach((connectionId) => {
+                    console.log(`sending track to ${connectionId}`)
                     peerConnections.current[connectionId].addTrack(
                         track,
                         stream
@@ -230,8 +232,12 @@ const StreamPublisher = ({ socket, streamId, ready }) => {
     }, [])
 
     const streamHandler = async () => {
-        handleStream(await getStream())
-        handleDevices(await getDevices())
+        console.log("streamHandler")
+        const stream = await getStream()
+        const devices = await getDevices()
+        console.log("stream and devices set up")
+        handleStream(stream)
+        handleDevices(devices)
     }
 
     const toggleScreenCapture = async () => {

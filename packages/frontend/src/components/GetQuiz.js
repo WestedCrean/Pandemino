@@ -68,7 +68,7 @@ const GetQuiz = (props) => {
 
             console.log(userAnswerResponse)
 
-            if(userAnswerResponse.data.length === 0 ){
+            if (userAnswerResponse.data.length === 0) {
                 list.push(false)
                 break
             }
@@ -97,16 +97,13 @@ const GetQuiz = (props) => {
         if (quizes.length === 0) {
             getQuizes()
         }
-
     }, [props.lectureId])
 
     useEffect(() => {
-
-
         if (quizes.length !== 0) {
             getUserAnswers()
         }
-    },[quizes])
+    }, [quizes])
     //quizes deleted from useEffect
 
     return (
@@ -119,7 +116,7 @@ const GetQuiz = (props) => {
                 <div className="card-body text-dark">
                     <h5 className="card-title">Pliki {props.lectureId}</h5>
                     <div className="table-responsive">
-                        <table class="table">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -131,7 +128,6 @@ const GetQuiz = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                
                                 {quizes.map((quiz, i) => (
                                     <tr>
                                         <th scope="row">{i + 1}</th>

@@ -21,6 +21,7 @@ const StreamConsumer = ({ socket, streamId }) => {
                 .then(() => peerConnection.current.createAnswer())
                 .then((sdp) => peerConnection.current.setLocalDescription(sdp))
                 .then(() => {
+                    console.log("emit answer")
                     socket.emit(
                         "answer",
                         id,
@@ -28,9 +29,11 @@ const StreamConsumer = ({ socket, streamId }) => {
                     )
                 })
             peerConnection.current.ontrack = (event) => {
+                console.log("got track")
                 videoRef.current.srcObject = event.streams[0]
             }
             peerConnection.current.onicecandidate = (event) => {
+                console.log("onicecandidate")
                 if (event.candidate) {
                     socket.emit("candidate", id, event.candidate)
                 }
@@ -91,8 +94,10 @@ const StreamConsumer = ({ socket, streamId }) => {
     }
 
     const onCommenceStream = async (e) => {
+        console.log("onCommenceStream!")
         const playBtn = document.getElementsByClassName("play-btn-container")[0]
         if (playBtn) {
+            console.log("hidden!")
             playBtn.classList.add("hidden")
         }
     }

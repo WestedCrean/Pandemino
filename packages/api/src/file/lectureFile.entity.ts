@@ -1,0 +1,25 @@
+import { Lecture } from "src/lectures/lectures.entity"
+import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm"
+import { Course } from "../courses/courses.entity"
+import { User } from "../users/users.entity"
+
+@Entity("lectureFiles")
+class LectureFile {
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column()
+    fireBaseUUID: string
+
+    @Column()
+    originalName: string
+
+    @Column()
+    extension: string
+
+    @ManyToOne(() => Lecture, (lecture: Lecture) => lecture.file, { onDelete: "CASCADE" })
+    @JoinColumn()
+    lecture: Lecture
+}
+
+export { LectureFile }

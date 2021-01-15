@@ -59,8 +59,6 @@
     overflow-y: hidden;
 }
 
-
-
 .wrapper-all-courses {
     display: grid;
     grid-gap: 3px;
@@ -98,41 +96,35 @@
 }
 
 @media (max-width: 1200px) {
-
-    .outer-wrapper{
+    .outer-wrapper {
         width: 100vw;
         display: flex;
         justify-content: center;
     }
-
-
 }
 
 @media (max-width: 767px) {
-    .outer-wrapper{
+    .outer-wrapper {
         width: 100vw;
         display: flex;
         justify-content: center;
     }
     .wrapper {
-    
         margin: auto;
         padding: 5px;
     }
 
-    .grid-courses{
+    .grid-courses {
         grid-row: 1;
         grid-column: 1;
     }
 
-    .grid-news{
+    .grid-news {
         grid-row: 1;
         grid-column: 1;
     }
 
-    .wrapper-all-courses{
-
-        
+    .wrapper-all-courses {
         width: 100vw;
         padding: 5px;
     }
@@ -248,7 +240,6 @@ div:hover {
     margin-left: 0;
 }
 
-
 .overlay.active {
     display: block;
     opacity: 1;
@@ -327,5 +318,9 @@ div:hover {
     padding: 30px;
 }
 .recording {
-    color: red;
+    color: #dc3545;
+}
+
+.upload {
+    color: #20c997;
 }
